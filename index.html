@@ -15,8 +15,6 @@
             --primary: #0d9488; /* Teal-600 */
             --primary-dark: #0f766e;
             --secondary: #f43f5e; /* Rose-500 (SOS) */
-            --period: #e11d48; /* Period Red */
-            --fertile: #8b5cf6; /* Fertile Purple */
             --accent: #3b82f6; /* Blue-500 */
             --bg-body: #f0f9ff;
             --bg-card: #ffffff;
@@ -32,8 +30,6 @@
             --primary: #2dd4bf;
             --primary-dark: #14b8a6;
             --secondary: #fb7185;
-            --period: #fda4af;
-            --fertile: #a78bfa;
             --accent: #60a5fa;
             --bg-body: #0f172a;
             --bg-card: #1e293b;
@@ -50,41 +46,49 @@
             font-family: 'Plus Jakarta Sans', sans-serif; 
             background-color: var(--bg-body); 
             color: var(--text-main); 
-            height: 100dvh; 
+            height: 100dvh; /* Dynamic Height for Mobile */
             overflow: hidden; 
         }
 
         /* --- Layout --- */
         #app-container { display: flex; height: 100%; width: 100%; }
         
+        /* Desktop Sidebar */
         aside { 
             width: 280px; background: var(--bg-card); border-right: 1px solid var(--border); 
             display: flex; flex-direction: column; padding: 24px; z-index: 20; flex-shrink: 0;
         }
 
+        /* Mobile Bottom Nav */
         .mobile-nav {
             display: none;
             position: fixed; bottom: 0; left: 0; width: 100%;
             background: var(--bg-card); border-top: 1px solid var(--border);
-            padding: 8px 0; z-index: 1000;
-            overflow-x: auto; /* Scrollable */
-            justify-content: flex-start; /* Left align for scroll */
+            padding: 10px 0; z-index: 1000;
+            justify-content: space-around;
             padding-bottom: env(safe-area-inset-bottom);
             box-shadow: 0 -4px 10px rgba(0,0,0,0.05);
-            -ms-overflow-style: none; scrollbar-width: none; 
         }
-        .mobile-nav::-webkit-scrollbar { display: none; }
 
         .mobile-nav-item {
             display: flex; flex-direction: column; align-items: center;
             font-size: 10px; color: var(--text-muted); cursor: pointer;
-            font-weight: 600; padding: 6px 12px; min-width: 65px; flex-shrink: 0;
+            font-weight: 500; position: relative;
+            padding: 5px;
         }
         .mobile-nav-item i { font-size: 20px; margin-bottom: 4px; }
         .mobile-nav-item.active { color: var(--primary); }
 
-        main { flex: 1; padding: 24px; overflow-y: auto; position: relative; scroll-behavior: smooth; -webkit-overflow-scrolling: touch; }
+        main { 
+            flex: 1; 
+            padding: 24px; 
+            overflow-y: auto; 
+            position: relative; 
+            scroll-behavior: smooth;
+            -webkit-overflow-scrolling: touch; 
+        }
 
+        /* --- Responsive Queries --- */
         @media (max-width: 768px) {
             aside { display: none; }
             .mobile-nav { display: flex; }
@@ -98,12 +102,23 @@
             .map-container { height: 300px; }
         }
 
+        /* --- Landing Page --- */
+        #landing-screen {
+            background: var(--landing-bg); text-align: center; padding: 40px 20px;
+        }
+        .landing-illustration { font-size: 80px; margin-bottom: 20px; animation: float 3s ease-in-out infinite; }
+        @keyframes float { 0% { transform: translateY(0px); } 50% { transform: translateY(-10px); } 100% { transform: translateY(0px); } }
+        .landing-title { font-family: 'Fredoka', sans-serif; font-size: 36px; color: var(--text-main); margin-bottom: 10px; }
+        .landing-subtitle { font-size: 16px; color: var(--text-muted); max-width: 400px; margin: 0 auto 40px auto; line-height: 1.6; }
+
         /* --- Components --- */
         .logo { font-size: 22px; font-weight: 700; color: var(--primary); display: flex; align-items: center; gap: 10px; margin-bottom: 40px; }
         .nav-item { padding: 14px 16px; border-radius: 12px; margin-bottom: 6px; cursor: pointer; color: var(--text-muted); font-weight: 600; display: flex; align-items: center; gap: 12px; transition: 0.2s; position: relative; }
         .nav-item:hover { background: var(--bg-body); color: var(--text-main); }
         .nav-item.active { background: var(--primary); color: white; box-shadow: 0 4px 12px rgba(13, 148, 136, 0.3); }
+        
         .card { background: var(--bg-card); border-radius: var(--radius); padding: 24px; box-shadow: var(--shadow); border: 1px solid var(--border); margin-bottom: 24px; }
+        
         .btn { padding: 14px 28px; border-radius: 12px; border: none; font-weight: 700; cursor: pointer; font-family: inherit; display: inline-flex; align-items: center; justify-content: center; gap: 8px; transition: transform 0.1s; }
         .btn:active { transform: scale(0.98); }
         .btn-primary { background: var(--primary); color: white; box-shadow: 0 4px 12px rgba(13, 148, 136, 0.3); }
@@ -111,6 +126,7 @@
         .btn-danger { background: var(--secondary); color: white; }
         .btn-call { background: #22c55e; color: white; width: 100%; margin-top: 10px; text-decoration: none; font-size: 14px; padding: 14px; border-radius: 12px; display: inline-block; text-align: center; font-weight: 700; }
         .btn-gold { background: linear-gradient(135deg, #FFD700 0%, #FDB931 100%); color: #333; }
+
         .input { width: 100%; padding: 14px; border-radius: 12px; border: 1px solid var(--border); background: var(--bg-body); color: var(--text-main); font-family: inherit; margin-bottom: 12px; font-size: 16px; }
         .input:focus { outline: 2px solid var(--primary); border-color: transparent; }
 
@@ -120,40 +136,70 @@
         .msg { padding: 12px 18px; border-radius: 18px; max-width: 85%; line-height: 1.5; font-size: 15px; position: relative; word-wrap: break-word; box-shadow: 0 2px 4px rgba(0,0,0,0.05); }
         .msg-left { background: var(--bg-card); align-self: flex-start; border-bottom-left-radius: 4px; }
         .msg-right { background: var(--primary); color: white; align-self: flex-end; border-bottom-right-radius: 4px; }
-        .nav-badge { position: absolute; top: 0; right: 0; background: var(--secondary); color: white; font-size: 10px; font-weight: bold; padding: 2px 6px; border-radius: 10px; display: none; }
-        .has-messages .nav-badge { display: block; }
-        .post-card { border-left: 4px solid var(--primary); }
-        .emoji-picker { display: none; position: absolute; bottom: 60px; right: 20px; background: var(--bg-card); border: 1px solid var(--border); border-radius: 12px; padding: 10px; box-shadow: var(--shadow); grid-template-columns: repeat(5, 1fr); gap: 5px; z-index: 100; }
-        .emoji-item { font-size: 20px; cursor: pointer; padding: 5px; border-radius: 4px; }
-        
+        .msg-meta { font-size: 10px; opacity: 0.7; margin-top: 4px; text-align: right; }
+
+        /* --- SOS Button --- */
+        .sos-float { 
+            position: fixed; bottom: 85px; right: 20px; width: 64px; height: 64px; 
+            background: var(--secondary); color: white; border-radius: 50%; 
+            display: flex; align-items: center; justify-content: center; font-size: 20px; 
+            box-shadow: 0 8px 20px rgba(244, 63, 94, 0.4); cursor: pointer; 
+            animation: pulse 2s infinite; z-index: 90; font-weight: 800; border: 4px solid white;
+        }
+        @media (min-width: 769px) { .sos-float { bottom: 32px; right: 32px; } }
+        .sos-float:hover { transform: scale(1.1); }
+        @keyframes pulse { 0% { box-shadow: 0 0 0 0 rgba(244, 63, 94, 0.7); } 70% { box-shadow: 0 0 0 15px rgba(244, 63, 94, 0); } 100% { box-shadow: 0 0 0 0 rgba(244, 63, 94, 0); } }
+
         /* --- Overlays --- */
         .overlay { position: fixed; inset: 0; background: var(--bg-card); z-index: 2000; display: flex; align-items: center; justify-content: center; flex-direction: column; padding: 20px; overflow-y: auto; }
         .hidden { display: none !important; }
         
-        /* --- Cycle Tracker Styles --- */
-        .cycle-ring-container {
-            position: relative; width: 220px; height: 220px; margin: 0 auto;
-            display: flex; justify-content: center; align-items: center;
+        .status-dot { width: 10px; height: 10px; border-radius: 50%; display: inline-block; margin-right: 6px; }
+        .dot-green { background: #22c55e; box-shadow: 0 0 8px #22c55e; }
+        .dot-red { background: #ef4444; }
+
+        /* --- Header Mobile --- */
+        .mobile-header {
+            display: none;
+            justify-content: space-between; align-items: center;
+            padding-bottom: 20px;
         }
-        .cycle-ring {
-            width: 100%; height: 100%; border-radius: 50%;
-            background: conic-gradient(var(--period) 0% 15%, var(--bg-body) 15% 40%, var(--fertile) 40% 55%, var(--bg-body) 55% 100%);
-            mask: radial-gradient(transparent 65%, black 66%);
-            -webkit-mask: radial-gradient(transparent 65%, black 66%);
-            transform: rotate(-90deg);
+        @media (max-width: 768px) { .mobile-header { display: flex; } }
+
+        /* --- Medicine Badges --- */
+        .med-card { border-left: 5px solid transparent; padding: 16px; margin-bottom: 12px; background: var(--bg-body); border-radius: 12px;}
+        .badge { font-size: 10px; padding: 4px 8px; border-radius: 6px; text-transform: uppercase; font-weight: 800; color: white; display: inline-block; margin-left: 8px;}
+        .bg-safe { background: #22c55e; } .bg-caution { background: #f59e0b; } .bg-avoid { background: #ef4444; }
+
+        /* --- Chat Badge --- */
+        .nav-badge {
+            position: absolute; top: 0; right: 0;
+            background: var(--secondary); color: white;
+            font-size: 10px; font-weight: bold;
+            padding: 2px 6px; border-radius: 10px;
+            display: none;
         }
-        .cycle-content {
-            position: absolute; text-align: center;
+        .has-messages .nav-badge { display: block; }
+
+        /* --- Community Styles --- */
+        .post-card { border-left: 4px solid var(--primary); }
+        .post-actions { display: flex; gap: 15px; margin-top: 10px; font-size: 14px; color: var(--text-muted); }
+        .post-action { cursor: pointer; display: flex; align-items: center; gap: 5px; }
+        .post-action:hover { color: var(--primary); }
+        .post-liked { color: var(--secondary); }
+        .comments-section { margin-top: 15px; border-top: 1px solid var(--border); padding-top: 10px; display: none; }
+        .comment-item { font-size: 13px; background: var(--bg-body); padding: 8px; border-radius: 8px; margin-bottom: 5px; }
+
+        /* --- Emoji Picker --- */
+        .emoji-picker {
+            display: none; position: absolute; bottom: 60px; right: 20px;
+            background: var(--bg-card); border: 1px solid var(--border);
+            border-radius: 12px; padding: 10px; box-shadow: var(--shadow);
+            grid-template-columns: repeat(5, 1fr); gap: 5px;
+            z-index: 100;
         }
-        .cycle-day { font-size: 48px; font-weight: 800; color: var(--text-main); line-height: 1; }
-        .cycle-label { font-size: 14px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px; }
-        .cycle-status { 
-            margin-top: 20px; padding: 8px 16px; border-radius: 20px; 
-            font-size: 14px; font-weight: 700; display: inline-block;
-        }
-        .status-period { background: #ffe4e6; color: #e11d48; }
-        .status-fertile { background: #ede9fe; color: #7c3aed; }
-        .status-luteal { background: #e0f2fe; color: #0284c7; }
+        .emoji-item { font-size: 20px; cursor: pointer; padding: 5px; border-radius: 4px; }
+        .emoji-item:hover { background: var(--bg-body); }
 
     </style>
 </head>
@@ -161,9 +207,9 @@
 
     <!-- LANDING PAGE -->
     <div id="landing-screen" class="overlay">
-        <div class="landing-illustration" style="font-size: 80px; margin-bottom: 20px; animation: float 3s infinite;">👨‍👩‍👧</div>
-        <h1 style="font-family: 'Fredoka', sans-serif; font-size: 36px; margin-bottom: 10px;">Maternal Nexus</h1>
-        <p style="font-size: 16px; color: var(--text-muted); max-width: 400px; margin: 0 auto 40px auto; line-height: 1.6;">A safe, loving space for your journey into parenthood. Connecting mothers, partners, and care.</p>
+        <div class="landing-illustration">👨‍👩‍👧</div>
+        <h1 class="landing-title">Maternal Nexus</h1>
+        <p class="landing-subtitle">A safe, loving space for your journey into parenthood. Connecting mothers, partners, and care.</p>
         <button class="btn btn-primary" style="font-size: 18px; padding: 16px 40px;" onclick="showAuth()">Start Journey</button>
         <p style="margin-top: 20px; font-size: 12px; color: var(--text-muted);">Secure • Private • Free Forever</p>
     </div>
@@ -173,7 +219,10 @@
         <div style="text-align: center; max-width: 400px; width: 100%;">
             <i class="fa-solid fa-heart-pulse" style="font-size: 60px; color: var(--primary); margin-bottom: 20px;"></i>
             <h2>Welcome Back</h2>
-            <button class="btn btn-secondary" id="google-login" style="width: 100%; padding: 16px;">Sign In with Google</button>
+            <p style="color: var(--text-muted); margin-bottom: 30px;">Sign in to access your health suite</p>
+            <button class="btn btn-secondary" id="google-login" style="width: 100%; padding: 16px;">
+                <i class="fa-brands fa-google"></i> Sign In with Google
+            </button>
             <button class="btn btn-secondary" style="width: 100%; margin-top: 10px; border:none;" onclick="location.reload()">Back</button>
             <p id="login-msg" style="margin-top: 15px; font-size: 13px; color: var(--secondary);"></p>
         </div>
@@ -182,61 +231,79 @@
     <!-- ONBOARDING OVERLAY -->
     <div id="setup-screen" class="overlay hidden">
         <div class="card" style="width: 100%; max-width: 500px;">
-            <h2 style="color: var(--primary); text-align: center;">Setup Profile</h2>
-            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin: 20px 0;">
-                <div class="card" onclick="selectRole('mother')" id="role-mother" style="cursor: pointer; border: 2px solid transparent; padding: 15px; text-align: center;">
-                    <i class="fa-solid fa-person-pregnant" style="font-size: 40px; color: var(--primary);"></i><h4>Mother</h4>
+            <h2 style="color: var(--primary); text-align: center;">Setup Your Profile</h2>
+            <p style="color: var(--text-muted); font-size: 14px; margin-bottom: 20px; text-align: center;">Select your role to continue.</p>
+            
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 20px;">
+                <div class="card" onclick="selectRole('mother')" id="role-mother" style="cursor: pointer; border: 2px solid transparent; margin:0; padding: 15px; text-align: center;">
+                    <i class="fa-solid fa-person-pregnant" style="font-size: 40px; color: var(--primary); margin-bottom: 10px;"></i>
+                    <h4>Mother</h4>
                 </div>
-                <div class="card" onclick="selectRole('partner')" id="role-partner" style="cursor: pointer; border: 2px solid transparent; padding: 15px; text-align: center;">
-                    <i class="fa-solid fa-user-shield" style="font-size: 40px; color: var(--accent);"></i><h4>Partner</h4>
+                <div class="card" onclick="selectRole('partner')" id="role-partner" style="cursor: pointer; border: 2px solid transparent; margin:0; padding: 15px; text-align: center;">
+                    <i class="fa-solid fa-user-shield" style="font-size: 40px; color: var(--accent); margin-bottom: 10px;"></i>
+                    <h4>Partner</h4>
                 </div>
             </div>
+
             <div style="text-align: left;">
-                <label style="font-size: 12px; font-weight: bold;">Your Name</label>
+                <label style="font-size: 12px; font-weight: bold; margin-left: 4px;">Your Name</label>
                 <input type="text" id="user-display-name" class="input" placeholder="Name">
-                
+
                 <div id="mother-form" class="hidden">
                     <hr style="margin: 20px 0; border:0; border-top:1px solid var(--border);">
-                    <h4 style="margin-bottom: 15px;">Details</h4>
-                    <label style="font-size: 12px; font-weight: bold;">Pregnancy Week</label>
+                    <h4 style="margin-bottom: 15px;">Medical Details</h4>
+                    <label style="font-size: 12px; font-weight: bold; margin-left: 4px;">Pregnancy Week</label>
                     <input type="number" id="week-input" class="input" placeholder="e.g. 24">
-                    <label style="font-size: 12px; font-weight: bold;">Doctor</label>
+                    <label style="font-size: 12px; font-weight: bold; margin-left: 4px;">Doctor's Name</label>
                     <input type="text" id="doc-name" class="input" placeholder="Dr. Smith">
-                    <label style="font-size: 12px; font-weight: bold;">Phone</label>
-                    <input type="tel" id="doc-phone" class="input" placeholder="+91...">
-                    <label style="font-size: 12px; font-weight: bold;">PIN Code</label>
-                    <input type="text" id="user-pin" class="input" placeholder="110001">
+                    <label style="font-size: 12px; font-weight: bold; margin-left: 4px;">Doctor's Phone</label>
+                    <input type="tel" id="doc-phone" class="input" placeholder="+91 9876543210">
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+                        <div>
+                            <label style="font-size: 12px; font-weight: bold; margin-left: 4px;">PIN Code</label>
+                            <input type="text" id="user-pin" class="input" placeholder="e.g. 110001">
+                        </div>
+                        <div>
+                            <label style="font-size: 12px; font-weight: bold; margin-left: 4px;">Country</label>
+                            <input type="text" id="user-country" class="input" placeholder="e.g. India">
+                        </div>
+                    </div>
                 </div>
 
                 <div id="partner-form" class="hidden">
                     <hr style="margin: 20px 0; border:0; border-top:1px solid var(--border);">
-                    <p style="font-size: 13px; color: var(--text-muted);">Enter the 4-digit code from the Mother's dashboard.</p>
-                    <input type="text" id="onboard-sync-code" class="input" placeholder="XXXX" style="text-align: center; letter-spacing: 5px; font-size: 24px;">
+                    <h4 style="margin-bottom: 15px;">Sync with Mother</h4>
+                    <p style="font-size: 13px; color: var(--text-muted); margin-bottom: 15px; line-height: 1.5;">Enter the 4-digit code from the Mother's dashboard.</p>
+                    <label style="font-size: 12px; font-weight: bold; margin-left: 4px;">Sync Code</label>
+                    <input type="text" id="onboard-sync-code" class="input" placeholder="XXXX" style="text-align: center; letter-spacing: 5px; font-size: 24px; font-weight: bold;">
                 </div>
             </div>
+
             <button class="btn btn-primary" onclick="completeSetup()" style="width: 100%; margin-top: 20px;">Complete Setup</button>
         </div>
     </div>
 
-    <!-- SOS ALERT -->
+    <!-- SOS ALERT OVERLAY -->
     <div id="sos-alert-screen" class="overlay hidden" style="background: #ef4444; color: white;">
         <i class="fa-solid fa-triangle-exclamation" style="font-size: 80px; margin-bottom: 20px; animation: pulse 0.5s infinite;"></i>
-        <h1>EMERGENCY</h1>
-        <div style="background: white; padding: 24px; border-radius: 16px; color: black; width: 100%; max-width: 350px;">
-            <a href="tel:102" class="btn btn-call" style="background: var(--secondary); display:block; margin-bottom:10px;">Ambulance (102)</a>
-            <a href="tel:100" class="btn btn-call" style="background: #1e293b; display:block; margin-bottom:10px;">Police (100)</a>
-            <a id="sos-btn-doc" href="#" class="btn btn-call" style="background: var(--primary); display:block;">Call Doctor</a>
-            <button class="btn btn-secondary" onclick="dismissSOS()" style="margin-top: 20px; width: 100%;">Cancel</button>
+        <h1 style="font-size: 32px; text-align:center;">EMERGENCY MODE</h1>
+        <div style="background: white; padding: 24px; border-radius: 16px; color: black; width: 100%; max-width: 350px; text-align: center;">
+            <h3 style="color: var(--secondary);">Calling Support...</h3>
+            <a href="tel:102" class="btn btn-call" style="background: var(--secondary); display:block; margin-bottom:10px;"><i class="fa-solid fa-truck-medical"></i> Call Ambulance (102/108)</a>
+            <a href="tel:100" class="btn btn-call" style="background: #1e293b; display:block; margin-bottom:10px;"><i class="fa-solid fa-shield-halved"></i> Call Police (100)</a>
+            <a href="tel:1091" class="btn btn-call" style="background: #d946ef; display:block; margin-bottom:10px;"><i class="fa-solid fa-female"></i> Women's Helpline (1091)</a>
+            <a id="sos-btn-doc" href="#" class="btn btn-call" style="background: var(--primary); display:block;"><i class="fa-solid fa-user-doctor"></i> Call My Doctor</a>
+            <button class="btn btn-secondary" onclick="dismissSOS()" style="margin-top: 20px; border: 1px solid #ccc; width: 100%;">Cancel Alert</button>
         </div>
     </div>
 
     <!-- APP UI -->
     <div id="app-ui" class="hidden">
         <div id="app-container">
+            <!-- Desktop Sidebar -->
             <aside>
                 <div class="logo"><i class="fa-solid fa-heart-pulse"></i> Nexus Pro</div>
                 <div class="nav-item active" onclick="nav('dashboard')"><i class="fa-solid fa-grid-2"></i> Dashboard</div>
-                <div class="nav-item" onclick="nav('cycle')"><i class="fa-solid fa-calendar-days"></i> Cycle Tracker</div>
                 <div class="nav-item" onclick="nav('wellness')"><i class="fa-solid fa-brain"></i> AI Assistant</div>
                 <div class="nav-item" onclick="nav('medicine')"><i class="fa-solid fa-pills"></i> Medicine Library</div>
                 <div class="nav-item" onclick="nav('doctors')"><i class="fa-solid fa-hospital-user"></i> Find Doctors</div>
@@ -250,150 +317,195 @@
                         <div id="user-initial" style="width: 32px; height: 32px; background: var(--primary); color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold;">U</div>
                         <div style="overflow: hidden;">
                             <div id="user-name" style="font-size: 13px; font-weight: 700; white-space: nowrap;">Loading...</div>
+                            <div id="sync-status" style="font-size: 11px; color: var(--text-muted); display: flex; align-items: center;">
+                                <span class="status-dot dot-red"></span> Offline
+                            </div>
                         </div>
+                    </div>
+                    <div style="display: flex; gap: 10px;">
+                        <button class="btn btn-secondary" style="flex: 1;" onclick="toggleTheme()"><i class="fa-solid fa-moon"></i></button>
+                        <button class="btn btn-secondary" style="flex: 1;" onclick="logout()"><i class="fa-solid fa-right-from-bracket"></i></button>
                     </div>
                 </div>
             </aside>
 
+            <!-- Mobile Top Header -->
             <main>
+                <div class="mobile-header">
+                    <div class="logo" style="margin-bottom: 0;"><i class="fa-solid fa-heart-pulse"></i> Nexus Pro</div>
+                    <div style="display:flex; gap:10px;">
+                        <button class="btn btn-secondary" style="padding: 8px;" onclick="toggleTheme()"><i class="fa-solid fa-moon"></i></button>
+                        <button class="btn btn-secondary" style="padding: 8px;" onclick="logout()"><i class="fa-solid fa-right-from-bracket"></i></button>
+                    </div>
+                </div>
+
                 <!-- DASHBOARD -->
                 <section id="view-dashboard">
-                    <h2 style="margin-bottom: 20px;">Overview</h2>
-                    <div id="mom-sync-dashboard-widget" class="card hidden" style="border: 2px dashed var(--primary);">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+                        <div>
+                            <h2 id="dash-title">Overview</h2>
+                            <div id="connected-banner" class="hidden" style="background: #ecfdf5; padding: 6px 12px; border-radius: 20px; color: #047857; font-weight: 600; font-size: 12px; display: inline-flex; align-items: center; gap: 5px; margin-top: 5px;">
+                                <i class="fa-solid fa-link"></i> <span id="connected-text">Connected</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Mother's Sync Code Display (Always Visible for Mother) -->
+                    <div id="mom-sync-dashboard-widget" class="card hidden" style="background: var(--bg-body); border: 2px dashed var(--primary);">
                         <div style="display: flex; justify-content: space-between; align-items: center;">
-                            <div><h4 style="margin: 0; color: var(--primary);">Partner Code</h4><p style="font-size: 12px; color: var(--text-muted);">Share to sync.</p></div>
-                            <h1 style="letter-spacing: 5px; color: var(--primary); margin: 0;" id="dashboard-sync-code">----</h1>
+                            <div>
+                                <h4 style="margin: 0; color: var(--primary);">Partner Sync Code</h4>
+                                <p style="font-size: 12px; color: var(--text-muted); margin: 5px 0;">Share this code with your partner to link accounts.</p>
+                            </div>
+                            <h1 style="letter-spacing: 5px; color: var(--primary); margin: 0; font-size: 28px;" id="dashboard-sync-code">----</h1>
                         </div>
                     </div>
-                    <div class="stats-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 16px;">
+
+                    <div class="stats-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 16px; margin-bottom: 24px;">
                         <div class="card">
-                            <p class="text-muted">Week</p><h2 id="week-disp">--</h2>
+                            <div style="display: flex; justify-content: space-between;">
+                                <div><p class="text-muted">Current Stage</p><h2 id="week-disp">Week --</h2></div>
+                                <i class="fa-solid fa-baby" style="font-size: 32px; color: var(--primary);"></i>
+                            </div>
                         </div>
                         <div class="card">
-                            <p class="text-muted">Doctor</p><h4 id="dash-doc-name">Not Set</h4>
-                        </div>
-                    </div>
-                </section>
-
-                <!-- CYCLE TRACKER (NEW) -->
-                <section id="view-cycle" class="hidden">
-                    <div style="text-align: center; margin-bottom: 20px;">
-                        <h2>Cycle Tracker</h2>
-                        <p style="font-size: 13px; color: var(--text-muted);">Track period, ovulation, and fertility.</p>
-                    </div>
-                    
-                    <div class="card" id="cycle-setup-card" style="text-align: center;">
-                        <i class="fa-solid fa-calendar-plus" style="font-size: 40px; color: var(--period); margin-bottom: 15px;"></i>
-                        <h3>Set Last Period Date</h3>
-                        <p style="font-size: 13px; margin-bottom: 20px;">We need this to calculate your cycle.</p>
-                        <input type="date" id="cycle-date-input" class="input" style="text-align: center;">
-                        <button class="btn btn-primary" onclick="setCycleDate()">Start Tracking</button>
-                    </div>
-
-                    <div id="cycle-display-card" class="card hidden" style="text-align: center;">
-                        <div class="cycle-ring-container">
-                            <div class="cycle-ring"></div>
-                            <div class="cycle-content">
-                                <div class="cycle-day" id="cycle-day-num">1</div>
-                                <div class="cycle-label">Day of Cycle</div>
+                            <div style="display: flex; justify-content: space-between;">
+                                <div><p class="text-muted">Status</p><h2 style="color: var(--primary);">Stable</h2></div>
+                                <i class="fa-solid fa-heart-pulse" style="font-size: 32px; color: var(--secondary);"></i>
                             </div>
                         </div>
-                        <div id="cycle-status-badge" class="cycle-status status-period">Period Day 1</div>
-                        <div style="margin-top: 20px; display: grid; grid-template-columns: 1fr 1fr; gap: 10px; text-align: left;">
-                            <div style="background: var(--bg-body); padding: 10px; border-radius: 8px;">
-                                <small style="color: var(--text-muted);">Next Period</small><br>
-                                <strong id="next-period-date">--</strong>
-                            </div>
-                            <div style="background: var(--bg-body); padding: 10px; border-radius: 8px;">
-                                <small style="color: var(--text-muted);">Ovulation</small><br>
-                                <strong id="ovulation-date">--</strong>
-                            </div>
-                        </div>
-                        <button class="btn btn-secondary" style="margin-top: 20px; width: 100%; font-size: 12px;" onclick="resetCycle()">Log New Period</button>
-                    </div>
-                </section>
-
-                <!-- AI -->
-                <section id="view-wellness" class="hidden">
-                    <h2>AI Assistant</h2>
-                    <div class="card chat-container" style="margin-top: 10px; padding: 0;">
-                        <div id="ai-chat-box" class="chat-history" style="padding: 16px;"><div class="msg msg-left">Hello! Ask me anything.</div></div>
-                        <div style="padding: 10px; border-top: 1px solid var(--border); display: flex; gap: 10px;">
-                            <input type="text" id="ai-chat-input" class="input" placeholder="Ask..." style="margin:0;">
-                            <button class="btn btn-primary" onclick="sendAIChat()"><i class="fa-solid fa-paper-plane"></i></button>
-                        </div>
-                    </div>
-                </section>
-
-                <!-- MEDICINE -->
-                <section id="view-medicine" class="hidden">
-                    <h2>Medicine Library</h2>
-                    <div class="card">
-                        <div style="display: flex; gap: 10px;">
-                            <input type="text" id="med-search" class="input" placeholder="Drug name..." style="margin:0;">
-                            <button class="btn btn-primary" onclick="searchMedicine()">Search</button>
-                        </div>
-                        <div id="med-results" class="med-grid"></div>
-                    </div>
-                </section>
-
-                <!-- DOCTORS -->
-                <section id="view-doctors" class="hidden">
-                    <h2>Find Doctors</h2>
-                    <div class="card" style="height: 400px; padding: 0; overflow: hidden; margin-top: 10px;">
-                        <iframe id="map-frame" width="100%" height="100%" style="border:0"></iframe>
-                    </div>
-                </section>
-
-                <!-- PARTNER CHAT -->
-                <section id="view-partnerchat" class="hidden">
-                    <h2>Partner Chat</h2>
-                    <div class="card chat-container" id="partner-chat-ui" style="margin-top: 10px; padding: 0;">
-                        <div id="partner-chat-box" class="chat-history" style="padding: 16px;"></div>
-                        <div style="padding: 10px; border-top: 1px solid var(--border); display: flex; gap: 10px; position: relative;">
-                            <input type="text" id="partner-msg-input" class="input" placeholder="Message..." style="margin:0;">
-                            <button class="btn btn-secondary" onclick="toggleEmoji('partner')">😊</button>
-                            <button class="btn btn-primary" onclick="sendPartnerMessage()"><i class="fa-solid fa-paper-plane"></i></button>
-                            <div class="emoji-picker" id="emoji-picker-partner">
-                                <span onclick="ins('partner-msg-input','❤️')">❤️</span>
-                                <span onclick="ins('partner-msg-input','👍')">👍</span>
-                                <span onclick="ins('partner-msg-input','👶')">👶</span>
-                                <span onclick="ins('partner-msg-input','🏥')">🏥</span>
+                        <div class="card">
+                            <div style="display: flex; justify-content: space-between;">
+                                <div><p class="text-muted">My Doctor</p><h4 id="dash-doc-name" style="margin: 5px 0;">Not Set</h4><a href="#" id="dash-doc-call" style="font-size: 12px; color: var(--primary);">Call Now</a></div>
+                                <i class="fa-solid fa-user-doctor" style="font-size: 32px; color: var(--accent);"></i>
                             </div>
                         </div>
                     </div>
-                    <div id="chat-disabled-msg" class="card hidden" style="text-align: center; padding: 40px;"><h3>Sync Required</h3></div>
-                    <button class="btn btn-danger" style="width: 100%; margin-top: 10px;" onclick="clearChatSession()">Clear Chat</button>
                 </section>
 
                 <!-- COMMUNITY -->
                 <section id="view-community" class="hidden">
                     <h2>Community</h2>
                     <div class="card">
-                         <div style="display: flex; gap: 10px; margin-bottom: 20px; position:relative;">
-                            <input type="text" id="post-input" class="input" placeholder="Share..." style="margin-bottom:0;">
-                             <button class="btn btn-secondary" onclick="toggleEmoji('post')">😊</button>
+                        <div style="display: flex; gap: 10px; margin-bottom: 20px; position:relative;">
+                            <input type="text" id="post-input" class="input" placeholder="Share an update..." style="margin-bottom:0;">
+                            <button class="btn btn-secondary" onclick="toggleEmoji('post-input')"><i class="fa-regular fa-face-smile"></i></button>
                             <button class="btn btn-primary" onclick="addPost()">Post</button>
-                             <div class="emoji-picker" id="emoji-picker-post">
-                                <span onclick="ins('post-input','❤️')">❤️</span>
-                                <span onclick="ins('post-input','🤰')">🤰</span>
+                            
+                            <!-- Emoji Picker -->
+                            <div class="emoji-picker" id="emoji-picker-post">
+                                <span class="emoji-item" onclick="insertEmoji('post-input', '❤️')">❤️</span>
+                                <span class="emoji-item" onclick="insertEmoji('post-input', '😂')">😂</span>
+                                <span class="emoji-item" onclick="insertEmoji('post-input', '👍')">👍</span>
+                                <span class="emoji-item" onclick="insertEmoji('post-input', '👶')">👶</span>
+                                <span class="emoji-item" onclick="insertEmoji('post-input', '🤰')">🤰</span>
                             </div>
                         </div>
                         <div id="community-feed"></div>
                     </div>
                 </section>
 
+                <!-- AI ASSISTANT -->
+                <section id="view-wellness" class="hidden">
+                    <div style="display: flex; justify-content: space-between; align-items: center;">
+                        <h2>AI Health Assistant</h2>
+                        <span style="font-size: 10px; background: #e0f2f1; padding: 4px 8px; border-radius: 8px; color: var(--primary);">Context Aware</span>
+                    </div>
+                    <div class="card chat-container" style="margin-top: 20px; padding: 0; overflow: hidden;">
+                        <div id="ai-chat-box" class="chat-history" style="padding: 16px;">
+                            <div class="msg msg-left">Hello! I know you are in your <span id="ai-context-week">current</span> week. How can I help?</div>
+                        </div>
+                        <div style="padding: 16px; border-top: 1px solid var(--border); display: flex; gap: 10px; background: var(--bg-card);">
+                            <input type="text" id="ai-chat-input" class="input" placeholder="Ask anything..." style="margin-bottom:0;">
+                            <button class="btn btn-primary" onclick="sendAIChat()"><i class="fa-solid fa-paper-plane"></i></button>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- MEDICINE LIBRARY -->
+                <section id="view-medicine" class="hidden">
+                    <h2>Medicine Safety Library</h2>
+                    <div class="card">
+                        <div style="display: flex; gap: 10px;">
+                            <input type="text" id="med-search" class="input" placeholder="Enter medicine name..." style="margin-bottom:0;">
+                            <button class="btn btn-primary" onclick="searchMedicine()">Search</button>
+                        </div>
+                        <div id="med-results" class="med-grid"></div>
+                    </div>
+                </section>
+
+                <!-- DOCTOR FINDER -->
+                <section id="view-doctors" class="hidden">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; flex-wrap: wrap; gap: 10px;">
+                        <h2>Nearby Specialists</h2>
+                        <div id="location-display" style="font-size: 12px; font-weight: bold; color: var(--primary);"></div>
+                    </div>
+                    <div class="card">
+                        <p style="color: var(--text-muted); margin-bottom:10px;">Showing Gynecologists & Hospitals near your registered Pincode.</p>
+                        <div style="height: 300px; border-radius: 12px; overflow: hidden; border: 1px solid var(--border);">
+                            <iframe id="map-frame" width="100%" height="100%" frameborder="0" style="border:0"></iframe>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- PARTNER CHAT -->
+                <section id="view-partnerchat" class="hidden">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+                        <h2>Partner Chat</h2>
+                        <span style="font-size: 10px; color: var(--secondary); background: #fff1f2; padding: 5px 10px; border-radius: 20px;">
+                            <i class="fa-solid fa-lock"></i> End-to-End Encrypted
+                        </span>
+                    </div>
+                    <div class="card chat-container" id="partner-chat-ui" style="padding: 0; overflow: hidden;">
+                        <div id="partner-chat-box" class="chat-history" style="padding: 16px;"></div>
+                        <div style="padding: 16px; border-top: 1px solid var(--border); display: flex; gap: 10px; background: var(--bg-card); position:relative;">
+                            <input type="text" id="partner-msg-input" class="input" placeholder="Secure Message..." style="margin-bottom:0;">
+                            <button class="btn btn-secondary" onclick="toggleEmoji('partner-msg')"><i class="fa-regular fa-face-smile"></i></button>
+                            <button class="btn btn-primary" onclick="sendPartnerMessage()"><i class="fa-solid fa-paper-plane"></i></button>
+                            
+                            <!-- Emoji Picker -->
+                            <div class="emoji-picker" id="emoji-picker-partner-msg">
+                                <span class="emoji-item" onclick="insertEmoji('partner-msg-input', '❤️')">❤️</span>
+                                <span class="emoji-item" onclick="insertEmoji('partner-msg-input', '😂')">😂</span>
+                                <span class="emoji-item" onclick="insertEmoji('partner-msg-input', '👍')">👍</span>
+                                <span class="emoji-item" onclick="insertEmoji('partner-msg-input', '😘')">😘</span>
+                                <span class="emoji-item" onclick="insertEmoji('partner-msg-input', '👶')">👶</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="chat-disabled-msg" class="card hidden" style="text-align: center; padding: 50px;">
+                        <i class="fa-solid fa-link-slash" style="font-size: 40px; color: var(--text-muted); margin-bottom: 20px;"></i>
+                        <h3>Not Connected</h3>
+                        <p>Sync with a partner to enable chat.</p>
+                        <button class="btn btn-primary" style="margin-top: 20px;" onclick="nav('sync')">Go to Sync</button>
+                    </div>
+                    <button class="btn btn-danger" style="width: 100%; margin-top: 20px;" onclick="clearChatSession()">
+                        <i class="fa-solid fa-trash"></i> End Session & Clear History
+                    </button>
+                </section>
+
                 <!-- SYNC -->
                 <section id="view-sync" class="hidden">
-                    <div class="card" style="text-align: center;">
-                        <h2>Sync Settings</h2>
-                        <div id="sync-mom" class="hidden">
-                            <p>Code:</p><h1 style="letter-spacing: 5px; color: var(--primary);" id="my-code">---</h1>
-                            <button class="btn btn-secondary" onclick="generateCode()">New Code</button>
-                        </div>
-                        <div id="sync-partner" class="hidden">
-                            <input type="text" id="sync-input" class="input" style="text-align: center; font-size: 24px;" placeholder="CODE">
-                            <button class="btn btn-primary" style="width: 100%;" onclick="connectSync()">Connect</button>
+                    <div style="max-width: 500px; margin: 0 auto; text-align: center;">
+                        <h2>Partner Synchronization</h2>
+                        <p style="color: var(--text-muted); margin-bottom: 30px;">Link accounts to share alerts and health data.</p>
+                        
+                        <div class="card">
+                            <div id="sync-mom" class="hidden">
+                                <p>Your Connection Code:</p>
+                                <h1 style="letter-spacing: 5px; color: var(--primary); margin: 20px 0;" id="my-code">---</h1>
+                                <button class="btn btn-secondary" onclick="generateCode()">Generate New</button>
+                            </div>
+                            <div id="sync-partner" class="hidden">
+                                <p>Enter Mother's Code:</p>
+                                <input type="text" id="sync-input" class="input" style="text-align: center; font-size: 24px; letter-spacing: 5px; margin: 20px 0;">
+                                <button class="btn btn-primary" style="width: 100%;" onclick="connectSync()">Connect</button>
+                            </div>
+                            <div id="sync-success" class="hidden">
+                                <i class="fa-solid fa-circle-check" style="font-size: 60px; color: #22c55e; margin-bottom: 20px;"></i>
+                                <h3>Connected!</h3>
+                                <p id="linked-name">Linked to Partner</p>
+                            </div>
                         </div>
                     </div>
                 </section>
@@ -401,91 +513,187 @@
                 <!-- PREMIUM -->
                 <section id="view-premium" class="hidden">
                     <div class="card" style="text-align: center; border: 2px solid #FFD700; background: #fffbeb;">
-                        <i class="fa-solid fa-crown" style="font-size: 40px; color: #FFD700;"></i>
+                        <i class="fa-solid fa-crown" style="font-size: 50px; color: #FFD700; margin-bottom: 10px;"></i>
                         <h2>Nexus Premium</h2>
-                        <h3>FREE FOR EVERYONE</h3>
-                        <p style="font-size: 12px; color: var(--text-muted); margin-bottom: 20px;">Our gift to new parents.</p>
-                        <button class="btn btn-gold" onclick="alert('Thanks!')">Donate</button>
+                        <p>We believe maternal health is a right, not a privilege.</p>
+                        <h3 style="margin: 20px 0; color: var(--primary);">ALL FEATURES ARE FREE</h3>
+                        <p style="font-size: 13px; color: var(--text-muted); margin-bottom: 20px;">Our Pro AI, Doctor Finder, and Sync tools are gifts to new parents.</p>
+                        <button class="btn btn-gold" onclick="alert('Thank you for your support!')">Donate to Developers</button>
                     </div>
                 </section>
+
             </main>
 
+            <!-- Mobile Bottom Nav -->
             <div class="mobile-nav">
-                <div class="mobile-nav-item active" onclick="nav('dashboard')"><i class="fa-solid fa-grid-2"></i>Home</div>
-                <div class="mobile-nav-item" onclick="nav('cycle')"><i class="fa-solid fa-calendar"></i>Cycle</div>
-                <div class="mobile-nav-item" onclick="nav('wellness')"><i class="fa-solid fa-brain"></i>AI</div>
-                <div class="mobile-nav-item" onclick="nav('medicine')"><i class="fa-solid fa-pills"></i>Meds</div>
-                <div class="mobile-nav-item" onclick="nav('doctors')"><i class="fa-solid fa-hospital"></i>Docs</div>
-                <div class="mobile-nav-item" onclick="nav('partnerchat')"><i class="fa-solid fa-comments"></i>Chat</div>
-                <div class="mobile-nav-item" onclick="nav('community')"><i class="fa-solid fa-users"></i>Comm</div>
-                <div class="mobile-nav-item" onclick="nav('premium')"><i class="fa-solid fa-crown"></i>Pro</div>
-                <div class="mobile-nav-item" onclick="nav('sync')"><i class="fa-solid fa-link"></i>Sync</div>
+                <div class="mobile-nav-item active" onclick="nav('dashboard')"><i class="fa-solid fa-grid-2"></i> Home</div>
+                <div class="mobile-nav-item" onclick="nav('wellness')"><i class="fa-solid fa-brain"></i> AI</div>
+                <div class="mobile-nav-item" onclick="nav('medicine')"><i class="fa-solid fa-pills"></i> Meds</div>
+                <div class="mobile-nav-item" onclick="nav('community')"><i class="fa-solid fa-users"></i> Comm</div>
+                <div class="mobile-nav-item" onclick="nav('partnerchat')" id="nav-chat-mob">
+                    <i class="fa-solid fa-comments"></i> Chat <div class="nav-badge">0</div>
+                </div>
             </div>
         </div>
         
-        <div class="sos-float" onclick="activateSOS()">SOS</div>
+        <div class="sos-float" onclick="activateSOS()" title="Emergency Alert">SOS</div>
         <audio id="alarm-sound" src="https://actions.google.com/sounds/v1/alarms/alarm_clock.ogg" loop></audio>
     </div>
 
+    <!-- LOGIC -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-app.js";
         import { getAuth, signInWithPopup, GoogleAuthProvider, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-auth.js";
         import { getFirestore, doc, getDoc, setDoc, updateDoc, collection, query, where, getDocs, addDoc, orderBy, onSnapshot, serverTimestamp, limit, deleteDoc } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js";
 
-        // APP LOGIC
-        const firebaseConfig = { apiKey: "AIzaSyCoZbOU0ozKibFsqj-BCCIoaKHEDCw_tio", authDomain: "maternal-nexus.firebaseapp.com", projectId: "maternal-nexus", storageBucket: "maternal-nexus.firebasestorage.app", messagingSenderId: "20914539328", appId: "1:20914539328:web:b63c65056566c55e46c8a5" };
+        // LOCAL KNOWLEDGE FAILSAFE
+        const LOCAL_BRAIN = {
+            keywords: {
+                "headache": "Stay hydrated and rest in a dark room. Acetaminophen (Tylenol) is generally safe, but avoid Ibuprofen.",
+                "nausea": "Try ginger tea, crackers before getting out of bed, and small frequent meals.",
+                "bleeding": "Please go to the ER or call your doctor immediately. Any bleeding needs checking.",
+                "diet": "Eat iron-rich foods (spinach), calcium (dairy), and folic acid. Avoid raw fish and alcohol.",
+                "tylenol": "Acetaminophen (Tylenol) is generally considered safe during pregnancy.",
+                "advil": "Avoid Ibuprofen (Advil/Motrin), especially in the third trimester.",
+                "aspirin": "Avoid unless specifically prescribed by your doctor.",
+                "swelling": "Elevate your feet. Sudden swelling in the face could be preeclampsia.",
+            },
+            fallback: "I'm not sure about that specific detail, but generally, stay hydrated and rest. For medical specifics, please call your doctor."
+        };
+
+        const LOCAL_MEDS = [
+            {name: "Acetaminophen", cat: "Safe", desc: "Pain/Fever"},
+            {name: "Ibuprofen", cat: "Avoid", desc: "NSAID risk"},
+            {name: "Aspirin", cat: "Caution", desc: "Doctor only"},
+            {name: "Loratadine", cat: "Safe", desc: "Allergies"},
+            {name: "Benadryl", cat: "Safe", desc: "Sleep/Allergy"},
+            {name: "Tums", cat: "Safe", desc: "Heartburn"}
+        ];
+
+        // CONFIG
+        const firebaseConfig = {
+            apiKey: "AIzaSyCoZbOU0ozKibFsqj-BCCIoaKHEDCw_tio",
+            authDomain: "maternal-nexus.firebaseapp.com",
+            projectId: "maternal-nexus",
+            storageBucket: "maternal-nexus.firebasestorage.app",
+            messagingSenderId: "20914539328",
+            appId: "1:20914539328:web:b63c65056566c55e46c8a5",
+            measurementId: "G-9HCFLX8BDS"
+        };
+
         const app = initializeApp(firebaseConfig);
         const auth = getAuth(app);
         const db = getFirestore(app);
         const appId = "maternal-nexus";
-        let user, profile;
 
-        window.showAuth = () => { document.getElementById('landing-screen').classList.add('hidden'); document.getElementById('auth-screen').classList.remove('hidden'); }
-        document.getElementById('google-login').onclick = async () => { try { await signInWithPopup(auth, new GoogleAuthProvider()); } catch(e) { alert(e.message); } }
+        let user, profile;
+        let theme = localStorage.getItem('theme') || 'light';
+        document.body.setAttribute('data-theme', theme);
+        let lastReadTime = Date.now();
+
+        window.showAuth = () => {
+            document.getElementById('landing-screen').classList.add('hidden');
+            document.getElementById('auth-screen').classList.remove('hidden');
+        }
+
+        // AUTH
+        const provider = new GoogleAuthProvider();
+        document.getElementById('google-login').onclick = async () => {
+            try { await signInWithPopup(auth, provider); } 
+            catch(e) { document.getElementById('login-msg').innerText = e.message; }
+        }
+
         window.logout = async () => { await signOut(auth); location.reload(); }
 
         onAuthStateChanged(auth, async (u) => {
             if(u) {
                 user = u;
                 document.getElementById('auth-screen').classList.add('hidden');
-                document.getElementById('landing-screen').classList.add('hidden');
+                document.getElementById('landing-screen').classList.add('hidden'); 
+                
                 const ref = doc(db, 'artifacts', appId, 'public', 'data', 'users', user.uid);
                 const snap = await getDoc(ref);
-                if(snap.exists()) { profile = snap.data(); startApp(); }
-                else { document.getElementById('setup-screen').classList.remove('hidden'); document.getElementById('user-display-name').value = user.displayName; }
+                
+                if(snap.exists()) {
+                    profile = snap.data();
+                    startApp();
+                } else {
+                    document.getElementById('setup-screen').classList.remove('hidden');
+                    document.getElementById('user-display-name').value = user.displayName;
+                }
             }
         });
 
+        // ONBOARDING
         window.selectRole = (r) => {
             profile = { role: r };
             document.getElementById('role-'+r).style.border = "2px solid var(--primary)";
-            if(r==='mother') { document.getElementById('mother-form').classList.remove('hidden'); document.getElementById('partner-form').classList.add('hidden'); }
-            else { document.getElementById('mother-form').classList.add('hidden'); document.getElementById('partner-form').classList.remove('hidden'); }
+            
+            if(r==='mother') {
+                document.getElementById('mother-form').classList.remove('hidden');
+                document.getElementById('partner-form').classList.add('hidden');
+            } else {
+                document.getElementById('mother-form').classList.add('hidden');
+                document.getElementById('partner-form').classList.remove('hidden');
+            }
         }
 
         window.completeSetup = async () => {
-            let data = { uid: user.uid, name: document.getElementById('user-display-name').value, email: user.email, role: profile.role, createdAt: serverTimestamp() };
+            let data = {
+                uid: user.uid,
+                name: document.getElementById('user-display-name').value || user.displayName,
+                email: user.email,
+                role: profile.role,
+                createdAt: serverTimestamp()
+            };
+
             if(profile.role === 'mother') {
-                data.week = document.getElementById('week-input').value; data.docName = document.getElementById('doc-name').value; data.docPhone = document.getElementById('doc-phone').value; data.pin = document.getElementById('user-pin').value; data.code = Math.floor(1000+Math.random()*9000).toString();
-            } else { data.tempSyncCode = document.getElementById('onboard-sync-code').value; }
+                data.week = document.getElementById('week-input').value || 0;
+                data.docName = document.getElementById('doc-name').value;
+                data.docPhone = document.getElementById('doc-phone').value;
+                data.pin = document.getElementById('user-pin').value;
+                data.country = document.getElementById('user-country').value;
+                data.code = Math.floor(1000+Math.random()*9000).toString();
+            } else {
+                const syncCode = document.getElementById('onboard-sync-code').value;
+                data.tempSyncCode = syncCode;
+            }
+
             await setDoc(doc(db, 'artifacts', appId, 'public', 'data', 'users', user.uid), data);
             profile = data;
             document.getElementById('setup-screen').classList.add('hidden');
             startApp();
         }
 
+        // APP LOGIC
         async function startApp() {
             document.getElementById('app-ui').classList.remove('hidden');
             document.getElementById('user-initial').innerText = user.displayName.charAt(0);
             document.getElementById('user-name').innerText = user.displayName;
 
+            // Handle Partner Initial Sync
             if(profile.role === 'partner' && profile.tempSyncCode && !profile.linkedUid) {
                 const q = query(collection(db, 'artifacts', appId, 'public', 'data', 'users'), where("code", "==", profile.tempSyncCode));
                 const snap = await getDocs(q);
                 if(!snap.empty) {
                     const mom = snap.docs[0].data();
-                    profile.linkedUid = mom.uid; profile.docName = mom.docName; profile.docPhone = mom.docPhone; profile.week = mom.week;
-                    await updateDoc(doc(db, 'artifacts', appId, 'public', 'data', 'users', user.uid), { linkedUid: mom.uid, docName: mom.docName, docPhone: mom.docPhone, week: mom.week, tempSyncCode: null });
+                    profile.linkedUid = mom.uid;
+                    profile.docName = mom.docName;
+                    profile.docPhone = mom.docPhone;
+                    profile.week = mom.week;
+                    profile.country = mom.country;
+                    profile.pin = mom.pin;
+                    
+                    await updateDoc(doc(db, 'artifacts', appId, 'public', 'data', 'users', user.uid), { 
+                        linkedUid: mom.uid,
+                        docName: mom.docName,
+                        docPhone: mom.docPhone,
+                        week: mom.week,
+                        country: mom.country,
+                        pin: mom.pin,
+                        tempSyncCode: null 
+                    });
+                    
                     await updateDoc(doc(db, 'artifacts', appId, 'public', 'data', 'users', mom.uid), { linkedUid: user.uid });
                 }
             }
@@ -501,163 +709,330 @@
                 document.getElementById('week-disp').innerText = "Partner View";
             }
 
+            // Fill Data
+            document.getElementById('week-disp').innerText = "Week " + (profile.week || "--");
+            document.getElementById('ai-context-week').innerText = (profile.week || "--") + " weeks";
+            document.getElementById('dash-doc-name').innerText = profile.docName || "Not Set";
             if(profile.docPhone) document.getElementById('sos-btn-doc').href = "tel:" + profile.docPhone;
-            if(profile.docName) document.getElementById('dash-doc-name').innerText = profile.docName;
-            if(profile.pin) document.getElementById('map-frame').src = `https://maps.google.com/maps?q=Gynecologist+near+${profile.pin}+India&output=embed`;
 
-            // Cycle Tracker Init
-            if(profile.lastPeriodDate) updateCycleUI(profile.lastPeriodDate);
-            else document.getElementById('cycle-setup-card').classList.remove('hidden');
+            // Map
+            if(profile.pin && profile.country) {
+                const q = `Gynecologist+near+${profile.pin}+${profile.country}`;
+                document.getElementById('map-frame').src = `https://maps.google.com/maps?q=${q}&output=embed`;
+                document.getElementById('location-display').innerText = `Searching near: ${profile.pin}`;
+            }
 
+            renderMedicine(LOCAL_MEDS);
             if(profile.linkedUid) setupLink(profile.linkedUid);
-            else document.getElementById('chat-disabled-msg').classList.remove('hidden');
-
             setupCommunity();
         }
 
-        // CYCLE TRACKER
-        window.setCycleDate = async () => {
-            const date = document.getElementById('cycle-date-input').value;
-            if(!date) return;
-            await updateDoc(doc(db, 'artifacts', appId, 'public', 'data', 'users', user.uid), { lastPeriodDate: date });
-            profile.lastPeriodDate = date;
-            updateCycleUI(date);
-        }
-        window.resetCycle = () => { document.getElementById('cycle-display-card').classList.add('hidden'); document.getElementById('cycle-setup-card').classList.remove('hidden'); }
-        
-        function updateCycleUI(dateStr) {
-            document.getElementById('cycle-setup-card').classList.add('hidden');
-            document.getElementById('cycle-display-card').classList.remove('hidden');
-            
-            const last = new Date(dateStr);
-            const today = new Date();
-            const diffTime = Math.abs(today - last);
-            const dayOfCycle = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-            
-            document.getElementById('cycle-day-num').innerText = dayOfCycle;
-            
-            const nextPeriod = new Date(last); nextPeriod.setDate(last.getDate() + 28);
-            const ovulation = new Date(last); ovulation.setDate(last.getDate() + 14);
-            
-            document.getElementById('next-period-date').innerText = nextPeriod.toLocaleDateString();
-            document.getElementById('ovulation-date').innerText = ovulation.toLocaleDateString();
-
-            const badge = document.getElementById('cycle-status-badge');
-            if(dayOfCycle <= 5) { badge.innerText = "Period"; badge.className = "cycle-status status-period"; }
-            else if(dayOfCycle >= 12 && dayOfCycle <= 16) { badge.innerText = "Fertile Window"; badge.className = "cycle-status status-fertile"; }
-            else { badge.innerText = "Luteal Phase"; badge.className = "cycle-status status-luteal"; }
+        // SYNC UI LOGIC
+        window.generateCode = async () => {
+            const code = Math.floor(1000 + Math.random() * 9000).toString();
+            await updateDoc(doc(db, 'artifacts', appId, 'public', 'data', 'users', user.uid), { code: code });
+            document.getElementById('my-code').innerText = code;
+            const dashCode = document.getElementById('dashboard-sync-code');
+            if(dashCode) dashCode.innerText = code;
         }
 
-        // SYNC & CHAT
         window.connectSync = async () => {
             const code = document.getElementById('sync-input').value;
             const q = query(collection(db, 'artifacts', appId, 'public', 'data', 'users'), where("code", "==", code));
             const snap = await getDocs(q);
             if(!snap.empty) {
                 const mom = snap.docs[0].data();
-                await updateDoc(doc(db, 'artifacts', appId, 'public', 'data', 'users', user.uid), { linkedUid: mom.uid, docName: mom.docName, docPhone: mom.docPhone, week: mom.week });
+                await updateDoc(doc(db, 'artifacts', appId, 'public', 'data', 'users', user.uid), { 
+                    linkedUid: mom.uid,
+                    docName: mom.docName,
+                    docPhone: mom.docPhone,
+                    week: mom.week
+                });
                 await updateDoc(doc(db, 'artifacts', appId, 'public', 'data', 'users', mom.uid), { linkedUid: user.uid });
                 location.reload();
-            } else alert("Invalid Code");
+            } else {
+                alert("Invalid Code");
+            }
         }
 
         function setupLink(targetId) {
+            document.getElementById('sync-success').classList.remove('hidden');
+            document.getElementById('sync-mom').classList.add('hidden');
             document.getElementById('partner-chat-ui').classList.remove('hidden');
             document.getElementById('chat-disabled-msg').classList.add('hidden');
-            document.getElementById('sync-success').classList.remove('hidden');
-            
-            // Listen to partner
+            const dashWidget = document.getElementById('mom-sync-dashboard-widget');
+            if(dashWidget) dashWidget.classList.add('hidden');
+
             onSnapshot(doc(db, 'artifacts', appId, 'public', 'data', 'users', targetId), (d) => {
-                 if(d.data().sosActive) document.getElementById('sos-alert-screen').classList.remove('hidden');
+                const data = d.data();
+                document.getElementById('linked-name').innerText = "Linked: " + data.name;
+                document.getElementById('connected-banner').classList.remove('hidden');
+                document.getElementById('connected-text').innerText = "Connected to " + data.name;
+                document.getElementById('sync-status').innerHTML = '<span class="status-dot dot-green"></span> ' + data.name;
+                
+                if(data.sosActive) triggerSOSAlert();
             });
 
-            // Chat
-            const cid = [user.uid, targetId].sort().join('_');
-            onSnapshot(query(collection(db, 'artifacts', appId, 'public', 'data', 'conversations', cid, 'messages'), orderBy('timestamp', 'asc'), limit(50)), (snap) => {
+            // Chats
+            const conversationId = [user.uid, targetId].sort().join('_');
+            const chatRef = collection(db, 'artifacts', appId, 'public', 'data', 'conversations', conversationId, 'messages');
+            const q = query(chatRef, orderBy("timestamp", "asc"), limit(50));
+            
+            onSnapshot(q, (snap) => {
                 const box = document.getElementById('partner-chat-box');
                 box.innerHTML = "";
+                let unreadCount = 0;
+                
                 snap.forEach(d => {
                     const m = d.data();
                     box.innerHTML += `<div class="msg ${m.from === user.uid ? 'msg-right' : 'msg-left'}">${m.text}</div>`;
+                    
+                    // Unread Logic
+                    if(m.from !== user.uid && m.timestamp) {
+                        const msgTime = m.timestamp.toDate().getTime();
+                        if(msgTime > lastReadTime) unreadCount++;
+                    }
                 });
                 box.scrollTop = box.scrollHeight;
+                
+                // Update Badges
+                const badges = document.querySelectorAll('.nav-badge');
+                badges.forEach(b => {
+                    b.innerText = unreadCount;
+                    b.style.display = unreadCount > 0 ? 'block' : 'none';
+                });
             });
         }
 
         window.sendPartnerMessage = async () => {
             const txt = document.getElementById('partner-msg-input').value;
             if(!txt || !profile.linkedUid) return;
-            const cid = [user.uid, profile.linkedUid].sort().join('_');
-            await addDoc(collection(db, 'artifacts', appId, 'public', 'data', 'conversations', cid, 'messages'), { text: txt, from: user.uid, timestamp: serverTimestamp() });
+            
+            const conversationId = [user.uid, profile.linkedUid].sort().join('_');
+            const chatRef = collection(db, 'artifacts', appId, 'public', 'data', 'conversations', conversationId, 'messages');
+            
+            await addDoc(chatRef, {
+                text: txt, from: user.uid, timestamp: serverTimestamp()
+            });
             document.getElementById('partner-msg-input').value = "";
         }
 
-        // OTHER FEATURES
+        // --- CLEAR CHAT FIX ---
+        window.clearChatSession = async () => {
+            if(!confirm("Are you sure? This deletes messages for both partners.")) return;
+            
+            const conversationId = [user.uid, profile.linkedUid].sort().join('_');
+            const chatRef = collection(db, 'artifacts', appId, 'public', 'data', 'conversations', conversationId, 'messages');
+            const snap = await getDocs(chatRef);
+            
+            snap.forEach(async (d) => {
+                await deleteDoc(doc(db, 'artifacts', appId, 'public', 'data', 'conversations', conversationId, 'messages', d.id));
+            });
+            alert("Chat cleared.");
+        }
+
+        // AI & MEDICINE
         window.sendAIChat = async () => {
             const txt = document.getElementById('ai-chat-input').value;
             if(!txt) return;
-            document.getElementById('ai-chat-box').innerHTML += `<div class="msg msg-right">${txt}</div>`;
+            const box = document.getElementById('ai-chat-box');
+            box.innerHTML += `<div class="msg msg-right">${txt}</div>`;
             document.getElementById('ai-chat-input').value = "";
+            box.scrollTop = box.scrollHeight;
+
+            const loadingId = "load-"+Date.now();
+            box.innerHTML += `<div id="${loadingId}" class="msg msg-left">...</div>`;
+
+            const context = `You are Nexus, a helpful maternal health assistant. The user is ${profile.week || 'unknown'} weeks pregnant. Location: ${profile.country || 'unknown'}. Keep answers brief.`;
+
             try {
-                const r = await fetch(`https://text.pollinations.ai/${encodeURIComponent("You are a maternal health AI. Answer: "+txt)}`);
-                const t = await r.text();
-                document.getElementById('ai-chat-box').innerHTML += `<div class="msg msg-left">${t}</div>`;
-            } catch(e) { document.getElementById('ai-chat-box').innerHTML += `<div class="msg msg-left">Use local knowledge base (Offline).</div>`; }
+                const prompt = encodeURIComponent(context + " User asks: " + txt);
+                const resp = await fetch(`https://text.pollinations.ai/${prompt}`);
+                const reply = await resp.text();
+                document.getElementById(loadingId).remove();
+                box.innerHTML += `<div class="msg msg-left">${reply}</div>`;
+            } catch(e) {
+                document.getElementById(loadingId).remove();
+                let reply = LOCAL_BRAIN.fallback;
+                for(let k in LOCAL_BRAIN.keywords) { if(txt.toLowerCase().includes(k)) reply = LOCAL_BRAIN.keywords[k]; }
+                box.innerHTML += `<div class="msg msg-left">${reply}</div>`;
+            }
+            box.scrollTop = box.scrollHeight;
         }
 
         window.searchMedicine = async () => {
-            const q = document.getElementById('med-search').value;
-            document.getElementById('med-results').innerHTML = "Searching...";
+            const q = document.getElementById('med-search').value.toLowerCase();
+            const res = document.getElementById('med-results');
+            
+            const found = LOCAL_MEDS.find(m => m.name.toLowerCase().includes(q));
+            if(found) {
+                const color = found.cat === 'Safe' ? '#22c55e' : (found.cat === 'Avoid' ? '#ef4444' : '#f59e0b');
+                res.innerHTML = `<div class="med-card" style="border-left-color:${color}"><strong>${found.name}</strong> <span class="badge" style="background:${color}">${found.cat}</span><br><small>${found.desc}</small></div>`;
+                return;
+            }
+
+            res.innerHTML = "Analyzing with AI...";
             try {
-                const r = await fetch(`https://text.pollinations.ai/${encodeURIComponent("Is " + q + " safe for pregnancy? Answer Safe/Caution/Avoid and why.")}`);
-                const t = await r.text();
-                let color = t.includes("Safe") ? "#22c55e" : "#ef4444";
-                document.getElementById('med-results').innerHTML = `<div class="med-card" style="border-left-color:${color}"><strong>${q}</strong><br><small>${t}</small></div>`;
-            } catch(e) { document.getElementById('med-results').innerHTML = "Consult Doctor."; }
+                const prompt = encodeURIComponent(`Is ${q} safe for pregnancy? Answer with Safe, Caution, or Avoid followed by reason.`);
+                const resp = await fetch(`https://text.pollinations.ai/${prompt}`);
+                const text = await resp.text();
+                let color = '#f59e0b';
+                if(text.toLowerCase().includes('safe')) color = '#22c55e';
+                if(text.toLowerCase().includes('avoid')) color = '#ef4444';
+                res.innerHTML = `<div class="med-card" style="border-left-color:${color}"><strong>${q}</strong> <span class="badge" style="background:${color}">AI Analysis</span><br><small>${text}</small></div>`;
+            } catch(e) { res.innerHTML = "Consult Doctor."; }
         }
 
-        window.addPost = async () => {
-            const t = document.getElementById('post-input').value;
-            if(t) await addDoc(collection(db, 'artifacts', appId, 'public', 'data', 'posts'), { text: t, author: user.displayName, time: serverTimestamp(), likes: [] });
-            document.getElementById('post-input').value = "";
-        }
-
-        function setupCommunity() {
-            onSnapshot(query(collection(db, 'artifacts', appId, 'public', 'data', 'posts'), orderBy('time', 'desc'), limit(10)), (snap) => {
-                const d = document.getElementById('community-feed'); d.innerHTML = "";
-                snap.forEach(doc => {
-                     const p = doc.data();
-                     d.innerHTML += `<div class="card post-card"><b>${p.author}</b><br>${p.text}<br><small onclick="toggleLike('${doc.id}')">❤️ ${p.likes?p.likes.length:0}</small></div>`;
-                });
+        function renderMedicine(list) {
+            const container = document.getElementById('med-results');
+            container.innerHTML = "";
+            list.forEach(m => {
+                const color = m.cat === 'Safe' ? '#22c55e' : (m.cat === 'Avoid' ? '#ef4444' : '#f59e0b');
+                container.innerHTML += `<div class="med-card" style="border-left-color:${color}"><strong>${m.name}</strong> <span class="badge" style="background:${color}">${m.cat}</span><br><small>${m.desc}</small></div>`;
             });
-        }
-
-        window.toggleLike = async (pid) => {
-            const ref = doc(db, 'artifacts', appId, 'public', 'data', 'posts', pid);
-            const snap = await getDoc(ref);
-            let likes = snap.data().likes || [];
-            if(likes.includes(user.uid)) likes = likes.filter(id => id !== user.uid); else likes.push(user.uid);
-            await updateDoc(ref, { likes: likes });
         }
 
         // SOS
         window.activateSOS = async () => {
-            if(confirm("ALERT PARTNER?")) {
+            if(confirm("SEND ALERT?")) {
                 await updateDoc(doc(db, 'artifacts', appId, 'public', 'data', 'users', user.uid), { sosActive: true, sosTime: serverTimestamp() });
-                document.getElementById('sos-alert-screen').classList.remove('hidden');
+                triggerSOSAlert();
                 setTimeout(() => updateDoc(doc(db, 'artifacts', appId, 'public', 'data', 'users', user.uid), { sosActive: false }), 60000);
             }
         }
-        window.dismissSOS = () => document.getElementById('sos-alert-screen').classList.add('hidden');
 
-        // EMOJI & NAV
-        window.toggleEmoji = (id) => { const el = document.getElementById(`emoji-picker-${id}`); el.style.display = el.style.display==='grid'?'none':'grid'; }
-        window.ins = (id, e) => document.getElementById(id).value += e;
+        function triggerSOSAlert() {
+            document.getElementById('sos-alert-screen').classList.remove('hidden');
+            document.getElementById('alarm-sound').play().catch(e=>{});
+            if(navigator.vibrate) navigator.vibrate([1000, 500, 1000]);
+        }
+
+        window.dismissSOS = () => {
+            document.getElementById('sos-alert-screen').classList.add('hidden');
+            document.getElementById('alarm-sound').pause();
+        }
+
+        // COMMUNITY (Interactive)
+        window.addPost = async () => {
+            const t = document.getElementById('post-input').value;
+            if(t) {
+                await addDoc(collection(db, 'artifacts', appId, 'public', 'data', 'posts'), { text: t, author: user.displayName, time: serverTimestamp(), likes: [] });
+                document.getElementById('post-input').value = "";
+            }
+        }
+
+        function setupCommunity() {
+            const q = query(collection(db, 'artifacts', appId, 'public', 'data', 'posts'), orderBy("time", "desc"), limit(10));
+            onSnapshot(q, (snap) => {
+                const d = document.getElementById('community-feed');
+                d.innerHTML = "";
+                snap.forEach(doc => {
+                    const p = doc.data();
+                    const pid = doc.id;
+                    const liked = p.likes && p.likes.includes(user.uid);
+                    
+                    d.innerHTML += `
+                        <div class="card post-card" id="post-${pid}">
+                            <div style="font-weight:bold; margin-bottom:5px;">${p.author}</div>
+                            <div>${p.text}</div>
+                            <div class="post-actions">
+                                <span class="post-action ${liked ? 'post-liked' : ''}" onclick="toggleLike('${pid}', ${liked})">
+                                    <i class="fa-${liked ? 'solid' : 'regular'} fa-heart"></i> ${p.likes ? p.likes.length : 0}
+                                </span>
+                                <span class="post-action" onclick="toggleComments('${pid}')">
+                                    <i class="fa-regular fa-comment"></i> Reply
+                                </span>
+                            </div>
+                            <div class="comments-section" id="comments-${pid}">
+                                <div id="comment-list-${pid}"></div>
+                                <div style="display:flex; gap:5px; margin-top:10px; position:relative;">
+                                    <input type="text" class="input" style="margin:0; padding:8px;" placeholder="Write a reply..." id="reply-input-${pid}">
+                                    <button class="btn btn-secondary" style="padding:8px;" onclick="toggleEmoji('reply-${pid}')"><i class="fa-regular fa-face-smile"></i></button>
+                                    <button class="btn btn-primary" style="padding:8px 12px;" onclick="addComment('${pid}')"><i class="fa-solid fa-paper-plane"></i></button>
+                                    
+                                    <div class="emoji-picker" id="emoji-picker-reply-${pid}">
+                                        <span class="emoji-item" onclick="insertEmoji('reply-input-${pid}', '❤️')">❤️</span>
+                                        <span class="emoji-item" onclick="insertEmoji('reply-input-${pid}', '😂')">😂</span>
+                                        <span class="emoji-item" onclick="insertEmoji('reply-input-${pid}', '👍')">👍</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>`;
+                    
+                    // Load Comments for this post
+                    loadComments(pid);
+                });
+            });
+        }
+
+        window.toggleLike = async (pid, isLiked) => {
+            const postRef = doc(db, 'artifacts', appId, 'public', 'data', 'posts', pid);
+            const postSnap = await getDoc(postRef);
+            if(postSnap.exists()) {
+                let likes = postSnap.data().likes || [];
+                if(isLiked) likes = likes.filter(uid => uid !== user.uid);
+                else likes.push(user.uid);
+                await updateDoc(postRef, { likes: likes });
+            }
+        }
+
+        window.toggleComments = (pid) => {
+            const el = document.getElementById(`comments-${pid}`);
+            el.style.display = el.style.display === 'block' ? 'none' : 'block';
+        }
+
+        window.addComment = async (pid) => {
+            const txt = document.getElementById(`reply-input-${pid}`).value;
+            if(!txt) return;
+            const commRef = collection(db, 'artifacts', appId, 'public', 'data', 'posts', pid, 'comments');
+            await addDoc(commRef, { text: txt, author: user.displayName, time: serverTimestamp() });
+            document.getElementById(`reply-input-${pid}`).value = "";
+        }
+
+        function loadComments(pid) {
+            const commRef = collection(db, 'artifacts', appId, 'public', 'data', 'posts', pid, 'comments');
+            const q = query(commRef, orderBy("time", "asc"));
+            onSnapshot(q, (snap) => {
+                const list = document.getElementById(`comment-list-${pid}`);
+                if(list) {
+                    list.innerHTML = "";
+                    snap.forEach(c => {
+                        const cm = c.data();
+                        list.innerHTML += `<div class="comment-item"><strong>${cm.author}:</strong> ${cm.text}</div>`;
+                    });
+                }
+            });
+        }
+
+        // --- EMOJI LOGIC ---
+        window.toggleEmoji = (idSuffix) => {
+            const picker = document.getElementById(`emoji-picker-${idSuffix}`);
+            if(picker) picker.style.display = picker.style.display === 'grid' ? 'none' : 'grid';
+        }
+
+        window.insertEmoji = (inputId, emoji) => {
+            const input = document.getElementById(inputId);
+            input.value += emoji;
+        }
+
+        // UTILS
         window.nav = (id) => {
             document.querySelectorAll('section').forEach(s => s.classList.add('hidden'));
             document.getElementById('view-'+id).classList.remove('hidden');
-            document.querySelectorAll('.nav-item, .mobile-nav-item').forEach(n => n.classList.remove('active'));
-            if(event) event.currentTarget.classList.add('active');
+            document.querySelectorAll('.mobile-nav-item').forEach(n => n.classList.remove('active'));
+            if(event && event.currentTarget.classList.contains('mobile-nav-item')) event.currentTarget.classList.add('active');
+            
+            // Mark chat read if opening chat tab
+            if(id === 'partnerchat') {
+                lastReadTime = Date.now();
+                document.querySelectorAll('.nav-badge').forEach(b => b.style.display = 'none');
+            }
+        }
+
+        window.toggleTheme = () => {
+            theme = theme === 'light' ? 'dark' : 'light';
+            document.body.setAttribute('data-theme', theme);
+            localStorage.setItem('theme', theme);
         }
 
     </script>
