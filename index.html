@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Maternal Nexus | Pro Health Suite</title>
     
     <!-- Professional Typography -->
@@ -23,6 +23,7 @@
             --border: #e2e8f0;
             --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
             --radius: 12px;
+            --nav-height: 0px; /* Adjusted for mobile */
         }
 
         [data-theme="dark"] {
@@ -38,18 +39,59 @@
             --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.5);
         }
 
-        * { margin: 0; padding: 0; box-sizing: border-box; transition: background-color 0.2s, color 0.2s; }
+        * { margin: 0; padding: 0; box-sizing: border-box; transition: background-color 0.2s, color 0.2s; -webkit-tap-highlight-color: transparent; }
         body { font-family: 'Plus Jakarta Sans', sans-serif; background-color: var(--bg-body); color: var(--text-main); height: 100vh; overflow: hidden; }
 
         /* --- Layout --- */
         #app-container { display: flex; height: 100%; }
         
+        /* Desktop Sidebar */
         aside { 
             width: 260px; background: var(--bg-card); border-right: 1px solid var(--border); 
-            display: flex; flex-direction: column; padding: 24px; z-index: 10;
+            display: flex; flex-direction: column; padding: 24px; z-index: 20;
         }
 
-        main { flex: 1; padding: 32px; overflow-y: auto; position: relative; }
+        /* Mobile Bottom Nav */
+        .mobile-nav {
+            display: none;
+            position: fixed; bottom: 0; left: 0; width: 100%;
+            background: var(--bg-card); border-top: 1px solid var(--border);
+            padding: 10px 0; z-index: 1000;
+            justify-content: space-around;
+            padding-bottom: env(safe-area-inset-bottom);
+        }
+
+        .mobile-nav-item {
+            display: flex; flex-direction: column; align-items: center;
+            font-size: 10px; color: var(--text-muted); cursor: pointer;
+        }
+        .mobile-nav-item i { font-size: 20px; margin-bottom: 4px; }
+        .mobile-nav-item.active { color: var(--primary); }
+
+        main { flex: 1; padding: 32px; overflow-y: auto; position: relative; scroll-behavior: smooth; }
+
+        /* --- Responsive Queries --- */
+        @media (max-width: 768px) {
+            aside { display: none; }
+            .mobile-nav { display: flex; }
+            main { padding: 16px; padding-bottom: 80px; } /* Space for bottom nav */
+            
+            .stats-grid { grid-template-columns: 1fr !important; }
+            
+            .card { padding: 16px; margin-bottom: 16px; }
+            
+            /* Responsive Modals */
+            .overlay .card { width: 90% !important; max-height: 80vh; }
+            
+            h1 { font-size: 24px; }
+            h2 { font-size: 20px; }
+            
+            /* Chat adjustments */
+            .chat-container { height: calc(100vh - 220px); }
+            
+            /* Map */
+            .map-container { height: 300px; }
+        }
 
         /* --- Components --- */
         .logo { 
@@ -86,6 +128,8 @@
 
         /* --- Medicine Library Styles --- */
         .med-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 15px; margin-top: 20px; }
+        @media (max-width: 768px) { .med-grid { grid-template-columns: 1fr; } }
+        
         .med-card { border-left: 4px solid transparent; padding: 15px; }
         .med-safe { border-left-color: #22c55e; }
         .med-caution { border-left-color: #f59e0b; }
@@ -99,24 +143,25 @@
         /* --- Chat --- */
         .chat-container { height: 60vh; display: flex; flex-direction: column; }
         .chat-history { flex: 1; overflow-y: auto; padding: 16px; display: flex; flex-direction: column; gap: 12px; }
-        .msg { padding: 12px 16px; border-radius: 12px; max-width: 80%; line-height: 1.5; font-size: 14px; position: relative; }
+        .msg { padding: 12px 16px; border-radius: 12px; max-width: 85%; line-height: 1.5; font-size: 14px; position: relative; word-wrap: break-word; }
         .msg-left { background: var(--bg-body); align-self: flex-start; border-bottom-left-radius: 2px; border: 1px solid var(--border); }
         .msg-right { background: var(--primary); color: white; align-self: flex-end; border-bottom-right-radius: 2px; }
         .msg-meta { font-size: 10px; opacity: 0.7; margin-top: 4px; text-align: right; }
 
         /* --- SOS Button --- */
         .sos-float { 
-            position: fixed; bottom: 32px; right: 32px; width: 70px; height: 70px; 
+            position: fixed; bottom: 80px; right: 20px; width: 64px; height: 64px; 
             background: var(--secondary); color: white; border-radius: 50%; 
             display: flex; align-items: center; justify-content: center; font-size: 24px; 
             box-shadow: 0 10px 15px -3px rgba(244, 63, 94, 0.4); cursor: pointer; 
             animation: pulse 2s infinite; z-index: 50; font-weight: bold; border: 4px solid white;
         }
+        @media (min-width: 769px) { .sos-float { bottom: 32px; right: 32px; } }
         .sos-float:hover { transform: scale(1.1); }
-        @keyframes pulse { 0% { box-shadow: 0 0 0 0 rgba(244, 63, 94, 0.7); } 70% { box-shadow: 0 0 0 20px rgba(244, 63, 94, 0); } 100% { box-shadow: 0 0 0 0 rgba(244, 63, 94, 0); } }
+        @keyframes pulse { 0% { box-shadow: 0 0 0 0 rgba(244, 63, 94, 0.7); } 70% { box-shadow: 0 0 0 15px rgba(244, 63, 94, 0); } 100% { box-shadow: 0 0 0 0 rgba(244, 63, 94, 0); } }
 
         /* --- Overlays --- */
-        .overlay { position: fixed; inset: 0; background: var(--bg-card); z-index: 100; display: flex; align-items: center; justify-content: center; flex-direction: column; }
+        .overlay { position: fixed; inset: 0; background: var(--bg-card); z-index: 2000; display: flex; align-items: center; justify-content: center; flex-direction: column; padding: 20px; }
         .hidden { display: none !important; }
 
         /* --- Sync Status Badge --- */
@@ -124,13 +169,21 @@
         .dot-green { background: #22c55e; box-shadow: 0 0 8px #22c55e; }
         .dot-red { background: #ef4444; }
 
+        /* --- Header Mobile --- */
+        .mobile-header {
+            display: none;
+            justify-content: space-between; align-items: center;
+            padding-bottom: 20px;
+        }
+        @media (max-width: 768px) { .mobile-header { display: flex; } }
+
     </style>
 </head>
 <body>
 
     <!-- AUTH OVERLAY -->
     <div id="auth-screen" class="overlay">
-        <div style="text-align: center; max-width: 400px;">
+        <div style="text-align: center; max-width: 400px; width: 100%;">
             <i class="fa-solid fa-heart-pulse" style="font-size: 60px; color: var(--primary); margin-bottom: 20px;"></i>
             <h1>Maternal Nexus</h1>
             <p style="color: var(--text-muted); margin-bottom: 30px;">Professional Maternal Health Suite</p>
@@ -143,7 +196,7 @@
 
     <!-- ONBOARDING OVERLAY (Detailed) -->
     <div id="setup-screen" class="overlay hidden">
-        <div class="card" style="width: 500px; max-height: 90vh; overflow-y: auto; text-align: center;">
+        <div class="card" style="width: 100%; max-width: 500px; max-height: 90vh; overflow-y: auto; text-align: center;">
             <h2 style="color: var(--primary);">Setup Your Profile</h2>
             <p style="color: var(--text-muted); font-size: 14px; margin-bottom: 20px;">We need these details for emergency support.</p>
             
@@ -189,9 +242,9 @@
     <!-- SOS ALERT OVERLAY -->
     <div id="sos-alert-screen" class="overlay hidden" style="background: #7f1d1d; color: white;">
         <i class="fa-solid fa-triangle-exclamation" style="font-size: 80px; margin-bottom: 20px; animation: pulse 0.5s infinite;"></i>
-        <h1 style="font-size: 40px;">EMERGENCY MODE</h1>
+        <h1 style="font-size: 32px; text-align:center;">EMERGENCY MODE</h1>
         
-        <div style="background: white; padding: 30px; border-radius: 16px; color: black; width: 350px; text-align: center;">
+        <div style="background: white; padding: 30px; border-radius: 16px; color: black; width: 100%; max-width: 350px; text-align: center;">
             <h3 style="color: var(--secondary);">Calling Support...</h3>
             <a id="sos-btn-doc" href="#" class="btn btn-call" style="background: var(--primary);">
                 <i class="fa-solid fa-user-doctor"></i> Call Doctor
@@ -206,6 +259,7 @@
     <!-- APP LAYOUT -->
     <div id="app-ui" class="hidden">
         <div id="app-container">
+            <!-- Desktop Sidebar -->
             <aside>
                 <div class="logo">
                     <i class="fa-solid fa-heart-pulse"></i> Nexus Pro
@@ -235,19 +289,28 @@
                 </div>
             </aside>
 
+            <!-- Mobile Top Header -->
             <main>
+                <div class="mobile-header">
+                    <div class="logo" style="margin-bottom: 0;"><i class="fa-solid fa-heart-pulse"></i> Nexus Pro</div>
+                    <div style="display:flex; gap:10px;">
+                        <button class="btn btn-secondary" style="padding: 8px;" onclick="toggleTheme()"><i class="fa-solid fa-moon"></i></button>
+                        <button class="btn btn-secondary" style="padding: 8px;" onclick="logout()"><i class="fa-solid fa-right-from-bracket"></i></button>
+                    </div>
+                </div>
+
                 <!-- DASHBOARD -->
                 <section id="view-dashboard">
-                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px;">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
                         <div>
                             <h2 id="dash-title">Overview</h2>
-                            <div id="connected-banner" class="hidden" style="background: #ecfdf5; padding: 8px 16px; border-radius: 20px; color: #047857; font-weight: 600; font-size: 13px; display: inline-flex; align-items: center; gap: 5px; margin-top: 5px;">
+                            <div id="connected-banner" class="hidden" style="background: #ecfdf5; padding: 6px 12px; border-radius: 20px; color: #047857; font-weight: 600; font-size: 12px; display: inline-flex; align-items: center; gap: 5px; margin-top: 5px;">
                                 <i class="fa-solid fa-link"></i> <span id="connected-text">Connected</span>
                             </div>
                         </div>
                     </div>
 
-                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 24px; margin-bottom: 32px;">
+                    <div class="stats-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 16px; margin-bottom: 24px;">
                         <div class="card">
                             <div style="display: flex; justify-content: space-between;">
                                 <div>
@@ -292,26 +355,26 @@
                 <section id="view-wellness" class="hidden">
                     <div style="display: flex; justify-content: space-between; align-items: center;">
                         <h2>AI Health Assistant</h2>
-                        <button class="btn btn-secondary" onclick="toggleAISettings()"><i class="fa-solid fa-gear"></i> Settings</button>
+                        <button class="btn btn-secondary" onclick="toggleAISettings()"><i class="fa-solid fa-gear"></i></button>
                     </div>
                     
                     <div id="ai-settings" class="card hidden" style="margin-top: 10px; background: #fffbeb; border-color: #fbbf24;">
-                        <p style="font-size: 13px; margin-bottom: 5px;"><strong>Custom API Key (Optional):</strong> Enter your Gemini API key for advanced mode. Leave empty for robust offline mode.</p>
-                        <div style="display: flex; gap: 10px;">
+                        <p style="font-size: 12px; margin-bottom: 5px;"><strong>Custom API Key (Optional):</strong> Enter your Gemini API key for advanced mode. Leave empty for robust offline mode.</p>
+                        <div style="display: flex; gap: 10px; flex-direction: column;">
                             <input type="password" id="custom-api-key" class="input" placeholder="Paste Gemini Key here..." style="margin-bottom:0;">
                             <button class="btn btn-primary" onclick="saveAPIKey()">Save</button>
                         </div>
                     </div>
 
-                    <div class="card chat-container" style="margin-top: 20px;">
-                        <div id="ai-chat-box" class="chat-history">
+                    <div class="card chat-container" style="margin-top: 20px; padding: 0; overflow: hidden;">
+                        <div id="ai-chat-box" class="chat-history" style="padding: 16px;">
                             <div class="msg msg-left">
-                                Hello! I'm your Nexus Assistant. I can help with diet, symptoms, and mental wellness. I work offline too!
+                                Hello! I'm your Nexus Assistant. I can help with diet, symptoms, and mental wellness. I'm connected online.
                             </div>
                         </div>
-                        <div style="padding: 16px; border-top: 1px solid var(--border); display: flex; gap: 10px;">
-                            <input type="text" id="ai-chat-input" class="input" placeholder="Ask anything (e.g. 'Is ibuprofen safe?')...">
-                            <button class="btn btn-primary" onclick="sendAIChat()">Send</button>
+                        <div style="padding: 16px; border-top: 1px solid var(--border); display: flex; gap: 10px; background: var(--bg-card);">
+                            <input type="text" id="ai-chat-input" class="input" placeholder="Ask anything..." style="margin-bottom:0;">
+                            <button class="btn btn-primary" onclick="sendAIChat()"><i class="fa-solid fa-paper-plane"></i></button>
                         </div>
                     </div>
                 </section>
@@ -319,12 +382,12 @@
                 <!-- MEDICINE LIBRARY -->
                 <section id="view-medicine" class="hidden">
                     <h2>Medicine Safety Library</h2>
-                    <p style="color: var(--text-muted); margin-bottom: 20px;">Search for common medications to check pregnancy safety categories.</p>
+                    <p style="color: var(--text-muted); margin-bottom: 20px;">Search ANY medicine to check safety status (AI Powered).</p>
                     
                     <div class="card">
                         <div style="display: flex; gap: 10px;">
-                            <input type="text" id="med-search" class="input" placeholder="Search medicine (e.g. Tylenol, Aspirin)..." onkeyup="searchMedicine()">
-                            <button class="btn btn-primary"><i class="fa-solid fa-search"></i></button>
+                            <input type="text" id="med-search" class="input" placeholder="Enter medicine name (e.g. Doxycycline)..." style="margin-bottom:0;">
+                            <button class="btn btn-primary" onclick="searchMedicine()">Search</button>
                         </div>
                         <div id="med-results" class="med-grid">
                             <!-- Populated by JS -->
@@ -334,23 +397,23 @@
 
                 <!-- DOCTOR FINDER -->
                 <section id="view-doctors" class="hidden">
-                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; flex-wrap: wrap; gap: 10px;">
                         <h2>Nearby Specialists</h2>
-                        <div id="location-display" style="font-size: 14px; font-weight: bold; color: var(--primary);"></div>
+                        <div id="location-display" style="font-size: 12px; font-weight: bold; color: var(--primary);"></div>
                     </div>
                     
                     <div class="card">
-                        <div style="display: flex; gap: 20px; align-items: center; margin-bottom: 20px;">
+                        <div style="display: flex; gap: 20px; align-items: center; margin-bottom: 20px; flex-wrap: wrap;">
                             <div style="flex: 1;">
                                 <h4 style="margin-bottom: 5px;">Your Personal Doctor</h4>
                                 <div style="font-size: 18px; font-weight: bold;" id="my-doc-name">Not Set</div>
                                 <div style="color: var(--text-muted);" id="my-doc-phone">--</div>
                             </div>
-                            <a id="doc-tab-call" href="#" class="btn btn-primary"><i class="fa-solid fa-phone"></i> Call Now</a>
+                            <a id="doc-tab-call" href="#" class="btn btn-primary" style="width:100%;"><i class="fa-solid fa-phone"></i> Call Now</a>
                         </div>
                         <hr style="border: 0; border-top: 1px solid var(--border); margin: 20px 0;">
                         <h4>Hospitals Near You</h4>
-                        <div style="height: 400px; border-radius: 12px; overflow: hidden; margin-top: 15px; border: 1px solid var(--border);">
+                        <div style="height: 300px; border-radius: 12px; overflow: hidden; margin-top: 15px; border: 1px solid var(--border);">
                             <iframe id="map-frame" width="100%" height="100%" frameborder="0" style="border:0"></iframe>
                         </div>
                     </div>
@@ -359,17 +422,17 @@
                 <!-- PARTNER CHAT -->
                 <section id="view-partnerchat" class="hidden">
                     <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
-                        <h2>Private Partner Chat</h2>
-                        <span style="font-size: 12px; color: var(--secondary); background: #fff1f2; padding: 5px 10px; border-radius: 20px;">
-                            <i class="fa-solid fa-clock"></i> 2hr Auto-Delete
+                        <h2>Partner Chat</h2>
+                        <span style="font-size: 10px; color: var(--secondary); background: #fff1f2; padding: 5px 10px; border-radius: 20px;">
+                            <i class="fa-solid fa-clock"></i> 2hr Clean
                         </span>
                     </div>
                     
-                    <div class="card chat-container" id="partner-chat-ui">
-                        <div id="partner-chat-box" class="chat-history"></div>
-                        <div style="padding: 16px; border-top: 1px solid var(--border); display: flex; gap: 10px;">
-                            <input type="text" id="partner-msg-input" class="input" placeholder="Type a private message...">
-                            <button class="btn btn-primary" onclick="sendPartnerMessage()">Send</button>
+                    <div class="card chat-container" id="partner-chat-ui" style="padding: 0; overflow: hidden;">
+                        <div id="partner-chat-box" class="chat-history" style="padding: 16px;"></div>
+                        <div style="padding: 16px; border-top: 1px solid var(--border); display: flex; gap: 10px; background: var(--bg-card);">
+                            <input type="text" id="partner-msg-input" class="input" placeholder="Message..." style="margin-bottom:0;">
+                            <button class="btn btn-primary" onclick="sendPartnerMessage()"><i class="fa-solid fa-paper-plane"></i></button>
                         </div>
                     </div>
                     
@@ -380,7 +443,6 @@
                         <button class="btn btn-primary" style="margin-top: 20px;" onclick="nav('sync')">Go to Sync</button>
                     </div>
                     
-                    <!-- Chat Cleanup Button -->
                     <button class="btn btn-danger" style="width: 100%; margin-top: 20px;" onclick="clearChatSession()">
                         <i class="fa-solid fa-trash"></i> End Session & Clear Chat History
                     </button>
@@ -418,6 +480,25 @@
                 </section>
 
             </main>
+
+            <!-- Mobile Bottom Nav -->
+            <div class="mobile-nav">
+                <div class="mobile-nav-item active" onclick="nav('dashboard')">
+                    <i class="fa-solid fa-grid-2"></i> Home
+                </div>
+                <div class="mobile-nav-item" onclick="nav('wellness')">
+                    <i class="fa-solid fa-brain"></i> AI
+                </div>
+                <div class="mobile-nav-item" onclick="nav('medicine')">
+                    <i class="fa-solid fa-pills"></i> Meds
+                </div>
+                <div class="mobile-nav-item" onclick="nav('partnerchat')">
+                    <i class="fa-solid fa-comments"></i> Chat
+                </div>
+                <div class="mobile-nav-item" onclick="nav('sync')">
+                    <i class="fa-solid fa-link"></i> Sync
+                </div>
+            </div>
         </div>
         
         <!-- SOS BUTTON -->
@@ -432,41 +513,6 @@
         import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-app.js";
         import { getAuth, signInWithPopup, GoogleAuthProvider, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-auth.js";
         import { getFirestore, doc, getDoc, setDoc, updateDoc, collection, query, where, getDocs, addDoc, orderBy, onSnapshot, serverTimestamp, limit, deleteDoc } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js";
-
-        // --- DATABASES ---
-        const MEDICINE_DB = [
-            { name: "Acetaminophen (Tylenol)", cat: "safe", desc: "First-line choice for pain/fever." },
-            { name: "Ibuprofen (Advil)", cat: "avoid", desc: "NSAID. Avoid, especially in 3rd trimester." },
-            { name: "Aspirin", cat: "caution", desc: "Avoid unless prescribed (e.g. for preeclampsia)." },
-            { name: "Loratadine (Claritin)", cat: "safe", desc: "Generally considered safe for allergies." },
-            { name: "Amoxicillin", cat: "safe", desc: "Antibiotic. Generally safe if not allergic." },
-            { name: "Naproxen (Aleve)", cat: "avoid", desc: "NSAID. Avoid during pregnancy." },
-            { name: "Tums (Calcium)", cat: "safe", desc: "Safe for heartburn/indigestion." },
-            { name: "Sudafed", cat: "caution", desc: "Avoid in 1st trimester. Consult doctor." },
-            { name: "Benadryl", cat: "safe", desc: "Generally safe for allergies/sleep." },
-            { name: "Pepto-Bismol", cat: "avoid", desc: "Contains salicylate. Avoid." }
-        ];
-
-        const LOCAL_KNOWLEDGE = {
-            "headache": "Stay hydrated, rest in a dark room, and try a cold pack. Acetaminophen is usually safe, but check with your doctor.",
-            "nausea": "Try ginger tea, crackers before getting out of bed, and small frequent meals. Avoid strong smells.",
-            "vomit": "Stay hydrated with small sips of water or electrolyte drinks. If you can't keep liquids down for 24h, call your doctor.",
-            "sleep": "Use a pregnancy pillow and try sleeping on your left side to improve blood flow to the baby.",
-            "cramps": "Mild cramping can be normal as the uterus expands. Hydrate and rest. If severe or rhythmic, call your doctor.",
-            "bleeding": "Please contact your doctor immediately or go to the emergency room for any vaginal bleeding.",
-            "diet": "Focus on iron, calcium, and folic acid. Eat leafy greens, lean protein, dairy, and whole grains. Avoid raw fish and unpasteurized cheese.",
-            "foods to avoid": "Avoid raw sushi, unpasteurized dairy, deli meats (unless heated), high-mercury fish, and alcohol.",
-            "exercise": "Walking, swimming, and prenatal yoga are generally great. Avoid high-impact or fall-risk activities.",
-            "baby movement": "You might feel flutters (quickening) around 16-25 weeks. Contact your doctor if you notice decreased movement later on.",
-            "swelling": "Elevate your feet, drink water, and avoid high sodium. Sudden severe swelling in face/hands can be a sign of preeclampsia.",
-            "anxiety": "It's normal to feel anxious. Talk to your partner, breathe deeply, and consider speaking to a counselor.",
-            "labor": "Signs include regular contractions, water breaking, or losing your mucus plug. Call your provider if contractions are 5 mins apart.",
-            "pain": "For back pain, try warm compresses or a support belt. Avoid NSAIDs like Ibuprofen.",
-            "fever": "A fever over 100.4°F should be reported to your doctor. Acetaminophen can help lower it.",
-            "constipation": "Increase fiber (fruits/veggies) and water intake. Prune juice can help.",
-            "heartburn": "Eat smaller meals, avoid spicy/greasy food, and don't lie down immediately after eating.",
-            "default": "I'm having trouble connecting to the cloud brain right now, but I'm here to help. Try keywords like 'diet', 'pain', 'sleep', or 'baby'."
-        };
 
         // CONFIG
         const firebaseConfig = {
@@ -492,6 +538,7 @@
         let unsubPartner = null;
         let unsubChats = null;
         let unsubCommunity = null;
+        let chatContext = []; // stores chat history for AI context
         let theme = localStorage.getItem('theme') || 'light';
         document.body.setAttribute('data-theme', theme);
 
@@ -503,12 +550,11 @@
         }
 
         window.logout = async () => {
-            // Detach listeners
             if(unsubPartner) unsubPartner();
             if(unsubChats) unsubChats();
             if(unsubCommunity) unsubCommunity();
             await signOut(auth);
-            location.reload(); // Hard refresh to clear state
+            location.reload(); 
         }
 
         onAuthStateChanged(auth, async (u) => {
@@ -516,7 +562,6 @@
                 user = u;
                 document.getElementById('auth-screen').classList.add('hidden');
                 
-                // Use Public Profile Path
                 const ref = doc(db, 'artifacts', appId, 'public', 'data', 'users', user.uid);
                 const snap = await getDoc(ref);
                 
@@ -555,9 +600,7 @@
                 code: profile.role === 'mother' ? Math.floor(1000 + Math.random() * 9000).toString() : null
             };
             
-            // Save to Public Collection
             await setDoc(doc(db, 'artifacts', appId, 'public', 'data', 'users', user.uid), data);
-            
             profile = data;
             document.getElementById('setup-screen').classList.add('hidden');
             startApp();
@@ -569,7 +612,6 @@
             document.getElementById('user-name').innerText = user.displayName;
             document.getElementById('user-initial').innerText = user.displayName.charAt(0);
             
-            // Sync Logic UI
             if(profile.role === 'mother') {
                 document.getElementById('sync-mom').classList.remove('hidden');
                 document.getElementById('my-code').innerText = profile.code;
@@ -579,7 +621,6 @@
                 document.getElementById('week-disp').innerText = "Partner View";
             }
 
-            // Doctor Details
             if(profile.docName) {
                 document.getElementById('dash-doc-name').innerText = profile.docName;
                 document.getElementById('my-doc-name').innerText = profile.docName;
@@ -592,14 +633,11 @@
                 }
             }
 
-            // Location Logic
             if(profile.pin && profile.country) {
                 const query = `hospitals+near+${profile.pin}+${profile.country}`;
                 document.getElementById('map-frame').src = `https://maps.google.com/maps?q=${query}&output=embed`;
                 document.getElementById('location-display').innerText = `Location: ${profile.country} (${profile.pin})`;
             }
-
-            renderMedicine(MEDICINE_DB);
 
             if(profile.linkedUid) {
                 setupLink(profile.linkedUid);
@@ -625,7 +663,6 @@
             
             if(!snap.empty) {
                 const mom = snap.docs[0].data();
-                // 2-Way Link
                 await updateDoc(doc(db, 'artifacts', appId, 'public', 'data', 'users', user.uid), { linkedUid: mom.uid });
                 await updateDoc(doc(db, 'artifacts', appId, 'public', 'data', 'users', mom.uid), { linkedUid: user.uid });
                 location.reload();
@@ -641,7 +678,6 @@
             document.getElementById('partner-chat-ui').classList.remove('hidden');
             document.getElementById('chat-disabled-msg').classList.add('hidden');
 
-            // LISTEN TO PARTNER PROFILE
             unsubPartner = onSnapshot(doc(db, 'artifacts', appId, 'public', 'data', 'users', targetId), (doc) => {
                 const data = doc.data();
                 linkedProfile = data;
@@ -651,7 +687,6 @@
                 document.querySelector('.status-dot').classList.replace('dot-red', 'dot-green');
                 document.getElementById('sync-status').innerHTML = '<span class="status-dot dot-green"></span> ' + data.name;
 
-                // SOS Check
                 if(data.sosActive) {
                     const now = new Date();
                     const alertTime = data.sosTime ? data.sosTime.toDate() : new Date(0);
@@ -678,7 +713,6 @@
                 snapshot.forEach(docSnap => {
                     const msg = docSnap.data();
                     if((msg.from === user.uid && msg.to === targetId) || (msg.from === targetId && msg.to === user.uid)) {
-                        // 2 Hour Filter
                         if (msg.timestamp && msg.timestamp.toDate() > twoHoursAgo) {
                             const isMe = msg.from === user.uid;
                             const html = `
@@ -707,86 +741,123 @@
             document.getElementById('partner-msg-input').value = "";
         }
 
-        // --- SECURE DELETE CHAT ---
         window.clearChatSession = async () => {
-            if(!confirm("Are you sure you want to delete all messages for both partners?")) return;
-            
-            // Query for chats involving me
+            if(!confirm("Delete recent messages?")) return;
             const q = query(collection(db, 'artifacts', appId, 'public', 'data', 'chats'));
             const snap = await getDocs(q);
-            
             snap.forEach(async (d) => {
                 const msg = d.data();
                 if(msg.from === user.uid || msg.to === user.uid) {
                     await deleteDoc(doc(db, 'artifacts', appId, 'public', 'data', 'chats', d.id));
                 }
             });
-            alert("Chat history cleared.");
+            alert("Chat cleared.");
         }
 
-        // --- MEDICINE ---
-        window.searchMedicine = () => {
-            const query = document.getElementById('med-search').value.toLowerCase();
-            const filtered = MEDICINE_DB.filter(m => m.name.toLowerCase().includes(query));
-            renderMedicine(filtered);
-        }
-
-        function renderMedicine(list) {
-            const container = document.getElementById('med-results');
-            container.innerHTML = "";
-            list.forEach(m => {
-                const badgeClass = m.cat === 'safe' ? 'badge-safe' : (m.cat === 'avoid' ? 'badge-avoid' : 'badge-caution');
-                const html = `
-                    <div class="card med-card med-${m.cat}">
-                        <div style="display:flex; justify-content:space-between; margin-bottom:5px;">
-                            <strong style="font-size:15px;">${m.name}</strong>
-                            <span class="badge ${badgeClass}">${m.cat}</span>
-                        </div>
-                        <p style="font-size:13px; color:var(--text-muted);">${m.desc}</p>
-                    </div>
-                `;
-                container.innerHTML += html;
-            });
-        }
-
-        // --- AI ENGINE ---
+        // --- AI ENGINE (UPDATED: ONLINE & CONTEXT AWARE) ---
         window.toggleAISettings = () => document.getElementById('ai-settings').classList.toggle('hidden');
         window.saveAPIKey = () => {
             const key = document.getElementById('custom-api-key').value;
             if(key) { localStorage.setItem('user_gemini_key', key); alert("API Key Saved!"); document.getElementById('ai-settings').classList.add('hidden'); }
         }
 
+        async function getGeminiResponse(userText) {
+            const API_KEY = localStorage.getItem('user_gemini_key') || "AIzaSyA0AeolXvmmMeFNaehTjC1gCYkJNGStGCQ";
+            const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${API_KEY}`;
+            
+            // Build Context
+            const contents = chatContext.map(msg => ({
+                role: msg.role,
+                parts: [{ text: msg.text }]
+            }));
+            
+            // Add current message
+            contents.push({ role: "user", parts: [{ text: userText }] });
+
+            try {
+                const resp = await fetch(url, {
+                    method: 'POST',
+                    headers: {'Content-Type': 'application/json'},
+                    body: JSON.stringify({ contents: contents })
+                });
+                const data = await resp.json();
+                
+                if(data.candidates && data.candidates.length > 0) {
+                    return data.candidates[0].content.parts[0].text;
+                } else {
+                    throw new Error("No response from AI");
+                }
+            } catch (e) {
+                console.error("AI Error:", e);
+                throw e; // Propagate error to trigger UI feedback
+            }
+        }
+
         window.sendAIChat = async () => {
             const input = document.getElementById('ai-chat-input');
-            const txt = input.value.trim().toLowerCase();
+            const txt = input.value.trim();
             if(!txt) return;
 
             const box = document.getElementById('ai-chat-box');
-            box.innerHTML += `<div class="msg msg-user">${input.value}</div>`;
+            box.innerHTML += `<div class="msg msg-user">${txt}</div>`;
             input.value = "";
             box.scrollTop = box.scrollHeight;
 
-            let reply = LOCAL_KNOWLEDGE.default;
-            for(let key in LOCAL_KNOWLEDGE) { if(txt.includes(key)) reply = LOCAL_KNOWLEDGE[key]; }
+            const loadingId = "load-"+Date.now();
+            box.innerHTML += `<div id="${loadingId}" class="msg msg-left">...</div>`;
 
-            const API_KEY = localStorage.getItem('user_gemini_key') || "AIzaSyA0AeolXvmmMeFNaehTjC1gCYkJNGStGCQ";
-            if (API_KEY) {
-                try {
-                    const loadingId = "load-"+Date.now();
-                    box.innerHTML += `<div id="${loadingId}" class="msg msg-left">...</div>`;
-                    const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${API_KEY}`;
-                    const resp = await fetch(url, {
-                        method: 'POST',
-                        headers: {'Content-Type': 'application/json'},
-                        body: JSON.stringify({ contents: [{ parts: [{ text: "Maternal Health Bot. Short helpful reply to: " + txt }] }] })
-                    });
-                    const data = await resp.json();
-                    if(data.candidates) reply = data.candidates[0].content.parts[0].text;
-                    document.getElementById(loadingId).remove();
-                } catch(e) { console.log("Using Local AI"); }
+            try {
+                const reply = await getGeminiResponse(txt);
+                document.getElementById(loadingId).remove();
+                
+                box.innerHTML += `<div class="msg msg-left">${reply}</div>`;
+                
+                // Update Context
+                chatContext.push({ role: "user", text: txt });
+                chatContext.push({ role: "model", text: reply });
+                
+                // Keep context size manageable (last 10 turns)
+                if (chatContext.length > 20) chatContext = chatContext.slice(-20);
+
+            } catch (e) {
+                document.getElementById(loadingId).remove();
+                box.innerHTML += `<div class="msg msg-left" style="color:red;">Unable to reach AI cloud. Please check internet connection.</div>`;
             }
-            box.innerHTML += `<div class="msg msg-left">${reply}</div>`;
             box.scrollTop = box.scrollHeight;
+        }
+
+        // --- MEDICINE AI (UPDATED) ---
+        window.searchMedicine = async () => {
+            const query = document.getElementById('med-search').value.trim();
+            if(!query) return;
+            
+            const container = document.getElementById('med-results');
+            container.innerHTML = `<div style="text-align:center; padding:20px;">Analyzing '${query}' with AI...</div>`;
+
+            const prompt = `Identify the medication "${query}" and its safety for pregnant women. Classify strictly as "Safe", "Caution", or "Avoid". Provide a 1 sentence description. Output strictly JSON: {"name": "${query}", "cat": "Safe/Caution/Avoid", "desc": "..."}`;
+            
+            try {
+                const reply = await getGeminiResponse(prompt);
+                // Clean markdown if present
+                const cleanJson = reply.replace(/```json/g, '').replace(/```/g, '').trim();
+                const data = JSON.parse(cleanJson);
+                
+                const badgeClass = data.cat === 'Safe' ? 'badge-safe' : (data.cat === 'Avoid' ? 'badge-avoid' : 'badge-caution');
+                
+                container.innerHTML = `
+                    <div class="card med-card med-${data.cat.toLowerCase()}">
+                        <div style="display:flex; justify-content:space-between; margin-bottom:5px;">
+                            <strong style="font-size:15px;">${data.name}</strong>
+                            <span class="badge ${badgeClass}">${data.cat}</span>
+                        </div>
+                        <p style="font-size:13px; color:var(--text-muted);">${data.desc}</p>
+                        <p style="font-size:10px; color:gray; margin-top:5px;">AI Generated Analysis</p>
+                    </div>
+                `;
+            } catch (e) {
+                container.innerHTML = `<div style="color:red; text-align:center;">AI Analysis Failed. Please try again.</div>`;
+                console.error(e);
+            }
         }
 
         // --- COMMUNITY & SOS ---
@@ -835,7 +906,13 @@
             document.querySelectorAll('section').forEach(s => s.classList.add('hidden'));
             document.getElementById('view-'+id).classList.remove('hidden');
             document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
-            event.currentTarget.classList.add('active');
+            document.querySelectorAll('.mobile-nav-item').forEach(n => n.classList.remove('active'));
+            
+            const desktopNav = document.querySelector(`.nav-item[onclick="nav('${id}')"]`);
+            if(desktopNav) desktopNav.classList.add('active');
+
+            const mobileNav = document.querySelector(`.mobile-nav-item[onclick="nav('${id}')"]`);
+            if(mobileNav) mobileNav.classList.add('active');
         }
 
         window.toggleTheme = () => {
