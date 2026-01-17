@@ -22,7 +22,7 @@
             --text-muted: #64748b;
             --border: #e2e8f0;
             --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-            --radius: 16px;
+            --radius: 12px;
             --landing-bg: linear-gradient(135deg, #fff1f2 0%, #f0fdfa 100%);
         }
 
@@ -64,7 +64,7 @@
             display: none;
             position: fixed; bottom: 0; left: 0; width: 100%;
             background: var(--bg-card); border-top: 1px solid var(--border);
-            padding: 8px 0; z-index: 1000;
+            padding: 10px 0; z-index: 1000;
             justify-content: space-around;
             padding-bottom: env(safe-area-inset-bottom);
             box-shadow: 0 -4px 10px rgba(0,0,0,0.05);
@@ -180,6 +180,15 @@
             display: none;
         }
         .has-messages .nav-badge { display: block; }
+
+        /* --- Community Styles --- */
+        .post-card { border-left: 4px solid var(--primary); }
+        .post-actions { display: flex; gap: 15px; margin-top: 10px; font-size: 14px; color: var(--text-muted); }
+        .post-action { cursor: pointer; display: flex; align-items: center; gap: 5px; }
+        .post-action:hover { color: var(--primary); }
+        .post-liked { color: var(--secondary); }
+        .comments-section { margin-top: 15px; border-top: 1px solid var(--border); padding-top: 10px; display: none; }
+        .comment-item { font-size: 13px; background: var(--bg-body); padding: 8px; border-radius: 8px; margin-bottom: 5px; }
 
     </style>
 </head>
@@ -367,11 +376,11 @@
                 <section id="view-community" class="hidden">
                     <h2>Community</h2>
                     <div class="card">
-                        <div style="display: flex; gap: 10px;">
+                        <div style="display: flex; gap: 10px; margin-bottom: 20px;">
                             <input type="text" id="post-input" class="input" placeholder="Share an update..." style="margin-bottom:0;">
                             <button class="btn btn-primary" onclick="addPost()">Post</button>
                         </div>
-                        <div id="community-feed" style="margin-top: 20px;"></div>
+                        <div id="community-feed"></div>
                     </div>
                 </section>
 
@@ -852,24 +861,88 @@
             document.getElementById('alarm-sound').pause();
         }
 
-        // COMMUNITY
+        // COMMUNITY (Interactive)
         window.addPost = async () => {
             const t = document.getElementById('post-input').value;
             if(t) {
-                await addDoc(collection(db, 'artifacts', appId, 'public', 'data', 'posts'), { text: t, author: user.displayName, time: serverTimestamp() });
+                await addDoc(collection(db, 'artifacts', appId, 'public', 'data', 'posts'), { text: t, author: user.displayName, time: serverTimestamp(), likes: [] });
                 document.getElementById('post-input').value = "";
             }
         }
 
         function setupCommunity() {
-            const q = query(collection(db, 'artifacts', appId, 'public', 'data', 'posts'), orderBy("time", "desc"), limit(5));
+            const q = query(collection(db, 'artifacts', appId, 'public', 'data', 'posts'), orderBy("time", "desc"), limit(10));
             onSnapshot(q, (snap) => {
                 const d = document.getElementById('community-feed');
                 d.innerHTML = "";
                 snap.forEach(doc => {
                     const p = doc.data();
-                    d.innerHTML += `<div class="card" style="padding:10px; margin-bottom:10px;"><b>${p.author}</b>: ${p.text}</div>`;
+                    const pid = doc.id;
+                    const liked = p.likes && p.likes.includes(user.uid);
+                    
+                    d.innerHTML += `
+                        <div class="card post-card" id="post-${pid}">
+                            <div style="font-weight:bold; margin-bottom:5px;">${p.author}</div>
+                            <div>${p.text}</div>
+                            <div class="post-actions">
+                                <span class="post-action ${liked ? 'post-liked' : ''}" onclick="toggleLike('${pid}', ${liked})">
+                                    <i class="fa-${liked ? 'solid' : 'regular'} fa-heart"></i> ${p.likes ? p.likes.length : 0}
+                                </span>
+                                <span class="post-action" onclick="toggleComments('${pid}')">
+                                    <i class="fa-regular fa-comment"></i> Reply
+                                </span>
+                            </div>
+                            <div class="comments-section" id="comments-${pid}">
+                                <div id="comment-list-${pid}"></div>
+                                <div style="display:flex; gap:5px; margin-top:10px;">
+                                    <input type="text" class="input" style="margin:0; padding:8px;" placeholder="Write a reply..." id="reply-input-${pid}">
+                                    <button class="btn btn-primary" style="padding:8px 12px;" onclick="addComment('${pid}')"><i class="fa-solid fa-paper-plane"></i></button>
+                                </div>
+                            </div>
+                        </div>`;
+                    
+                    // Load Comments for this post
+                    loadComments(pid);
                 });
+            });
+        }
+
+        window.toggleLike = async (pid, isLiked) => {
+            const postRef = doc(db, 'artifacts', appId, 'public', 'data', 'posts', pid);
+            const postSnap = await getDoc(postRef);
+            if(postSnap.exists()) {
+                let likes = postSnap.data().likes || [];
+                if(isLiked) likes = likes.filter(uid => uid !== user.uid);
+                else likes.push(user.uid);
+                await updateDoc(postRef, { likes: likes });
+            }
+        }
+
+        window.toggleComments = (pid) => {
+            const el = document.getElementById(`comments-${pid}`);
+            el.style.display = el.style.display === 'block' ? 'none' : 'block';
+        }
+
+        window.addComment = async (pid) => {
+            const txt = document.getElementById(`reply-input-${pid}`).value;
+            if(!txt) return;
+            const commRef = collection(db, 'artifacts', appId, 'public', 'data', 'posts', pid, 'comments');
+            await addDoc(commRef, { text: txt, author: user.displayName, time: serverTimestamp() });
+            document.getElementById(`reply-input-${pid}`).value = "";
+        }
+
+        function loadComments(pid) {
+            const commRef = collection(db, 'artifacts', appId, 'public', 'data', 'posts', pid, 'comments');
+            const q = query(commRef, orderBy("time", "asc"));
+            onSnapshot(q, (snap) => {
+                const list = document.getElementById(`comment-list-${pid}`);
+                if(list) {
+                    list.innerHTML = "";
+                    snap.forEach(c => {
+                        const cm = c.data();
+                        list.innerHTML += `<div class="comment-item"><strong>${cm.author}:</strong> ${cm.text}</div>`;
+                    });
+                }
             });
         }
 
