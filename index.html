@@ -769,12 +769,12 @@
             let reply = LOCAL_KNOWLEDGE.default;
             for(let key in LOCAL_KNOWLEDGE) { if(txt.includes(key)) reply = LOCAL_KNOWLEDGE[key]; }
 
-            const CUSTOM_KEY = localStorage.getItem('user_gemini_key');
-            if (CUSTOM_KEY) {
+            const API_KEY = localStorage.getItem('user_gemini_key') || "AIzaSyA0AeolXvmmMeFNaehTjC1gCYkJNGStGCQ";
+            if (API_KEY) {
                 try {
                     const loadingId = "load-"+Date.now();
                     box.innerHTML += `<div id="${loadingId}" class="msg msg-left">...</div>`;
-                    const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${CUSTOM_KEY}`;
+                    const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${API_KEY}`;
                     const resp = await fetch(url, {
                         method: 'POST',
                         headers: {'Content-Type': 'application/json'},
