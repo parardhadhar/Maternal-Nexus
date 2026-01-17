@@ -64,17 +64,26 @@
             display: none;
             position: fixed; bottom: 0; left: 0; width: 100%;
             background: var(--bg-card); border-top: 1px solid var(--border);
-            padding: 10px 0; z-index: 1000;
-            justify-content: space-around;
+            padding: 8px 0; z-index: 1000;
+            /* Scrollable for many items */
+            overflow-x: auto;
+            justify-content: flex-start;
             padding-bottom: env(safe-area-inset-bottom);
             box-shadow: 0 -4px 10px rgba(0,0,0,0.05);
+            
+            /* Hide Scrollbar */
+            -ms-overflow-style: none;  
+            scrollbar-width: none;  
         }
+        .mobile-nav::-webkit-scrollbar { display: none; }
 
         .mobile-nav-item {
             display: flex; flex-direction: column; align-items: center;
             font-size: 10px; color: var(--text-muted); cursor: pointer;
-            font-weight: 500; position: relative;
-            padding: 5px;
+            font-weight: 600; position: relative;
+            padding: 6px 12px;
+            min-width: 65px; /* Ensure click target */
+            flex-shrink: 0;
         }
         .mobile-nav-item i { font-size: 20px; margin-bottom: 4px; }
         .mobile-nav-item.active { color: var(--primary); }
@@ -189,6 +198,17 @@
         .post-liked { color: var(--secondary); }
         .comments-section { margin-top: 15px; border-top: 1px solid var(--border); padding-top: 10px; display: none; }
         .comment-item { font-size: 13px; background: var(--bg-body); padding: 8px; border-radius: 8px; margin-bottom: 5px; }
+
+        /* --- Emoji Picker --- */
+        .emoji-picker {
+            display: none; position: absolute; bottom: 60px; right: 20px;
+            background: var(--bg-card); border: 1px solid var(--border);
+            border-radius: 12px; padding: 10px; box-shadow: var(--shadow);
+            grid-template-columns: repeat(5, 1fr); gap: 5px;
+            z-index: 100;
+        }
+        .emoji-item { font-size: 20px; cursor: pointer; padding: 5px; border-radius: 4px; }
+        .emoji-item:hover { background: var(--bg-body); }
 
     </style>
 </head>
@@ -376,9 +396,19 @@
                 <section id="view-community" class="hidden">
                     <h2>Community</h2>
                     <div class="card">
-                        <div style="display: flex; gap: 10px; margin-bottom: 20px;">
+                        <div style="display: flex; gap: 10px; margin-bottom: 20px; position:relative;">
                             <input type="text" id="post-input" class="input" placeholder="Share an update..." style="margin-bottom:0;">
+                            <button class="btn btn-secondary" onclick="toggleEmoji('post-input')"><i class="fa-regular fa-face-smile"></i></button>
                             <button class="btn btn-primary" onclick="addPost()">Post</button>
+                            
+                            <!-- Emoji Picker -->
+                            <div class="emoji-picker" id="emoji-picker-post">
+                                <span class="emoji-item" onclick="insertEmoji('post-input', '❤️')">❤️</span>
+                                <span class="emoji-item" onclick="insertEmoji('post-input', '😂')">😂</span>
+                                <span class="emoji-item" onclick="insertEmoji('post-input', '👍')">👍</span>
+                                <span class="emoji-item" onclick="insertEmoji('post-input', '👶')">👶</span>
+                                <span class="emoji-item" onclick="insertEmoji('post-input', '🤰')">🤰</span>
+                            </div>
                         </div>
                         <div id="community-feed"></div>
                     </div>
@@ -437,9 +467,19 @@
                     </div>
                     <div class="card chat-container" id="partner-chat-ui" style="padding: 0; overflow: hidden;">
                         <div id="partner-chat-box" class="chat-history" style="padding: 16px;"></div>
-                        <div style="padding: 16px; border-top: 1px solid var(--border); display: flex; gap: 10px; background: var(--bg-card);">
+                        <div style="padding: 16px; border-top: 1px solid var(--border); display: flex; gap: 10px; background: var(--bg-card); position:relative;">
                             <input type="text" id="partner-msg-input" class="input" placeholder="Secure Message..." style="margin-bottom:0;">
+                            <button class="btn btn-secondary" onclick="toggleEmoji('partner-msg')"><i class="fa-regular fa-face-smile"></i></button>
                             <button class="btn btn-primary" onclick="sendPartnerMessage()"><i class="fa-solid fa-paper-plane"></i></button>
+                            
+                            <!-- Emoji Picker -->
+                            <div class="emoji-picker" id="emoji-picker-partner-msg">
+                                <span class="emoji-item" onclick="insertEmoji('partner-msg-input', '❤️')">❤️</span>
+                                <span class="emoji-item" onclick="insertEmoji('partner-msg-input', '😂')">😂</span>
+                                <span class="emoji-item" onclick="insertEmoji('partner-msg-input', '👍')">👍</span>
+                                <span class="emoji-item" onclick="insertEmoji('partner-msg-input', '😘')">😘</span>
+                                <span class="emoji-item" onclick="insertEmoji('partner-msg-input', '👶')">👶</span>
+                            </div>
                         </div>
                     </div>
                     <div id="chat-disabled-msg" class="card hidden" style="text-align: center; padding: 50px;">
@@ -449,7 +489,7 @@
                         <button class="btn btn-primary" style="margin-top: 20px;" onclick="nav('sync')">Go to Sync</button>
                     </div>
                     <button class="btn btn-danger" style="width: 100%; margin-top: 20px;" onclick="clearChatSession()">
-                        <i class="fa-solid fa-trash"></i> End Session
+                        <i class="fa-solid fa-trash"></i> End Session & Clear History
                     </button>
                 </section>
 
@@ -495,12 +535,29 @@
 
             <!-- Mobile Bottom Nav -->
             <div class="mobile-nav">
-                <div class="mobile-nav-item active" onclick="nav('dashboard')"><i class="fa-solid fa-grid-2"></i> Home</div>
-                <div class="mobile-nav-item" onclick="nav('wellness')"><i class="fa-solid fa-brain"></i> AI</div>
-                <div class="mobile-nav-item" onclick="nav('medicine')"><i class="fa-solid fa-pills"></i> Meds</div>
-                <div class="mobile-nav-item" onclick="nav('community')"><i class="fa-solid fa-users"></i> Comm</div>
+                <div class="mobile-nav-item active" onclick="nav('dashboard')">
+                    <i class="fa-solid fa-grid-2"></i> Home
+                </div>
+                <div class="mobile-nav-item" onclick="nav('wellness')">
+                    <i class="fa-solid fa-brain"></i> AI
+                </div>
+                <div class="mobile-nav-item" onclick="nav('medicine')">
+                    <i class="fa-solid fa-pills"></i> Meds
+                </div>
+                <div class="mobile-nav-item" onclick="nav('doctors')">
+                    <i class="fa-solid fa-hospital-user"></i> Docs
+                </div>
+                <div class="mobile-nav-item" onclick="nav('community')">
+                    <i class="fa-solid fa-users"></i> Comm
+                </div>
                 <div class="mobile-nav-item" onclick="nav('partnerchat')" id="nav-chat-mob">
                     <i class="fa-solid fa-comments"></i> Chat <div class="nav-badge">0</div>
+                </div>
+                <div class="mobile-nav-item" onclick="nav('premium')">
+                    <i class="fa-solid fa-crown"></i> Pro
+                </div>
+                 <div class="mobile-nav-item" onclick="nav('sync')">
+                    <i class="fa-solid fa-link"></i> Sync
                 </div>
             </div>
         </div>
@@ -558,6 +615,7 @@
         let user, profile;
         let theme = localStorage.getItem('theme') || 'light';
         document.body.setAttribute('data-theme', theme);
+        let lastReadTime = Date.now();
 
         window.showAuth = () => {
             document.getElementById('landing-screen').classList.add('hidden');
@@ -749,20 +807,25 @@
             onSnapshot(q, (snap) => {
                 const box = document.getElementById('partner-chat-box');
                 box.innerHTML = "";
-                let count = 0;
+                let unreadCount = 0;
                 
                 snap.forEach(d => {
                     const m = d.data();
                     box.innerHTML += `<div class="msg ${m.from === user.uid ? 'msg-right' : 'msg-left'}">${m.text}</div>`;
-                    count++;
+                    
+                    // Unread Logic
+                    if(m.from !== user.uid && m.timestamp) {
+                        const msgTime = m.timestamp.toDate().getTime();
+                        if(msgTime > lastReadTime) unreadCount++;
+                    }
                 });
                 box.scrollTop = box.scrollHeight;
                 
                 // Update Badges
                 const badges = document.querySelectorAll('.nav-badge');
                 badges.forEach(b => {
-                    b.innerText = count;
-                    b.style.display = count > 0 ? 'block' : 'none';
+                    b.innerText = unreadCount;
+                    b.style.display = unreadCount > 0 ? 'block' : 'none';
                 });
             });
         }
@@ -778,6 +841,20 @@
                 text: txt, from: user.uid, timestamp: serverTimestamp()
             });
             document.getElementById('partner-msg-input').value = "";
+        }
+
+        // --- CLEAR CHAT FIX ---
+        window.clearChatSession = async () => {
+            if(!confirm("Are you sure? This deletes messages for both partners.")) return;
+            
+            const conversationId = [user.uid, profile.linkedUid].sort().join('_');
+            const chatRef = collection(db, 'artifacts', appId, 'public', 'data', 'conversations', conversationId, 'messages');
+            const snap = await getDocs(chatRef);
+            
+            snap.forEach(async (d) => {
+                await deleteDoc(doc(db, 'artifacts', appId, 'public', 'data', 'conversations', conversationId, 'messages', d.id));
+            });
+            alert("Chat cleared.");
         }
 
         // AI & MEDICINE
@@ -894,9 +971,16 @@
                             </div>
                             <div class="comments-section" id="comments-${pid}">
                                 <div id="comment-list-${pid}"></div>
-                                <div style="display:flex; gap:5px; margin-top:10px;">
+                                <div style="display:flex; gap:5px; margin-top:10px; position:relative;">
                                     <input type="text" class="input" style="margin:0; padding:8px;" placeholder="Write a reply..." id="reply-input-${pid}">
+                                    <button class="btn btn-secondary" style="padding:8px;" onclick="toggleEmoji('reply-${pid}')"><i class="fa-regular fa-face-smile"></i></button>
                                     <button class="btn btn-primary" style="padding:8px 12px;" onclick="addComment('${pid}')"><i class="fa-solid fa-paper-plane"></i></button>
+                                    
+                                    <div class="emoji-picker" id="emoji-picker-reply-${pid}">
+                                        <span class="emoji-item" onclick="insertEmoji('reply-input-${pid}', '❤️')">❤️</span>
+                                        <span class="emoji-item" onclick="insertEmoji('reply-input-${pid}', '😂')">😂</span>
+                                        <span class="emoji-item" onclick="insertEmoji('reply-input-${pid}', '👍')">👍</span>
+                                    </div>
                                 </div>
                             </div>
                         </div>`;
@@ -946,12 +1030,29 @@
             });
         }
 
+        // --- EMOJI LOGIC ---
+        window.toggleEmoji = (idSuffix) => {
+            const picker = document.getElementById(`emoji-picker-${idSuffix}`);
+            if(picker) picker.style.display = picker.style.display === 'grid' ? 'none' : 'grid';
+        }
+
+        window.insertEmoji = (inputId, emoji) => {
+            const input = document.getElementById(inputId);
+            input.value += emoji;
+        }
+
         // UTILS
         window.nav = (id) => {
             document.querySelectorAll('section').forEach(s => s.classList.add('hidden'));
             document.getElementById('view-'+id).classList.remove('hidden');
             document.querySelectorAll('.mobile-nav-item').forEach(n => n.classList.remove('active'));
             if(event && event.currentTarget.classList.contains('mobile-nav-item')) event.currentTarget.classList.add('active');
+            
+            // Mark chat read if opening chat tab
+            if(id === 'partnerchat') {
+                lastReadTime = Date.now();
+                document.querySelectorAll('.nav-badge').forEach(b => b.style.display = 'none');
+            }
         }
 
         window.toggleTheme = () => {
