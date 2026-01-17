@@ -23,7 +23,7 @@
             --border: #e2e8f0;
             --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
             --radius: 12px;
-            --nav-height: 0px; /* Adjusted for mobile */
+            --nav-height: 0px; 
         }
 
         [data-theme="dark"] {
@@ -74,71 +74,32 @@
         @media (max-width: 768px) {
             aside { display: none; }
             .mobile-nav { display: flex; }
-            main { padding: 16px; padding-bottom: 80px; } /* Space for bottom nav */
-            
+            main { padding: 16px; padding-bottom: 80px; }
             .stats-grid { grid-template-columns: 1fr !important; }
-            
             .card { padding: 16px; margin-bottom: 16px; }
-            
-            /* Responsive Modals */
             .overlay .card { width: 90% !important; max-height: 80vh; }
-            
             h1 { font-size: 24px; }
             h2 { font-size: 20px; }
-            
-            /* Chat adjustments */
             .chat-container { height: calc(100vh - 220px); }
-            
-            /* Map */
             .map-container { height: 300px; }
         }
 
         /* --- Components --- */
-        .logo { 
-            font-size: 20px; font-weight: 700; color: var(--primary); 
-            display: flex; align-items: center; gap: 10px; margin-bottom: 40px; 
-        }
-        
-        .nav-item { 
-            padding: 12px 16px; border-radius: 8px; margin-bottom: 4px; cursor: pointer; 
-            color: var(--text-muted); font-weight: 500; display: flex; align-items: center; gap: 12px;
-        }
+        .logo { font-size: 20px; font-weight: 700; color: var(--primary); display: flex; align-items: center; gap: 10px; margin-bottom: 40px; }
+        .nav-item { padding: 12px 16px; border-radius: 8px; margin-bottom: 4px; cursor: pointer; color: var(--text-muted); font-weight: 500; display: flex; align-items: center; gap: 12px; }
         .nav-item:hover { background: var(--bg-body); color: var(--text-main); }
         .nav-item.active { background: var(--primary); color: white; }
-
-        .card { 
-            background: var(--bg-card); border-radius: var(--radius); padding: 24px; 
-            box-shadow: var(--shadow); border: 1px solid var(--border); margin-bottom: 24px;
-        }
-
-        .btn { 
-            padding: 12px 24px; border-radius: 8px; border: none; font-weight: 600; cursor: pointer; 
-            font-family: inherit; display: inline-flex; align-items: center; justify-content: center; gap: 8px;
-        }
+        
+        .card { background: var(--bg-card); border-radius: var(--radius); padding: 24px; box-shadow: var(--shadow); border: 1px solid var(--border); margin-bottom: 24px; }
+        
+        .btn { padding: 12px 24px; border-radius: 8px; border: none; font-weight: 600; cursor: pointer; font-family: inherit; display: inline-flex; align-items: center; justify-content: center; gap: 8px; }
         .btn-primary { background: var(--primary); color: white; }
-        .btn-primary:hover { background: var(--primary-dark); }
         .btn-secondary { background: transparent; border: 1px solid var(--border); color: var(--text-main); }
         .btn-danger { background: var(--secondary); color: white; }
         .btn-call { background: #22c55e; color: white; width: 100%; margin-top: 10px; text-decoration: none; font-size: 14px; padding: 12px; border-radius: 8px; display: inline-block; text-align: center; }
+        .btn-gold { background: linear-gradient(135deg, #FFD700 0%, #FDB931 100%); color: #333; }
 
-        .input { 
-            width: 100%; padding: 12px; border-radius: 8px; border: 1px solid var(--border); 
-            background: var(--bg-body); color: var(--text-main); font-family: inherit; margin-bottom: 10px;
-        }
-
-        /* --- Medicine Library Styles --- */
-        .med-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 15px; margin-top: 20px; }
-        @media (max-width: 768px) { .med-grid { grid-template-columns: 1fr; } }
-        
-        .med-card { border-left: 4px solid transparent; padding: 15px; }
-        .med-safe { border-left-color: #22c55e; }
-        .med-caution { border-left-color: #f59e0b; }
-        .med-avoid { border-left-color: #ef4444; }
-        
-        .badge { font-size: 11px; padding: 4px 8px; border-radius: 20px; font-weight: 700; text-transform: uppercase; }
-        .badge-safe { background: #dcfce7; color: #166534; }
-        .badge-caution { background: #fef3c7; color: #92400e; }
-        .badge-avoid { background: #fee2e2; color: #991b1b; }
+        .input { width: 100%; padding: 12px; border-radius: 8px; border: 1px solid var(--border); background: var(--bg-body); color: var(--text-main); font-family: inherit; margin-bottom: 10px; }
 
         /* --- Chat --- */
         .chat-container { height: 60vh; display: flex; flex-direction: column; }
@@ -176,6 +137,11 @@
         }
         @media (max-width: 768px) { .mobile-header { display: flex; } }
 
+        /* --- Medicine Badges --- */
+        .med-card { border-left: 4px solid transparent; padding: 15px; margin-bottom: 10px; background: var(--bg-body); border-radius: 8px;}
+        .badge { font-size: 10px; padding: 2px 6px; border-radius: 4px; text-transform: uppercase; font-weight: bold; color: white; }
+        .bg-safe { background: #22c55e; } .bg-caution { background: #f59e0b; } .bg-avoid { background: #ef4444; }
+
     </style>
 </head>
 <body>
@@ -211,65 +177,76 @@
             </div>
 
             <div style="text-align: left;">
-                <label style="font-size: 12px; font-weight: bold;">Doctor's Name</label>
+                <label>Doctor's Name</label>
                 <input type="text" id="doc-name" class="input" placeholder="Dr. Smith">
-                
-                <label style="font-size: 12px; font-weight: bold;">Doctor's Phone (Emergency)</label>
-                <input type="tel" id="doc-phone" class="input" placeholder="+1 555-0199">
-
+                <label>Doctor's Phone</label>
+                <input type="tel" id="doc-phone" class="input" placeholder="+91 9876543210">
                 <div id="mother-fields" class="hidden">
-                    <label style="font-size: 12px; font-weight: bold;">Pregnancy Week</label>
+                    <label>Pregnancy Week</label>
                     <input type="number" id="week-input" class="input" placeholder="e.g. 24">
                 </div>
-
                 <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
                     <div>
-                        <label style="font-size: 12px; font-weight: bold;">PIN Code</label>
-                        <input type="text" id="user-pin" class="input" placeholder="e.g. 10001">
+                        <label>PIN Code (India)</label>
+                        <input type="text" id="user-pin" class="input" placeholder="e.g. 110001" onblur="fetchLocationDetails()">
                     </div>
                     <div>
-                        <label style="font-size: 12px; font-weight: bold;">Country</label>
-                        <input type="text" id="user-country" class="input" placeholder="e.g. USA/India">
+                        <label>State</label>
+                        <input type="text" id="user-state" class="input" placeholder="Auto-fills">
                     </div>
                 </div>
+                <input type="hidden" id="user-country" value="India">
             </div>
-
             <button class="btn btn-primary" onclick="completeSetup()" style="width: 100%; margin-top: 20px;">Complete Setup</button>
         </div>
+    </div>
+
+    <!-- PARTNER LOCK SCREEN -->
+    <div id="partner-lock-screen" class="overlay hidden" style="text-align: center;">
+        <i class="fa-solid fa-lock" style="font-size: 60px; color: var(--text-muted); margin-bottom: 20px;"></i>
+        <h2>Partner Sync Required</h2>
+        <p style="color: var(--text-muted); margin-bottom: 30px;">You must link with a Mother account to access the dashboard.</p>
+        <div class="card" style="width: 100%; max-width: 400px;">
+            <p>Enter Mother's 4-Digit Code:</p>
+            <input type="text" id="lock-sync-input" class="input" style="text-align: center; font-size: 24px; letter-spacing: 5px;" placeholder="XXXX">
+            <button class="btn btn-primary" style="width: 100%;" onclick="connectSyncFromLock()">Connect</button>
+        </div>
+        <button class="btn btn-secondary" onclick="logout()" style="margin-top: 20px;">Log Out</button>
     </div>
 
     <!-- SOS ALERT OVERLAY -->
     <div id="sos-alert-screen" class="overlay hidden" style="background: #7f1d1d; color: white;">
         <i class="fa-solid fa-triangle-exclamation" style="font-size: 80px; margin-bottom: 20px; animation: pulse 0.5s infinite;"></i>
         <h1 style="font-size: 32px; text-align:center;">EMERGENCY MODE</h1>
-        
         <div style="background: white; padding: 30px; border-radius: 16px; color: black; width: 100%; max-width: 350px; text-align: center;">
             <h3 style="color: var(--secondary);">Calling Support...</h3>
-            <a id="sos-btn-doc" href="#" class="btn btn-call" style="background: var(--primary);">
-                <i class="fa-solid fa-user-doctor"></i> Call Doctor
+            <a href="tel:102" class="btn btn-call" style="background: var(--secondary); display:block; margin-bottom:10px;">
+                <i class="fa-solid fa-truck-medical"></i> Call Ambulance (102/108)
             </a>
-            <a href="tel:911" class="btn btn-call" style="background: var(--secondary);">
-                <i class="fa-solid fa-truck-medical"></i> Call Ambulance
+            <a href="tel:100" class="btn btn-call" style="background: #1e293b; display:block; margin-bottom:10px;">
+                <i class="fa-solid fa-shield-halved"></i> Call Police (100)
             </a>
+            <a id="sos-btn-doc" href="#" class="btn btn-call" style="background: var(--primary); display:block;">
+                <i class="fa-solid fa-user-doctor"></i> Call My Doctor
+            </a>
+            <p style="font-size: 10px; color: #666; margin-top: 10px;">*Operational primarily in India</p>
             <button class="btn btn-secondary" onclick="dismissSOS()" style="margin-top: 20px; border: 1px solid #ccc; width: 100%;">Cancel Alert</button>
         </div>
     </div>
 
-    <!-- APP LAYOUT -->
+    <!-- APP UI -->
     <div id="app-ui" class="hidden">
         <div id="app-container">
             <!-- Desktop Sidebar -->
             <aside>
-                <div class="logo">
-                    <i class="fa-solid fa-heart-pulse"></i> Nexus Pro
-                </div>
-                
+                <div class="logo"><i class="fa-solid fa-heart-pulse"></i> Nexus Pro</div>
                 <div class="nav-item active" onclick="nav('dashboard')"><i class="fa-solid fa-grid-2"></i> Dashboard</div>
                 <div class="nav-item" onclick="nav('wellness')"><i class="fa-solid fa-brain"></i> AI Assistant</div>
                 <div class="nav-item" onclick="nav('medicine')"><i class="fa-solid fa-pills"></i> Medicine Library</div>
                 <div class="nav-item" onclick="nav('doctors')"><i class="fa-solid fa-hospital-user"></i> Find Doctors</div>
                 <div class="nav-item" onclick="nav('partnerchat')"><i class="fa-solid fa-comments"></i> Partner Chat</div>
-                <div class="nav-item" onclick="nav('sync')"><i class="fa-solid fa-link"></i> Sync Settings</div>
+                <div class="nav-item" onclick="nav('sync')"><i class="fa-solid fa-link"></i> Sync</div>
+                <div class="nav-item" onclick="nav('premium')"><i class="fa-solid fa-crown"></i> Premium</div>
                 
                 <div style="margin-top: auto;">
                     <div class="card" style="padding: 12px; margin-bottom: 10px; display: flex; align-items: center; gap: 10px;">
@@ -312,29 +289,19 @@
                     <div class="stats-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 16px; margin-bottom: 24px;">
                         <div class="card">
                             <div style="display: flex; justify-content: space-between;">
-                                <div>
-                                    <p style="color: var(--text-muted); font-size: 13px;">Current Stage</p>
-                                    <h2 id="week-disp">Week --</h2>
-                                </div>
+                                <div><p class="text-muted">Current Stage</p><h2 id="week-disp">Week --</h2></div>
                                 <i class="fa-solid fa-baby" style="font-size: 32px; color: var(--primary);"></i>
                             </div>
                         </div>
                         <div class="card">
                             <div style="display: flex; justify-content: space-between;">
-                                <div>
-                                    <p style="color: var(--text-muted); font-size: 13px;">Health Status</p>
-                                    <h2 style="color: var(--primary);">Stable</h2>
-                                </div>
+                                <div><p class="text-muted">Health Status</p><h2 style="color: var(--primary);">Stable</h2></div>
                                 <i class="fa-solid fa-heart-pulse" style="font-size: 32px; color: var(--secondary);"></i>
                             </div>
                         </div>
                         <div class="card">
                             <div style="display: flex; justify-content: space-between;">
-                                <div>
-                                    <p style="color: var(--text-muted); font-size: 13px;">My Doctor</p>
-                                    <h4 id="dash-doc-name" style="margin: 5px 0;">Not Set</h4>
-                                    <a href="#" id="dash-doc-call" style="font-size: 12px; color: var(--primary);">Call Now</a>
-                                </div>
+                                <div><p class="text-muted">My Doctor</p><h4 id="dash-doc-name" style="margin: 5px 0;">Not Set</h4><a href="#" id="dash-doc-call" style="font-size: 12px; color: var(--primary);">Call Now</a></div>
                                 <i class="fa-solid fa-user-doctor" style="font-size: 32px; color: var(--accent);"></i>
                             </div>
                         </div>
@@ -343,7 +310,7 @@
                     <div class="card">
                         <h3>Community & Updates</h3>
                         <div style="display: flex; gap: 10px; margin-top: 15px;">
-                            <input type="text" id="post-input" class="input" placeholder="Share an update...">
+                            <input type="text" id="post-input" class="input" placeholder="Share an update..." style="margin-bottom:0;">
                             <button class="btn btn-primary" onclick="addPost()">Post</button>
                         </div>
                         <div id="community-feed" style="margin-top: 20px;"></div>
@@ -354,14 +321,11 @@
                 <section id="view-wellness" class="hidden">
                     <div style="display: flex; justify-content: space-between; align-items: center;">
                         <h2>AI Health Assistant</h2>
-                        <span style="font-size: 10px; background: #e0f2f1; padding: 4px 8px; border-radius: 8px; color: var(--primary);">Powered by Pollinations AI (Online)</span>
+                        <span style="font-size: 10px; background: #e0f2f1; padding: 4px 8px; border-radius: 8px; color: var(--primary);">Pollinations Hybrid AI</span>
                     </div>
-                    
                     <div class="card chat-container" style="margin-top: 20px; padding: 0; overflow: hidden;">
                         <div id="ai-chat-box" class="chat-history" style="padding: 16px;">
-                            <div class="msg msg-left">
-                                Hello! I'm your Nexus Assistant. I can help with diet, symptoms, and mental wellness. I'm connected online.
-                            </div>
+                            <div class="msg msg-left">Hello! I'm your Nexus Assistant. I can help with diet, symptoms, and mental wellness.</div>
                         </div>
                         <div style="padding: 16px; border-top: 1px solid var(--border); display: flex; gap: 10px; background: var(--bg-card);">
                             <input type="text" id="ai-chat-input" class="input" placeholder="Ask anything..." style="margin-bottom:0;">
@@ -373,38 +337,24 @@
                 <!-- MEDICINE LIBRARY -->
                 <section id="view-medicine" class="hidden">
                     <h2>Medicine Safety Library</h2>
-                    <p style="color: var(--text-muted); margin-bottom: 20px;">Search ANY medicine to check safety status (AI Powered).</p>
-                    
                     <div class="card">
                         <div style="display: flex; gap: 10px;">
-                            <input type="text" id="med-search" class="input" placeholder="Enter medicine name (e.g. Doxycycline)..." style="margin-bottom:0;">
+                            <input type="text" id="med-search" class="input" placeholder="Enter medicine name..." style="margin-bottom:0;">
                             <button class="btn btn-primary" onclick="searchMedicine()">Search</button>
                         </div>
-                        <div id="med-results" class="med-grid">
-                            <!-- Populated by JS -->
-                        </div>
+                        <div id="med-results" class="med-grid"></div>
                     </div>
                 </section>
 
                 <!-- DOCTOR FINDER -->
                 <section id="view-doctors" class="hidden">
-                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; flex-wrap: wrap; gap: 10px;">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
                         <h2>Nearby Specialists</h2>
                         <div id="location-display" style="font-size: 12px; font-weight: bold; color: var(--primary);"></div>
                     </div>
-                    
                     <div class="card">
-                        <div style="display: flex; gap: 20px; align-items: center; margin-bottom: 20px; flex-wrap: wrap;">
-                            <div style="flex: 1;">
-                                <h4 style="margin-bottom: 5px;">Your Personal Doctor</h4>
-                                <div style="font-size: 18px; font-weight: bold;" id="my-doc-name">Not Set</div>
-                                <div style="color: var(--text-muted);" id="my-doc-phone">--</div>
-                            </div>
-                            <a id="doc-tab-call" href="#" class="btn btn-primary" style="width:100%;"><i class="fa-solid fa-phone"></i> Call Now</a>
-                        </div>
-                        <hr style="border: 0; border-top: 1px solid var(--border); margin: 20px 0;">
-                        <h4>Hospitals Near You</h4>
-                        <div style="height: 300px; border-radius: 12px; overflow: hidden; margin-top: 15px; border: 1px solid var(--border);">
+                        <p style="color: var(--text-muted); margin-bottom:10px;">Showing Gynecologists & Hospitals near your registered Pincode.</p>
+                        <div style="height: 300px; border-radius: 12px; overflow: hidden; border: 1px solid var(--border);">
                             <iframe id="map-frame" width="100%" height="100%" frameborder="0" style="border:0"></iframe>
                         </div>
                     </div>
@@ -415,27 +365,18 @@
                     <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
                         <h2>Partner Chat</h2>
                         <span style="font-size: 10px; color: var(--secondary); background: #fff1f2; padding: 5px 10px; border-radius: 20px;">
-                            <i class="fa-solid fa-clock"></i> 2hr Clean
+                            <i class="fa-solid fa-lock"></i> End-to-End Encrypted
                         </span>
                     </div>
-                    
                     <div class="card chat-container" id="partner-chat-ui" style="padding: 0; overflow: hidden;">
                         <div id="partner-chat-box" class="chat-history" style="padding: 16px;"></div>
                         <div style="padding: 16px; border-top: 1px solid var(--border); display: flex; gap: 10px; background: var(--bg-card);">
-                            <input type="text" id="partner-msg-input" class="input" placeholder="Message..." style="margin-bottom:0;">
+                            <input type="text" id="partner-msg-input" class="input" placeholder="Secure Message..." style="margin-bottom:0;">
                             <button class="btn btn-primary" onclick="sendPartnerMessage()"><i class="fa-solid fa-paper-plane"></i></button>
                         </div>
                     </div>
-                    
-                    <div id="chat-disabled-msg" class="card hidden" style="text-align: center; padding: 50px;">
-                        <i class="fa-solid fa-link-slash" style="font-size: 40px; color: var(--text-muted); margin-bottom: 20px;"></i>
-                        <h3>Not Connected</h3>
-                        <p>Sync with a partner to enable chat.</p>
-                        <button class="btn btn-primary" style="margin-top: 20px;" onclick="nav('sync')">Go to Sync</button>
-                    </div>
-                    
                     <button class="btn btn-danger" style="width: 100%; margin-top: 20px;" onclick="clearChatSession()">
-                        <i class="fa-solid fa-trash"></i> End Session & Clear Chat History
+                        <i class="fa-solid fa-trash"></i> End Session & Clear History
                     </button>
                 </section>
 
@@ -443,24 +384,12 @@
                 <section id="view-sync" class="hidden">
                     <div style="max-width: 500px; margin: 0 auto; text-align: center;">
                         <h2>Partner Synchronization</h2>
-                        <p style="color: var(--text-muted); margin-bottom: 30px;">Link accounts to share alerts and health data.</p>
-                        
                         <div class="card">
-                            <!-- Mom View -->
                             <div id="sync-mom" class="hidden">
                                 <p>Your Connection Code:</p>
                                 <h1 style="letter-spacing: 5px; color: var(--primary); margin: 20px 0;" id="my-code">---</h1>
                                 <button class="btn btn-secondary" onclick="generateCode()">Generate New</button>
                             </div>
-
-                            <!-- Partner View -->
-                            <div id="sync-partner" class="hidden">
-                                <p>Enter Mother's Code:</p>
-                                <input type="text" id="sync-input" class="input" style="text-align: center; font-size: 24px; letter-spacing: 5px; margin: 20px 0;">
-                                <button class="btn btn-primary" style="width: 100%;" onclick="connectSync()">Connect</button>
-                            </div>
-
-                            <!-- Connected View -->
                             <div id="sync-success" class="hidden">
                                 <i class="fa-solid fa-circle-check" style="font-size: 60px; color: #22c55e; margin-bottom: 20px;"></i>
                                 <h3>Connected!</h3>
@@ -470,32 +399,31 @@
                     </div>
                 </section>
 
+                <!-- PREMIUM -->
+                <section id="view-premium" class="hidden">
+                    <div class="card" style="text-align: center; border: 2px solid #FFD700; background: #fffbeb;">
+                        <i class="fa-solid fa-crown" style="font-size: 50px; color: #FFD700; margin-bottom: 10px;"></i>
+                        <h2>Nexus Premium</h2>
+                        <p>We believe maternal health is a right, not a privilege.</p>
+                        <h3 style="margin: 20px 0; color: var(--primary);">ALL FEATURES ARE FREE</h3>
+                        <p style="font-size: 13px; color: var(--text-muted); margin-bottom: 20px;">Our Pro AI, Doctor Finder, and Sync tools are gifts to new parents.</p>
+                        <button class="btn btn-gold" onclick="alert('Thank you for your support!')">Donate to Developers</button>
+                    </div>
+                </section>
+
             </main>
 
             <!-- Mobile Bottom Nav -->
             <div class="mobile-nav">
-                <div class="mobile-nav-item active" onclick="nav('dashboard')">
-                    <i class="fa-solid fa-grid-2"></i> Home
-                </div>
-                <div class="mobile-nav-item" onclick="nav('wellness')">
-                    <i class="fa-solid fa-brain"></i> AI
-                </div>
-                <div class="mobile-nav-item" onclick="nav('medicine')">
-                    <i class="fa-solid fa-pills"></i> Meds
-                </div>
-                <div class="mobile-nav-item" onclick="nav('partnerchat')">
-                    <i class="fa-solid fa-comments"></i> Chat
-                </div>
-                <div class="mobile-nav-item" onclick="nav('sync')">
-                    <i class="fa-solid fa-link"></i> Sync
-                </div>
+                <div class="mobile-nav-item active" onclick="nav('dashboard')"><i class="fa-solid fa-grid-2"></i> Home</div>
+                <div class="mobile-nav-item" onclick="nav('wellness')"><i class="fa-solid fa-brain"></i> AI</div>
+                <div class="mobile-nav-item" onclick="nav('medicine')"><i class="fa-solid fa-pills"></i> Meds</div>
+                <div class="mobile-nav-item" onclick="nav('partnerchat')"><i class="fa-solid fa-comments"></i> Chat</div>
+                <div class="mobile-nav-item" onclick="nav('premium')"><i class="fa-solid fa-crown"></i> Pro</div>
             </div>
         </div>
         
-        <!-- SOS BUTTON -->
         <div class="sos-float" onclick="activateSOS()" title="Emergency Alert">SOS</div>
-        
-        <!-- Audio for Alarm -->
         <audio id="alarm-sound" src="https://actions.google.com/sounds/v1/alarms/alarm_clock.ogg" loop></audio>
     </div>
 
@@ -505,21 +433,17 @@
         import { getAuth, signInWithPopup, GoogleAuthProvider, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-auth.js";
         import { getFirestore, doc, getDoc, setDoc, updateDoc, collection, query, where, getDocs, addDoc, orderBy, onSnapshot, serverTimestamp, limit, deleteDoc } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js";
 
-        // 1. ROBUST LOCAL KNOWLEDGE (FAILSAFE)
+        // LOCAL KNOWLEDGE FAILSAFE
         const LOCAL_BRAIN = {
             keywords: {
                 "headache": "Stay hydrated and rest in a dark room. Acetaminophen (Tylenol) is generally safe, but avoid Ibuprofen.",
-                "nausea": "Try ginger tea, crackers before getting out of bed, and small frequent meals. Avoid strong smells.",
+                "nausea": "Try ginger tea, crackers before getting out of bed, and small frequent meals.",
                 "bleeding": "Please go to the ER or call your doctor immediately. Any bleeding needs checking.",
-                "cramps": "Mild cramping can be normal as the uterus expands. Hydrate and rest. If severe or rhythmic (contractions), call your doctor.",
                 "diet": "Eat iron-rich foods (spinach), calcium (dairy), and folic acid. Avoid raw fish and alcohol.",
-                "sleep": "Sleep on your left side to improve blood flow to the placenta.",
                 "tylenol": "Acetaminophen (Tylenol) is generally considered safe during pregnancy.",
                 "advil": "Avoid Ibuprofen (Advil/Motrin), especially in the third trimester.",
-                "aspirin": "Avoid unless specifically prescribed by your doctor for preeclampsia prevention.",
-                "coffee": "Limit caffeine to 200mg per day (about one 12oz cup).",
-                "swelling": "Elevate your feet. Sudden swelling in the face could be preeclampsia - check BP.",
-                "movement": "You should feel the baby move regularly after 24 weeks. If movement decreases, call your doctor."
+                "aspirin": "Avoid unless specifically prescribed by your doctor.",
+                "swelling": "Elevate your feet. Sudden swelling in the face could be preeclampsia.",
             },
             fallback: "I'm not sure about that specific detail, but generally, stay hydrated and rest. For medical specifics, please call your doctor."
         };
@@ -530,12 +454,10 @@
             {name: "Aspirin", cat: "Caution", desc: "Doctor only"},
             {name: "Loratadine", cat: "Safe", desc: "Allergies"},
             {name: "Benadryl", cat: "Safe", desc: "Sleep/Allergy"},
-            {name: "Tums", cat: "Safe", desc: "Heartburn"},
-            {name: "Pepto-Bismol", cat: "Avoid", desc: "Contains salicylate"},
-            {name: "Sudafed", cat: "Caution", desc: "Avoid 1st Tri"}
+            {name: "Tums", cat: "Safe", desc: "Heartburn"}
         ];
 
-        // 2. CONFIG
+        // CONFIG
         const firebaseConfig = {
             apiKey: "AIzaSyCoZbOU0ozKibFsqj-BCCIoaKHEDCw_tio",
             authDomain: "maternal-nexus.firebaseapp.com",
@@ -551,30 +473,18 @@
         const db = getFirestore(app);
         const appId = "maternal-nexus";
 
-        // STATE & LISTENERS
-        let user = null;
-        let profile = null;
-        let linkedProfile = null;
-        let unsubPartner = null;
-        let unsubChats = null;
-        let unsubCommunity = null;
+        let user, profile;
         let theme = localStorage.getItem('theme') || 'light';
         document.body.setAttribute('data-theme', theme);
 
-        // --- AUTH & CLEANUP ---
+        // AUTH
         const provider = new GoogleAuthProvider();
         document.getElementById('google-login').onclick = async () => {
             try { await signInWithPopup(auth, provider); } 
             catch(e) { document.getElementById('login-msg').innerText = e.message; }
         }
 
-        window.logout = async () => {
-            if(unsubPartner) unsubPartner();
-            if(unsubChats) unsubChats();
-            if(unsubCommunity) unsubCommunity();
-            await signOut(auth);
-            location.reload(); 
-        }
+        window.logout = async () => { await signOut(auth); location.reload(); }
 
         onAuthStateChanged(auth, async (u) => {
             if(u) {
@@ -590,22 +500,38 @@
             }
         });
 
-        // 4. ONBOARDING
+        // ONBOARDING
         window.selectRole = (r) => {
             profile = { role: r };
             document.getElementById('role-'+r).style.border = "2px solid var(--primary)";
             if(r==='mother') document.getElementById('mother-fields').classList.remove('hidden');
         }
 
+        window.fetchLocationDetails = async () => {
+            const pin = document.getElementById('user-pin').value;
+            if(pin.length === 6) {
+                try {
+                    let r = await fetch(`https://api.postalpincode.in/pincode/${pin}`);
+                    let d = await r.json();
+                    if(d[0].Status === 'Success') {
+                        document.getElementById('user-state').value = d[0].PostOffice[0].State;
+                        document.getElementById('user-country').value = "India";
+                    }
+                } catch(e) {}
+            }
+        }
+
         window.completeSetup = async () => {
             const data = {
                 uid: user.uid,
                 name: user.displayName,
-                email: user.email,
                 role: profile.role,
                 week: document.getElementById('week-input').value || 0,
                 docName: document.getElementById('doc-name').value,
                 docPhone: document.getElementById('doc-phone').value,
+                pin: document.getElementById('user-pin').value,
+                state: document.getElementById('user-state').value,
+                country: document.getElementById('user-country').value,
                 code: profile.role === 'mother' ? Math.floor(1000+Math.random()*9000).toString() : null
             };
             await setDoc(doc(db, 'artifacts', appId, 'public', 'data', 'users', user.uid), data);
@@ -614,28 +540,54 @@
             startApp();
         }
 
-        // 5. MAIN LOGIC
+        // APP LOGIC
         function startApp() {
+            // PARTNER GATE
+            if(profile.role === 'partner' && !profile.linkedUid) {
+                document.getElementById('partner-lock-screen').classList.remove('hidden');
+                return;
+            }
+
             document.getElementById('app-ui').classList.remove('hidden');
-            
+            document.getElementById('user-initial').innerText = user.displayName.charAt(0);
+            document.getElementById('user-name').innerText = user.displayName;
+
             if(profile.role === 'mother') {
                 document.getElementById('sync-mom').classList.remove('hidden');
                 document.getElementById('my-code').innerText = profile.code;
                 document.getElementById('week-disp').innerText = "Week " + profile.week;
             } else {
-                document.getElementById('sync-partner').classList.remove('hidden');
                 document.getElementById('week-disp').innerText = "Partner View";
             }
 
+            // Doctor Details
             if(profile.docPhone) document.getElementById('sos-btn-doc').href = "tel:" + profile.docPhone;
+            document.getElementById('dash-doc-name').innerText = profile.docName || "Not Set";
 
+            // Map Setup
+            if(profile.pin && profile.state) {
+                const q = `Gynecologist+near+${profile.pin}+${profile.state}+India`;
+                document.getElementById('map-frame').src = `https://maps.google.com/maps?q=${q}&output=embed`;
+                document.getElementById('location-display').innerText = `Searching near: ${profile.pin}, ${profile.state}`;
+            }
+
+            renderMedicine(LOCAL_MEDS);
             if(profile.linkedUid) setupLink(profile.linkedUid);
             setupCommunity();
         }
 
-        // 6. SYNC
+        // PARTNER LOCK & SYNC
+        window.connectSyncFromLock = async () => {
+            const code = document.getElementById('lock-sync-input').value;
+            await attemptLink(code);
+        }
+
         window.connectSync = async () => {
             const code = document.getElementById('sync-input').value;
+            await attemptLink(code);
+        }
+
+        async function attemptLink(code) {
             const q = query(collection(db, 'artifacts', appId, 'public', 'data', 'users'), where("code", "==", code));
             const snap = await getDocs(q);
             if(!snap.empty) {
@@ -646,18 +598,29 @@
             } else alert("Invalid Code");
         }
 
+        window.generateCode = async () => {
+            const code = Math.floor(1000 + Math.random() * 9000).toString();
+            await updateDoc(doc(db, 'artifacts', appId, 'public', 'data', 'users', user.uid), { code: code });
+            document.getElementById('my-code').innerText = code;
+        }
+
         function setupLink(targetId) {
             document.getElementById('sync-success').classList.remove('hidden');
-            document.getElementById('sync-partner').classList.add('hidden');
             document.getElementById('sync-mom').classList.add('hidden');
-            
+            document.getElementById('partner-chat-ui').classList.remove('hidden');
+            document.getElementById('chat-disabled-msg').classList.add('hidden');
+
             onSnapshot(doc(db, 'artifacts', appId, 'public', 'data', 'users', targetId), (d) => {
                 const data = d.data();
                 document.getElementById('linked-name').innerText = "Linked: " + data.name;
+                document.getElementById('connected-banner').classList.remove('hidden');
+                document.getElementById('connected-text').innerText = "Connected to " + data.name;
+                document.getElementById('sync-status').innerHTML = '<span class="status-dot dot-green"></span> ' + data.name;
+                
                 if(data.sosActive) triggerSOSAlert();
             });
-            
-            // Chat
+
+            // Chats
             const q = query(collection(db, 'artifacts', appId, 'public', 'data', 'chats'), orderBy("timestamp", "asc"), limit(50));
             onSnapshot(q, (snap) => {
                 const box = document.getElementById('partner-chat-box');
@@ -681,12 +644,21 @@
             document.getElementById('partner-msg-input').value = "";
         }
 
-        // 7. ROBUST AI ENGINE (Pollinations + Local Failover)
-        window.sendAIChat = async () => {
-            const input = document.getElementById('ai-chat-input');
-            const txt = input.value.trim(); 
-            if(!txt) return;
+        window.clearChatSession = async () => {
+            if(!confirm("Clear chat?")) return;
+            const q = query(collection(db, 'artifacts', appId, 'public', 'data', 'chats'));
+            const snap = await getDocs(q);
+            snap.forEach(async (d) => {
+                const m = d.data();
+                if(m.from === user.uid || m.to === user.uid) await deleteDoc(doc(db, 'artifacts', appId, 'public', 'data', 'chats', d.id));
+            });
+            alert("Cleared");
+        }
 
+        // AI & MEDICINE (Hybrid Pollinations)
+        window.sendAIChat = async () => {
+            const txt = document.getElementById('ai-chat-input').value;
+            if(!txt) return;
             const box = document.getElementById('ai-chat-box');
             box.innerHTML += `<div class="msg msg-right">${txt}</div>`;
             document.getElementById('ai-chat-input').value = "";
@@ -696,71 +668,53 @@
             box.innerHTML += `<div id="${loadingId}" class="msg msg-left">...</div>`;
 
             try {
-                // TRY POLLINATIONS.AI (Free, No Key, CORS Friendly)
-                const prompt = encodeURIComponent("You are Nexus, a polite and helpful maternal health assistant. Keep your answer under 3 sentences. User asks: " + txt);
-                const cacheBuster = Date.now();
-                const resp = await fetch(`https://text.pollinations.ai/${prompt}?model=openai&seed=${cacheBuster}`);
-                
-                if (!resp.ok) throw new Error("Pollinations Error");
-                
+                const prompt = encodeURIComponent("You are Nexus, a helpful maternal health assistant. Answer briefly: " + txt);
+                const resp = await fetch(`https://text.pollinations.ai/${prompt}`);
                 const reply = await resp.text();
-                
                 document.getElementById(loadingId).remove();
                 box.innerHTML += `<div class="msg msg-left">${reply}</div>`;
-
             } catch(e) {
-                // FALLBACK TO LOCAL BRAIN
-                console.log("Using Local Brain due to: " + e.message);
                 document.getElementById(loadingId).remove();
-                
                 let reply = LOCAL_BRAIN.fallback;
-                const lower = txt.toLowerCase();
-                for(let k in LOCAL_BRAIN.keywords) {
-                    if(lower.includes(k)) reply = LOCAL_BRAIN.keywords[k];
-                }
+                for(let k in LOCAL_BRAIN.keywords) { if(txt.toLowerCase().includes(k)) reply = LOCAL_BRAIN.keywords[k]; }
                 box.innerHTML += `<div class="msg msg-left">${reply}</div>`;
             }
             box.scrollTop = box.scrollHeight;
         }
 
-        // 8. MEDICINE SEARCH (Hybrid)
         window.searchMedicine = async () => {
             const q = document.getElementById('med-search').value.toLowerCase();
             const res = document.getElementById('med-results');
-            res.innerHTML = "";
             
-            // 1. Local Check (Instant)
             const found = LOCAL_MEDS.find(m => m.name.toLowerCase().includes(q));
             if(found) {
                 const color = found.cat === 'Safe' ? '#22c55e' : (found.cat === 'Avoid' ? '#ef4444' : '#f59e0b');
-                res.innerHTML = `<div class="med-card" style="border-left-color:${color}">
-                    <strong>${found.name}</strong> <span class="badge" style="background:${color}">${found.cat}</span><br>
-                    <small>${found.desc}</small>
-                </div>`;
+                res.innerHTML = `<div class="med-card" style="border-left-color:${color}"><strong>${found.name}</strong> <span class="badge" style="background:${color}">${found.cat}</span><br><small>${found.desc}</small></div>`;
                 return;
             }
 
-            // 2. Pollinations AI Check (If not local)
-            res.innerHTML = "<small>Analyzing with AI...</small>";
+            res.innerHTML = "Analyzing with AI...";
             try {
-                const prompt = encodeURIComponent(`Is ${q} safe for pregnancy? Answer with just: Safe, Avoid, or Caution followed by a 5 word reason.`);
-                const resp = await fetch(`https://text.pollinations.ai/${prompt}?model=openai`);
+                const prompt = encodeURIComponent(`Is ${q} safe for pregnancy? Answer with Safe, Caution, or Avoid followed by reason.`);
+                const resp = await fetch(`https://text.pollinations.ai/${prompt}`);
                 const text = await resp.text();
-                
-                let color = '#f59e0b'; // Default Caution
+                let color = '#f59e0b';
                 if(text.toLowerCase().includes('safe')) color = '#22c55e';
                 if(text.toLowerCase().includes('avoid')) color = '#ef4444';
-
-                res.innerHTML = `<div class="med-card" style="border-left-color:${color}">
-                    <strong>${q}</strong> <span class="badge" style="background:${color}">AI Analysis</span><br>
-                    <small>${text}</small>
-                </div>`;
-            } catch(e) {
-                res.innerHTML = "Consult your doctor (Offline mode limited).";
-            }
+                res.innerHTML = `<div class="med-card" style="border-left-color:${color}"><strong>${q}</strong> <span class="badge" style="background:${color}">AI Analysis</span><br><small>${text}</small></div>`;
+            } catch(e) { res.innerHTML = "Consult Doctor."; }
         }
 
-        // 9. SOS
+        function renderMedicine(list) {
+            const container = document.getElementById('med-results');
+            container.innerHTML = "";
+            list.forEach(m => {
+                const color = m.cat === 'Safe' ? '#22c55e' : (m.cat === 'Avoid' ? '#ef4444' : '#f59e0b');
+                container.innerHTML += `<div class="med-card" style="border-left-color:${color}"><strong>${m.name}</strong> <span class="badge" style="background:${color}">${m.cat}</span><br><small>${m.desc}</small></div>`;
+            });
+        }
+
+        // SOS
         window.activateSOS = async () => {
             if(confirm("SEND ALERT?")) {
                 await updateDoc(doc(db, 'artifacts', appId, 'public', 'data', 'users', user.uid), { sosActive: true, sosTime: serverTimestamp() });
@@ -771,7 +725,7 @@
 
         function triggerSOSAlert() {
             document.getElementById('sos-alert-screen').classList.remove('hidden');
-            document.getElementById('alarm-sound').play().catch(e=>console.log("Audio block"));
+            document.getElementById('alarm-sound').play().catch(e=>{});
             if(navigator.vibrate) navigator.vibrate([1000, 500, 1000]);
         }
 
@@ -780,7 +734,7 @@
             document.getElementById('alarm-sound').pause();
         }
 
-        // 10. COMMUNITY
+        // COMMUNITY
         window.addPost = async () => {
             const t = document.getElementById('post-input').value;
             if(t) {
@@ -801,11 +755,18 @@
             });
         }
 
+        // UTILS
         window.nav = (id) => {
             document.querySelectorAll('section').forEach(s => s.classList.add('hidden'));
             document.getElementById('view-'+id).classList.remove('hidden');
             document.querySelectorAll('.mobile-nav-item').forEach(n => n.classList.remove('active'));
-            if(event) event.currentTarget.classList.add('active');
+            if(event && event.currentTarget.classList.contains('mobile-nav-item')) event.currentTarget.classList.add('active');
+        }
+
+        window.toggleTheme = () => {
+            theme = theme === 'light' ? 'dark' : 'light';
+            document.body.setAttribute('data-theme', theme);
+            localStorage.setItem('theme', theme);
         }
 
     </script>
