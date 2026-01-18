@@ -167,6 +167,39 @@
         /* --- Overlays --- */
         .overlay { position: fixed; inset: 0; background: var(--bg-card); z-index: 2000; display: flex; align-items: center; justify-content: center; flex-direction: column; padding: 20px; overflow-y: auto; }
         .hidden { display: none !important; }
+
+        /* --- Baby Loading Overlay --- */
+        .loading-overlay { background: radial-gradient(circle at 20% 10%, rgba(244,63,94,0.10), transparent 55%), radial-gradient(circle at 90% 25%, rgba(13,148,136,0.12), transparent 60%), var(--bg-card); }
+        .loading-wrap { width: 100%; max-width: 520px; text-align: center; }
+        .loading-hero {
+            background: linear-gradient(135deg, rgba(244,63,94,0.10), rgba(13,148,136,0.10));
+            border: 1px solid var(--border);
+            border-radius: 22px;
+            padding: 22px;
+            box-shadow: var(--shadow);
+        }
+        .baby-loader {
+            width: 110px; height: 110px; margin: 0 auto 14px auto;
+            border-radius: 30px;
+            background: linear-gradient(135deg, rgba(96,165,250,0.18), rgba(244,63,94,0.14));
+            border: 1px solid var(--border);
+            display:grid; place-items:center;
+            position: relative;
+            overflow: hidden;
+        }
+        .baby-loader i { font-size: 56px; color: var(--primary); animation: bob 1.9s ease-in-out infinite; }
+        .baby-loader .sparkle { position:absolute; }
+        .baby-loader .sparkle.s1 { left: 18px; top: 18px; }
+        .baby-loader .sparkle.s2 { right: 18px; top: 28px; }
+        .baby-loader .sparkle.s3 { left: 24px; bottom: 18px; }
+        .loading-title { font-family: 'Fredoka', sans-serif; font-size: 26px; margin: 0; }
+        .loading-sub { margin-top: 6px; color: var(--text-muted); font-size: 13px; line-height: 1.6; }
+        .loading-bar { height: 12px; border-radius: 999px; background: rgba(100,116,139,0.18); border: 1px solid var(--border); overflow: hidden; margin-top: 16px; }
+        .loading-bar > div { height: 100%; width: 35%; border-radius: 999px; background: linear-gradient(90deg, var(--primary), var(--secondary)); animation: loadslide 1.1s ease-in-out infinite; }
+        @keyframes loadslide { 0% { transform: translateX(-80%); } 50% { transform: translateX(60%); } 100% { transform: translateX(220%); } }
+        .loading-fact { margin-top: 14px; font-size: 13px; color: var(--text-main); line-height: 1.6; }
+        .loading-fact b { color: var(--secondary); }
+        .loading-credit { margin-top: 12px; font-size: 12px; color: var(--text-muted); }
         
         .status-dot { width: 10px; height: 10px; border-radius: 50%; display: inline-block; margin-right: 6px; }
         .dot-green { background: #22c55e; box-shadow: 0 0 8px #22c55e; }
@@ -325,6 +358,75 @@
         .cal-share.show { display:block; }
         .cal-share textarea { width: 100%; min-height: 92px; resize: vertical; padding: 12px; border-radius: 12px; border: 1px solid var(--border); background: var(--bg-card); color: var(--text-main); font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace; font-size: 12px; }
 
+        /* --- Dashboard beautify --- */
+        .dash-hero {
+            position: relative;
+            border-radius: 20px;
+            border: 1px solid var(--border);
+            background: linear-gradient(135deg, rgba(244,63,94,0.10), rgba(13,148,136,0.10));
+            padding: 18px;
+            overflow: hidden;
+        }
+        .dash-hero::before {
+            content: "";
+            position: absolute;
+            inset: -80px;
+            background:
+                radial-gradient(circle at 25% 25%, rgba(244,63,94,0.16), transparent 45%),
+                radial-gradient(circle at 75% 20%, rgba(59,130,246,0.16), transparent 45%),
+                radial-gradient(circle at 70% 75%, rgba(13,148,136,0.18), transparent 50%);
+            filter: blur(0.4px);
+            opacity: 0.9;
+        }
+        .dash-hero-inner { position: relative; display:flex; align-items:center; justify-content:space-between; gap: 16px; flex-wrap: wrap; }
+        .dash-hero-title { margin: 0; font-family: 'Fredoka', sans-serif; font-size: 26px; }
+        .dash-hero-sub { margin-top: 6px; color: var(--text-muted); font-size: 13px; line-height: 1.6; }
+        .dash-pill { display:inline-flex; align-items:center; gap: 8px; padding: 8px 12px; border-radius: 999px; border: 1px solid var(--border); background: rgba(255,255,255,0.7); font-weight: 800; font-size: 12px; }
+        [data-theme="dark"] .dash-pill { background: rgba(30,41,59,0.75); }
+
+        .dash-baby {
+            width: 92px; height: 92px;
+            border-radius: 26px;
+            background: linear-gradient(135deg, rgba(96,165,250,0.18), rgba(244,63,94,0.14));
+            border: 1px solid var(--border);
+            display:grid; place-items:center;
+            box-shadow: 0 18px 32px rgba(0,0,0,0.10);
+            position: relative;
+            overflow: hidden;
+            flex: 0 0 auto;
+        }
+        .dash-baby i { font-size: 46px; color: var(--primary); animation: bob 2.0s ease-in-out infinite; }
+        .dash-baby .sparkle { position:absolute; }
+        .dash-baby .sparkle.s1 { left: 14px; top: 14px; }
+        .dash-baby .sparkle.s2 { right: 14px; top: 28px; }
+        .dash-baby .sparkle.s3 { left: 22px; bottom: 14px; }
+
+        .dash-fact { margin-top: 12px; padding: 12px; border-radius: 16px; border: 1px solid var(--border); background: rgba(255,255,255,0.6); line-height: 1.6; font-size: 13px; }
+        [data-theme="dark"] .dash-fact { background: rgba(30,41,59,0.6); }
+        .dash-fact b { color: var(--secondary); }
+
+        .presence-dot { width: 10px; height: 10px; border-radius: 50%; display:inline-block; margin-right: 6px; }
+        .presence-online { background: #22c55e; box-shadow: 0 0 10px rgba(34,197,94,0.7); }
+        .presence-offline { background: #94a3b8; }
+
+        /* --- Doctor Finder tabs + quick links --- */
+        .tabs { display:flex; gap: 10px; flex-wrap: wrap; }
+        .tab-btn { padding: 10px 14px; border-radius: 12px; border: 1px solid var(--border); background: var(--bg-body); color: var(--text-main); cursor: pointer; font-weight: 800; font-size: 13px; }
+        .tab-btn.active { background: var(--primary); border-color: transparent; color: white; box-shadow: 0 6px 18px rgba(13,148,136,0.20); }
+        .quick-links { display:grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 12px; margin-top: 14px; }
+        .quick-link {
+            display:flex; justify-content:space-between; align-items:center; gap: 10px;
+            padding: 12px; border-radius: 16px;
+            border: 1px solid var(--border);
+            background: var(--bg-body);
+            text-decoration: none;
+            color: var(--text-main);
+            font-weight: 800;
+        }
+        .quick-link small { display:block; font-weight: 600; color: var(--text-muted); margin-top: 4px; }
+        .quick-link i { color: var(--primary); }
+        .quick-link:hover { transform: translateY(-1px); }
+
     </style>
 </head>
 <body>
@@ -336,6 +438,7 @@
         <p class="landing-subtitle">A safe, loving space for your journey into parenthood. Connecting mothers, partners, and care.</p>
         <button class="btn btn-primary" style="font-size: 18px; padding: 16px 40px;" onclick="showAuth()">Start Journey</button>
         <p style="margin-top: 20px; font-size: 12px; color: var(--text-muted);">Secure • Private • Free Forever</p>
+        <p style="margin-top: 10px; font-size: 12px; color: var(--text-muted);">Made by Team Nexus Engineering</p>
     </div>
 
     <!-- AUTH OVERLAY -->
@@ -349,6 +452,23 @@
             </button>
             <button class="btn btn-secondary" style="width: 100%; margin-top: 10px; border:none;" onclick="location.reload()">Back</button>
             <p id="login-msg" style="margin-top: 15px; font-size: 13px; color: var(--secondary);"></p>
+        </div>
+    </div>
+
+    <!-- LOADING OVERLAY -->
+    <div id="loading-screen" class="overlay loading-overlay hidden" aria-live="polite">
+        <div class="loading-wrap">
+            <div class="loading-hero">
+                <div class="baby-loader" aria-hidden="true">
+                    <span class="sparkle s1"></span><span class="sparkle s2"></span><span class="sparkle s3"></span>
+                    <i class="fa-solid fa-baby"></i>
+                </div>
+                <h2 class="loading-title">Getting things ready…</h2>
+                <div class="loading-sub">Syncing your dashboard, chat, and trackers.</div>
+                <div class="loading-bar" aria-hidden="true"><div></div></div>
+                <div class="loading-fact" id="loading-fact"><b>Fact:</b> —</div>
+            </div>
+            <div class="loading-credit">Made by Team Nexus Engineering</div>
         </div>
     </div>
 
@@ -475,9 +595,40 @@
                         <div>
                             <h2 id="dash-title">Overview</h2>
                             <div id="connected-banner" class="hidden" style="background: #ecfdf5; padding: 6px 12px; border-radius: 20px; color: #047857; font-weight: 600; font-size: 12px; display: inline-flex; align-items: center; gap: 5px; margin-top: 5px;">
-                                <i class="fa-solid fa-link"></i> <span id="connected-text">Connected</span>
+                                <i class="fa-solid fa-link"></i>
+                                <span id="connected-text">Connected</span>
+                                <span style="opacity: 0.55;">•</span>
+                                <span id="connected-presence">Checking…</span>
                             </div>
                         </div>
+                    </div>
+
+                    <div class="dash-hero" style="margin-bottom: 18px;">
+                        <div class="dash-hero-inner">
+                            <div style="min-width: 240px; flex: 1;">
+                                <h3 class="dash-hero-title" id="dash-greeting">Hi 👋</h3>
+                                <div class="dash-hero-sub">Your family dashboard updates live — chat, period calendar, and doctor links.</div>
+                                <div style="margin-top: 10px; display:flex; gap: 10px; flex-wrap: wrap;">
+                                    <span class="dash-pill" id="dash-presence-pill"><span class="presence-dot presence-offline" id="dash-presence-dot"></span><span id="dash-presence">Checking status…</span></span>
+                                    <span class="dash-pill"><i class="fa-solid fa-shield-heart" style="color: var(--primary);"></i> Gentle reminders</span>
+                                </div>
+                            </div>
+
+                            <div class="dash-baby" aria-hidden="true">
+                                <span class="sparkle s1"></span><span class="sparkle s2"></span><span class="sparkle s3"></span>
+                                <i class="fa-solid fa-baby"></i>
+                            </div>
+                        </div>
+
+                        <div class="dash-fact" id="dash-daily-fact"><b>Baby fact:</b> —</div>
+                    </div>
+
+                    <div class="card" id="dash-ai-daily-card" style="margin-bottom: 18px;">
+                        <div style="display:flex; justify-content:space-between; align-items:center; gap: 10px; flex-wrap: wrap;">
+                            <h3 style="margin:0;"><i class="fa-solid fa-brain" style="color: var(--primary);"></i> AI Summary (today)</h3>
+                            <span class="text-muted" style="font-size: 12px;" id="dash-ai-daily-meta">--</span>
+                        </div>
+                        <div class="text-muted" style="margin-top: 10px; line-height: 1.6;" id="dash-ai-daily-content">No shared AI summary yet.</div>
                     </div>
 
                     <!-- Mother's Sync Code Display (Always Visible for Mother) -->
@@ -708,6 +859,15 @@
                                 <h4 style="margin-top:0;">Milestone</h4>
                                 <div id="baby-milestone" class="text-muted" style="line-height:1.6;">--</div>
                             </div>
+                            <div class="card" style="margin:0; background: var(--bg-body);">
+                                <h4 style="margin-top:0;"><i class="fa-solid fa-seedling" style="color: var(--primary);"></i> Today’s Baby Update</h4>
+                                <div class="text-muted" id="baby-daily-title" style="font-size: 12px; font-weight: 800; margin-bottom: 10px;">--</div>
+                                <div class="text-muted" style="line-height:1.7;">
+                                    <div style="margin-bottom: 8px;"><b>Looks like:</b> <span id="baby-daily-look">--</span></div>
+                                    <div style="margin-bottom: 8px;"><b>Inside today:</b> <span id="baby-daily-inside">--</span></div>
+                                    <div><b>Mini FAQ:</b> <span id="baby-daily-faq">--</span></div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </section>
@@ -854,6 +1014,28 @@
                         </div>
                         <div id="med-results" class="med-grid"></div>
                     </div>
+
+                    <div class="card">
+                        <div style="display:flex; justify-content:space-between; align-items:center; gap: 10px; flex-wrap: wrap;">
+                            <h3 style="margin:0;"><i class="fa-solid fa-notes-medical" style="color: var(--primary);"></i> Medicine Logbook</h3>
+                            <div class="text-muted" style="font-size:12px;" id="med-log-note">Mother can log medicines; partner can view when synced.</div>
+                        </div>
+
+                        <div style="display:grid; grid-template-columns: 1.2fr 0.8fr; gap: 10px; margin-top: 12px;">
+                            <input type="text" id="med-log-name" class="input" placeholder="Medicine name (e.g., Iron tablet)" style="margin:0;">
+                            <input type="text" id="med-log-dose" class="input" placeholder="Dose (e.g., 1 tab)" style="margin:0;">
+                        </div>
+                        <div style="display:grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 10px;">
+                            <input type="datetime-local" id="med-log-time" class="input" style="margin:0;">
+                            <input type="text" id="med-log-notes" class="input" placeholder="Notes (optional)" style="margin:0;">
+                        </div>
+                        <div style="display:flex; gap: 10px; flex-wrap: wrap; margin-top: 10px;">
+                            <button class="btn btn-primary" id="med-log-add-btn" onclick="addMedLog()"><i class="fa-solid fa-plus"></i> Add Entry</button>
+                            <button class="btn btn-secondary" onclick="clearMedLogInputs()"><i class="fa-solid fa-eraser"></i> Clear</button>
+                        </div>
+
+                        <div id="med-log-list" style="margin-top: 14px;"></div>
+                    </div>
                 </section>
 
                 <!-- DOCTOR FINDER -->
@@ -864,8 +1046,21 @@
                     </div>
                     <div class="card">
                         <p style="color: var(--text-muted); margin-bottom:10px;">Showing Gynecologists & Hospitals near your registered Pincode.</p>
+
+                        <div class="tabs" style="margin-bottom: 12px;" id="doctor-tabs">
+                            <button class="tab-btn active" type="button" data-kind="gyn">Gynecologists</button>
+                            <button class="tab-btn" type="button" data-kind="hospital">Hospitals</button>
+                            <button class="tab-btn" type="button" data-kind="ultrasound">Ultrasound/Labs</button>
+                            <button class="tab-btn" type="button" data-kind="pharmacy">Pharmacies</button>
+                        </div>
+
                         <div style="height: 300px; border-radius: 12px; overflow: hidden; border: 1px solid var(--border);">
                             <iframe id="map-frame" width="100%" height="100%" frameborder="0" style="border:0"></iframe>
+                        </div>
+
+                        <div class="quick-links" id="doctor-quick-links"></div>
+                        <div class="text-muted" style="font-size: 12px; margin-top: 10px; line-height: 1.6;">
+                            Tip: Tap a card to open full Google Maps results (easier than the small embedded map).
                         </div>
                     </div>
                 </section>
@@ -874,10 +1069,22 @@
                 <section id="view-partnerchat" class="hidden">
                     <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
                         <h2>Partner Chat</h2>
-                        <span style="font-size: 10px; color: var(--secondary); background: #fff1f2; padding: 5px 10px; border-radius: 20px;">
-                            <i class="fa-solid fa-lock"></i> End-to-End Encrypted
-                        </span>
+                        <div style="display:flex; gap: 10px; align-items:center; flex-wrap:wrap; justify-content:flex-end;">
+                            <span class="dash-pill" id="chat-presence-pill"><span class="presence-dot presence-offline" id="chat-presence-dot"></span><span id="chat-presence">Checking status…</span></span>
+                            <span style="font-size: 10px; color: var(--secondary); background: #fff1f2; padding: 5px 10px; border-radius: 20px;">
+                                <i class="fa-solid fa-lock"></i> End-to-End Encrypted
+                            </span>
+                        </div>
                     </div>
+
+                    <div class="card" id="ai-daily-card" style="margin-bottom: 16px;">
+                        <div style="display:flex; justify-content:space-between; align-items:center; gap: 10px; flex-wrap: wrap;">
+                            <h3 style="margin:0;"><i class="fa-solid fa-brain" style="color: var(--primary);"></i> AI Summary (today)</h3>
+                            <span class="text-muted" style="font-size: 12px;" id="ai-daily-meta">--</span>
+                        </div>
+                        <div class="text-muted" style="margin-top: 10px; line-height: 1.6;" id="ai-daily-content">No shared AI summary yet.</div>
+                    </div>
+
                     <div class="card chat-container" id="partner-chat-ui" style="padding: 0; overflow: hidden;">
                         <div id="partner-chat-box" class="chat-history" style="padding: 16px;"></div>
                         <div style="padding: 16px; border-top: 1px solid var(--border); display: flex; gap: 10px; background: var(--bg-card); position:relative;">
@@ -941,6 +1148,7 @@
                         <h3 style="margin: 20px 0; color: var(--primary);">ALL FEATURES ARE FREE</h3>
                         <p style="font-size: 13px; color: var(--text-muted); margin-bottom: 20px;">Our Pro AI, Doctor Finder, and Sync tools are gifts to new parents.</p>
                         <button class="btn btn-gold" onclick="alert('Thank you for your support!')">Donate to Developers</button>
+                        <div style="margin-top: 14px; font-size: 12px; color: #92400e;">Made by Team Nexus Engineering</div>
                     </div>
                 </section>
 
@@ -1036,6 +1244,9 @@
         let coupleData = null;
         let syncDisabledAlerted = false;
 
+        // Doctors finder state
+        const doctorFinderState = { kind: 'gyn' };
+
         const isMother = () => profile && profile.role === 'mother';
         const clampInt = (n, min, max) => {
             const v = Number(n);
@@ -1050,6 +1261,92 @@
         let theme = localStorage.getItem('theme') || 'light';
         document.body.setAttribute('data-theme', theme);
         let lastReadTime = Date.now();
+
+        // Loading overlay (cute baby + rotating facts)
+        const escapeHtmlLite = (s) => String(s)
+            .replaceAll('&', '&amp;')
+            .replaceAll('<', '&lt;')
+            .replaceAll('>', '&gt;')
+            .replaceAll('"', '&quot;')
+            .replaceAll("'", '&#39;');
+
+        const LOADING_FACTS = [
+            'Hydration helps reduce headaches and fatigue.',
+            'Folic acid supports early baby development (ask your doctor for dosage).',
+            'Small, frequent meals can help nausea for many people.',
+            'Gentle walks can improve mood and sleep quality.',
+            'Tracking dates helps doctors estimate pregnancy milestones more accurately.',
+            'If you feel dizzy or have heavy bleeding, seek medical help immediately.'
+        ];
+        let loadingFactTimer = null;
+        let loadingFactIndex = 0;
+
+        // Dashboard dynamic bits
+        let dashFactTimer = null;
+        let dashFactIndex = 0;
+        const DASH_FACTS = [
+            'Baby growth is not linear — every week is different.',
+            'Short naps can improve energy and mood.',
+            'Iron-rich foods (spinach, lentils) can help with fatigue.',
+            'Tracking symptoms + dates helps your doctor help you faster.',
+            'Gentle stretching can ease back discomfort.',
+            'If something feels “off”, it’s okay to ask for help.'
+        ];
+
+        function setupDashboardDynamic() {
+            const greet = document.getElementById('dash-greeting');
+            if(greet) {
+                const hr = new Date().getHours();
+                const sal = (hr < 12) ? 'Good morning' : (hr < 18 ? 'Good afternoon' : 'Good evening');
+                const name = (profile?.name || user?.displayName || 'there').split(' ')[0];
+                greet.innerText = `${sal}, ${name}`;
+            }
+
+            const factEl = document.getElementById('dash-daily-fact');
+            const showFact = () => {
+                if(!factEl) return;
+                const fact = DASH_FACTS[dashFactIndex % DASH_FACTS.length];
+                dashFactIndex += 1;
+                factEl.innerHTML = `<b>Baby fact:</b> ${escapeHtmlLite(fact)}`;
+            };
+
+            showFact();
+            if(dashFactTimer) { try { clearInterval(dashFactTimer); } catch(e) {} }
+            dashFactTimer = setInterval(showFact, 4500);
+        }
+
+        function stopDashboardDynamic() {
+            if(dashFactTimer) { try { clearInterval(dashFactTimer); } catch(e) {} }
+            dashFactTimer = null;
+        }
+
+        function showLoading(message) {
+            const screen = document.getElementById('loading-screen');
+            if(!screen) return;
+            screen.classList.remove('hidden');
+
+            const sub = screen.querySelector('.loading-sub');
+            if(sub && message) sub.innerText = message;
+
+            const factEl = document.getElementById('loading-fact');
+            const showNextFact = () => {
+                if(!factEl) return;
+                const fact = LOADING_FACTS[loadingFactIndex % LOADING_FACTS.length];
+                loadingFactIndex += 1;
+                factEl.innerHTML = `<b>Fact:</b> ${escapeHtmlLite(fact)}`;
+            };
+
+            showNextFact();
+            if(loadingFactTimer) { try { clearInterval(loadingFactTimer); } catch(e) {} }
+            loadingFactTimer = setInterval(showNextFact, 2400);
+        }
+
+        function hideLoading() {
+            const screen = document.getElementById('loading-screen');
+            if(screen) screen.classList.add('hidden');
+            if(loadingFactTimer) { try { clearInterval(loadingFactTimer); } catch(e) {} }
+            loadingFactTimer = null;
+        }
 
         window.showAuth = () => {
             document.getElementById('landing-screen').classList.add('hidden');
@@ -1070,6 +1367,8 @@
                 user = u;
                 document.getElementById('auth-screen').classList.add('hidden');
                 document.getElementById('landing-screen').classList.add('hidden'); 
+
+                showLoading('Signing you in and loading your profile…');
                 
                 const ref = doc(db, 'artifacts', appId, 'public', 'data', 'users', user.uid);
                 const snap = await getDoc(ref);
@@ -1078,6 +1377,7 @@
                     profile = snap.data();
                     startApp();
                 } else {
+                    hideLoading();
                     document.getElementById('setup-screen').classList.remove('hidden');
                     document.getElementById('user-display-name').value = user.displayName;
                 }
@@ -1099,6 +1399,7 @@
         }
 
         window.completeSetup = async () => {
+            showLoading('Creating your profile…');
             let data = {
                 uid: user.uid,
                 name: document.getElementById('user-display-name').value || user.displayName,
@@ -1183,14 +1484,14 @@
             document.getElementById('week-disp').innerText = "Week " + (wk || "--");
             document.getElementById('ai-context-week').innerText = (wk || "--") + " weeks";
             document.getElementById('dash-doc-name').innerText = profile.docName || "Not Set";
-            if(profile.docPhone) document.getElementById('sos-btn-doc').href = "tel:" + profile.docPhone;
-
-            // Map
-            if(profile.pin && profile.country) {
-                const q = `Gynecologist+near+${profile.pin}+${profile.country}`;
-                document.getElementById('map-frame').src = `https://maps.google.com/maps?q=${q}&output=embed`;
-                document.getElementById('location-display').innerText = `Searching near: ${profile.pin}`;
+            if(profile.docPhone) {
+                document.getElementById('sos-btn-doc').href = "tel:" + profile.docPhone;
+                const dashCall = document.getElementById('dash-doc-call');
+                if(dashCall) dashCall.href = "tel:" + profile.docPhone;
             }
+
+            // Doctor Finder
+            setupDoctorFinder();
 
             renderMedicine(LOCAL_MEDS);
             if(profile.linkedUid) setupLink(profile.linkedUid);
@@ -1200,7 +1501,385 @@
             setupPeriodTracker();
             setupBabyTracker();
             setupProfileEditor();
+
+            setupDashboardDynamic();
+
+            setupPresence();
+            renderAiDailyCard();
+            renderMedLog();
+
+            hideLoading();
         }
+
+        function doctorQueryFor(kind) {
+            const pin = (profile?.pin || '').trim();
+            const country = (profile?.country || '').trim();
+            const loc = [pin, country].filter(Boolean).join(' ');
+            const base = (kind === 'hospital') ? 'Hospital' :
+                         (kind === 'ultrasound') ? 'Ultrasound scan center' :
+                         (kind === 'pharmacy') ? 'Pharmacy' :
+                         'Gynecologist';
+            if(!loc) return base;
+            return `${base} near ${loc}`;
+        }
+
+        function googleMapsSearchUrl(queryText) {
+            return `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(queryText)}`;
+        }
+
+        function googleMapsEmbedUrl(queryText) {
+            return `https://maps.google.com/maps?q=${encodeURIComponent(queryText)}&output=embed`;
+        }
+
+        function renderDoctorQuickLinks() {
+            const wrap = document.getElementById('doctor-quick-links');
+            if(!wrap) return;
+
+            const pin = (profile?.pin || '').trim();
+            const country = (profile?.country || '').trim();
+            const locLabel = pin ? `Near ${pin}${country ? ', ' + country : ''}` : 'Set PIN & country in Profiles to improve results';
+
+            const items = [
+                { kind: 'gyn', title: 'Gynecologists', icon: 'fa-hospital-user' },
+                { kind: 'hospital', title: 'Hospitals', icon: 'fa-hospital' },
+                { kind: 'ultrasound', title: 'Ultrasound/Labs', icon: 'fa-vial' },
+                { kind: 'pharmacy', title: 'Pharmacies', icon: 'fa-prescription-bottle-medical' },
+            ];
+
+            wrap.innerHTML = '';
+            for(const it of items) {
+                const q = doctorQueryFor(it.kind);
+                const a = document.createElement('a');
+                a.className = 'quick-link';
+                a.href = googleMapsSearchUrl(q);
+                a.target = '_blank';
+                a.rel = 'noopener noreferrer';
+                a.innerHTML = `<div><div>${it.title}</div><small>${escapeHtmlLite(locLabel)}</small></div><i class="fa-solid ${it.icon}"></i>`;
+                wrap.appendChild(a);
+            }
+        }
+
+        function setDoctorTab(kind) {
+            doctorFinderState.kind = kind;
+            const tabs = document.getElementById('doctor-tabs');
+            if(tabs) {
+                tabs.querySelectorAll('.tab-btn').forEach(b => b.classList.toggle('active', b.getAttribute('data-kind') === kind));
+            }
+
+            const q = doctorQueryFor(kind);
+            const map = document.getElementById('map-frame');
+            if(map) map.src = googleMapsEmbedUrl(q);
+
+            const loc = document.getElementById('location-display');
+            const pin = (profile?.pin || '').trim();
+            if(loc) loc.innerText = pin ? `Searching near: ${pin}` : 'Set PIN & Country in Profiles';
+
+            renderDoctorQuickLinks();
+        }
+
+        function setupDoctorFinder() {
+            const tabs = document.getElementById('doctor-tabs');
+            if(tabs && !tabs.dataset.bound) {
+                tabs.dataset.bound = '1';
+                tabs.addEventListener('click', (e) => {
+                    const btn = e.target?.closest?.('.tab-btn');
+                    if(!btn) return;
+                    const kind = btn.getAttribute('data-kind');
+                    if(!kind) return;
+                    setDoctorTab(kind);
+                });
+            }
+
+            // Default tab
+            setDoctorTab(doctorFinderState.kind || 'gyn');
+        }
+
+        // --- PRESENCE (simple Firestore heartbeat) ---
+        const PRESENCE_HEARTBEAT_MS = 25000;
+        const PRESENCE_STALE_MS = 65000;
+        let presenceTimer = null;
+        let presenceUiTimer = null;
+
+        async function setMyPresence(state) {
+            if(!user?.uid) return;
+            try {
+                await updateDoc(doc(db, 'artifacts', appId, 'public', 'data', 'users', user.uid), {
+                    presence: {
+                        state,
+                        lastSeen: new Date().toISOString()
+                    }
+                });
+            } catch(e) {}
+        }
+
+        function getOtherProfile() {
+            if(!profile?.linkedUid) return null;
+            return linkedProfile;
+        }
+
+        function isPresenceOnline(p) {
+            const lastSeen = p?.presence?.lastSeen;
+            if(!lastSeen) return false;
+            const t = new Date(lastSeen).getTime();
+            if(!Number.isFinite(t)) return false;
+            return (Date.now() - t) <= PRESENCE_STALE_MS && (p?.presence?.state === 'online');
+        }
+
+        function renderPresenceUI() {
+            const other = getOtherProfile();
+
+            const dashText = document.getElementById('dash-presence');
+            const dashDot = document.getElementById('dash-presence-dot');
+            const chatText = document.getElementById('chat-presence');
+            const chatDot = document.getElementById('chat-presence-dot');
+            const bannerText = document.getElementById('connected-presence');
+
+            if(!profile?.linkedUid) {
+                if(dashText) dashText.innerText = 'Not linked — sync to enable live status';
+                if(chatText) chatText.innerText = 'Not linked';
+                if(bannerText) bannerText.innerText = 'Not linked';
+                if(dashDot) { dashDot.classList.remove('presence-online'); dashDot.classList.add('presence-offline'); }
+                if(chatDot) { chatDot.classList.remove('presence-online'); chatDot.classList.add('presence-offline'); }
+                return;
+            }
+
+            if(!other) {
+                if(dashText) dashText.innerText = 'Connected — checking status…';
+                if(chatText) chatText.innerText = 'Checking status…';
+                if(bannerText) bannerText.innerText = 'Checking…';
+                return;
+            }
+
+            const otherName = (other?.name || 'Partner');
+            const online = isPresenceOnline(other);
+            const label = online ? `${otherName} is online` : `${otherName} is offline`;
+
+            if(dashText) dashText.innerText = label;
+            if(chatText) chatText.innerText = label;
+            if(bannerText) bannerText.innerText = label;
+
+            const setDot = (dot) => {
+                if(!dot) return;
+                dot.classList.toggle('presence-online', online);
+                dot.classList.toggle('presence-offline', !online);
+            };
+            setDot(dashDot);
+            setDot(chatDot);
+        }
+
+        function setupPresence() {
+            // Mark online now
+            setMyPresence('online');
+            renderPresenceUI();
+
+            if(presenceTimer) { try { clearInterval(presenceTimer); } catch(e) {} }
+            presenceTimer = setInterval(() => {
+                if(document.visibilityState === 'visible') setMyPresence('online');
+            }, PRESENCE_HEARTBEAT_MS);
+
+            if(presenceUiTimer) { try { clearInterval(presenceUiTimer); } catch(e) {} }
+            presenceUiTimer = setInterval(() => renderPresenceUI(), 15000);
+
+            document.addEventListener('visibilitychange', () => {
+                if(document.visibilityState === 'visible') setMyPresence('online');
+                else setMyPresence('offline');
+            });
+
+            window.addEventListener('beforeunload', () => {
+                // best-effort
+                try { navigator.sendBeacon?.('', ''); } catch(e) {}
+                setMyPresence('offline');
+            });
+        }
+
+        // --- AI DAILY SUMMARY (Mother -> Partner view) ---
+        function todayISO() {
+            const d = new Date();
+            const y = d.getFullYear();
+            const m = String(d.getMonth() + 1).padStart(2, '0');
+            const day = String(d.getDate()).padStart(2, '0');
+            return `${y}-${m}-${day}`;
+        }
+
+        async function saveAiDaily(question, answer) {
+            if(!isMother()) return;
+            if(!user?.uid) return;
+            const q = (question || '').trim().slice(0, 260);
+            const a = (answer || '').trim().slice(0, 420);
+            if(!q || !a) return;
+            try {
+                await updateDoc(doc(db, 'artifacts', appId, 'public', 'data', 'users', user.uid), {
+                    aiDaily: {
+                        date: todayISO(),
+                        question: q,
+                        answer: a,
+                        updatedAt: new Date().toISOString()
+                    }
+                });
+                profile.aiDaily = { date: todayISO(), question: q, answer: a, updatedAt: new Date().toISOString() };
+            } catch(e) {}
+        }
+
+        function renderAiDailyCard() {
+            const t = todayISO();
+            const src = isMother() ? profile : (linkedProfile || {});
+            const daily = src?.aiDaily;
+
+            const renderInto = (metaId, contentId) => {
+                const meta = document.getElementById(metaId);
+                const content = document.getElementById(contentId);
+                if(!meta || !content) return;
+
+                if(!daily || daily.date !== t) {
+                    meta.innerText = t;
+                    content.innerText = isMother()
+                        ? 'Ask the AI today to generate a shareable summary.'
+                        : 'No shared AI summary yet.';
+                    return;
+                }
+
+                meta.innerText = `Updated ${new Date(daily.updatedAt || Date.now()).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}`;
+                content.innerHTML = `<div><b>Q:</b> ${escapeHtmlLite(daily.question || '')}</div><div style="margin-top:8px;"><b>A:</b> ${escapeHtmlLite(daily.answer || '')}</div>`;
+            };
+
+            // Partner Chat summary card
+            renderInto('ai-daily-meta', 'ai-daily-content');
+            // Partner Dashboard summary card
+            renderInto('dash-ai-daily-meta', 'dash-ai-daily-content');
+        }
+
+        // --- MEDICINE LOGBOOK (extra feature; medicine AI untouched) ---
+        function readMedLogObject() {
+            if(coupleData?.medLog) return coupleData.medLog;
+            if(profile?.medLog) return profile.medLog;
+            return null;
+        }
+
+        function canEditMedLog() {
+            return isMother();
+        }
+
+        function setupMedLogbook() {
+            const timeEl = document.getElementById('med-log-time');
+            if(timeEl && !timeEl.value) {
+                const d = new Date();
+                const pad = (n) => String(n).padStart(2, '0');
+                timeEl.value = `${d.getFullYear()}-${pad(d.getMonth()+1)}-${pad(d.getDate())}T${pad(d.getHours())}:${pad(d.getMinutes())}`;
+            }
+
+            const canEdit = canEditMedLog();
+            ['med-log-name','med-log-dose','med-log-time','med-log-notes'].forEach(id => {
+                const el = document.getElementById(id);
+                if(el) el.disabled = !canEdit;
+            });
+            const btn = document.getElementById('med-log-add-btn');
+            if(btn) {
+                btn.disabled = !canEdit;
+                btn.classList.toggle('btn-secondary', !canEdit);
+                btn.classList.toggle('btn-primary', canEdit);
+            }
+        }
+
+        async function saveMedLog(entries) {
+            const payload = {
+                entries: Array.isArray(entries) ? entries.slice(0, 300) : [],
+                updatedAt: new Date().toISOString(),
+                updatedBy: user.uid
+            };
+
+            const src = getPeriodSource();
+            if(src.type === 'couple' && src.id) {
+                await setDoc(doc(db, 'artifacts', appId, 'public', 'data', 'couples', src.id), { medLog: payload, syncDisabled: false }, { merge: true });
+                coupleData = { ...(coupleData || {}), medLog: payload };
+            } else {
+                await updateDoc(doc(db, 'artifacts', appId, 'public', 'data', 'users', user.uid), { medLog: payload });
+                profile.medLog = payload;
+            }
+        }
+
+        function renderMedLog() {
+            setupMedLogbook();
+            const list = document.getElementById('med-log-list');
+            if(!list) return;
+
+            const obj = readMedLogObject();
+            const entries = Array.isArray(obj?.entries) ? obj.entries : [];
+            const canEdit = canEditMedLog();
+
+            if(!entries.length) {
+                list.innerHTML = `<div class="text-muted" style="line-height:1.6;">No entries yet.</div>`;
+                return;
+            }
+
+            const sorted = entries.slice().sort((a,b) => (b.time || '').localeCompare(a.time || ''));
+            list.innerHTML = '';
+            for(const e of sorted) {
+                const when = e.time ? new Date(e.time).toLocaleString() : '--';
+                const name = escapeHtmlLite(e.name || '');
+                const dose = escapeHtmlLite(e.dose || '');
+                const notes = escapeHtmlLite(e.notes || '');
+
+                const card = document.createElement('div');
+                card.className = 'med-card';
+                card.style.borderLeftColor = 'rgba(13,148,136,0.65)';
+                card.innerHTML = `
+                    <div style="display:flex; justify-content:space-between; gap: 10px;">
+                        <div>
+                            <strong>${name || 'Medicine'}</strong> ${dose ? `<span class=\"badge\" style=\"background: var(--primary);\">${dose}</span>` : ''}
+                            <div class="text-muted" style="font-size:12px; margin-top:6px;">${escapeHtmlLite(when)}</div>
+                            ${notes ? `<div class=\"text-muted\" style=\"font-size:12px; margin-top:6px;\">${notes}</div>` : ''}
+                        </div>
+                        ${canEdit ? `<button class=\"btn btn-secondary\" style=\"padding:10px 12px; height: fit-content;\" onclick=\"deleteMedLogEntry('${escapeHtmlLite(e.id || '')}')\"><i class=\"fa-solid fa-trash\"></i></button>` : ''}
+                    </div>
+                `;
+                list.appendChild(card);
+            }
+        }
+
+        function renderMedLogFromCouple() {
+            renderMedLog();
+        }
+
+        window.clearMedLogInputs = () => {
+            const ids = ['med-log-name','med-log-dose','med-log-notes'];
+            ids.forEach(id => { const el = document.getElementById(id); if(el) el.value = ''; });
+        };
+
+        window.addMedLog = async () => {
+            if(!canEditMedLog()) return alert('Only Mother can add medicine log entries.');
+            const name = (document.getElementById('med-log-name')?.value || '').trim();
+            const dose = (document.getElementById('med-log-dose')?.value || '').trim();
+            const timeVal = document.getElementById('med-log-time')?.value;
+            const notes = (document.getElementById('med-log-notes')?.value || '').trim();
+            if(!name) return alert('Please enter a medicine name.');
+            if(!timeVal) return alert('Please pick a time.');
+
+            const time = new Date(timeVal).toISOString();
+            const obj = readMedLogObject();
+            const entries = Array.isArray(obj?.entries) ? obj.entries.slice() : [];
+            entries.push({
+                id: `m_${Date.now()}_${Math.random().toString(16).slice(2)}`,
+                name,
+                dose,
+                time,
+                notes,
+                addedBy: user.uid
+            });
+
+            await saveMedLog(entries);
+            renderMedLog();
+            window.clearMedLogInputs();
+        };
+
+        window.deleteMedLogEntry = async (id) => {
+            if(!canEditMedLog()) return;
+            const obj = readMedLogObject();
+            const entries = Array.isArray(obj?.entries) ? obj.entries.slice() : [];
+            const next = entries.filter(e => e.id !== id);
+            if(next.length === entries.length) return;
+            await saveMedLog(next);
+            renderMedLog();
+        };
 
         // SYNC UI LOGIC
         window.generateCode = async () => {
@@ -1262,6 +1941,7 @@
                     // Period is stored in couple doc
                     if(typeof renderPeriodFromCouple === 'function') renderPeriodFromCouple();
                     if(typeof renderPeriodCalendarFromCouple === 'function') renderPeriodCalendarFromCouple();
+                    if(typeof renderMedLogFromCouple === 'function') renderMedLogFromCouple();
                 });
             }
 
@@ -1278,6 +1958,9 @@
                 document.getElementById('connected-banner').classList.remove('hidden');
                 document.getElementById('connected-text').innerText = "Connected to " + (data.name || 'Partner');
                 document.getElementById('sync-status').innerHTML = '<span class="status-dot dot-green"></span> ' + (data.name || 'Connected');
+
+                if(typeof renderPresenceUI === 'function') renderPresenceUI();
+                if(typeof renderAiDailyCard === 'function') renderAiDailyCard();
 
                 // If partner is logged in, keep mother data fresh
                 if(profile.role === 'partner') {
@@ -1456,6 +2139,12 @@
                 const reply = await pollinationsChat({ system: context, userText: txt });
                 document.getElementById(loadingId).remove();
                 box.innerHTML += `<div class="msg msg-left">${escapeHtml(reply)}</div>`;
+
+                // Share a brief AI summary to partner (mother only)
+                try {
+                    await saveAiDaily(txt, reply);
+                    renderAiDailyCard();
+                } catch(e) {}
             } catch(e) {
                 document.getElementById(loadingId).remove();
                 const msg = (e?.message || e || '').toString();
@@ -2235,6 +2924,105 @@
             return chosen;
         }
 
+        function isoTodayLocal() {
+            const d = new Date();
+            const y = d.getFullYear();
+            const m = String(d.getMonth() + 1).padStart(2, '0');
+            const day = String(d.getDate()).padStart(2, '0');
+            return `${y}-${m}-${day}`;
+        }
+
+        function hashSeed(str) {
+            // Tiny deterministic hash for daily rotation
+            let h = 2166136261;
+            for(let i = 0; i < str.length; i++) {
+                h ^= str.charCodeAt(i);
+                h = Math.imul(h, 16777619);
+            }
+            return (h >>> 0);
+        }
+
+        function babyDailyInsightsForWeek(w, seed) {
+            // Not medical advice; friendly daily-style updates.
+            const stage = (w < 4) ? 'early' : (w < 13) ? 'first' : (w < 28) ? 'second' : 'third';
+
+            const looks = {
+                early: [
+                    'tiny poppy-seed sized beginnings (early foundations).',
+                    'still very small — early growth is fast but invisible.',
+                    'a tiny “spark” of development — gentle care matters.'
+                ],
+                first: [
+                    'like a small berry — features are starting to form.',
+                    'a lime-ish size vibe — more shape, more movement soon.',
+                    'small but detailed — facial features are developing.'
+                ],
+                second: [
+                    'like an avocado/banana — growing stronger each day.',
+                    'more “baby-like” now — proportions are changing.',
+                    'noticeably bigger — lots of growth and practice movements.'
+                ],
+                third: [
+                    'getting chubbier — storing fat and practicing breathing.',
+                    'almost ready — stronger kicks and more predictable patterns.',
+                    'full-term vibes approaching — growth + finishing touches.'
+                ]
+            };
+
+            const inside = {
+                early: [
+                    'cells are dividing rapidly and early structures are forming.',
+                    'the “blueprint” stage — foundational development is underway.',
+                    'early organ systems begin their first steps.'
+                ],
+                first: [
+                    'major organs are forming and the nervous system is developing.',
+                    'tiny bones + muscles are developing; baby is learning to move.',
+                    'brain growth is active — rest and hydration help you too.'
+                ],
+                second: [
+                    'senses and reflexes are developing; baby practices swallowing.',
+                    'lungs and brain continue maturing; movements become stronger.',
+                    'growth spurts happen — nutrition and sleep are extra valuable.'
+                ],
+                third: [
+                    'lungs/brain are maturing and baby practices breathing motions.',
+                    'baby is putting on weight and fine-tuning reflexes.',
+                    'final stretch — baby is strengthening for life outside.'
+                ]
+            };
+
+            const faq = {
+                early: [
+                    'Q: Is it normal to feel very tired? A: Yes — rest and hydration help.',
+                    'Q: Mild cramps? A: Can happen early; severe pain needs medical help.',
+                    'Q: Nausea? A: Small snacks + ginger can help many people.'
+                ],
+                first: [
+                    'Q: When will I feel movement? A: Often later — varies person to person.',
+                    'Q: Headaches? A: Hydration + rest help; consult your doctor if persistent.',
+                    'Q: What helps nausea? A: Small, frequent meals and bland foods can help.'
+                ],
+                second: [
+                    'Q: Are kicks daily? A: Patterns vary; ask your doctor if you notice a big change.',
+                    'Q: Back pain? A: Gentle stretching and posture support can help.',
+                    'Q: Heartburn? A: Smaller meals and avoiding late-night spicy foods may help.'
+                ],
+                third: [
+                    'Q: Shortness of breath? A: Common, but sudden/severe symptoms need care.',
+                    'Q: Swelling? A: Mild can be normal; sudden swelling needs urgent check.',
+                    'Q: Braxton Hicks? A: Often normal; regular/painful contractions need evaluation.'
+                ]
+            };
+
+            const pick = (arr) => arr[seed % arr.length];
+            return {
+                looks: pick(looks[stage]),
+                inside: pick(inside[stage]),
+                faq: pick(faq[stage])
+            };
+        }
+
         function setupBabyTracker() {
             const wk = clampInt(profile.week || 0, 0, 42);
             const title = document.getElementById('baby-week-title');
@@ -2250,6 +3038,21 @@
             if(tip) tip.innerText = f.tip;
             if(milestone) milestone.innerText = f.milestone;
             if(fill) fill.style.width = `${Math.max(0, Math.min(100, pct))}%`;
+
+            // Daily baby lines (changes each day)
+            const dailyTitle = document.getElementById('baby-daily-title');
+            const look = document.getElementById('baby-daily-look');
+            const inside = document.getElementById('baby-daily-inside');
+            const faqLine = document.getElementById('baby-daily-faq');
+            if(dailyTitle && look && inside && faqLine) {
+                const dayKey = isoTodayLocal();
+                const seed = hashSeed(`${dayKey}|w=${wk}`);
+                const ins = babyDailyInsightsForWeek(wk, seed);
+                dailyTitle.innerText = `${new Date().toLocaleDateString(undefined, { weekday: 'long', month: 'short', day: '2-digit' })} • Week ${wk || '--'}`;
+                look.innerText = ins.looks;
+                inside.innerText = ins.inside;
+                faqLine.innerText = ins.faq;
+            }
         }
 
         // --- PROFILES (permissions) ---
@@ -2323,9 +3126,14 @@
             document.getElementById('week-disp').innerText = "Week " + (profile.week || "--");
             document.getElementById('ai-context-week').innerText = (profile.week || "--") + " weeks";
             document.getElementById('dash-doc-name').innerText = profile.docName || "Not Set";
-            if(profile.docPhone) document.getElementById('sos-btn-doc').href = "tel:" + profile.docPhone;
+            if(profile.docPhone) {
+                document.getElementById('sos-btn-doc').href = "tel:" + profile.docPhone;
+                const dashCall = document.getElementById('dash-doc-call');
+                if(dashCall) dashCall.href = "tel:" + profile.docPhone;
+            }
             setupWeekEditor();
             setupBabyTracker();
+            setupDoctorFinder();
             alert('Mother profile saved.');
         }
 
@@ -2377,6 +3185,9 @@
 
         // UTILS
         window.nav = (id) => {
+            // Stop any view-specific timers when leaving
+            try { if(typeof stopDashboardDynamic === 'function') stopDashboardDynamic(); } catch(e) {}
+
             document.querySelectorAll('section').forEach(s => s.classList.add('hidden'));
             document.getElementById('view-'+id).classList.remove('hidden');
             document.querySelectorAll('.mobile-nav-item').forEach(n => n.classList.remove('active'));
@@ -2395,6 +3206,25 @@
 
             if(id === 'period') {
                 renderPeriodFromCouple();
+            }
+
+            if(id === 'dashboard') {
+                try { setupDashboardDynamic(); } catch(e) {}
+                try { renderPresenceUI(); } catch(e) {}
+                try { renderAiDailyCard(); } catch(e) {}
+            }
+
+            if(id === 'doctors') {
+                try { setupDoctorFinder(); } catch(e) {}
+            }
+
+            if(id === 'partnerchat') {
+                try { renderPresenceUI(); } catch(e) {}
+                try { renderAiDailyCard(); } catch(e) {}
+            }
+
+            if(id === 'medicine') {
+                try { renderMedLog(); } catch(e) {}
             }
         }
 
