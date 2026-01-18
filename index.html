@@ -4,6 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Maternal Nexus | Pro Health Suite</title>
+    <meta name="theme-color" content="#0d9488">
+    <link rel="manifest" href="manifest.webmanifest">
+    <link rel="icon" href="icon.svg" type="image/svg+xml">
     
     <!-- Professional Typography -->
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=Fredoka:wght@400;600&display=swap" rel="stylesheet">
@@ -162,6 +165,28 @@
         }
         @media (min-width: 769px) { .sos-float { bottom: 32px; right: 32px; } }
         .sos-float:hover { transform: scale(1.1); }
+
+        /* --- Global Language Button --- */
+        .lang-float {
+            position: fixed;
+            top: 16px;
+            right: 16px;
+            height: 44px;
+            padding: 0 14px;
+            border-radius: 999px;
+            background: var(--bg-card);
+            color: var(--text-main);
+            border: 1px solid var(--border);
+            box-shadow: var(--shadow);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            cursor: pointer;
+            z-index: 120;
+            font-weight: 800;
+        }
+        .lang-float:hover { transform: translateY(-1px); }
+        @media (max-width: 768px) { .lang-float { top: 74px; } }
         @keyframes pulse { 0% { box-shadow: 0 0 0 0 rgba(244, 63, 94, 0.7); } 70% { box-shadow: 0 0 0 15px rgba(244, 63, 94, 0); } 100% { box-shadow: 0 0 0 0 rgba(244, 63, 94, 0); } }
 
         /* --- Overlays --- */
@@ -427,6 +452,37 @@
         .quick-link i { color: var(--primary); }
         .quick-link:hover { transform: translateY(-1px); }
 
+        /* --- India Essentials --- */
+        .tool-grid { display:grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 12px; margin-top: 12px; }
+        .tool-card {
+            text-decoration: none;
+            color: var(--text-main);
+            background: var(--bg-body);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 14px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.04);
+            display:flex;
+            gap: 12px;
+            align-items: flex-start;
+        }
+        .tool-card i { width: 26px; text-align:center; color: var(--primary); margin-top: 2px; }
+        .tool-title { font-weight: 900; }
+        .tool-sub { font-size: 12px; color: var(--text-muted); margin-top: 4px; line-height: 1.5; }
+
+        .vax-list { margin-top: 12px; display:flex; flex-direction: column; gap: 10px; }
+        .vax-row { display:flex; gap: 10px; justify-content: space-between; align-items: center; background: var(--bg-body); border: 1px solid var(--border); border-radius: 14px; padding: 12px; }
+        .vax-left { display:flex; flex-direction: column; gap: 4px; }
+        .vax-name { font-weight: 900; }
+        .vax-meta { font-size: 12px; color: var(--text-muted); }
+        .vax-right { display:flex; gap: 10px; align-items: center; flex-wrap: wrap; justify-content: flex-end; }
+        .pill { font-size: 11px; font-weight: 900; padding: 4px 10px; border-radius: 999px; border: 1px solid var(--border); background: rgba(255,255,255,0.65); }
+        [data-theme="dark"] .pill { background: rgba(30,41,59,0.7); }
+        .pill.ok { border-color: rgba(34,197,94,0.35); color: #15803d; }
+        .pill.due { border-color: rgba(244,63,94,0.35); color: #be123c; }
+        .pill.soon { border-color: rgba(245,158,11,0.35); color: #b45309; }
+        .pill.muted { color: var(--text-muted); }
+
     </style>
 </head>
 <body>
@@ -549,17 +605,18 @@
                 <div class="logo"><i class="fa-solid fa-heart-pulse"></i> Nexus Pro</div>
 
                 <div class="sidebar-nav">
-                    <div class="nav-item active" onclick="nav('dashboard')"><i class="fa-solid fa-grid-2"></i> Dashboard</div>
-                    <div class="nav-item" onclick="nav('period')"><i class="fa-solid fa-droplet"></i> Period Tracker</div>
-                    <div class="nav-item" onclick="nav('baby')"><i class="fa-solid fa-baby-carriage"></i> Baby Tracker</div>
-                    <div class="nav-item" onclick="nav('profile')"><i class="fa-solid fa-id-card"></i> Profiles</div>
-                    <div class="nav-item" onclick="nav('wellness')"><i class="fa-solid fa-brain"></i> AI Assistant</div>
-                    <div class="nav-item" onclick="nav('medicine')"><i class="fa-solid fa-pills"></i> Medicine Library</div>
-                    <div class="nav-item" onclick="nav('doctors')"><i class="fa-solid fa-hospital-user"></i> Find Doctors</div>
-                    <div class="nav-item" onclick="nav('partnerchat')" id="nav-chat-desk"><i class="fa-solid fa-comments"></i> Chat <span class="nav-badge">0</span></div>
-                    <div class="nav-item" onclick="nav('community')" id="nav-community-desk"><i class="fa-solid fa-users"></i> Community <span class="nav-bubble"></span></div>
-                    <div class="nav-item" onclick="nav('sync')"><i class="fa-solid fa-link"></i> Sync</div>
-                    <div class="nav-item" onclick="nav('premium')"><i class="fa-solid fa-crown"></i> Premium</div>
+                    <div class="nav-item active" onclick="nav('dashboard')"><i class="fa-solid fa-grid-2"></i> <span data-i18n="nav.dashboard">Dashboard</span></div>
+                    <div class="nav-item" onclick="nav('period')"><i class="fa-solid fa-droplet"></i> <span data-i18n="nav.period">Period Tracker</span></div>
+                    <div class="nav-item" onclick="nav('baby')"><i class="fa-solid fa-baby-carriage"></i> <span data-i18n="nav.baby">Baby Tracker</span></div>
+                    <div class="nav-item" onclick="nav('profile')"><i class="fa-solid fa-id-card"></i> <span data-i18n="nav.profiles">Profiles</span></div>
+                    <div class="nav-item" onclick="nav('wellness')"><i class="fa-solid fa-brain"></i> <span data-i18n="nav.ai">AI Assistant</span></div>
+                    <div class="nav-item" onclick="nav('medicine')"><i class="fa-solid fa-pills"></i> <span data-i18n="nav.medicine">Medicine Library</span></div>
+                    <div class="nav-item" onclick="nav('india')"><i class="fa-solid fa-flag"></i> <span data-i18n="nav.india">India Essentials</span></div>
+                    <div class="nav-item" onclick="nav('doctors')"><i class="fa-solid fa-hospital-user"></i> <span data-i18n="nav.doctors">Find Doctors</span></div>
+                    <div class="nav-item" onclick="nav('partnerchat')" id="nav-chat-desk"><i class="fa-solid fa-comments"></i> <span data-i18n="nav.chat">Chat</span> <span class="nav-badge">0</span></div>
+                    <div class="nav-item" onclick="nav('community')" id="nav-community-desk"><i class="fa-solid fa-users"></i> <span data-i18n="nav.community">Community</span> <span class="nav-bubble"></span></div>
+                    <div class="nav-item" onclick="nav('sync')"><i class="fa-solid fa-link"></i> <span data-i18n="nav.sync">Sync</span></div>
+                    <div class="nav-item" onclick="nav('premium')"><i class="fa-solid fa-crown"></i> <span data-i18n="nav.premium">Premium</span></div>
                 </div>
                 
                 <div style="margin-top: 16px; flex-shrink: 0;">
@@ -576,6 +633,34 @@
                         <button class="btn btn-secondary" style="flex: 1;" onclick="toggleTheme()"><i class="fa-solid fa-moon"></i></button>
                         <button class="btn btn-secondary" style="flex: 1;" onclick="logout()"><i class="fa-solid fa-right-from-bracket"></i></button>
                     </div>
+
+                    <div class="card" style="padding: 12px; margin-top: 10px;">
+                        <div style="display:flex; align-items:center; justify-content:space-between; gap:10px;">
+                            <div style="font-size: 12px; font-weight: 900; display:flex; align-items:center; gap:8px;">
+                                <i class="fa-solid fa-language" style="color: var(--primary);"></i>
+                                <span data-i18n="lang.label">Language</span>
+                            </div>
+                            <select id="lang-select" class="input" style="width: 170px; margin: 0; padding: 10px;">
+                                <option value="auto" data-i18n="lang.auto">Auto</option>
+                                <option value="en">English</option>
+                                <option value="hi">हिन्दी</option>
+                                <option value="bn">বাংলা</option>
+                                <option value="te">తెలుగు</option>
+                                <option value="mr">मराठी</option>
+                                <option value="ta">தமிழ்</option>
+                                <option value="ur">اردو</option>
+                                <option value="gu">ગુજરાતી</option>
+                                <option value="kn">ಕನ್ನಡ</option>
+                                <option value="ml">മലയാളം</option>
+                                <option value="pa">ਪੰਜਾਬੀ</option>
+
+                                <option value="es">Español</option>
+                                <option value="fr">Français</option>
+                                <option value="ar">العربية</option>
+                            </select>
+                        </div>
+                        <div class="text-muted" style="font-size: 11px; line-height: 1.5; margin-top: 8px;" data-i18n="lang.note">Tip: you can switch anytime.</div>
+                    </div>
                 </div>
             </aside>
 
@@ -584,6 +669,7 @@
                 <div class="mobile-header">
                     <div class="logo" style="margin-bottom: 0;"><i class="fa-solid fa-heart-pulse"></i> Nexus Pro</div>
                     <div style="display:flex; gap:10px;">
+                        <button class="btn btn-secondary" style="padding: 8px;" onclick="openLangMenu()"><i class="fa-solid fa-language"></i></button>
                         <button class="btn btn-secondary" style="padding: 8px;" onclick="toggleTheme()"><i class="fa-solid fa-moon"></i></button>
                         <button class="btn btn-secondary" style="padding: 8px;" onclick="logout()"><i class="fa-solid fa-right-from-bracket"></i></button>
                     </div>
@@ -676,6 +762,59 @@
                             <input type="number" id="week-number" class="input" min="0" max="42" step="1" inputmode="numeric" style="margin:0;">
                         </div>
                         <button class="btn btn-primary" id="save-week-btn" style="width: 100%; margin-top: 12px;" onclick="savePregnancyWeek()"><i class="fa-solid fa-floppy-disk"></i> Save Week</button>
+                    </div>
+
+                    <div class="card" id="dash-diet-card">
+                        <div style="display:flex; justify-content:space-between; align-items:center; gap:10px; flex-wrap:wrap;">
+                            <h3 style="margin:0;"><i class="fa-solid fa-utensils" style="color: var(--primary);"></i> Trimester Diet Plan</h3>
+                            <span class="pill muted" id="diet-trimester-pill">--</span>
+                        </div>
+                        <div class="text-muted" style="font-size:12px; margin-top:8px; line-height:1.6;">Personalized guidance (not a medical prescription). Always follow your doctor’s advice.</div>
+
+                        <div style="display:grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; margin-top: 12px;">
+                            <select id="diet-style" class="input" style="margin:0;">
+                                <option value="mixed">Mixed (veg + non-veg)</option>
+                                <option value="veg">Vegetarian</option>
+                                <option value="vegan">Vegan</option>
+                            </select>
+                            <select id="diet-anemia" class="input" style="margin:0;">
+                                <option value="no">No anemia</option>
+                                <option value="yes">Anemia / low Hb</option>
+                            </select>
+                            <select id="diet-gdm" class="input" style="margin:0;">
+                                <option value="no">No diabetes</option>
+                                <option value="yes">GDM / diabetes</option>
+                            </select>
+                        </div>
+                        <button class="btn btn-primary" id="diet-save-btn" style="width:100%; margin-top: 10px;" onclick="saveDietPrefs()"><i class="fa-solid fa-floppy-disk"></i> Save Preferences</button>
+                        <div id="diet-plan-out" style="margin-top: 12px;"></div>
+                    </div>
+
+                    <div class="card" id="dash-appt-card">
+                        <div style="display:flex; justify-content:space-between; align-items:center; gap: 10px; flex-wrap:wrap;">
+                            <h3 style="margin:0;"><i class="fa-solid fa-calendar-check" style="color: var(--primary);"></i> Medical Scheduling</h3>
+                            <span class="text-muted" style="font-size:12px;" id="appts-sync-note">--</span>
+                        </div>
+
+                        <div id="appts-partner-toggle-wrap" style="display:none; gap:10px; align-items:center; margin-top: 10px;">
+                            <label style="display:flex; align-items:center; gap:10px; font-size: 13px; font-weight: 700;">
+                                <input type="checkbox" id="appts-partner-edit" style="transform: scale(1.1);"> Allow partner to add/edit appointments
+                            </label>
+                        </div>
+
+                        <div style="display:grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 12px;">
+                            <input type="datetime-local" id="appt-when" class="input" style="margin:0;">
+                            <input type="text" id="appt-title" class="input" placeholder="Purpose (e.g., NT scan / Checkup)" style="margin:0;">
+                        </div>
+                        <div style="display:grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 10px;">
+                            <input type="text" id="appt-place" class="input" placeholder="Hospital/clinic (optional)" style="margin:0;">
+                            <input type="text" id="appt-notes" class="input" placeholder="Notes (optional)" style="margin:0;">
+                        </div>
+                        <div style="display:flex; gap: 10px; flex-wrap: wrap; margin-top: 10px;">
+                            <button class="btn btn-primary" id="appt-add-btn" onclick="addAppointment()"><i class="fa-solid fa-plus"></i> Add</button>
+                            <button class="btn btn-secondary" onclick="exportAppointmentsIcs()"><i class="fa-solid fa-calendar-plus"></i> Export Reminders (.ics)</button>
+                        </div>
+                        <div id="appt-list" style="margin-top: 14px;"></div>
                     </div>
                 </section>
 
@@ -868,6 +1007,12 @@
                                     <div><b>Mini FAQ:</b> <span id="baby-daily-faq">--</span></div>
                                 </div>
                             </div>
+
+                            <div class="card" style="margin:0; background: var(--bg-body);">
+                                <h4 style="margin-top:0;"><i class="fa-solid fa-person-breastfeeding" style="color: var(--secondary);"></i> Breastfeeding Support</h4>
+                                <div class="text-muted" id="bf-meta" style="font-size: 12px; font-weight: 800; margin-bottom: 10px;">--</div>
+                                <div class="text-muted" id="bf-content" style="line-height:1.7;">--</div>
+                            </div>
                         </div>
                     </div>
                 </section>
@@ -942,6 +1087,19 @@
 
                         <hr style="margin: 22px 0; border:0; border-top:1px solid var(--border);">
 
+                        <div class="card" style="margin:0; background: #eef2ff; border: 1px solid rgba(99,102,241,0.22);">
+                            <h3 style="margin-top:0; color: #4338ca;"><i class="fa-solid fa-file-arrow-down"></i> Doctor Export</h3>
+                            <div class="text-muted" style="line-height:1.6;">Export a secure summary you can share with your doctor (no chats). Includes week, period info, appointments, vaccines, and logs.</div>
+                            <div style="display:flex; gap: 10px; flex-wrap: wrap; margin-top: 12px;">
+                                <button class="btn btn-primary" onclick="exportDoctorSummaryJson()"><i class="fa-solid fa-download"></i> Export Summary (JSON)</button>
+                                <button class="btn btn-secondary" onclick="exportDoctorSummaryCsv()"><i class="fa-solid fa-table"></i> Export Appointments (CSV)</button>
+                                <button class="btn btn-secondary" onclick="exportAppointmentsIcs()"><i class="fa-solid fa-calendar-plus"></i> Appointments (.ics)</button>
+                            </div>
+                            <div class="text-muted" style="font-size:12px; margin-top: 10px;">Tip: Use the vaccination export in India Essentials for vaccine reminders (.ics).</div>
+                        </div>
+
+                        <hr style="margin: 22px 0; border:0; border-top:1px solid var(--border);">
+
                         <div class="card" style="margin:0; background: #fff1f2; border: 1px solid rgba(244,63,94,0.25);">
                             <h3 style="margin-top:0; color: var(--secondary);">Delete Account</h3>
                             <div class="text-muted" style="line-height:1.6;">Deleting disables sync and notifies the other person.</div>
@@ -977,6 +1135,35 @@
                     <div style="display: flex; justify-content: space-between; align-items: center;">
                         <h2>AI Health Assistant</h2>
                         <span style="font-size: 10px; background: #e0f2f1; padding: 4px 8px; border-radius: 8px; color: var(--primary);">Context Aware</span>
+                    </div>
+
+                    <div class="card" id="wellness-card" style="margin-top: 12px;">
+                        <div style="display:flex; justify-content:space-between; align-items:center; gap:10px; flex-wrap:wrap;">
+                            <h3 style="margin:0;"><i class="fa-solid fa-face-smile" style="color: var(--primary);"></i> Emotional Wellness & Journal</h3>
+                            <span class="text-muted" style="font-size:12px;" id="wellness-last">--</span>
+                        </div>
+                        <div class="text-muted" style="font-size:12px; margin-top:8px; line-height:1.6;">Tracks mood + journal and highlights possible red flags. For emergencies, use SOS.</div>
+
+                        <div style="display:grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 12px; align-items:center;">
+                            <div>
+                                <label style="font-size: 12px; font-weight: 800; margin-left: 4px;">Mood</label>
+                                <input type="range" id="wellness-mood" min="1" max="5" step="1" value="3" style="width:100%;">
+                                <div class="text-muted" style="font-size:12px; margin-top:6px;">Selected: <b id="wellness-mood-label">Okay</b> • Sentiment: <b id="wellness-sentiment">Neutral</b></div>
+                            </div>
+                            <div style="background: var(--bg-body); border: 1px solid var(--border); border-radius: 14px; padding: 12px;">
+                                <div style="font-weight: 900;">Suggested prompt</div>
+                                <div class="text-muted" style="font-size:12px; margin-top:6px; line-height:1.6;" id="wellness-prompt">--</div>
+                            </div>
+                        </div>
+
+                        <textarea id="wellness-text" class="input" rows="4" placeholder="Write a short journal entry…" style="margin-top: 12px; resize: vertical;"></textarea>
+                        <div style="display:flex; gap: 10px; flex-wrap: wrap;">
+                            <button class="btn btn-primary" id="wellness-save-btn" onclick="saveWellnessEntry()"><i class="fa-solid fa-floppy-disk"></i> Save Entry</button>
+                            <button class="btn btn-secondary" onclick="exportWellnessJson()"><i class="fa-solid fa-download"></i> Export Journal (JSON)</button>
+                        </div>
+
+                        <div id="wellness-alert" class="hidden" style="margin-top: 12px; background: #fff1f2; border: 1px solid rgba(244,63,94,0.22); padding: 12px; border-radius: 14px;"></div>
+                        <div id="wellness-history" style="margin-top: 12px;"></div>
                     </div>
 
                     <div class="card" style="margin-top: 12px; padding: 12px; display:flex; gap:10px; align-items:center; flex-wrap:wrap;">
@@ -1062,6 +1249,153 @@
                         <div class="text-muted" style="font-size: 12px; margin-top: 10px; line-height: 1.6;">
                             Tip: Tap a card to open full Google Maps results (easier than the small embedded map).
                         </div>
+                    </div>
+                </section>
+
+                <!-- INDIA ESSENTIALS -->
+                <section id="view-india" class="hidden">
+                    <h2>India Essentials</h2>
+
+                    <div class="card">
+                        <div style="display:flex; justify-content:space-between; gap: 10px; align-items:flex-start; flex-wrap: wrap;">
+                            <div>
+                                <h3 style="margin-top:0;"><i class="fa-solid fa-bolt" style="color: var(--secondary);"></i> Emergency Quick Actions</h3>
+                                <div class="text-muted" style="line-height:1.6;">One-tap calls and trusted links. If you feel something is seriously wrong, seek urgent care immediately.</div>
+                            </div>
+                            <span class="pill muted">India-focused</span>
+                        </div>
+
+                        <div class="tool-grid">
+                            <a class="tool-card" href="tel:112">
+                                <i class="fa-solid fa-phone"></i>
+                                <div>
+                                    <div class="tool-title">112 — National Emergency</div>
+                                    <div class="tool-sub">Works for police/ambulance/fire in many areas.</div>
+                                </div>
+                            </a>
+                            <a class="tool-card" href="tel:108">
+                                <i class="fa-solid fa-truck-medical"></i>
+                                <div>
+                                    <div class="tool-title">108 — Ambulance</div>
+                                    <div class="tool-sub">Emergency medical response (many states).</div>
+                                </div>
+                            </a>
+                            <a class="tool-card" href="tel:102">
+                                <i class="fa-solid fa-person-pregnant"></i>
+                                <div>
+                                    <div class="tool-title">102 — Pregnancy/Child Health</div>
+                                    <div class="tool-sub">Maternal + child health helpline (availability varies).</div>
+                                </div>
+                            </a>
+                            <a class="tool-card" href="tel:1098">
+                                <i class="fa-solid fa-child"></i>
+                                <div>
+                                    <div class="tool-title">1098 — CHILDLINE</div>
+                                    <div class="tool-sub">Child protection helpline.</div>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <h3 style="margin-top:0;"><i class="fa-solid fa-landmark" style="color: var(--primary);"></i> Schemes & Telemedicine (Quick Links)</h3>
+                        <div class="text-muted" style="line-height:1.6;">These links can help with benefits, tele-consults, and services. (Opens official/public sites.)</div>
+                        <div class="tool-grid">
+                            <a class="tool-card" target="_blank" rel="noopener" href="https://pmmvy.wcd.gov.in/">
+                                <i class="fa-solid fa-circle-check"></i>
+                                <div>
+                                    <div class="tool-title">PMMVY</div>
+                                    <div class="tool-sub">Pradhan Mantri Matru Vandana Yojana (maternity benefit).</div>
+                                </div>
+                            </a>
+                            <a class="tool-card" target="_blank" rel="noopener" href="https://nhm.gov.in/">
+                                <i class="fa-solid fa-heart"></i>
+                                <div>
+                                    <div class="tool-title">NHM / JSY / JSSK</div>
+                                    <div class="tool-sub">National Health Mission scheme info (varies by state).</div>
+                                </div>
+                            </a>
+                            <a class="tool-card" target="_blank" rel="noopener" href="https://esanjeevani.mohfw.gov.in/">
+                                <i class="fa-solid fa-stethoscope"></i>
+                                <div>
+                                    <div class="tool-title">eSanjeevani</div>
+                                    <div class="tool-sub">Government telemedicine consults.</div>
+                                </div>
+                            </a>
+                            <a class="tool-card" target="_blank" rel="noopener" href="https://www.pmjay.gov.in/">
+                                <i class="fa-solid fa-id-card"></i>
+                                <div>
+                                    <div class="tool-title">Ayushman Bharat (PM-JAY)</div>
+                                    <div class="tool-sub">Insurance/benefits eligibility and info.</div>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div style="display:flex; justify-content:space-between; align-items:center; gap: 10px; flex-wrap:wrap;">
+                            <h3 style="margin:0;"><i class="fa-solid fa-syringe" style="color: var(--primary);"></i> Vaccination Tracker (UIP-style)</h3>
+                            <div class="text-muted" id="vax-sync-note" style="font-size:12px;">Saved locally (not synced)</div>
+                        </div>
+                        <div class="text-muted" style="margin-top: 10px; line-height:1.6;">
+                            Set baby’s DOB once, then track due dates. This is a helpful checklist — always follow your doctor/government schedule.
+                        </div>
+
+                        <div style="display:grid; grid-template-columns: 1.2fr 0.8fr; gap: 10px; margin-top: 12px;">
+                            <div>
+                                <label style="font-size: 12px; font-weight: 900; margin-left: 4px;">Baby DOB</label>
+                                <input type="date" id="vax-baby-dob" class="input" style="margin: 0;" />
+                            </div>
+                            <div>
+                                <label style="font-size: 12px; font-weight: 900; margin-left: 4px;">Special</label>
+                                <select id="vax-je-mode" class="input" style="margin: 0;">
+                                    <option value="auto">JE: show as optional</option>
+                                    <option value="on">JE: show (endemic area)</option>
+                                    <option value="off">JE: hide</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div style="display:flex; justify-content:space-between; gap: 10px; align-items:center; flex-wrap: wrap; margin-top: 10px;">
+                            <label class="cal-toggle" id="vax-partner-toggle-wrap" style="margin:0;">
+                                <input type="checkbox" id="vax-partner-edit" />
+                                Allow partner to mark vaccines
+                            </label>
+                            <div style="display:flex; gap: 10px; flex-wrap: wrap;">
+                                <button class="btn btn-secondary" type="button" onclick="vaxMarkAllDonePrompt()"><i class="fa-solid fa-check-double"></i> Mark Done (today)</button>
+                                <button class="btn btn-primary" type="button" onclick="vaxExportIcs()"><i class="fa-solid fa-calendar-plus"></i> Export Reminders (.ics)</button>
+                            </div>
+                        </div>
+
+                        <div id="vax-list" class="vax-list"></div>
+                    </div>
+
+                    <div class="card">
+                        <div style="display:flex; justify-content:space-between; align-items:center; gap: 10px; flex-wrap:wrap;">
+                            <h3 style="margin:0;"><i class="fa-solid fa-capsules" style="color: var(--primary);"></i> Daily Care Checklist</h3>
+                            <div class="text-muted" id="care-sync-note" style="font-size:12px;">Saved locally (not synced)</div>
+                        </div>
+                        <div class="text-muted" style="margin-top: 10px; line-height:1.6;">A simple daily checklist (common in India: IFA + calcium). Not medical advice — follow your doctor’s prescription.</div>
+
+                        <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 10px; margin-top: 12px;">
+                            <label class="cal-toggle" style="margin:0; background: var(--bg-body); border: 1px solid var(--border); border-radius: 14px; padding: 12px;">
+                                <input type="checkbox" id="care-ifa" />
+                                Took IFA (Iron)
+                            </label>
+                            <label class="cal-toggle" style="margin:0; background: var(--bg-body); border: 1px solid var(--border); border-radius: 14px; padding: 12px;">
+                                <input type="checkbox" id="care-calcium" />
+                                Took Calcium
+                            </label>
+                            <label class="cal-toggle" style="margin:0; background: var(--bg-body); border: 1px solid var(--border); border-radius: 14px; padding: 12px;">
+                                <input type="checkbox" id="care-water" />
+                                Drank enough water today
+                            </label>
+                        </div>
+                        <div style="display:grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 10px;">
+                            <input type="text" id="care-note" class="input" placeholder="Quick note (e.g., nausea, headache, BP, sugar)" style="margin:0;" />
+                            <button class="btn btn-primary" type="button" onclick="careSaveToday()"><i class="fa-solid fa-floppy-disk"></i> Save Today</button>
+                        </div>
+                        <div class="text-muted" style="font-size:12px; margin-top: 10px;" id="care-last-saved">--</div>
                     </div>
                 </section>
 
@@ -1179,6 +1513,7 @@
                     <div class="sheet-item" onclick="nav('baby'); closeMoreMenu();"><i class="fa-solid fa-baby-carriage"></i> Baby Tracker</div>
                     <div class="sheet-item" onclick="nav('profile'); closeMoreMenu();"><i class="fa-solid fa-id-card"></i> Profiles</div>
                     <div class="sheet-item" onclick="nav('medicine'); closeMoreMenu();"><i class="fa-solid fa-pills"></i> Medicine</div>
+                    <div class="sheet-item" onclick="nav('india'); closeMoreMenu();"><i class="fa-solid fa-flag"></i> India</div>
                     <div class="sheet-item" onclick="nav('doctors'); closeMoreMenu();"><i class="fa-solid fa-hospital-user"></i> Doctors</div>
                     <div class="sheet-item" onclick="nav('sync'); closeMoreMenu();"><i class="fa-solid fa-link"></i> Sync</div>
                     <div class="sheet-item" onclick="nav('premium'); closeMoreMenu();"><i class="fa-solid fa-crown"></i> Premium</div>
@@ -1187,6 +1522,10 @@
         </div>
         
         <div class="sos-float" onclick="activateSOS()" title="Emergency Alert">SOS</div>
+        <div class="lang-float" onclick="openLangMenu()" title="Language">
+            <i class="fa-solid fa-language" style="color: var(--primary);"></i>
+            <span style="font-size: 12px;">Language</span>
+        </div>
         <audio id="alarm-sound" src="https://actions.google.com/sounds/v1/alarms/alarm_clock.ogg" loop></audio>
     </div>
 
@@ -1261,6 +1600,324 @@
         let theme = localStorage.getItem('theme') || 'light';
         document.body.setAttribute('data-theme', theme);
         let lastReadTime = Date.now();
+
+        // --- i18n (Language) ---
+        const SUPPORTED_LANGS = ['en','hi','bn','te','mr','ta','ur','gu','kn','ml','pa','es','fr','ar'];
+        let appLang = localStorage.getItem('appLang') || 'auto';
+
+        const I18N = {
+            en: {
+                'lang.label': 'Language',
+                'lang.auto': 'Auto',
+                'lang.note': 'Tip: you can switch anytime.',
+                'nav.dashboard': 'Dashboard',
+                'nav.period': 'Period Tracker',
+                'nav.baby': 'Baby Tracker',
+                'nav.profiles': 'Profiles',
+                'nav.ai': 'AI Assistant',
+                'nav.medicine': 'Medicine Library',
+                'nav.india': 'India Essentials',
+                'nav.doctors': 'Find Doctors',
+                'nav.chat': 'Chat',
+                'nav.community': 'Community',
+                'nav.sync': 'Sync',
+                'nav.premium': 'Premium',
+            },
+            hi: {
+                'lang.label': 'भाषा',
+                'lang.auto': 'ऑटो',
+                'lang.note': 'टिप: आप कभी भी बदल सकते हैं।',
+                'nav.dashboard': 'डैशबोर्ड',
+                'nav.period': 'पीरियड ट्रैकर',
+                'nav.baby': 'बेबी ट्रैकर',
+                'nav.profiles': 'प्रोफाइल',
+                'nav.ai': 'एआई असिस्टेंट',
+                'nav.medicine': 'मेडिसिन लाइब्रेरी',
+                'nav.india': 'भारत सुविधाएँ',
+                'nav.doctors': 'डॉक्टर खोजें',
+                'nav.chat': 'चैट',
+                'nav.community': 'कम्युनिटी',
+                'nav.sync': 'सिंक',
+                'nav.premium': 'प्रीमियम',
+            },
+            bn: {
+                'lang.label': 'ভাষা',
+                'lang.auto': 'অটো',
+                'lang.note': 'টিপ: যেকোনো সময় বদলাতে পারবেন।',
+                'nav.dashboard': 'ড্যাশবোর্ড',
+                'nav.period': 'পিরিয়ড ট্র্যাকার',
+                'nav.baby': 'বেবি ট্র্যাকার',
+                'nav.profiles': 'প্রোফাইল',
+                'nav.ai': 'এআই সহকারী',
+                'nav.medicine': 'মেডিসিন লাইব্রেরি',
+                'nav.india': 'ভারত ফিচার',
+                'nav.doctors': 'ডাক্তার খুঁজুন',
+                'nav.chat': 'চ্যাট',
+                'nav.community': 'কমিউনিটি',
+                'nav.sync': 'সিঙ্ক',
+                'nav.premium': 'প্রিমিয়াম',
+            },
+            te: {
+                'lang.label': 'భాష',
+                'lang.auto': 'ఆటో',
+                'lang.note': 'టిప్: మీరు ఎప్పుడైనా మార్చవచ్చు.',
+                'nav.dashboard': 'డాష్‌బోర్డ్',
+                'nav.period': 'పీరియడ్ ట్రాకర్',
+                'nav.baby': 'బేబీ ట్రాకర్',
+                'nav.profiles': 'ప్రొఫైల్స్',
+                'nav.ai': 'ఏఐ అసిస్టెంట్',
+                'nav.medicine': 'మెడిసిన్ లైబ్రరీ',
+                'nav.india': 'భారత్ ఫీచర్లు',
+                'nav.doctors': 'డాక్టర్లు కనుగొను',
+                'nav.chat': 'చాట్',
+                'nav.community': 'కమ్యూనిటీ',
+                'nav.sync': 'సింక్',
+                'nav.premium': 'ప్రీమియం',
+            },
+            mr: {
+                'lang.label': 'भाषा',
+                'lang.auto': 'ऑटो',
+                'lang.note': 'टीप: तुम्ही कधीही बदलू शकता.',
+                'nav.dashboard': 'डॅशबोर्ड',
+                'nav.period': 'पीरियड ट्रॅकर',
+                'nav.baby': 'बेबी ट्रॅकर',
+                'nav.profiles': 'प्रोफाइल',
+                'nav.ai': 'एआय असिस्टंट',
+                'nav.medicine': 'मेडिसिन लायब्ररी',
+                'nav.india': 'भारत सुविधा',
+                'nav.doctors': 'डॉक्टर शोधा',
+                'nav.chat': 'चॅट',
+                'nav.community': 'कम्युनिटी',
+                'nav.sync': 'सिंक',
+                'nav.premium': 'प्रीमियम',
+            },
+            ta: {
+                'lang.label': 'மொழி',
+                'lang.auto': 'ஆட்டோ',
+                'lang.note': 'டிப்: எப்போது வேண்டுமானாலும் மாற்றலாம்.',
+                'nav.dashboard': 'டாஷ்போர்டு',
+                'nav.period': 'பீரியட் டிராக்கர்',
+                'nav.baby': 'பேபி டிராக்கர்',
+                'nav.profiles': 'சுயவிவரம்',
+                'nav.ai': 'ஏஐ உதவியாளர்',
+                'nav.medicine': 'மருந்து நூலகம்',
+                'nav.india': 'இந்தியா அம்சங்கள்',
+                'nav.doctors': 'மருத்துவரை தேடு',
+                'nav.chat': 'சாட்',
+                'nav.community': 'கம்யூனிட்டி',
+                'nav.sync': 'சிங்க்',
+                'nav.premium': 'ப்ரீமியம்',
+            },
+            ur: {
+                'lang.label': 'زبان',
+                'lang.auto': 'خودکار',
+                'lang.note': 'نوٹ: آپ کبھی بھی تبدیل کر سکتے ہیں۔',
+                'nav.dashboard': 'ڈیش بورڈ',
+                'nav.period': 'پیریڈ ٹریکر',
+                'nav.baby': 'بیبی ٹریکر',
+                'nav.profiles': 'پروفائلز',
+                'nav.ai': 'اے آئی اسسٹنٹ',
+                'nav.medicine': 'میڈیسن لائبریری',
+                'nav.india': 'بھارت فیچرز',
+                'nav.doctors': 'ڈاکٹر تلاش کریں',
+                'nav.chat': 'چیٹ',
+                'nav.community': 'کمیونٹی',
+                'nav.sync': 'سنک',
+                'nav.premium': 'پریمیم',
+            },
+            gu: {
+                'lang.label': 'ભાષા',
+                'lang.auto': 'ઓટો',
+                'lang.note': 'ટીપ: તમે ક્યારેય પણ બદલી શકો છો.',
+                'nav.dashboard': 'ડેશબોર્ડ',
+                'nav.period': 'પિરિયડ ટ્રૅકર',
+                'nav.baby': 'બેબી ટ્રૅકર',
+                'nav.profiles': 'પ્રોફાઇલ્સ',
+                'nav.ai': 'એઆઇ સહાયક',
+                'nav.medicine': 'મેડિસિન લાઇબ્રેરી',
+                'nav.india': 'ભારત ફીચર્સ',
+                'nav.doctors': 'ડૉક્ટર શોધો',
+                'nav.chat': 'ચેટ',
+                'nav.community': 'કમ્યુનિટી',
+                'nav.sync': 'સિંક',
+                'nav.premium': 'પ્રીમિયમ',
+            },
+            kn: {
+                'lang.label': 'ಭಾಷೆ',
+                'lang.auto': 'ಆಟೋ',
+                'lang.note': 'ಟಿಪ್: ನೀವು ಯಾವಾಗ ಬೇಕಾದರೂ ಬದಲಿಸಬಹುದು.',
+                'nav.dashboard': 'ಡ್ಯಾಶ್‌ಬೋರ್ಡ್',
+                'nav.period': 'ಪಿರಿಯಡ್ ಟ್ರ್ಯಾಕರ್',
+                'nav.baby': 'ಬೇಬಿ ಟ್ರ್ಯಾಕರ್',
+                'nav.profiles': 'ಪ್ರೊಫೈಲ್‌ಗಳು',
+                'nav.ai': 'ಎಐ ಸಹಾಯಕ',
+                'nav.medicine': 'ಮೆಡಿಸಿನ್ ಲೈಬ್ರರಿ',
+                'nav.india': 'ಭಾರತ ವೈಶಿಷ್ಟ್ಯಗಳು',
+                'nav.doctors': 'ಡಾಕ್ಟರ್ ಹುಡುಕಿ',
+                'nav.chat': 'ಚಾಟ್',
+                'nav.community': 'ಕಮ್ಯೂನಿಟಿ',
+                'nav.sync': 'ಸಿಂಕ್',
+                'nav.premium': 'ಪ್ರೀಮಿಯಮ್',
+            },
+            ml: {
+                'lang.label': 'ഭാഷ',
+                'lang.auto': 'ഓട്ടോ',
+                'lang.note': 'ടിപ്പ്: നിങ്ങൾക്ക് ഏത് സമയത്തും മാറ്റാം.',
+                'nav.dashboard': 'ഡാഷ്ബോർഡ്',
+                'nav.period': 'പീരിയഡ് ട്രാക്കർ',
+                'nav.baby': 'ബേബി ട്രാക്കർ',
+                'nav.profiles': 'പ്രൊഫൈലുകൾ',
+                'nav.ai': 'എഐ അസിസ്റ്റന്റ്',
+                'nav.medicine': 'മെഡിസിൻ ലൈബ്രറി',
+                'nav.india': 'ഇന്ത്യ ഫീച്ചറുകൾ',
+                'nav.doctors': 'ഡോക്ടർ കണ്ടെത്തുക',
+                'nav.chat': 'ചാറ്റ്',
+                'nav.community': 'കമ്മ്യൂണിറ്റി',
+                'nav.sync': 'സിങ്ക്',
+                'nav.premium': 'പ്രീമിയം',
+            },
+            pa: {
+                'lang.label': 'ਭਾਸ਼ਾ',
+                'lang.auto': 'ਆਟੋ',
+                'lang.note': 'ਟਿਪ: ਤੁਸੀਂ ਕਦੇ ਵੀ ਬਦਲ ਸਕਦੇ ਹੋ।',
+                'nav.dashboard': 'ਡੈਸ਼ਬੋਰਡ',
+                'nav.period': 'ਪੀਰੀਅਡ ਟ੍ਰੈਕਰ',
+                'nav.baby': 'ਬੇਬੀ ਟ੍ਰੈਕਰ',
+                'nav.profiles': 'ਪ੍ਰੋਫ਼ਾਈਲ',
+                'nav.ai': 'ਏਆਈ ਸਹਾਇਕ',
+                'nav.medicine': 'ਦਵਾਈ ਲਾਇਬ੍ਰੇਰੀ',
+                'nav.india': 'ਭਾਰਤ ਫੀਚਰ',
+                'nav.doctors': 'ਡਾਕਟਰ ਲੱਭੋ',
+                'nav.chat': 'ਚੈਟ',
+                'nav.community': 'ਕਮਿਊਨਿਟੀ',
+                'nav.sync': 'ਸਿੰਕ',
+                'nav.premium': 'ਪ੍ਰੀਮੀਅਮ',
+            },
+            es: {
+                'lang.label': 'Idioma',
+                'lang.auto': 'Auto',
+                'lang.note': 'Consejo: puedes cambiar en cualquier momento.',
+                'nav.dashboard': 'Panel',
+                'nav.period': 'Ciclo',
+                'nav.baby': 'Bebé',
+                'nav.profiles': 'Perfiles',
+                'nav.ai': 'Asistente IA',
+                'nav.medicine': 'Medicinas',
+                'nav.india': 'India',
+                'nav.doctors': 'Buscar doctores',
+                'nav.chat': 'Chat',
+                'nav.community': 'Comunidad',
+                'nav.sync': 'Sincronizar',
+                'nav.premium': 'Premium',
+            },
+            fr: {
+                'lang.label': 'Langue',
+                'lang.auto': 'Auto',
+                'lang.note': 'Astuce : vous pouvez changer à tout moment.',
+                'nav.dashboard': 'Tableau de bord',
+                'nav.period': 'Cycle',
+                'nav.baby': 'Bébé',
+                'nav.profiles': 'Profils',
+                'nav.ai': 'Assistant IA',
+                'nav.medicine': 'Médicaments',
+                'nav.india': 'Inde',
+                'nav.doctors': 'Trouver des médecins',
+                'nav.chat': 'Chat',
+                'nav.community': 'Communauté',
+                'nav.sync': 'Synchroniser',
+                'nav.premium': 'Premium',
+            },
+            ar: {
+                'lang.label': 'اللغة',
+                'lang.auto': 'تلقائي',
+                'lang.note': 'ملاحظة: يمكنك التغيير في أي وقت.',
+                'nav.dashboard': 'لوحة التحكم',
+                'nav.period': 'متابعة الدورة',
+                'nav.baby': 'متابعة الجنين',
+                'nav.profiles': 'الملفات',
+                'nav.ai': 'مساعد الذكاء',
+                'nav.medicine': 'الأدوية',
+                'nav.india': 'الهند',
+                'nav.doctors': 'البحث عن أطباء',
+                'nav.chat': 'محادثة',
+                'nav.community': 'المجتمع',
+                'nav.sync': 'مزامنة',
+                'nav.premium': 'بريميوم',
+            }
+        };
+
+        function normalizeLang(l) {
+            const raw = String(l || '').toLowerCase();
+            const base = raw.split('-')[0];
+            if(SUPPORTED_LANGS.includes(raw)) return raw;
+            if(SUPPORTED_LANGS.includes(base)) return base;
+            return 'en';
+        }
+
+        function getActiveLang() {
+            if(appLang && appLang !== 'auto') return normalizeLang(appLang);
+            return normalizeLang(navigator.language || 'en');
+        }
+
+        function t(key, fallback) {
+            const lang = getActiveLang();
+            return I18N?.[lang]?.[key] ?? I18N?.en?.[key] ?? (fallback ?? key);
+        }
+
+        function applyI18n(root = document) {
+            const lang = getActiveLang();
+            // Update text nodes
+            root.querySelectorAll('[data-i18n]').forEach(el => {
+                const k = el.getAttribute('data-i18n');
+                if(!k) return;
+                el.textContent = t(k, el.textContent);
+            });
+            // Update placeholders
+            root.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
+                const k = el.getAttribute('data-i18n-placeholder');
+                if(!k) return;
+                el.setAttribute('placeholder', t(k, el.getAttribute('placeholder') || ''));
+            });
+            // Direction (RTL)
+            document.documentElement.setAttribute('dir', (lang === 'ar' || lang === 'ur') ? 'rtl' : 'ltr');
+        }
+
+        function setupLanguageUI() {
+            const sel = document.getElementById('lang-select');
+            if(sel) {
+                sel.value = appLang || 'auto';
+                sel.addEventListener('change', () => {
+                    appLang = sel.value || 'auto';
+                    localStorage.setItem('appLang', appLang);
+                    applyI18n(document);
+                });
+            }
+            applyI18n(document);
+        }
+
+        window.openLangMenu = () => {
+            const sel = document.getElementById('lang-select');
+            if(sel) {
+                sel.focus();
+                sel.click();
+                return;
+            }
+            const next = prompt('Language (auto/en/hi/bn/te/mr/ta/ur/gu/kn/ml/pa/es/fr/ar):', appLang || 'auto');
+            if(!next) return;
+            appLang = next;
+            localStorage.setItem('appLang', appLang);
+            applyI18n(document);
+        };
+
+        function registerServiceWorker() {
+            try {
+                if(!('serviceWorker' in navigator)) return;
+                window.addEventListener('load', () => {
+                    navigator.serviceWorker.register('./sw.js').catch(() => {});
+                });
+            } catch(e) {}
+        }
+        registerServiceWorker();
 
         // Loading overlay (cute baby + rotating facts)
         const escapeHtmlLite = (s) => String(s)
@@ -1436,6 +2093,9 @@
             document.getElementById('user-initial').innerText = user.displayName.charAt(0);
             document.getElementById('user-name').innerText = profile.name || user.displayName;
 
+            // Apply language selection (i18n)
+            try { setupLanguageUI(); } catch(e) {}
+
             // Initialize Pollinations (AI) settings UI if present
             try { if(typeof initPollinationsFromUrl === 'function') initPollinationsFromUrl(); } catch(e) {}
 
@@ -1502,7 +2162,14 @@
             setupBabyTracker();
             setupProfileEditor();
 
+            setupIndiaEssentials();
+            renderIndiaFromCouple();
+
             setupDashboardDynamic();
+
+            setupDietPlanner();
+            setupAppointments();
+            setupWellnessTracker();
 
             setupPresence();
             renderAiDailyCard();
@@ -1840,6 +2507,976 @@
             renderMedLog();
         }
 
+        // --- INDIA ESSENTIALS (India-focused quick wins) ---
+        const INDIA_VAX_SCHEDULE = [
+            // Birth
+            { key: 'bcg_birth', name: 'BCG', when: 'At birth', add: { days: 0 }, tags: ['Birth'] },
+            { key: 'opv0_birth', name: 'OPV-0', when: 'At birth', add: { days: 0 }, tags: ['Birth'] },
+            { key: 'hepb0_birth', name: 'HepB-0', when: 'Within 24h', add: { days: 0 }, tags: ['Birth'] },
+
+            // 6 weeks
+            { key: 'penta1_6w', name: 'Pentavalent-1', when: '6 weeks', add: { days: 42 }, tags: ['6 weeks'] },
+            { key: 'opv1_6w', name: 'OPV-1', when: '6 weeks', add: { days: 42 }, tags: ['6 weeks'] },
+            { key: 'rota1_6w', name: 'Rotavirus-1', when: '6 weeks', add: { days: 42 }, tags: ['6 weeks'] },
+            { key: 'pcv1_6w', name: 'PCV-1', when: '6 weeks', add: { days: 42 }, tags: ['6 weeks'] },
+            { key: 'ipv1_6w', name: 'IPV-1', when: '6 weeks', add: { days: 42 }, tags: ['6 weeks'] },
+
+            // 10 weeks
+            { key: 'penta2_10w', name: 'Pentavalent-2', when: '10 weeks', add: { days: 70 }, tags: ['10 weeks'] },
+            { key: 'opv2_10w', name: 'OPV-2', when: '10 weeks', add: { days: 70 }, tags: ['10 weeks'] },
+            { key: 'rota2_10w', name: 'Rotavirus-2', when: '10 weeks', add: { days: 70 }, tags: ['10 weeks'] },
+
+            // 14 weeks
+            { key: 'penta3_14w', name: 'Pentavalent-3', when: '14 weeks', add: { days: 98 }, tags: ['14 weeks'] },
+            { key: 'opv3_14w', name: 'OPV-3', when: '14 weeks', add: { days: 98 }, tags: ['14 weeks'] },
+            { key: 'rota3_14w', name: 'Rotavirus-3', when: '14 weeks', add: { days: 98 }, tags: ['14 weeks'] },
+            { key: 'pcv2_14w', name: 'PCV-2', when: '14 weeks', add: { days: 98 }, tags: ['14 weeks'] },
+            { key: 'ipv2_14w', name: 'IPV-2', when: '14 weeks', add: { days: 98 }, tags: ['14 weeks'] },
+
+            // 9 months
+            { key: 'mr1_9m', name: 'MR-1', when: '9 months', add: { months: 9 }, tags: ['9 months'] },
+            { key: 'je1_9m', name: 'JE-1', when: '9 months (endemic)', add: { months: 9 }, tags: ['Optional'] },
+            { key: 'pcvB_9m', name: 'PCV Booster', when: '9–12 months', add: { months: 9 }, tags: ['9 months'] },
+
+            // 16-24 months
+            { key: 'mr2_16m', name: 'MR-2', when: '16–24 months', add: { months: 16 }, tags: ['16+ months'] },
+            { key: 'je2_16m', name: 'JE-2', when: '16–24 months (endemic)', add: { months: 16 }, tags: ['Optional'] },
+            { key: 'dptB1_16m', name: 'DPT Booster-1', when: '16–24 months', add: { months: 16 }, tags: ['16+ months'] },
+            { key: 'opvB_16m', name: 'OPV Booster', when: '16–24 months', add: { months: 16 }, tags: ['16+ months'] },
+        ];
+
+        const indiaState = {
+            initialized: false,
+            vaxDob: null,
+            allowPartnerEdit: true,
+            jeMode: 'auto',
+        };
+
+        function addToDateLocal(baseDate, add) {
+            const d = new Date(baseDate);
+            if(add?.months) d.setMonth(d.getMonth() + Number(add.months));
+            if(add?.days) d.setDate(d.getDate() + Number(add.days));
+            return d;
+        }
+
+        function fmtDate(d) {
+            if(!(d instanceof Date) || Number.isNaN(d.getTime())) return '--';
+            return d.toLocaleDateString(undefined, { year: 'numeric', month: 'short', day: '2-digit' });
+        }
+
+        function todayIsoLocal() {
+            const d = new Date();
+            const y = d.getFullYear();
+            const m = String(d.getMonth() + 1).padStart(2, '0');
+            const day = String(d.getDate()).padStart(2, '0');
+            return `${y}-${m}-${day}`;
+        }
+
+        function readVaxObject() {
+            if(coupleData?.vaxTracker) return coupleData.vaxTracker;
+            if(profile?.vaxTracker) return profile.vaxTracker;
+            return null;
+        }
+
+        function canEditVax() {
+            if(isMother()) return true;
+            const obj = readVaxObject();
+            const allow = (typeof obj?.allowPartnerEdit === 'boolean') ? obj.allowPartnerEdit : true;
+            return allow;
+        }
+
+        async function saveVaxTracker(payload) {
+            const safe = {
+                babyDob: payload?.babyDob || null,
+                jeMode: payload?.jeMode || 'auto',
+                allowPartnerEdit: (typeof payload?.allowPartnerEdit === 'boolean') ? payload.allowPartnerEdit : true,
+                done: (payload?.done && typeof payload.done === 'object') ? payload.done : {},
+                updatedAt: new Date().toISOString(),
+                updatedBy: user.uid
+            };
+
+            const src = getPeriodSource();
+            if(src.type === 'couple' && src.id) {
+                await setDoc(doc(db, 'artifacts', appId, 'public', 'data', 'couples', src.id), { vaxTracker: safe, syncDisabled: false }, { merge: true });
+                coupleData = { ...(coupleData || {}), vaxTracker: safe };
+            } else {
+                await updateDoc(doc(db, 'artifacts', appId, 'public', 'data', 'users', user.uid), { vaxTracker: safe });
+                profile.vaxTracker = safe;
+            }
+        }
+
+        function readCareObject() {
+            if(coupleData?.dailyCare) return coupleData.dailyCare;
+            if(profile?.dailyCare) return profile.dailyCare;
+            return null;
+        }
+
+        function canEditCare() {
+            return isMother();
+        }
+
+        async function saveDailyCare(payload) {
+            const safe = {
+                date: payload?.date || todayIsoLocal(),
+                ifa: !!payload?.ifa,
+                calcium: !!payload?.calcium,
+                water: !!payload?.water,
+                note: String(payload?.note || '').trim().slice(0, 180),
+                updatedAt: new Date().toISOString(),
+                updatedBy: user.uid
+            };
+
+            const src = getPeriodSource();
+            if(src.type === 'couple' && src.id) {
+                await setDoc(doc(db, 'artifacts', appId, 'public', 'data', 'couples', src.id), { dailyCare: safe, syncDisabled: false }, { merge: true });
+                coupleData = { ...(coupleData || {}), dailyCare: safe };
+            } else {
+                await updateDoc(doc(db, 'artifacts', appId, 'public', 'data', 'users', user.uid), { dailyCare: safe });
+                profile.dailyCare = safe;
+            }
+        }
+
+        function renderIndiaSyncNotes() {
+            const src = getPeriodSource();
+            const vax = document.getElementById('vax-sync-note');
+            const care = document.getElementById('care-sync-note');
+            const msg = src.type === 'couple' ? 'Saved in shared sync (both accounts)' : 'Saved locally (not synced)';
+            if(vax) vax.innerText = msg;
+            if(care) care.innerText = msg;
+        }
+
+        function renderVaxList() {
+            renderIndiaSyncNotes();
+            const wrap = document.getElementById('vax-list');
+            if(!wrap) return;
+
+            const obj = readVaxObject();
+            const dobIso = obj?.babyDob || indiaState.vaxDob;
+            const dob = dobIso ? parseISODateLocal(dobIso) : null;
+            const done = (obj?.done && typeof obj.done === 'object') ? obj.done : {};
+            const jeMode = obj?.jeMode || indiaState.jeMode || 'auto';
+
+            const allow = (typeof obj?.allowPartnerEdit === 'boolean') ? obj.allowPartnerEdit : indiaState.allowPartnerEdit;
+            const toggleWrap = document.getElementById('vax-partner-toggle-wrap');
+            const toggle = document.getElementById('vax-partner-edit');
+            if(toggleWrap) toggleWrap.style.display = isMother() ? 'flex' : 'none';
+            if(toggle && isMother()) toggle.checked = !!allow;
+
+            if(!dob) {
+                wrap.innerHTML = `<div class="text-muted" style="line-height:1.6;">Set Baby DOB to generate due dates.</div>`;
+                return;
+            }
+
+            const now = new Date();
+            const rows = [];
+            for(const it of INDIA_VAX_SCHEDULE) {
+                const isJe = it.key.startsWith('je');
+                if(isJe && jeMode === 'off') continue;
+
+                const due = addToDateLocal(dob, it.add);
+                const dueIso = isoLocalFromDate(due);
+                const doneObj = done[it.key] || null;
+                const isDone = !!doneObj?.done;
+
+                const daysLeft = Math.round((due - now) / (1000*60*60*24));
+                const status = isDone ? 'Done' : (daysLeft < 0 ? 'Overdue' : (daysLeft <= 7 ? 'Due soon' : 'Upcoming'));
+
+                const pillClass = isDone ? 'ok' : (daysLeft <= 7 ? 'due' : (daysLeft <= 21 ? 'soon' : 'muted'));
+                const tagText = (it.tags && it.tags.length) ? it.tags[0] : it.when;
+
+                rows.push({
+                    key: it.key,
+                    name: it.name,
+                    meta: `${it.when} • Due: ${fmtDate(due)}${isJe && jeMode === 'auto' ? ' • optional' : ''}`,
+                    tag: tagText,
+                    dueIso,
+                    isDone,
+                    pill: status,
+                    pillClass
+                });
+            }
+
+            rows.sort((a,b) => {
+                if(a.isDone !== b.isDone) return a.isDone ? 1 : -1;
+                return (a.dueIso || '').localeCompare(b.dueIso || '');
+            });
+
+            wrap.innerHTML = '';
+            for(const r of rows) {
+                const row = document.createElement('div');
+                row.className = 'vax-row';
+                row.innerHTML = `
+                    <div class="vax-left">
+                        <div class="vax-name">${escapeHtmlLite(r.name)}</div>
+                        <div class="vax-meta">${escapeHtmlLite(r.meta)}</div>
+                    </div>
+                    <div class="vax-right">
+                        <span class="pill ${r.pillClass}">${escapeHtmlLite(r.pill)}</span>
+                        <span class="pill muted">${escapeHtmlLite(r.tag)}</span>
+                        <label class="pill" style="display:inline-flex; align-items:center; gap:8px; cursor:pointer;">
+                            <input type="checkbox" data-vax="${escapeHtmlLite(r.key)}" ${r.isDone ? 'checked' : ''} ${canEditVax() ? '' : 'disabled'} />
+                            Done
+                        </label>
+                    </div>
+                `;
+                wrap.appendChild(row);
+            }
+        }
+
+        async function setVaxDone(key, doneVal) {
+            const obj = readVaxObject();
+            const next = (obj?.done && typeof obj.done === 'object') ? { ...obj.done } : {};
+            next[key] = {
+                done: !!doneVal,
+                givenOn: !!doneVal ? todayIsoLocal() : null,
+                updatedAt: new Date().toISOString(),
+                updatedBy: user.uid
+            };
+            await saveVaxTracker({
+                babyDob: obj?.babyDob || indiaState.vaxDob,
+                allowPartnerEdit: (typeof obj?.allowPartnerEdit === 'boolean') ? obj.allowPartnerEdit : indiaState.allowPartnerEdit,
+                jeMode: obj?.jeMode || indiaState.jeMode,
+                done: next
+            });
+            renderVaxList();
+        }
+
+        window.vaxMarkAllDonePrompt = async () => {
+            if(!canEditVax()) return alert('Vaccination edits are disabled for partner.');
+            const obj = readVaxObject();
+            const dobIso = obj?.babyDob;
+            if(!dobIso) return alert('Set Baby DOB first.');
+            if(!confirm('Mark ALL vaccines as done today? (You can undo by unchecking.)')) return;
+            const next = {};
+            for(const it of INDIA_VAX_SCHEDULE) {
+                next[it.key] = { done: true, givenOn: todayIsoLocal(), updatedAt: new Date().toISOString(), updatedBy: user.uid };
+            }
+            await saveVaxTracker({ babyDob: dobIso, allowPartnerEdit: obj?.allowPartnerEdit, jeMode: obj?.jeMode, done: next });
+            renderVaxList();
+        };
+
+        function buildIcsEvent({ uid, title, startDate, description }) {
+            const d = new Date(startDate);
+            const y = d.getFullYear();
+            const m = String(d.getMonth() + 1).padStart(2, '0');
+            const day = String(d.getDate()).padStart(2, '0');
+            const dt = `${y}${m}${day}`;
+            const esc = (s) => String(s || '').replace(/\\/g,'\\\\').replace(/\n/g,'\\n').replace(/\r/g,'').replace(/,/g,'\\,').replace(/;/g,'\\;');
+            return [
+                'BEGIN:VEVENT',
+                `UID:${esc(uid)}`,
+                `DTSTART;VALUE=DATE:${dt}`,
+                `SUMMARY:${esc(title)}`,
+                description ? `DESCRIPTION:${esc(description)}` : '',
+                'END:VEVENT'
+            ].filter(Boolean).join('\n');
+        }
+
+        window.vaxExportIcs = () => {
+            const obj = readVaxObject();
+            const dob = obj?.babyDob ? parseISODateLocal(obj.babyDob) : null;
+            if(!dob) return alert('Set Baby DOB first.');
+            const done = (obj?.done && typeof obj.done === 'object') ? obj.done : {};
+            const jeMode = obj?.jeMode || 'auto';
+
+            const events = [];
+            for(const it of INDIA_VAX_SCHEDULE) {
+                const isJe = it.key.startsWith('je');
+                if(isJe && jeMode === 'off') continue;
+                const isDone = !!done[it.key]?.done;
+                if(isDone) continue;
+                const due = addToDateLocal(dob, it.add);
+                if(due - new Date() > 1000*60*60*24*800) continue;
+                events.push(buildIcsEvent({
+                    uid: `nexus-${user.uid}-${it.key}`,
+                    title: `Vaccine due: ${it.name} (${it.when})`,
+                    startDate: due,
+                    description: 'Maternal Nexus reminder (follow your doctor/government schedule).'
+                }));
+            }
+            if(!events.length) return alert('No upcoming vaccines to export (or already marked done).');
+
+            const ics = [
+                'BEGIN:VCALENDAR',
+                'VERSION:2.0',
+                'PRODID:-//Maternal Nexus//India Essentials//EN',
+                'CALSCALE:GREGORIAN',
+                ...events,
+                'END:VCALENDAR'
+            ].join('\n');
+
+            const blob = new Blob([ics], { type: 'text/calendar;charset=utf-8' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `nexus-vaccines-${obj?.babyDob || 'dob'}.ics`;
+            document.body.appendChild(a);
+            a.click();
+            a.remove();
+            setTimeout(() => URL.revokeObjectURL(url), 5000);
+        };
+
+        function renderDailyCare() {
+            renderIndiaSyncNotes();
+            const obj = readCareObject();
+            const canEdit = canEditCare();
+            const today = todayIsoLocal();
+
+            const ifa = document.getElementById('care-ifa');
+            const calcium = document.getElementById('care-calcium');
+            const water = document.getElementById('care-water');
+            const note = document.getElementById('care-note');
+            const last = document.getElementById('care-last-saved');
+
+            const active = (obj && obj.date === today) ? obj : { date: today, ifa: false, calcium: false, water: false, note: '' };
+
+            if(ifa) { ifa.checked = !!active.ifa; ifa.disabled = !canEdit; }
+            if(calcium) { calcium.checked = !!active.calcium; calcium.disabled = !canEdit; }
+            if(water) { water.checked = !!active.water; water.disabled = !canEdit; }
+            if(note) { note.value = active.note || ''; note.disabled = !canEdit; }
+            if(last) {
+                last.innerText = obj?.updatedAt ? `Last saved: ${new Date(obj.updatedAt).toLocaleString()}` : 'Not saved yet.';
+            }
+        }
+
+        window.careSaveToday = async () => {
+            if(!canEditCare()) return alert('Only Mother can edit daily checklist.');
+            const payload = {
+                date: todayIsoLocal(),
+                ifa: !!document.getElementById('care-ifa')?.checked,
+                calcium: !!document.getElementById('care-calcium')?.checked,
+                water: !!document.getElementById('care-water')?.checked,
+                note: document.getElementById('care-note')?.value || ''
+            };
+            await saveDailyCare(payload);
+            renderDailyCare();
+            alert('Saved.');
+        };
+
+        // --- DIET PLANNER (Trimester-specific) ---
+        function getTrimester(week) {
+            const w = clampInt(week || 0, 0, 42);
+            if(w <= 13) return 1;
+            if(w <= 27) return 2;
+            return 3;
+        }
+
+        function readDietPrefs() {
+            return profile?.dietPrefs || null;
+        }
+
+        function canEditDiet() {
+            return isMother();
+        }
+
+        function buildDietPlan({ trimester, style, anemia, gdm }) {
+            const t = Number(trimester) || 1;
+            const isVeg = style === 'veg' || style === 'vegan';
+            const isVegan = style === 'vegan';
+            const hasAnemia = anemia === 'yes';
+            const hasGdm = gdm === 'yes';
+
+            const base = [];
+            base.push('Hydration: 8–10 glasses/day (more if advised).');
+            base.push('Protein: include with every meal (dal/beans/eggs/lean meats/paneer).');
+            base.push('Fiber: fruits, veggies, whole grains for digestion.');
+
+            const trimesterNotes = {
+                1: ['Focus: folate + nausea-friendly small meals.', 'Try: crackers, ginger, curd, bananas, soups.'],
+                2: ['Focus: steady weight gain + calcium + iron.', 'Try: roti + dal + sabzi, curd, nuts, seasonal fruits.'],
+                3: ['Focus: smaller frequent meals + iron + omega-3.', 'Try: soups, khichdi, idli, light dals, healthy snacks.']
+            };
+
+            const extras = [];
+            if(isVegan) extras.push('Vegan tip: add B12 + vitamin D as advised; use soy/tofu/legumes and fortified foods.');
+            if(isVeg && !isVegan) extras.push('Veg tip: paneer/curd + dals help meet protein.');
+            if(hasAnemia) extras.push('Anemia: include iron (spinach, jaggery, dates, beans) + vitamin C (amla/orange) with meals; avoid tea/coffee right after iron-rich meals.');
+            if(hasGdm) extras.push('GDM/diabetes: avoid sugary drinks; choose low-GI carbs; pair carbs with protein/fat; spread carbs across meals (doctor/dietician guidance recommended).');
+
+            const sample = [];
+            sample.push('Sample day:');
+            sample.push('• Breakfast: idli/upma + curd OR eggs + toast (whole wheat)');
+            sample.push('• Lunch: roti/rice + dal + sabzi + salad');
+            sample.push('• Snack: fruit + nuts OR roasted chana');
+            sample.push('• Dinner: khichdi + veggies OR chapati + paneer/chicken');
+
+            return {
+                title: `Trimester ${t} plan`,
+                bullets: [...(trimesterNotes[t] || []), ...base, ...extras, ...sample]
+            };
+        }
+
+        function renderDietPlanner() {
+            const card = document.getElementById('dash-diet-card');
+            if(!card) return;
+
+            const wk = clampInt(profile?.week || 0, 0, 42);
+            const trimester = getTrimester(wk);
+            const pill = document.getElementById('diet-trimester-pill');
+            if(pill) pill.innerText = wk ? `Trimester ${trimester} • Week ${wk}` : `Trimester ${trimester}`;
+
+            const prefs = readDietPrefs() || { style: 'mixed', anemia: 'no', gdm: 'no' };
+
+            const styleEl = document.getElementById('diet-style');
+            const anemiaEl = document.getElementById('diet-anemia');
+            const gdmEl = document.getElementById('diet-gdm');
+            const btn = document.getElementById('diet-save-btn');
+
+            if(styleEl) styleEl.value = prefs.style || 'mixed';
+            if(anemiaEl) anemiaEl.value = prefs.anemia || 'no';
+            if(gdmEl) gdmEl.value = prefs.gdm || 'no';
+
+            const canEdit = canEditDiet();
+            if(styleEl) styleEl.disabled = !canEdit;
+            if(anemiaEl) anemiaEl.disabled = !canEdit;
+            if(gdmEl) gdmEl.disabled = !canEdit;
+            if(btn) btn.disabled = !canEdit;
+
+            const plan = buildDietPlan({ trimester, style: prefs.style, anemia: prefs.anemia, gdm: prefs.gdm });
+            const out = document.getElementById('diet-plan-out');
+            if(out) {
+                out.innerHTML = `<div style="margin-top:6px;">${plan.bullets.map(b => `<div style="margin:6px 0; line-height:1.6;">• ${escapeHtmlLite(b)}</div>`).join('')}</div>`;
+            }
+        }
+
+        window.saveDietPrefs = async () => {
+            if(!canEditDiet()) return alert('Only Mother can edit diet preferences.');
+            const payload = {
+                style: document.getElementById('diet-style')?.value || 'mixed',
+                anemia: document.getElementById('diet-anemia')?.value || 'no',
+                gdm: document.getElementById('diet-gdm')?.value || 'no',
+                updatedAt: new Date().toISOString(),
+                updatedBy: user.uid
+            };
+            await updateDoc(doc(db, 'artifacts', appId, 'public', 'data', 'users', user.uid), { dietPrefs: payload });
+            profile.dietPrefs = payload;
+            renderDietPlanner();
+            alert('Saved.');
+        };
+
+        function setupDietPlanner() {
+            renderDietPlanner();
+        }
+
+        // --- APPOINTMENTS (Scheduling + reminders) ---
+        function readAppointmentsObject() {
+            if(coupleData?.appointments) return coupleData.appointments;
+            if(profile?.appointments) return profile.appointments;
+            return null;
+        }
+
+        function canEditAppointments() {
+            if(isMother()) return true;
+            const obj = readAppointmentsObject();
+            const allow = (typeof obj?.allowPartnerEdit === 'boolean') ? obj.allowPartnerEdit : true;
+            return allow;
+        }
+
+        async function saveAppointmentsObject(payload) {
+            const safe = {
+                allowPartnerEdit: (typeof payload?.allowPartnerEdit === 'boolean') ? payload.allowPartnerEdit : true,
+                appts: Array.isArray(payload?.appts) ? payload.appts.slice(0, 500) : [],
+                updatedAt: new Date().toISOString(),
+                updatedBy: user.uid
+            };
+            const src = getPeriodSource();
+            if(src.type === 'couple' && src.id) {
+                await setDoc(doc(db, 'artifacts', appId, 'public', 'data', 'couples', src.id), { appointments: safe, syncDisabled: false }, { merge: true });
+                coupleData = { ...(coupleData || {}), appointments: safe };
+            } else {
+                await updateDoc(doc(db, 'artifacts', appId, 'public', 'data', 'users', user.uid), { appointments: safe });
+                profile.appointments = safe;
+            }
+        }
+
+        function renderAppointmentsSyncNote() {
+            const src = getPeriodSource();
+            const el = document.getElementById('appts-sync-note');
+            if(!el) return;
+            el.innerText = src.type === 'couple' ? 'Synced with partner' : 'Saved locally';
+        }
+
+        function renderAppointmentsList() {
+            renderAppointmentsSyncNote();
+            const wrap = document.getElementById('appt-list');
+            if(!wrap) return;
+
+            const obj = readAppointmentsObject() || { allowPartnerEdit: true, appts: [] };
+            const appts = Array.isArray(obj.appts) ? obj.appts : [];
+
+            const toggleWrap = document.getElementById('appts-partner-toggle-wrap');
+            const toggle = document.getElementById('appts-partner-edit');
+            if(toggleWrap) toggleWrap.style.display = isMother() ? 'flex' : 'none';
+            if(toggle && isMother()) toggle.checked = (typeof obj.allowPartnerEdit === 'boolean') ? obj.allowPartnerEdit : true;
+
+            const canEdit = canEditAppointments();
+            ['appt-when','appt-title','appt-place','appt-notes'].forEach(id => {
+                const el = document.getElementById(id);
+                if(el) el.disabled = !canEdit;
+            });
+            const addBtn = document.getElementById('appt-add-btn');
+            if(addBtn) addBtn.disabled = !canEdit;
+
+            if(!appts.length) {
+                wrap.innerHTML = `<div class="text-muted" style="line-height:1.6;">No appointments added yet.</div>`;
+                return;
+            }
+
+            const sorted = appts.slice().sort((a,b) => (a.when || '').localeCompare(b.when || ''));
+            wrap.innerHTML = '';
+            for(const a of sorted) {
+                const when = a.when ? new Date(a.when).toLocaleString() : '--';
+                const title = escapeHtmlLite(a.title || 'Appointment');
+                const place = escapeHtmlLite(a.place || '');
+                const notes = escapeHtmlLite(a.notes || '');
+                const row = document.createElement('div');
+                row.className = 'med-card';
+                row.style.borderLeftColor = 'rgba(99,102,241,0.65)';
+                row.innerHTML = `
+                    <div style="display:flex; justify-content:space-between; gap:10px;">
+                        <div>
+                            <strong>${title}</strong>
+                            <div class="text-muted" style="font-size:12px; margin-top:6px;">${escapeHtmlLite(when)}</div>
+                            ${place ? `<div class="text-muted" style="font-size:12px; margin-top:6px;">${place}</div>` : ''}
+                            ${notes ? `<div class="text-muted" style="font-size:12px; margin-top:6px;">${notes}</div>` : ''}
+                        </div>
+                        ${canEdit ? `<button class=\"btn btn-secondary\" style=\"padding:10px 12px; height: fit-content;\" onclick=\"deleteAppointment('${escapeHtmlLite(a.id || '')}')\"><i class=\"fa-solid fa-trash\"></i></button>` : ''}
+                    </div>
+                `;
+                wrap.appendChild(row);
+            }
+        }
+
+        function initApptDefaultTime() {
+            const el = document.getElementById('appt-when');
+            if(!el || el.value) return;
+            const d = new Date();
+            d.setMinutes(d.getMinutes() + 60);
+            const pad = (n) => String(n).padStart(2,'0');
+            el.value = `${d.getFullYear()}-${pad(d.getMonth()+1)}-${pad(d.getDate())}T${pad(d.getHours())}:${pad(d.getMinutes())}`;
+        }
+
+        window.addAppointment = async () => {
+            if(!canEditAppointments()) return alert('Appointments are locked.');
+            const when = document.getElementById('appt-when')?.value;
+            const title = (document.getElementById('appt-title')?.value || '').trim();
+            const place = (document.getElementById('appt-place')?.value || '').trim();
+            const notes = (document.getElementById('appt-notes')?.value || '').trim();
+            if(!when || !title) return alert('Add date/time and purpose.');
+
+            const obj = readAppointmentsObject() || { allowPartnerEdit: true, appts: [] };
+            const next = Array.isArray(obj.appts) ? obj.appts.slice() : [];
+            next.push({
+                id: `appt_${Date.now()}_${Math.floor(Math.random()*1000)}`,
+                when,
+                title: title.slice(0, 80),
+                place: place.slice(0, 80),
+                notes: notes.slice(0, 160),
+                createdAt: new Date().toISOString(),
+                createdBy: user.uid
+            });
+
+            const allow = (isMother() && typeof document.getElementById('appts-partner-edit')?.checked === 'boolean')
+                ? !!document.getElementById('appts-partner-edit').checked
+                : (typeof obj.allowPartnerEdit === 'boolean' ? obj.allowPartnerEdit : true);
+
+            await saveAppointmentsObject({ allowPartnerEdit: allow, appts: next });
+
+            ['appt-title','appt-place','appt-notes'].forEach(id => {
+                const el = document.getElementById(id);
+                if(el) el.value = '';
+            });
+            renderAppointmentsList();
+        };
+
+        window.deleteAppointment = async (id) => {
+            if(!canEditAppointments()) return;
+            const obj = readAppointmentsObject() || { allowPartnerEdit: true, appts: [] };
+            const next = (Array.isArray(obj.appts) ? obj.appts : []).filter(a => (a.id || '') !== id);
+            const allow = (typeof obj.allowPartnerEdit === 'boolean') ? obj.allowPartnerEdit : true;
+            await saveAppointmentsObject({ allowPartnerEdit: allow, appts: next });
+            renderAppointmentsList();
+        };
+
+        function icsEscape(s) {
+            return String(s || '').replace(/\\/g,'\\\\').replace(/\n/g,'\\n').replace(/\r/g,'').replace(/,/g,'\\,').replace(/;/g,'\\;');
+        }
+
+        function buildIcsTimedEvent({ uid, title, startDateTime, description, location }) {
+            const d = new Date(startDateTime);
+            if(Number.isNaN(d.getTime())) return '';
+            const y = d.getFullYear();
+            const m = String(d.getMonth() + 1).padStart(2, '0');
+            const day = String(d.getDate()).padStart(2, '0');
+            const hh = String(d.getHours()).padStart(2, '0');
+            const mm = String(d.getMinutes()).padStart(2, '0');
+            const dt = `${y}${m}${day}T${hh}${mm}00`;
+            return [
+                'BEGIN:VEVENT',
+                `UID:${icsEscape(uid)}`,
+                `DTSTART:${dt}`,
+                `SUMMARY:${icsEscape(title)}`,
+                location ? `LOCATION:${icsEscape(location)}` : '',
+                description ? `DESCRIPTION:${icsEscape(description)}` : '',
+                'END:VEVENT'
+            ].filter(Boolean).join('\n');
+        }
+
+        function downloadBlob(filename, blob) {
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = filename;
+            document.body.appendChild(a);
+            a.click();
+            a.remove();
+            setTimeout(() => URL.revokeObjectURL(url), 5000);
+        }
+
+        window.exportAppointmentsIcs = () => {
+            const obj = readAppointmentsObject();
+            const appts = Array.isArray(obj?.appts) ? obj.appts : [];
+            const upcoming = appts.filter(a => a?.when && (new Date(a.when) - new Date()) > -1000*60*60*24*5);
+            if(!upcoming.length) return alert('No upcoming appointments to export.');
+            const events = upcoming.slice(0, 200).map(a => buildIcsTimedEvent({
+                uid: `nexus-${user.uid}-${a.id || Date.now()}`,
+                title: `Appointment: ${a.title || 'Checkup'}`,
+                startDateTime: a.when,
+                description: `Maternal Nexus reminder. ${a.notes || ''}`.trim(),
+                location: a.place || ''
+            })).filter(Boolean);
+            const ics = [
+                'BEGIN:VCALENDAR',
+                'VERSION:2.0',
+                'PRODID:-//Maternal Nexus//Appointments//EN',
+                'CALSCALE:GREGORIAN',
+                ...events,
+                'END:VCALENDAR'
+            ].join('\n');
+            downloadBlob(`nexus-appointments-${todayIsoLocal()}.ics`, new Blob([ics], { type: 'text/calendar;charset=utf-8' }));
+        };
+
+        window.exportDoctorSummaryJson = () => {
+            const summary = buildDoctorSummary();
+            downloadBlob(`nexus-doctor-summary-${todayIsoLocal()}.json`, new Blob([JSON.stringify(summary, null, 2)], { type: 'application/json;charset=utf-8' }));
+        };
+
+        window.exportDoctorSummaryCsv = () => {
+            const obj = readAppointmentsObject();
+            const appts = Array.isArray(obj?.appts) ? obj.appts : [];
+            const rows = [['when','title','place','notes']];
+            for(const a of appts) rows.push([a.when || '', a.title || '', a.place || '', a.notes || '']);
+            const csv = rows.map(r => r.map(v => `"${String(v || '').replace(/"/g,'""')}"`).join(',')).join('\n');
+            downloadBlob(`nexus-appointments-${todayIsoLocal()}.csv`, new Blob([csv], { type: 'text/csv;charset=utf-8' }));
+        };
+
+        function buildDoctorSummary() {
+            const period = (typeof getPeriodData === 'function') ? getPeriodData() : null;
+            const periodCalendar = (typeof readPeriodCalendarObject === 'function') ? readPeriodCalendarObject() : null;
+            const meds = readMedLogObject();
+            const vax = readVaxObject();
+            const care = readCareObject();
+            const appts = readAppointmentsObject();
+            const journal = readWellnessObject();
+
+            return {
+                exportedAt: new Date().toISOString(),
+                mother: {
+                    name: profile?.name || user?.displayName || '',
+                    week: clampInt(profile?.week || 0, 0, 42),
+                    blood: profile?.blood || '',
+                    allergiesNotes: profile?.notes || '',
+                    country: profile?.country || '',
+                    pin: profile?.pin || ''
+                },
+                doctor: {
+                    name: profile?.docName || '',
+                    phone: profile?.docPhone || ''
+                },
+                dietPrefs: readDietPrefs(),
+                period,
+                periodCalendar,
+                appointments: appts,
+                vaccines: vax,
+                dailyCare: care,
+                medicineLog: meds,
+                wellnessJournal: journal ? { entries: journal.entries?.slice(0, 60) || [] } : null
+            };
+        }
+
+        function setupAppointments() {
+            initApptDefaultTime();
+
+            const toggle = document.getElementById('appts-partner-edit');
+            if(toggle) {
+                toggle.onchange = async () => {
+                    if(!isMother()) return;
+                    const obj = readAppointmentsObject() || { appts: [] };
+                    await saveAppointmentsObject({ allowPartnerEdit: !!toggle.checked, appts: Array.isArray(obj.appts) ? obj.appts : [] });
+                    renderAppointmentsList();
+                };
+            }
+            renderAppointmentsList();
+        }
+
+        // --- WELLNESS JOURNAL (Sentiment + milestone detection) ---
+        const POS_WORDS = ['good','better','happy','calm','relaxed','grateful','excited','okay','fine','improving','relief','thankful'];
+        const NEG_WORDS = ['sad','anxious','panic','worried','stress','stressed','angry','tired','cry','pain','scared','depressed','hopeless','overwhelmed'];
+        const RED_FLAG_PATTERNS = [
+            { key: 'bleeding', re: /(bleed|bleeding|spotting)/i, msg: 'Bleeding/spotting can be serious — contact your doctor or emergency care.' },
+            { key: 'severe_pain', re: /(severe|intense)\s+(pain|cramp)/i, msg: 'Severe pain/cramps need medical review.' },
+            { key: 'reduced_movement', re: /(reduced|less)\s+(movement|kicks)/i, msg: 'Reduced fetal movement should be checked promptly.' },
+            { key: 'headache_vision', re: /(severe\s+headache|blurred\s+vision|vision\s+blur)/i, msg: 'Severe headache/vision changes can be a red flag — contact your doctor.' },
+            { key: 'swelling_face', re: /(swelling)\s+(face|hands)|puffy\s+(face|hands)/i, msg: 'Sudden swelling (face/hands) can be concerning — contact your doctor.' },
+            { key: 'fever', re: /(high\s+fever|fever\s+above|chills)/i, msg: 'Fever needs guidance from a clinician.' },
+            { key: 'breath', re: /(shortness\s+of\s+breath|chest\s+pain)/i, msg: 'Breathing difficulty/chest pain is urgent — seek emergency care.' },
+        ];
+
+        function readWellnessObject() {
+            // mother-only by default (stored in user doc)
+            return profile?.wellness || null;
+        }
+
+        function canEditWellness() {
+            return isMother();
+        }
+
+        function moodLabel(n) {
+            const v = clampInt(n, 1, 5);
+            return v === 1 ? 'Very low' : v === 2 ? 'Low' : v === 3 ? 'Okay' : v === 4 ? 'Good' : 'Great';
+        }
+
+        function computeSentiment(text) {
+            const t = String(text || '').toLowerCase();
+            let score = 0;
+            for(const w of POS_WORDS) if(t.includes(w)) score++;
+            for(const w of NEG_WORDS) if(t.includes(w)) score--;
+            if(score >= 2) return { label: 'Positive', score };
+            if(score <= -2) return { label: 'Negative', score };
+            return { label: 'Neutral', score };
+        }
+
+        function detectRedFlags(text) {
+            const t = String(text || '');
+            const hits = [];
+            for(const p of RED_FLAG_PATTERNS) {
+                if(p.re.test(t)) hits.push(p);
+            }
+            return hits;
+        }
+
+        function detectMilestones(text) {
+            const t = String(text || '').toLowerCase();
+            const ms = [];
+            if(/(kick|kicks|movement)/i.test(t)) ms.push('Fetal movement mentioned');
+            if(/(scan|ultrasound|nt|anomaly)/i.test(t)) ms.push('Scan/ultrasound mentioned');
+            if(/(appointment|checkup|doctor)/i.test(t)) ms.push('Doctor visit mentioned');
+            if(/(breastfeed|latch|milk|pump)/i.test(t)) ms.push('Breastfeeding topic mentioned');
+            return ms.slice(0, 4);
+        }
+
+        function suggestedPromptFor({ week, mood, sentiment }) {
+            const t = getTrimester(week);
+            const s = String(sentiment || 'Neutral');
+            if(s === 'Negative' || Number(mood) <= 2) {
+                return 'What felt hardest today, and what would help you feel a bit safer or calmer right now?';
+            }
+            if(t === 1) return 'Any nausea/tiredness today? What foods or routines helped the most?';
+            if(t === 2) return 'How is your sleep and energy this week? Any questions for your next checkup?';
+            return 'Any swelling, contractions, or reduced movement? What is your plan for the next appointment?';
+        }
+
+        function renderWellness() {
+            const moodEl = document.getElementById('wellness-mood');
+            const moodLabelEl = document.getElementById('wellness-mood-label');
+            const sentimentEl = document.getElementById('wellness-sentiment');
+            const promptEl = document.getElementById('wellness-prompt');
+            const textEl = document.getElementById('wellness-text');
+            const btn = document.getElementById('wellness-save-btn');
+            const lastEl = document.getElementById('wellness-last');
+            const history = document.getElementById('wellness-history');
+            const alertBox = document.getElementById('wellness-alert');
+
+            if(!moodEl || !moodLabelEl || !sentimentEl || !promptEl || !textEl || !btn || !history || !alertBox) return;
+
+            const canEdit = canEditWellness();
+            moodEl.disabled = !canEdit;
+            textEl.disabled = !canEdit;
+            btn.disabled = !canEdit;
+
+            const mood = clampInt(moodEl.value, 1, 5);
+            const sentiment = computeSentiment(textEl.value);
+            moodLabelEl.innerText = moodLabel(mood);
+            sentimentEl.innerText = sentiment.label;
+            promptEl.innerText = suggestedPromptFor({ week: clampInt(profile?.week || 0, 0, 42), mood, sentiment: sentiment.label });
+
+            const obj = readWellnessObject();
+            const entries = Array.isArray(obj?.entries) ? obj.entries : [];
+            lastEl.innerText = obj?.updatedAt ? `Last saved: ${new Date(obj.updatedAt).toLocaleString()}` : 'Not saved yet.';
+
+            const recent = entries.slice().sort((a,b) => (b.at || '').localeCompare(a.at || '')).slice(0, 7);
+            if(!recent.length) {
+                history.innerHTML = `<div class="text-muted" style="line-height:1.6;">No journal entries yet.</div>`;
+            } else {
+                history.innerHTML = recent.map(e => {
+                    const at = e.at ? new Date(e.at).toLocaleString() : '--';
+                    const ms = Array.isArray(e.milestones) && e.milestones.length ? ` • ${e.milestones.map(escapeHtmlLite).join(' / ')}` : '';
+                    const rf = Array.isArray(e.redFlags) && e.redFlags.length ? ` • <span style="color: var(--secondary); font-weight: 900;">Red flag</span>` : '';
+                    return `<div class="med-card" style="border-left-color: rgba(244,63,94,0.35);">
+                        <div style="display:flex; justify-content:space-between; gap:10px;">
+                            <div>
+                                <strong>${escapeHtmlLite(at)}</strong>
+                                <div class="text-muted" style="font-size:12px; margin-top:6px;">Mood: ${escapeHtmlLite(String(e.moodLabel || ''))} • Sentiment: ${escapeHtmlLite(String(e.sentiment || ''))}${rf}${ms}</div>
+                                <div style="margin-top:8px; line-height:1.6;">${escapeHtmlLite(String(e.text || '')).slice(0, 260)}${String(e.text || '').length > 260 ? '…' : ''}</div>
+                            </div>
+                        </div>
+                    </div>`;
+                }).join('');
+            }
+
+            const redFlags = detectRedFlags(textEl.value);
+            if(redFlags.length) {
+                alertBox.classList.remove('hidden');
+                alertBox.innerHTML = `<div style="font-weight: 900; color: var(--secondary);"><i class="fa-solid fa-triangle-exclamation"></i> Possible red flags detected</div>`
+                    + `<div class="text-muted" style="margin-top:6px; line-height:1.6;">${redFlags.map(r => `• ${escapeHtmlLite(r.msg)}`).join('<br>')}</div>`
+                    + `<div style="margin-top:10px;">If you feel unsafe, use the SOS button now.</div>`;
+            } else {
+                alertBox.classList.add('hidden');
+                alertBox.innerHTML = '';
+            }
+        }
+
+        window.saveWellnessEntry = async () => {
+            if(!canEditWellness()) return alert('Only Mother can add wellness entries.');
+            const moodEl = document.getElementById('wellness-mood');
+            const textEl = document.getElementById('wellness-text');
+            if(!moodEl || !textEl) return;
+            const text = String(textEl.value || '').trim();
+            if(!text) return alert('Write a short entry first.');
+            const mood = clampInt(moodEl.value, 1, 5);
+            const sentiment = computeSentiment(text);
+            const redFlags = detectRedFlags(text).map(x => x.key);
+            const milestones = detectMilestones(text);
+
+            const obj = readWellnessObject() || { entries: [] };
+            const next = Array.isArray(obj.entries) ? obj.entries.slice() : [];
+            next.push({
+                id: `wj_${Date.now()}_${Math.floor(Math.random()*1000)}`,
+                at: new Date().toISOString(),
+                mood,
+                moodLabel: moodLabel(mood),
+                sentiment: sentiment.label,
+                text: text.slice(0, 1200),
+                milestones,
+                redFlags
+            });
+
+            const payload = { entries: next.slice(-200), updatedAt: new Date().toISOString(), updatedBy: user.uid };
+            await updateDoc(doc(db, 'artifacts', appId, 'public', 'data', 'users', user.uid), { wellness: payload });
+            profile.wellness = payload;
+            textEl.value = '';
+            renderWellness();
+            alert('Saved.');
+        };
+
+        window.exportWellnessJson = () => {
+            const obj = readWellnessObject();
+            const entries = Array.isArray(obj?.entries) ? obj.entries : [];
+            downloadBlob(`nexus-wellness-${todayIsoLocal()}.json`, new Blob([JSON.stringify({ exportedAt: new Date().toISOString(), entries }, null, 2)], { type: 'application/json;charset=utf-8' }));
+        };
+
+        function setupWellnessTracker() {
+            const moodEl = document.getElementById('wellness-mood');
+            const textEl = document.getElementById('wellness-text');
+            if(moodEl) moodEl.oninput = () => renderWellness();
+            if(textEl) textEl.oninput = () => renderWellness();
+            renderWellness();
+        }
+
+        function setupIndiaEssentials() {
+            if(indiaState.initialized) return;
+            indiaState.initialized = true;
+
+            const v = readVaxObject();
+            const dobEl = document.getElementById('vax-baby-dob');
+            const jeEl = document.getElementById('vax-je-mode');
+            if(dobEl && v?.babyDob && !dobEl.value) dobEl.value = v.babyDob;
+            if(jeEl && v?.jeMode) jeEl.value = v.jeMode;
+
+            if(dobEl) {
+                dobEl.addEventListener('change', async () => {
+                    const iso = (dobEl.value || '').trim();
+                    indiaState.vaxDob = iso || null;
+                    const obj = readVaxObject();
+                    await saveVaxTracker({
+                        babyDob: iso || null,
+                        allowPartnerEdit: (typeof obj?.allowPartnerEdit === 'boolean') ? obj.allowPartnerEdit : indiaState.allowPartnerEdit,
+                        jeMode: obj?.jeMode || (jeEl?.value || 'auto'),
+                        done: (obj?.done && typeof obj.done === 'object') ? obj.done : {}
+                    });
+                    renderVaxList();
+                });
+            }
+
+            if(jeEl) {
+                jeEl.addEventListener('change', async () => {
+                    const val = jeEl.value || 'auto';
+                    indiaState.jeMode = val;
+                    const obj = readVaxObject();
+                    await saveVaxTracker({
+                        babyDob: obj?.babyDob || indiaState.vaxDob,
+                        allowPartnerEdit: (typeof obj?.allowPartnerEdit === 'boolean') ? obj.allowPartnerEdit : indiaState.allowPartnerEdit,
+                        jeMode: val,
+                        done: (obj?.done && typeof obj.done === 'object') ? obj.done : {}
+                    });
+                    renderVaxList();
+                });
+            }
+
+            const partnerToggle = document.getElementById('vax-partner-edit');
+            if(partnerToggle) {
+                partnerToggle.addEventListener('change', async () => {
+                    if(!isMother()) return;
+                    const val = !!partnerToggle.checked;
+                    indiaState.allowPartnerEdit = val;
+                    const obj = readVaxObject();
+                    await saveVaxTracker({
+                        babyDob: obj?.babyDob || indiaState.vaxDob,
+                        allowPartnerEdit: val,
+                        jeMode: obj?.jeMode || (jeEl?.value || 'auto'),
+                        done: (obj?.done && typeof obj.done === 'object') ? obj.done : {}
+                    });
+                    renderVaxList();
+                });
+            }
+
+            const vaxWrap = document.getElementById('vax-list');
+            if(vaxWrap) {
+                vaxWrap.addEventListener('change', async (e) => {
+                    const cb = e.target;
+                    if(!cb || cb.tagName !== 'INPUT') return;
+                    const key = cb.getAttribute('data-vax');
+                    if(!key) return;
+                    if(!canEditVax()) {
+                        cb.checked = !cb.checked;
+                        return alert('Vaccination edits are disabled for partner.');
+                    }
+                    await setVaxDone(key, !!cb.checked);
+                });
+            }
+        }
+
+        function renderIndiaFromCouple() {
+            setupIndiaEssentials();
+            const v = readVaxObject();
+            const dobEl = document.getElementById('vax-baby-dob');
+            const jeEl = document.getElementById('vax-je-mode');
+            if(dobEl && v?.babyDob) dobEl.value = v.babyDob;
+            if(jeEl && v?.jeMode) jeEl.value = v.jeMode;
+            renderVaxList();
+            renderDailyCare();
+        }
+
         window.clearMedLogInputs = () => {
             const ids = ['med-log-name','med-log-dose','med-log-notes'];
             ids.forEach(id => { const el = document.getElementById(id); if(el) el.value = ''; });
@@ -1942,6 +3579,7 @@
                     if(typeof renderPeriodFromCouple === 'function') renderPeriodFromCouple();
                     if(typeof renderPeriodCalendarFromCouple === 'function') renderPeriodCalendarFromCouple();
                     if(typeof renderMedLogFromCouple === 'function') renderMedLogFromCouple();
+                    if(typeof renderIndiaFromCouple === 'function') renderIndiaFromCouple();
                 });
             }
 
@@ -3053,6 +4691,56 @@
                 inside.innerText = ins.inside;
                 faqLine.innerText = ins.faq;
             }
+
+            renderBreastfeedingSupport();
+        }
+
+        function renderBreastfeedingSupport() {
+            const meta = document.getElementById('bf-meta');
+            const content = document.getElementById('bf-content');
+            if(!meta || !content) return;
+
+            const vax = (typeof readVaxObject === 'function') ? readVaxObject() : null;
+            const dobIso = vax?.babyDob || null;
+            const dob = dobIso ? parseISODateLocal(dobIso) : null;
+            const now = new Date();
+
+            if(!dob || Number.isNaN(dob.getTime())) {
+                meta.innerText = 'Tip: Set Baby DOB in India Essentials → Vaccination Tracker';
+                content.innerHTML = `
+                    <div>• Latch basics: baby’s mouth wide, chin touching breast, more areola in mouth.</div>
+                    <div>• Feed on demand (early weeks can be frequent).</div>
+                    <div>• If you have fever, severe breast pain, or redness, contact your doctor.</div>
+                `;
+                return;
+            }
+
+            const days = Math.floor((now - dob) / (1000*60*60*24));
+            const postpartum = days >= 0 && days <= 365;
+            if(!postpartum) {
+                meta.innerText = `Baby age: ${days} day(s)`;
+                content.innerHTML = `
+                    <div>• If breastfeeding: continue balanced diet + hydration.</div>
+                    <div>• Watch for signs of poor latch: nipple pain, clicking sounds, baby not swallowing.</div>
+                    <div>• If you notice reduced wet diapers/poor weight gain, consult a pediatrician/lactation consultant.</div>
+                `;
+                return;
+            }
+
+            const week = Math.max(0, Math.floor(days / 7));
+            meta.innerText = `Postpartum: day ${days} (week ${week})`;
+            const early = days <= 42;
+            content.innerHTML = early ? `
+                <div>• Newborn feeding is frequent — aim for good latch and comfort first.</div>
+                <div>• Signs baby is getting milk: swallowing sounds, wet diapers, calm after feeds.</div>
+                <div>• Help sore nipples: adjust latch, air-dry, and seek support early.</div>
+                <div style="margin-top:8px; font-weight:800; color: var(--secondary);">Urgent: fever, severe breast pain, red hot area, or pus — call your doctor.</div>
+            ` : `
+                <div>• Maintain a routine: hydration, nutrition, and rest when possible.</div>
+                <div>• If pumping: keep sessions consistent; store milk safely.</div>
+                <div>• Cluster feeding can happen — it’s often normal.</div>
+                <div style="margin-top:8px; font-weight:800; color: var(--secondary);">Urgent: fever, severe breast pain, red hot area — call your doctor.</div>
+            `;
         }
 
         // --- PROFILES (permissions) ---
@@ -3225,6 +4913,11 @@
 
             if(id === 'medicine') {
                 try { renderMedLog(); } catch(e) {}
+            }
+
+            if(id === 'india') {
+                try { setupIndiaEssentials(); } catch(e) {}
+                try { renderIndiaFromCouple(); } catch(e) {}
             }
         }
 
