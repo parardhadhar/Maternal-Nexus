@@ -41,6 +41,8 @@
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; transition: background-color 0.2s, color 0.2s; -webkit-tap-highlight-color: transparent; }
+
+        html, body { height: 100%; }
         
         body { 
             font-family: 'Plus Jakarta Sans', sans-serif; 
@@ -51,12 +53,22 @@
         }
 
         /* --- Layout --- */
-        #app-container { display: flex; height: 100%; width: 100%; }
+        #app-ui { height: 100%; }
+        #app-container { display: flex; height: 100%; width: 100%; min-height: 0; }
         
         /* Desktop Sidebar */
         aside { 
             width: 280px; background: var(--bg-card); border-right: 1px solid var(--border); 
             display: flex; flex-direction: column; padding: 24px; z-index: 20; flex-shrink: 0;
+        }
+
+        .sidebar-nav {
+            flex: 1;
+            min-height: 0;
+            overflow-y: auto;
+            overflow-x: hidden;
+            padding-right: 6px;
+            overscroll-behavior: contain;
         }
 
         /* Mobile Bottom Nav */
@@ -86,6 +98,8 @@
             position: relative; 
             scroll-behavior: smooth;
             -webkit-overflow-scrolling: touch; 
+            min-height: 0; /* critical for flex + overflow scroll */
+            overscroll-behavior: contain;
         }
 
         /* --- Responsive Queries --- */
@@ -201,6 +215,79 @@
         .emoji-item { font-size: 20px; cursor: pointer; padding: 5px; border-radius: 4px; }
         .emoji-item:hover { background: var(--bg-body); }
 
+        .text-muted { color: var(--text-muted); }
+
+        /* --- Mobile More Sheet (Overflow Menu) --- */
+        .sheet-backdrop { position: fixed; inset: 0; background: rgba(15, 23, 42, 0.38); z-index: 3000; display: flex; align-items: flex-end; justify-content: center; padding: 14px; }
+        .sheet { width: 100%; max-width: 520px; background: var(--bg-card); border: 1px solid var(--border); border-radius: 18px; box-shadow: 0 18px 40px rgba(0,0,0,0.25); padding: 14px; }
+        .sheet-handle { width: 46px; height: 5px; background: var(--border); border-radius: 999px; margin: 0 auto 10px auto; }
+        .sheet-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+        .sheet-item { display:flex; align-items:center; gap:10px; padding: 12px; border-radius: 14px; border: 1px solid var(--border); background: var(--bg-body); cursor: pointer; font-weight: 700; }
+        .sheet-item i { width: 22px; text-align:center; color: var(--primary); }
+        .sheet-item:active { transform: scale(0.99); }
+
+        /* --- Notification bubble (Community) --- */
+        .nav-bubble {
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 10px;
+            height: 10px;
+            background: var(--secondary);
+            border-radius: 50%;
+            box-shadow: 0 0 0 3px var(--bg-card);
+            display: none;
+        }
+        .has-bubble .nav-bubble { display: block; }
+
+        /* --- Period Tracker (Floral Circle) --- */
+        .period-shell { display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 18px; align-items: center; }
+        @media (max-width: 900px) { .period-shell { grid-template-columns: 1fr; } }
+
+        .cycle-card { position: relative; background: linear-gradient(135deg, rgba(244,63,94,0.06) 0%, rgba(13,148,136,0.06) 100%); border: 1px solid var(--border); border-radius: 18px; padding: 18px; overflow: hidden; }
+        .cycle-title { display:flex; align-items:center; justify-content:space-between; gap: 10px; margin-bottom: 12px; }
+        .cycle-title h3 { margin: 0; font-family: 'Fredoka', sans-serif; }
+        .cycle-sub { font-size: 12px; color: var(--text-muted); margin-top: 4px; }
+        .cycle-wrap { position: relative; width: 260px; height: 260px; margin: 6px auto 0 auto; }
+        @media (max-width: 420px) { .cycle-wrap { width: 230px; height: 230px; } }
+
+        .cycle-ring { width: 100%; height: 100%; transform: rotate(-90deg); }
+        .cycle-ring circle { fill: none; stroke-linecap: round; }
+        .cycle-bg { stroke: rgba(100,116,139,0.20); stroke-width: 14; }
+        .cycle-progress { stroke: url(#cycleGrad); stroke-width: 14; filter: drop-shadow(0 6px 12px rgba(244,63,94,0.18)); transition: stroke-dashoffset 600ms ease; }
+
+        .cycle-center { position: absolute; inset: 0; display: grid; place-items: center; text-align: center; }
+        .cycle-pill { display:inline-flex; align-items:center; gap:8px; background: rgba(255,255,255,0.7); border: 1px solid var(--border); padding: 8px 12px; border-radius: 999px; box-shadow: 0 10px 30px rgba(0,0,0,0.06); }
+        [data-theme="dark"] .cycle-pill { background: rgba(30,41,59,0.75); }
+        .cycle-day { font-family: 'Fredoka', sans-serif; font-size: 34px; line-height: 1; }
+        .cycle-label { font-size: 12px; color: var(--text-muted); margin-top: 6px; }
+
+        .flower-bloom { position:absolute; inset: -30px; pointer-events:none; opacity: 0.9; }
+        .petal { position:absolute; width: 28px; height: 28px; border-radius: 14px 14px 14px 0; background: radial-gradient(circle at 30% 30%, rgba(255,255,255,0.85), rgba(244,63,94,0.28)); transform: rotate(0deg); filter: blur(0.1px); }
+        .petal::after { content: ""; position:absolute; inset: 8px 10px 8px 7px; border-radius: 999px; background: rgba(13,148,136,0.12); }
+        @keyframes drift { 0% { transform: translateY(0) rotate(0deg); opacity: 0.85; } 50% { transform: translateY(-8px) rotate(8deg); opacity: 1; } 100% { transform: translateY(0) rotate(0deg); opacity: 0.85; } }
+        .petal.p1 { left: 8%; top: 10%; animation: drift 5.6s ease-in-out infinite; }
+        .petal.p2 { right: 10%; top: 18%; animation: drift 6.2s ease-in-out infinite; }
+        .petal.p3 { left: 18%; bottom: 14%; animation: drift 6.0s ease-in-out infinite; }
+        .petal.p4 { right: 16%; bottom: 10%; animation: drift 5.8s ease-in-out infinite; }
+
+        /* --- Baby Tracker (Cute) --- */
+        .baby-hero { display:flex; gap: 16px; align-items: center; flex-wrap: wrap; }
+        .baby-bubble { width: 86px; height: 86px; border-radius: 22px; background: linear-gradient(135deg, rgba(96,165,250,0.18), rgba(244,63,94,0.14)); border: 1px solid var(--border); display:grid; place-items:center; box-shadow: 0 16px 30px rgba(0,0,0,0.08); position: relative; overflow: hidden; }
+        .baby-bubble i { font-size: 42px; color: var(--primary); animation: bob 2.1s ease-in-out infinite; }
+        @keyframes bob { 0% { transform: translateY(0) rotate(0deg); } 50% { transform: translateY(-6px) rotate(-2deg); } 100% { transform: translateY(0) rotate(0deg); } }
+        .sparkle { position:absolute; width: 10px; height: 10px; border-radius: 50%; background: rgba(255,255,255,0.8); filter: blur(0.2px); animation: twinkle 2.6s ease-in-out infinite; }
+        @keyframes twinkle { 0%,100% { opacity: 0.2; transform: scale(0.9); } 50% { opacity: 0.9; transform: scale(1.2); } }
+        .sparkle.s1 { left: 12px; top: 14px; }
+        .sparkle.s2 { right: 14px; top: 26px; animation-delay: 0.5s; }
+        .sparkle.s3 { left: 20px; bottom: 18px; animation-delay: 0.9s; }
+        .baby-meter { height: 14px; background: rgba(100,116,139,0.18); border-radius: 999px; overflow: hidden; border: 1px solid var(--border); }
+        .baby-meter > div { height: 100%; width: 0%; background: linear-gradient(90deg, var(--primary), var(--secondary)); border-radius: 999px; transition: width 700ms cubic-bezier(.2,.9,.2,1); }
+
+        /* --- Profile permissions --- */
+        .lock-note { font-size: 12px; color: var(--text-muted); display:flex; align-items:center; gap:8px; }
+        .lock-note i { color: var(--secondary); }
+
     </style>
 </head>
 <body>
@@ -253,7 +340,7 @@
                     <hr style="margin: 20px 0; border:0; border-top:1px solid var(--border);">
                     <h4 style="margin-bottom: 15px;">Medical Details</h4>
                     <label style="font-size: 12px; font-weight: bold; margin-left: 4px;">Pregnancy Week</label>
-                    <input type="number" id="week-input" class="input" placeholder="e.g. 24">
+                    <input type="number" id="week-input" class="input" placeholder="e.g. 24" min="0" max="42" step="1" inputmode="numeric">
                     <label style="font-size: 12px; font-weight: bold; margin-left: 4px;">Doctor's Name</label>
                     <input type="text" id="doc-name" class="input" placeholder="Dr. Smith">
                     <label style="font-size: 12px; font-weight: bold; margin-left: 4px;">Doctor's Phone</label>
@@ -303,16 +390,22 @@
             <!-- Desktop Sidebar -->
             <aside>
                 <div class="logo"><i class="fa-solid fa-heart-pulse"></i> Nexus Pro</div>
-                <div class="nav-item active" onclick="nav('dashboard')"><i class="fa-solid fa-grid-2"></i> Dashboard</div>
-                <div class="nav-item" onclick="nav('wellness')"><i class="fa-solid fa-brain"></i> AI Assistant</div>
-                <div class="nav-item" onclick="nav('medicine')"><i class="fa-solid fa-pills"></i> Medicine Library</div>
-                <div class="nav-item" onclick="nav('doctors')"><i class="fa-solid fa-hospital-user"></i> Find Doctors</div>
-                <div class="nav-item" onclick="nav('partnerchat')" id="nav-chat-desk"><i class="fa-solid fa-comments"></i> Chat <span class="nav-badge">0</span></div>
-                <div class="nav-item" onclick="nav('community')"><i class="fa-solid fa-users"></i> Community</div>
-                <div class="nav-item" onclick="nav('sync')"><i class="fa-solid fa-link"></i> Sync</div>
-                <div class="nav-item" onclick="nav('premium')"><i class="fa-solid fa-crown"></i> Premium</div>
+
+                <div class="sidebar-nav">
+                    <div class="nav-item active" onclick="nav('dashboard')"><i class="fa-solid fa-grid-2"></i> Dashboard</div>
+                    <div class="nav-item" onclick="nav('period')"><i class="fa-solid fa-droplet"></i> Period Tracker</div>
+                    <div class="nav-item" onclick="nav('baby')"><i class="fa-solid fa-baby-carriage"></i> Baby Tracker</div>
+                    <div class="nav-item" onclick="nav('profile')"><i class="fa-solid fa-id-card"></i> Profiles</div>
+                    <div class="nav-item" onclick="nav('wellness')"><i class="fa-solid fa-brain"></i> AI Assistant</div>
+                    <div class="nav-item" onclick="nav('medicine')"><i class="fa-solid fa-pills"></i> Medicine Library</div>
+                    <div class="nav-item" onclick="nav('doctors')"><i class="fa-solid fa-hospital-user"></i> Find Doctors</div>
+                    <div class="nav-item" onclick="nav('partnerchat')" id="nav-chat-desk"><i class="fa-solid fa-comments"></i> Chat <span class="nav-badge">0</span></div>
+                    <div class="nav-item" onclick="nav('community')" id="nav-community-desk"><i class="fa-solid fa-users"></i> Community <span class="nav-bubble"></span></div>
+                    <div class="nav-item" onclick="nav('sync')"><i class="fa-solid fa-link"></i> Sync</div>
+                    <div class="nav-item" onclick="nav('premium')"><i class="fa-solid fa-crown"></i> Premium</div>
+                </div>
                 
-                <div style="margin-top: auto;">
+                <div style="margin-top: 16px; flex-shrink: 0;">
                     <div class="card" style="padding: 12px; margin-bottom: 10px; display: flex; align-items: center; gap: 10px;">
                         <div id="user-initial" style="width: 32px; height: 32px; background: var(--primary); color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold;">U</div>
                         <div style="overflow: hidden;">
@@ -381,6 +474,227 @@
                             </div>
                         </div>
                     </div>
+
+                    <div class="card" id="quick-week-card">
+                        <div style="display:flex; justify-content:space-between; align-items:center; gap:10px; flex-wrap:wrap;">
+                            <div>
+                                <h3 style="margin:0;">Pregnancy Progress</h3>
+                                <div class="text-muted" style="font-size: 12px; margin-top:4px;">Week value will never go negative.</div>
+                            </div>
+                            <div class="lock-note" id="week-edit-note"><i class="fa-solid fa-lock"></i> Only Mother can edit week</div>
+                        </div>
+                        <div style="display:grid; grid-template-columns: 1fr 120px; gap:12px; margin-top: 14px; align-items:center;">
+                            <input type="range" id="week-slider" min="0" max="42" step="1" value="0" style="width:100%;">
+                            <input type="number" id="week-number" class="input" min="0" max="42" step="1" inputmode="numeric" style="margin:0;">
+                        </div>
+                        <button class="btn btn-primary" id="save-week-btn" style="width: 100%; margin-top: 12px;" onclick="savePregnancyWeek()"><i class="fa-solid fa-floppy-disk"></i> Save Week</button>
+                    </div>
+                </section>
+
+                <!-- PERIOD TRACKER -->
+                <section id="view-period" class="hidden">
+                    <h2>Period Tracker</h2>
+                    <div class="card">
+                        <div class="period-shell">
+                            <div class="cycle-card">
+                                <div class="flower-bloom" aria-hidden="true">
+                                    <div class="petal p1"></div>
+                                    <div class="petal p2"></div>
+                                    <div class="petal p3"></div>
+                                    <div class="petal p4"></div>
+                                </div>
+
+                                <div class="cycle-title">
+                                    <div>
+                                        <h3>Floral Cycle Ring</h3>
+                                        <div class="cycle-sub" id="period-subtitle">Track the mother’s cycle in a gentle, synced way.</div>
+                                    </div>
+                                    <div class="lock-note" id="period-edit-note"><i class="fa-solid fa-lock"></i> Only Mother can edit</div>
+                                </div>
+
+                                <div class="cycle-wrap" role="img" aria-label="Cycle progress ring">
+                                    <svg class="cycle-ring" viewBox="0 0 120 120">
+                                        <defs>
+                                            <linearGradient id="cycleGrad" x1="0" y1="0" x2="1" y2="1">
+                                                <stop offset="0%" stop-color="#f43f5e" stop-opacity="0.95" />
+                                                <stop offset="55%" stop-color="#fb7185" stop-opacity="0.9" />
+                                                <stop offset="100%" stop-color="#0d9488" stop-opacity="0.9" />
+                                            </linearGradient>
+                                        </defs>
+                                        <circle class="cycle-bg" cx="60" cy="60" r="48"></circle>
+                                        <circle class="cycle-progress" id="cycle-progress" cx="60" cy="60" r="48"></circle>
+                                    </svg>
+
+                                    <div class="cycle-center">
+                                        <div>
+                                            <div class="cycle-pill">
+                                                <span style="font-size:14px;">Day</span>
+                                                <span class="cycle-day" id="cycle-day">--</span>
+                                            </div>
+                                            <div class="cycle-label" id="cycle-label">No cycle data yet</div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div style="display:grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 14px;">
+                                    <div>
+                                        <label style="font-size: 12px; font-weight: bold; margin-left: 4px;">Last Period Start</label>
+                                        <input type="date" id="period-last-start" class="input" style="margin:0;">
+                                    </div>
+                                    <div>
+                                        <label style="font-size: 12px; font-weight: bold; margin-left: 4px;">Cycle Length (days)</label>
+                                        <input type="number" id="period-cycle-length" class="input" min="20" max="45" step="1" inputmode="numeric" style="margin:0;" placeholder="e.g. 28">
+                                    </div>
+                                </div>
+                                <div style="display:grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 12px;">
+                                    <div>
+                                        <label style="font-size: 12px; font-weight: bold; margin-left: 4px;">Period Length (days)</label>
+                                        <input type="number" id="period-length" class="input" min="2" max="10" step="1" inputmode="numeric" style="margin:0;" placeholder="e.g. 5">
+                                    </div>
+                                    <div>
+                                        <label style="font-size: 12px; font-weight: bold; margin-left: 4px;">Notes</label>
+                                        <input type="text" id="period-notes" class="input" style="margin:0;" placeholder="cramps, mood, etc.">
+                                    </div>
+                                </div>
+
+                                <button class="btn btn-primary" id="save-period-btn" style="width: 100%; margin-top: 12px;" onclick="savePeriodTracker()"><i class="fa-solid fa-floppy-disk"></i> Save Period</button>
+                                <div class="text-muted" style="font-size:12px; margin-top:10px; line-height:1.5;">
+                                    Partner can view this tracker when synced, but cannot edit.
+                                </div>
+                            </div>
+
+                            <div>
+                                <div class="card" style="margin:0;">
+                                    <h3 style="margin-top:0;">Predictions</h3>
+                                    <div class="text-muted" style="font-size:12px; margin-bottom:12px;">Estimates only — consult your doctor for medical advice.</div>
+                                    <div style="display:grid; gap:10px;">
+                                        <div style="display:flex; justify-content:space-between; gap:10px;"><span>Next period (est.)</span><strong id="period-next">--</strong></div>
+                                        <div style="display:flex; justify-content:space-between; gap:10px;"><span>Ovulation (est.)</span><strong id="period-ovu">--</strong></div>
+                                        <div style="display:flex; justify-content:space-between; gap:10px;"><span>Fertile window (est.)</span><strong id="period-window">--</strong></div>
+                                    </div>
+                                </div>
+
+                                <div class="card" style="margin-top: 16px;">
+                                    <h3 style="margin-top:0;">Sync Status</h3>
+                                    <div class="text-muted" id="period-sync-status" style="font-size:12px; line-height:1.6;">Not connected</div>
+                                    <button class="btn btn-secondary" style="width:100%; margin-top:12px;" onclick="nav('sync')"><i class="fa-solid fa-link"></i> Manage Sync</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- BABY TRACKER -->
+                <section id="view-baby" class="hidden">
+                    <h2>Baby Tracker</h2>
+                    <div class="card">
+                        <div class="baby-hero">
+                            <div class="baby-bubble" aria-hidden="true">
+                                <span class="sparkle s1"></span><span class="sparkle s2"></span><span class="sparkle s3"></span>
+                                <i class="fa-solid fa-baby"></i>
+                            </div>
+                            <div style="flex:1; min-width: 220px;">
+                                <h3 style="margin:0; font-family:'Fredoka', sans-serif;">A tiny miracle, growing daily</h3>
+                                <div class="text-muted" style="margin-top:6px;">Based on the mother’s week. Cute animations included.</div>
+                                <div style="margin-top:14px;">
+                                    <div style="display:flex; justify-content:space-between; gap:10px; margin-bottom:8px;">
+                                        <strong id="baby-week-title">Week --</strong>
+                                        <span class="text-muted" id="baby-fruit">--</span>
+                                    </div>
+                                    <div class="baby-meter"><div id="baby-meter-fill"></div></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 12px; margin-top: 18px;">
+                            <div class="card" style="margin:0; background: var(--bg-body);">
+                                <h4 style="margin-top:0;">Today’s Cute Tip</h4>
+                                <div id="baby-tip" class="text-muted" style="line-height:1.6;">--</div>
+                            </div>
+                            <div class="card" style="margin:0; background: var(--bg-body);">
+                                <h4 style="margin-top:0;">Milestone</h4>
+                                <div id="baby-milestone" class="text-muted" style="line-height:1.6;">--</div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- PROFILES -->
+                <section id="view-profile" class="hidden">
+                    <h2>Profiles</h2>
+                    <div class="card">
+                        <div style="display:flex; justify-content:space-between; align-items:center; gap:10px; flex-wrap:wrap;">
+                            <div>
+                                <h3 style="margin:0;">Mother Profile</h3>
+                                <div class="text-muted" style="font-size:12px; margin-top:6px;">Only Mother can edit mother’s details.</div>
+                            </div>
+                            <div class="lock-note" id="mom-profile-note"><i class="fa-solid fa-lock"></i> Locked</div>
+                        </div>
+                        <div style="display:grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 14px;">
+                            <div>
+                                <label style="font-size: 12px; font-weight: bold; margin-left: 4px;">Pregnancy Week</label>
+                                <input type="number" id="profile-mom-week" class="input" min="0" max="42" step="1" inputmode="numeric" placeholder="e.g. 24">
+                            </div>
+                            <div>
+                                <label style="font-size: 12px; font-weight: bold; margin-left: 4px;">Blood Group</label>
+                                <input type="text" id="profile-mom-blood" class="input" placeholder="e.g. O+">
+                            </div>
+                        </div>
+                        <label style="font-size: 12px; font-weight: bold; margin-left: 4px;">Doctor Name</label>
+                        <input type="text" id="profile-mom-doc" class="input" placeholder="Dr. Smith">
+                        <div style="display:grid; grid-template-columns: 1fr 1fr; gap: 12px;">
+                            <div>
+                                <label style="font-size: 12px; font-weight: bold; margin-left: 4px;">Doctor Phone</label>
+                                <input type="tel" id="profile-mom-phone" class="input" placeholder="+91...">
+                            </div>
+                            <div>
+                                <label style="font-size: 12px; font-weight: bold; margin-left: 4px;">Allergies/Notes</label>
+                                <input type="text" id="profile-mom-notes" class="input" placeholder="optional">
+                            </div>
+                        </div>
+                        <div style="display:grid; grid-template-columns: 1fr 1fr; gap: 12px;">
+                            <div>
+                                <label style="font-size: 12px; font-weight: bold; margin-left: 4px;">PIN Code</label>
+                                <input type="text" id="profile-mom-pin" class="input" placeholder="110001">
+                            </div>
+                            <div>
+                                <label style="font-size: 12px; font-weight: bold; margin-left: 4px;">Country</label>
+                                <input type="text" id="profile-mom-country" class="input" placeholder="India">
+                            </div>
+                        </div>
+                        <button class="btn btn-primary" id="save-mom-profile-btn" style="width:100%;" onclick="saveMotherProfile()"><i class="fa-solid fa-floppy-disk"></i> Save Mother Profile</button>
+
+                        <hr style="margin: 22px 0; border:0; border-top:1px solid var(--border);">
+
+                        <div style="display:flex; justify-content:space-between; align-items:center; gap:10px; flex-wrap:wrap;">
+                            <div>
+                                <h3 style="margin:0;">Partner Profile</h3>
+                                <div class="text-muted" style="font-size:12px; margin-top:6px;">Partner can edit their name and their own details.</div>
+                            </div>
+                            <div class="lock-note" id="partner-profile-note"><i class="fa-solid fa-lock"></i> Locked</div>
+                        </div>
+                        <label style="font-size: 12px; font-weight: bold; margin-left: 4px;">Partner Name</label>
+                        <input type="text" id="profile-partner-name" class="input" placeholder="Partner name">
+                        <div style="display:grid; grid-template-columns: 1fr 1fr; gap: 12px;">
+                            <div>
+                                <label style="font-size: 12px; font-weight: bold; margin-left: 4px;">Blood Group</label>
+                                <input type="text" id="profile-partner-blood" class="input" placeholder="e.g. B+">
+                            </div>
+                            <div>
+                                <label style="font-size: 12px; font-weight: bold; margin-left: 4px;">Emergency Contact</label>
+                                <input type="tel" id="profile-partner-emergency" class="input" placeholder="phone">
+                            </div>
+                        </div>
+                        <button class="btn btn-primary" id="save-partner-profile-btn" style="width:100%;" onclick="savePartnerProfile()"><i class="fa-solid fa-floppy-disk"></i> Save Partner Profile</button>
+
+                        <hr style="margin: 22px 0; border:0; border-top:1px solid var(--border);">
+
+                        <div class="card" style="margin:0; background: #fff1f2; border: 1px solid rgba(244,63,94,0.25);">
+                            <h3 style="margin-top:0; color: var(--secondary);">Delete Account</h3>
+                            <div class="text-muted" style="line-height:1.6;">Deleting disables sync and notifies the other person.</div>
+                            <button class="btn btn-danger" style="width:100%; margin-top: 12px;" onclick="deleteAccount()"><i class="fa-solid fa-trash"></i> Delete My Account</button>
+                        </div>
+                    </div>
                 </section>
 
                 <!-- COMMUNITY -->
@@ -411,6 +725,21 @@
                         <h2>AI Health Assistant</h2>
                         <span style="font-size: 10px; background: #e0f2f1; padding: 4px 8px; border-radius: 8px; color: var(--primary);">Context Aware</span>
                     </div>
+
+                    <div class="card" style="margin-top: 12px; padding: 12px; display:flex; gap:10px; align-items:center; flex-wrap:wrap;">
+                        <div style="font-size: 12px; color: var(--text-muted); flex: 1; min-width: 220px;">
+                            Online AI is enabled via Pollinations (gen.pollinations.ai).
+                        </div>
+                        <select id="ai-model" class="input" style="width: 160px; margin-bottom:0;">
+                            <option value="openai-fast">Fast</option>
+                            <option value="openai">Balanced</option>
+                            <option value="openai-large">Smart</option>
+                            <option value="mistral">Mistral</option>
+                            <option value="qwen-coder">Coder</option>
+                        </select>
+                        <button class="btn btn-secondary" onclick="saveAiSettings()"><i class="fa-solid fa-floppy-disk"></i> Save Model</button>
+                    </div>
+
                     <div class="card chat-container" style="margin-top: 20px; padding: 0; overflow: hidden;">
                         <div id="ai-chat-box" class="chat-history" style="padding: 16px;">
                             <div class="msg msg-left">Hello! I know you are in your <span id="ai-context-week">current</span> week. How can I help?</div>
@@ -528,10 +857,30 @@
             <div class="mobile-nav">
                 <div class="mobile-nav-item active" onclick="nav('dashboard')"><i class="fa-solid fa-grid-2"></i> Home</div>
                 <div class="mobile-nav-item" onclick="nav('wellness')"><i class="fa-solid fa-brain"></i> AI</div>
-                <div class="mobile-nav-item" onclick="nav('medicine')"><i class="fa-solid fa-pills"></i> Meds</div>
-                <div class="mobile-nav-item" onclick="nav('community')"><i class="fa-solid fa-users"></i> Comm</div>
+                <div class="mobile-nav-item" onclick="nav('community')" id="nav-community-mob"><i class="fa-solid fa-users"></i> Comm <span class="nav-bubble"></span></div>
                 <div class="mobile-nav-item" onclick="nav('partnerchat')" id="nav-chat-mob">
                     <i class="fa-solid fa-comments"></i> Chat <div class="nav-badge">0</div>
+                </div>
+                <div class="mobile-nav-item" onclick="openMoreMenu()"><i class="fa-solid fa-ellipsis-vertical"></i> More</div>
+            </div>
+        </div>
+
+        <!-- Mobile More Menu -->
+        <div id="more-menu" class="sheet-backdrop hidden" onclick="closeMoreMenu(event)">
+            <div class="sheet" onclick="event.stopPropagation()">
+                <div class="sheet-handle"></div>
+                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom: 10px;">
+                    <strong>All Features</strong>
+                    <button class="btn btn-secondary" style="padding: 8px 10px;" onclick="closeMoreMenu()"><i class="fa-solid fa-xmark"></i></button>
+                </div>
+                <div class="sheet-grid">
+                    <div class="sheet-item" onclick="nav('period'); closeMoreMenu();"><i class="fa-solid fa-droplet"></i> Period Tracker</div>
+                    <div class="sheet-item" onclick="nav('baby'); closeMoreMenu();"><i class="fa-solid fa-baby-carriage"></i> Baby Tracker</div>
+                    <div class="sheet-item" onclick="nav('profile'); closeMoreMenu();"><i class="fa-solid fa-id-card"></i> Profiles</div>
+                    <div class="sheet-item" onclick="nav('medicine'); closeMoreMenu();"><i class="fa-solid fa-pills"></i> Medicine</div>
+                    <div class="sheet-item" onclick="nav('doctors'); closeMoreMenu();"><i class="fa-solid fa-hospital-user"></i> Doctors</div>
+                    <div class="sheet-item" onclick="nav('sync'); closeMoreMenu();"><i class="fa-solid fa-link"></i> Sync</div>
+                    <div class="sheet-item" onclick="nav('premium'); closeMoreMenu();"><i class="fa-solid fa-crown"></i> Premium</div>
                 </div>
             </div>
         </div>
@@ -543,8 +892,8 @@
     <!-- LOGIC -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-app.js";
-        import { getAuth, signInWithPopup, GoogleAuthProvider, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-auth.js";
-        import { getFirestore, doc, getDoc, setDoc, updateDoc, collection, query, where, getDocs, addDoc, orderBy, onSnapshot, serverTimestamp, limit, deleteDoc } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js";
+        import { getAuth, signInWithPopup, GoogleAuthProvider, signOut, onAuthStateChanged, deleteUser } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-auth.js";
+        import { getFirestore, doc, getDoc, setDoc, updateDoc, collection, query, where, getDocs, addDoc, orderBy, onSnapshot, serverTimestamp, limit, deleteDoc, runTransaction } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js";
 
         // LOCAL KNOWLEDGE FAILSAFE
         const LOCAL_BRAIN = {
@@ -587,6 +936,24 @@
         const appId = "maternal-nexus";
 
         let user, profile;
+        let linkedProfile = null;
+        let coupleId = null;
+        let coupleDocUnsub = null;
+        let notificationsUnsub = null;
+        let coupleData = null;
+        let syncDisabledAlerted = false;
+
+        const isMother = () => profile && profile.role === 'mother';
+        const clampInt = (n, min, max) => {
+            const v = Number(n);
+            if(!Number.isFinite(v)) return min;
+            return Math.max(min, Math.min(max, Math.round(v)));
+        };
+
+        const computeCoupleId = () => {
+            if(!profile?.linkedUid) return null;
+            return [user.uid, profile.linkedUid].sort().join('_');
+        };
         let theme = localStorage.getItem('theme') || 'light';
         document.body.setAttribute('data-theme', theme);
         let lastReadTime = Date.now();
@@ -648,15 +1015,19 @@
             };
 
             if(profile.role === 'mother') {
-                data.week = document.getElementById('week-input').value || 0;
+                data.week = clampInt(document.getElementById('week-input').value || 0, 0, 42);
                 data.docName = document.getElementById('doc-name').value;
                 data.docPhone = document.getElementById('doc-phone').value;
                 data.pin = document.getElementById('user-pin').value;
                 data.country = document.getElementById('user-country').value;
                 data.code = Math.floor(1000+Math.random()*9000).toString();
+                data.blood = "";
+                data.notes = "";
             } else {
                 const syncCode = document.getElementById('onboard-sync-code').value;
                 data.tempSyncCode = syncCode;
+                data.blood = "";
+                data.emergency = "";
             }
 
             await setDoc(doc(db, 'artifacts', appId, 'public', 'data', 'users', user.uid), data);
@@ -669,7 +1040,10 @@
         async function startApp() {
             document.getElementById('app-ui').classList.remove('hidden');
             document.getElementById('user-initial').innerText = user.displayName.charAt(0);
-            document.getElementById('user-name').innerText = user.displayName;
+            document.getElementById('user-name').innerText = profile.name || user.displayName;
+
+            // Initialize Pollinations (AI) settings UI if present
+            try { if(typeof initPollinationsFromUrl === 'function') initPollinationsFromUrl(); } catch(e) {}
 
             // Handle Partner Initial Sync
             if(profile.role === 'partner' && profile.tempSyncCode && !profile.linkedUid) {
@@ -678,6 +1052,7 @@
                 if(!snap.empty) {
                     const mom = snap.docs[0].data();
                     profile.linkedUid = mom.uid;
+                    profile.momUid = mom.uid;
                     profile.docName = mom.docName;
                     profile.docPhone = mom.docPhone;
                     profile.week = mom.week;
@@ -686,6 +1061,7 @@
                     
                     await updateDoc(doc(db, 'artifacts', appId, 'public', 'data', 'users', user.uid), { 
                         linkedUid: mom.uid,
+                        momUid: mom.uid,
                         docName: mom.docName,
                         docPhone: mom.docPhone,
                         week: mom.week,
@@ -710,8 +1086,9 @@
             }
 
             // Fill Data
-            document.getElementById('week-disp').innerText = "Week " + (profile.week || "--");
-            document.getElementById('ai-context-week').innerText = (profile.week || "--") + " weeks";
+            const wk = clampInt(profile.week || 0, 0, 42);
+            document.getElementById('week-disp').innerText = "Week " + (wk || "--");
+            document.getElementById('ai-context-week').innerText = (wk || "--") + " weeks";
             document.getElementById('dash-doc-name').innerText = profile.docName || "Not Set";
             if(profile.docPhone) document.getElementById('sos-btn-doc').href = "tel:" + profile.docPhone;
 
@@ -725,6 +1102,11 @@
             renderMedicine(LOCAL_MEDS);
             if(profile.linkedUid) setupLink(profile.linkedUid);
             setupCommunity();
+            setupWeekEditor();
+            setupNotifications();
+            setupPeriodTracker();
+            setupBabyTracker();
+            setupProfileEditor();
         }
 
         // SYNC UI LOGIC
@@ -744,9 +1126,12 @@
                 const mom = snap.docs[0].data();
                 await updateDoc(doc(db, 'artifacts', appId, 'public', 'data', 'users', user.uid), { 
                     linkedUid: mom.uid,
+                    momUid: mom.uid,
                     docName: mom.docName,
                     docPhone: mom.docPhone,
-                    week: mom.week
+                    week: mom.week,
+                    country: mom.country,
+                    pin: mom.pin
                 });
                 await updateDoc(doc(db, 'artifacts', appId, 'public', 'data', 'users', mom.uid), { linkedUid: user.uid });
                 location.reload();
@@ -763,13 +1148,63 @@
             const dashWidget = document.getElementById('mom-sync-dashboard-widget');
             if(dashWidget) dashWidget.classList.add('hidden');
 
+            coupleId = computeCoupleId();
+            if(coupleDocUnsub) { try { coupleDocUnsub(); } catch(e) {} }
+            if(coupleId) {
+                coupleDocUnsub = onSnapshot(doc(db, 'artifacts', appId, 'public', 'data', 'couples', coupleId), (snap) => {
+                    coupleData = snap.exists() ? snap.data() : null;
+                    if(coupleData && coupleData.syncDisabled) {
+                        document.getElementById('sync-status').innerHTML = '<span class="status-dot dot-red"></span> Sync Disabled';
+                        document.getElementById('connected-banner').classList.add('hidden');
+                        document.getElementById('partner-chat-ui').classList.add('hidden');
+                        document.getElementById('chat-disabled-msg').classList.remove('hidden');
+                        const msg = document.querySelector('#chat-disabled-msg p');
+                        if(msg) msg.innerText = 'Sync disabled: ' + (coupleData.syncDisabledReason || 'Account deleted');
+
+                        if(!syncDisabledAlerted) {
+                            syncDisabledAlerted = true;
+                            alert('Sync has been disabled. The other account may have been deleted.');
+                        }
+                    }
+                    // Period is stored in couple doc
+                    if(typeof renderPeriodFromCouple === 'function') renderPeriodFromCouple();
+                });
+            }
+
             onSnapshot(doc(db, 'artifacts', appId, 'public', 'data', 'users', targetId), (d) => {
+                if(!d.exists()) {
+                    linkedProfile = null;
+                    return;
+                }
+
                 const data = d.data();
-                document.getElementById('linked-name').innerText = "Linked: " + data.name;
+                linkedProfile = data;
+
+                document.getElementById('linked-name').innerText = "Linked: " + (data.name || 'Partner');
                 document.getElementById('connected-banner').classList.remove('hidden');
-                document.getElementById('connected-text').innerText = "Connected to " + data.name;
-                document.getElementById('sync-status').innerHTML = '<span class="status-dot dot-green"></span> ' + data.name;
-                
+                document.getElementById('connected-text').innerText = "Connected to " + (data.name || 'Partner');
+                document.getElementById('sync-status').innerHTML = '<span class="status-dot dot-green"></span> ' + (data.name || 'Connected');
+
+                // If partner is logged in, keep mother data fresh
+                if(profile.role === 'partner') {
+                    profile.week = data.week;
+                    profile.docName = data.docName;
+                    profile.docPhone = data.docPhone;
+                    profile.pin = data.pin;
+                    profile.country = data.country;
+
+                    const wk = clampInt(profile.week || 0, 0, 42);
+                    document.getElementById('week-disp').innerText = "Week " + (wk || "--");
+                    document.getElementById('ai-context-week').innerText = (wk || "--") + " weeks";
+                    document.getElementById('dash-doc-name').innerText = profile.docName || "Not Set";
+                    if(profile.docPhone) document.getElementById('sos-btn-doc').href = "tel:" + profile.docPhone;
+                    setupBabyTracker();
+                    setupProfileEditor();
+                } else {
+                    // Mother sees partner updates in profile section
+                    setupProfileEditor();
+                }
+
                 if(data.sosActive) triggerSOSAlert();
             });
 
@@ -832,11 +1267,89 @@
         }
 
         // AI & MEDICINE
+        const escapeHtml = (s) => String(s)
+            .replaceAll('&', '&amp;')
+            .replaceAll('<', '&lt;')
+            .replaceAll('>', '&gt;')
+            .replaceAll('"', '&quot;')
+            .replaceAll("'", '&#39;');
+
+        // Default publishable key (client-side). You requested a shared key for all users.
+        const DEFAULT_POLLINATIONS_KEY = 'pk_adBtXMtDmTCe03pe';
+
+        const getAiKey = () => DEFAULT_POLLINATIONS_KEY;
+
+        const getAiModel = () => {
+            return (localStorage.getItem('pollinations_model') || 'openai-fast').trim() || 'openai-fast';
+        };
+
+        window.saveAiSettings = () => {
+            const modelEl = document.getElementById('ai-model');
+            const model = (modelEl?.value || 'openai-fast').trim();
+            localStorage.setItem('pollinations_model', model);
+            alert('AI model saved.');
+        };
+
+        const initPollinationsFromUrl = () => {
+            const modelEl = document.getElementById('ai-model');
+            if(modelEl) modelEl.value = getAiModel();
+        };
+
+        const pollinationsChat = async ({ system, userText }) => {
+            const apiKey = getAiKey();
+            const model = getAiModel();
+
+            // Publishable keys (pk_) work reliably with the simple /text endpoint.
+            // If a secret key (sk_) is ever used, we can use the OpenAI-style chat endpoint.
+            if(apiKey && apiKey.startsWith('sk_')) {
+                const resp = await fetch('https://gen.pollinations.ai/v1/chat/completions', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${apiKey}`,
+                    },
+                    body: JSON.stringify({
+                        model,
+                        messages: [
+                            { role: 'system', content: system || '' },
+                            { role: 'user', content: userText }
+                        ],
+                        stream: false
+                    })
+                });
+
+                if(!resp.ok) {
+                    const t = await resp.text().catch(() => '');
+                    throw new Error(`AI request failed (${resp.status}). ${t}`.trim());
+                }
+
+                const json = await resp.json();
+                const content = json?.choices?.[0]?.message?.content;
+                if(typeof content !== 'string' || !content.trim()) {
+                    throw new Error('AI returned an empty response.');
+                }
+                return content.trim();
+            }
+
+            const prompt = encodeURIComponent(userText);
+            const url = `https://gen.pollinations.ai/text/${prompt}?key=${encodeURIComponent(apiKey)}&model=${encodeURIComponent(model)}&system=${encodeURIComponent(system || '')}`;
+            const resp = await fetch(url);
+            if(!resp.ok) {
+                const t = await resp.text().catch(() => '');
+                throw new Error(`AI request failed (${resp.status}). ${t}`.trim());
+            }
+            const text = await resp.text();
+            if(typeof text !== 'string' || !text.trim()) {
+                throw new Error('AI returned an empty response.');
+            }
+            return text.trim();
+        };
+
         window.sendAIChat = async () => {
             const txt = document.getElementById('ai-chat-input').value;
             if(!txt) return;
             const box = document.getElementById('ai-chat-box');
-            box.innerHTML += `<div class="msg msg-right">${txt}</div>`;
+            box.innerHTML += `<div class="msg msg-right">${escapeHtml(txt)}</div>`;
             document.getElementById('ai-chat-input').value = "";
             box.scrollTop = box.scrollHeight;
 
@@ -846,16 +1359,15 @@
             const context = `You are Nexus, a helpful maternal health assistant. The user is ${profile.week || 'unknown'} weeks pregnant. Location: ${profile.country || 'unknown'}. Keep answers brief.`;
 
             try {
-                const prompt = encodeURIComponent(context + " User asks: " + txt);
-                const resp = await fetch(`https://text.pollinations.ai/${prompt}`);
-                const reply = await resp.text();
+                const reply = await pollinationsChat({ system: context, userText: txt });
                 document.getElementById(loadingId).remove();
-                box.innerHTML += `<div class="msg msg-left">${reply}</div>`;
+                box.innerHTML += `<div class="msg msg-left">${escapeHtml(reply)}</div>`;
             } catch(e) {
                 document.getElementById(loadingId).remove();
-                let reply = LOCAL_BRAIN.fallback;
-                for(let k in LOCAL_BRAIN.keywords) { if(txt.toLowerCase().includes(k)) reply = LOCAL_BRAIN.keywords[k]; }
-                box.innerHTML += `<div class="msg msg-left">${reply}</div>`;
+                const msg = (e?.message || e || '').toString();
+                let reply = 'Online AI is temporarily unavailable. Please try again.';
+                if(msg) reply += `\n\nDetails: ${msg}`;
+                box.innerHTML += `<div class="msg msg-left">${escapeHtml(reply)}</div>`;
             }
             box.scrollTop = box.scrollHeight;
         }
@@ -873,13 +1385,15 @@
 
             res.innerHTML = "Analyzing with AI...";
             try {
+                // Keep the previous working anonymous Pollinations text endpoint for medicine.
+                // Anonymous requests to text.pollinations.ai are not affected by the legacy deprecation notice.
                 const prompt = encodeURIComponent(`Is ${q} safe for pregnancy? Answer with Safe, Caution, or Avoid followed by reason.`);
                 const resp = await fetch(`https://text.pollinations.ai/${prompt}`);
                 const text = await resp.text();
                 let color = '#f59e0b';
                 if(text.toLowerCase().includes('safe')) color = '#22c55e';
                 if(text.toLowerCase().includes('avoid')) color = '#ef4444';
-                res.innerHTML = `<div class="med-card" style="border-left-color:${color}"><strong>${q}</strong> <span class="badge" style="background:${color}">AI Analysis</span><br><small>${text}</small></div>`;
+                res.innerHTML = `<div class="med-card" style="border-left-color:${color}"><strong>${escapeHtml(q)}</strong> <span class="badge" style="background:${color}">AI Analysis</span><br><small>${escapeHtml(text)}</small></div>`;
             } catch(e) { res.innerHTML = "Consult Doctor."; }
         }
 
@@ -916,7 +1430,14 @@
         window.addPost = async () => {
             const t = document.getElementById('post-input').value;
             if(t) {
-                await addDoc(collection(db, 'artifacts', appId, 'public', 'data', 'posts'), { text: t, author: user.displayName, time: serverTimestamp(), likes: [] });
+                await addDoc(collection(db, 'artifacts', appId, 'public', 'data', 'posts'), {
+                    text: t,
+                    author: profile.name || user.displayName,
+                    authorUid: user.uid,
+                    time: serverTimestamp(),
+                    likes: [],
+                    commentCount: 0
+                });
                 document.getElementById('post-input').value = "";
             }
         }
@@ -930,6 +1451,7 @@
                     const p = doc.data();
                     const pid = doc.id;
                     const liked = p.likes && p.likes.includes(user.uid);
+                    const cCount = p.commentCount || 0;
                     
                     d.innerHTML += `
                         <div class="card post-card" id="post-${pid}">
@@ -940,7 +1462,7 @@
                                     <i class="fa-${liked ? 'solid' : 'regular'} fa-heart"></i> ${p.likes ? p.likes.length : 0}
                                 </span>
                                 <span class="post-action" onclick="toggleComments('${pid}')">
-                                    <i class="fa-regular fa-comment"></i> Reply
+                                    <i class="fa-regular fa-comment"></i> Reply ${cCount > 0 ? `(${cCount})` : ''}
                                 </span>
                             </div>
                             <div class="comments-section" id="comments-${pid}">
@@ -985,7 +1507,40 @@
             const txt = document.getElementById(`reply-input-${pid}`).value;
             if(!txt) return;
             const commRef = collection(db, 'artifacts', appId, 'public', 'data', 'posts', pid, 'comments');
-            await addDoc(commRef, { text: txt, author: user.displayName, time: serverTimestamp() });
+            const postRef = doc(db, 'artifacts', appId, 'public', 'data', 'posts', pid);
+
+            // 1) Add comment
+            await addDoc(commRef, { text: txt, author: profile.name || user.displayName, authorUid: user.uid, time: serverTimestamp() });
+
+            // 2) Increment commentCount safely
+            try {
+                await runTransaction(db, async (tx) => {
+                    const postSnap = await tx.get(postRef);
+                    if(!postSnap.exists()) return;
+                    const post = postSnap.data();
+                    const currentCount = Number(post.commentCount || 0);
+                    tx.update(postRef, { commentCount: currentCount + 1, lastCommentAt: serverTimestamp() });
+                });
+            } catch(e) {}
+
+            // 3) Notify post author
+            try {
+                const postSnap = await getDoc(postRef);
+                if(postSnap.exists()) {
+                    const post = postSnap.data();
+                    const authorUid = post.authorUid;
+                    if(authorUid && authorUid !== user.uid) {
+                        const notifRef = collection(db, 'artifacts', appId, 'public', 'data', 'notifications', authorUid, 'items');
+                        await addDoc(notifRef, {
+                            type: 'reply',
+                            postId: pid,
+                            fromName: profile.name || user.displayName,
+                            createdAt: serverTimestamp(),
+                            read: false
+                        });
+                    }
+                }
+            } catch(e) {}
             document.getElementById(`reply-input-${pid}`).value = "";
         }
 
@@ -1015,17 +1570,414 @@
             input.value += emoji;
         }
 
+        // --- MOBILE MORE MENU ---
+        window.openMoreMenu = () => {
+            document.getElementById('more-menu').classList.remove('hidden');
+        }
+
+        window.closeMoreMenu = (e) => {
+            if(e && e.target && e.target.id !== 'more-menu') return;
+            document.getElementById('more-menu').classList.add('hidden');
+        }
+
+        // --- WEEK EDITOR (Mother only) ---
+        function setupWeekEditor() {
+            const slider = document.getElementById('week-slider');
+            const number = document.getElementById('week-number');
+            const canEdit = isMother();
+            const wk = clampInt(profile.week || 0, 0, 42);
+
+            if(slider) slider.value = String(wk);
+            if(number) number.value = String(wk);
+
+            const note = document.getElementById('week-edit-note');
+            const btn = document.getElementById('save-week-btn');
+
+            if(!canEdit) {
+                if(note) note.classList.remove('hidden');
+                if(slider) slider.disabled = true;
+                if(number) number.disabled = true;
+                if(btn) {
+                    btn.disabled = true;
+                    btn.classList.add('btn-secondary');
+                    btn.classList.remove('btn-primary');
+                }
+            } else {
+                if(note) note.classList.add('hidden');
+                if(slider) slider.disabled = false;
+                if(number) number.disabled = false;
+                if(btn) btn.disabled = false;
+            }
+
+            if(slider && number) {
+                slider.addEventListener('input', () => { number.value = slider.value; });
+                number.addEventListener('input', () => {
+                    const v = clampInt(number.value, 0, 42);
+                    number.value = String(v);
+                    slider.value = String(v);
+                });
+            }
+        }
+
+        window.savePregnancyWeek = async () => {
+            if(!isMother()) return alert('Only Mother can edit pregnancy week.');
+            const wk = clampInt(document.getElementById('week-number').value, 0, 42);
+            await updateDoc(doc(db, 'artifacts', appId, 'public', 'data', 'users', user.uid), { week: wk });
+            profile.week = wk;
+            document.getElementById('week-disp').innerText = "Week " + (wk || "--");
+            document.getElementById('ai-context-week').innerText = (wk || "--") + " weeks";
+            setupBabyTracker();
+            setupProfileEditor();
+            alert('Week updated.');
+        }
+
+        // --- NOTIFICATIONS (Community bubble for replies) ---
+        function setupNotifications() {
+            if(notificationsUnsub) { try { notificationsUnsub(); } catch(e) {} }
+            const notifCol = collection(db, 'artifacts', appId, 'public', 'data', 'notifications', user.uid, 'items');
+            const q = query(notifCol, where('read', '==', false), limit(50));
+            notificationsUnsub = onSnapshot(q, (snap) => {
+                const unread = snap.size;
+                const desk = document.getElementById('nav-community-desk');
+                const mob = document.getElementById('nav-community-mob');
+                if(desk) desk.classList.toggle('has-bubble', unread > 0);
+                if(mob) mob.classList.toggle('has-bubble', unread > 0);
+            });
+        }
+
+        async function markCommunityRead() {
+            try {
+                const notifCol = collection(db, 'artifacts', appId, 'public', 'data', 'notifications', user.uid, 'items');
+                const q = query(notifCol, where('read', '==', false), limit(50));
+                const snap = await getDocs(q);
+                const updates = [];
+                snap.forEach(n => {
+                    updates.push(updateDoc(doc(db, 'artifacts', appId, 'public', 'data', 'notifications', user.uid, 'items', n.id), { read: true }));
+                });
+                await Promise.all(updates);
+            } catch(e) {}
+        }
+
+        // --- PERIOD TRACKER (Mother edits, partner views) ---
+        function setupPeriodTracker() {
+            const ring = document.getElementById('cycle-progress');
+            if(ring) {
+                const circ = 2 * Math.PI * 48;
+                ring.style.strokeDasharray = `${circ}`;
+                ring.style.strokeDashoffset = `${circ}`;
+            }
+
+            const canEdit = isMother();
+            const fields = ['period-last-start','period-cycle-length','period-length','period-notes'];
+            fields.forEach(id => {
+                const el = document.getElementById(id);
+                if(el) el.disabled = !canEdit;
+            });
+
+            const note = document.getElementById('period-edit-note');
+            const btn = document.getElementById('save-period-btn');
+            if(!canEdit) {
+                if(note) note.classList.remove('hidden');
+                if(btn) {
+                    btn.disabled = true;
+                    btn.classList.add('btn-secondary');
+                    btn.classList.remove('btn-primary');
+                }
+            } else {
+                if(note) note.classList.add('hidden');
+                if(btn) btn.disabled = false;
+            }
+
+            renderPeriodFromCouple();
+        }
+
+        function getPeriodSource() {
+            if(profile?.linkedUid) {
+                const cid = computeCoupleId();
+                return { type: 'couple', id: cid };
+            }
+            return { type: 'user', id: user.uid };
+        }
+
+        function readPeriodObject() {
+            if(coupleData?.period) return coupleData.period;
+            if(profile?.period) return profile.period;
+            return null;
+        }
+
+        function renderPeriodFromCouple() {
+            const src = getPeriodSource();
+            const status = document.getElementById('period-sync-status');
+            if(status) status.innerText = src.type === 'couple' ? 'Synced with partner' : 'Not connected — saved only to your account';
+
+            const p = readPeriodObject();
+            const label = document.getElementById('cycle-label');
+            const dayEl = document.getElementById('cycle-day');
+            const ring = document.getElementById('cycle-progress');
+            const nextEl = document.getElementById('period-next');
+            const ovuEl = document.getElementById('period-ovu');
+            const winEl = document.getElementById('period-window');
+
+            const circ = 2 * Math.PI * 48;
+            const setRing = (pct) => {
+                if(!ring) return;
+                const clamped = Math.max(0, Math.min(1, pct));
+                ring.style.strokeDasharray = `${circ}`;
+                ring.style.strokeDashoffset = `${circ * (1 - clamped)}`;
+            };
+
+            if(!p || !p.lastStart) {
+                if(label) label.innerText = 'No cycle data yet';
+                if(dayEl) dayEl.innerText = '--';
+                setRing(0);
+                if(nextEl) nextEl.innerText = '--';
+                if(ovuEl) ovuEl.innerText = '--';
+                if(winEl) winEl.innerText = '--';
+                return;
+            }
+
+            const lastStart = new Date(p.lastStart);
+            const cycleLength = clampInt(p.cycleLength || 28, 20, 45);
+            const periodLength = clampInt(p.periodLength || 5, 2, 10);
+            const now = new Date();
+            const day = Math.floor((now - lastStart) / (1000 * 60 * 60 * 24)) + 1;
+            const dayInCycle = ((day - 1) % cycleLength) + 1;
+
+            if(dayEl) dayEl.innerText = String(Math.max(1, dayInCycle));
+            const inPeriod = dayInCycle <= periodLength;
+            if(label) label.innerText = inPeriod ? 'Period days (gentle care)' : (dayInCycle < (cycleLength - 14) ? 'Follicular phase' : 'Luteal phase');
+            setRing(dayInCycle / cycleLength);
+
+            const next = new Date(lastStart); next.setDate(next.getDate() + cycleLength);
+            const ovu = new Date(lastStart); ovu.setDate(ovu.getDate() + (cycleLength - 14));
+            const winStart = new Date(ovu); winStart.setDate(winStart.getDate() - 4);
+            const winEnd = new Date(ovu); winEnd.setDate(winEnd.getDate() + 1);
+            const fmt = (d) => d.toLocaleDateString(undefined, { day: '2-digit', month: 'short' });
+            if(nextEl) nextEl.innerText = fmt(next);
+            if(ovuEl) ovuEl.innerText = fmt(ovu);
+            if(winEl) winEl.innerText = `${fmt(winStart)} – ${fmt(winEnd)}`;
+
+            // Populate inputs (only when editable)
+            const lastInput = document.getElementById('period-last-start');
+            const cycleInput = document.getElementById('period-cycle-length');
+            const lenInput = document.getElementById('period-length');
+            const notesInput = document.getElementById('period-notes');
+            if(lastInput && !lastInput.disabled) lastInput.value = lastStart.toISOString().slice(0,10);
+            if(cycleInput && !cycleInput.disabled) cycleInput.value = String(cycleLength);
+            if(lenInput && !lenInput.disabled) lenInput.value = String(periodLength);
+            if(notesInput && !notesInput.disabled) notesInput.value = p.notes || '';
+        }
+
+        window.savePeriodTracker = async () => {
+            if(!isMother()) return alert('Only Mother can edit the period tracker.');
+            const lastStart = document.getElementById('period-last-start').value;
+            const cycleLength = clampInt(document.getElementById('period-cycle-length').value || 28, 20, 45);
+            const periodLength = clampInt(document.getElementById('period-length').value || 5, 2, 10);
+            const notes = (document.getElementById('period-notes').value || '').trim();
+            if(!lastStart) return alert('Please select the last period start date.');
+
+            const payload = {
+                lastStart: new Date(lastStart).toISOString(),
+                cycleLength,
+                periodLength,
+                notes,
+                updatedAt: new Date().toISOString(),
+                updatedBy: user.uid
+            };
+
+            const src = getPeriodSource();
+            if(src.type === 'couple' && src.id) {
+                await setDoc(doc(db, 'artifacts', appId, 'public', 'data', 'couples', src.id), { period: payload, syncDisabled: false }, { merge: true });
+                coupleData = { ...(coupleData || {}), period: payload };
+            } else {
+                await updateDoc(doc(db, 'artifacts', appId, 'public', 'data', 'users', user.uid), { period: payload });
+                profile.period = payload;
+            }
+
+            renderPeriodFromCouple();
+            alert('Period saved.');
+        }
+
+        // --- BABY TRACKER ---
+        function babyFruitForWeek(w) {
+            const map = [
+                { w: 0, fruit: '—', tip: 'Take care of yourself today.', milestone: 'You got this.' },
+                { w: 4, fruit: 'Poppy seed', tip: 'Hydration + folate are your besties.', milestone: 'Early foundations begin.' },
+                { w: 8, fruit: 'Raspberry', tip: 'Small meals can help nausea.', milestone: 'Major organs start forming.' },
+                { w: 12, fruit: 'Lime', tip: 'Gentle walks can boost mood.', milestone: 'First trimester milestone!' },
+                { w: 16, fruit: 'Avocado', tip: 'Add iron-rich foods when possible.', milestone: 'Baby movements may start soon.' },
+                { w: 20, fruit: 'Banana', tip: 'Stretching helps back comfort.', milestone: 'Halfway point!' },
+                { w: 24, fruit: 'Corn', tip: 'Stay consistent with sleep.', milestone: 'Baby is getting stronger.' },
+                { w: 28, fruit: 'Eggplant', tip: 'Short rests are okay.', milestone: 'Third trimester begins.' },
+                { w: 32, fruit: 'Squash', tip: 'Practice calm breathing.', milestone: 'Baby is practicing breathing too.' },
+                { w: 36, fruit: 'Honeydew', tip: 'Pack your hospital checklist.', milestone: 'Almost there!' },
+                { w: 40, fruit: 'Watermelon', tip: 'Be gentle with yourself.', milestone: 'Full term milestone.' },
+            ];
+            let chosen = map[0];
+            for(const m of map) { if(w >= m.w) chosen = m; }
+            return chosen;
+        }
+
+        function setupBabyTracker() {
+            const wk = clampInt(profile.week || 0, 0, 42);
+            const title = document.getElementById('baby-week-title');
+            const fruit = document.getElementById('baby-fruit');
+            const tip = document.getElementById('baby-tip');
+            const milestone = document.getElementById('baby-milestone');
+            const fill = document.getElementById('baby-meter-fill');
+
+            const pct = Math.round((wk / 40) * 100);
+            if(title) title.innerText = `Week ${wk || '--'}`;
+            const f = babyFruitForWeek(wk);
+            if(fruit) fruit.innerText = f.fruit;
+            if(tip) tip.innerText = f.tip;
+            if(milestone) milestone.innerText = f.milestone;
+            if(fill) fill.style.width = `${Math.max(0, Math.min(100, pct))}%`;
+        }
+
+        // --- PROFILES (permissions) ---
+        function setupProfileEditor() {
+            const momData = isMother() ? profile : (linkedProfile || profile);
+            const partnerData = isMother() ? (linkedProfile || {}) : profile;
+
+            const momWeek = document.getElementById('profile-mom-week');
+            if(momWeek) momWeek.value = String(clampInt(momData?.week || 0, 0, 42));
+            const momBlood = document.getElementById('profile-mom-blood');
+            if(momBlood) momBlood.value = momData?.blood || '';
+            const momDoc = document.getElementById('profile-mom-doc');
+            if(momDoc) momDoc.value = momData?.docName || '';
+            const momPhone = document.getElementById('profile-mom-phone');
+            if(momPhone) momPhone.value = momData?.docPhone || '';
+            const momNotes = document.getElementById('profile-mom-notes');
+            if(momNotes) momNotes.value = momData?.notes || '';
+            const momPin = document.getElementById('profile-mom-pin');
+            if(momPin) momPin.value = momData?.pin || '';
+            const momCountry = document.getElementById('profile-mom-country');
+            if(momCountry) momCountry.value = momData?.country || '';
+
+            const pName = document.getElementById('profile-partner-name');
+            if(pName) pName.value = partnerData?.name || '';
+            const pBlood = document.getElementById('profile-partner-blood');
+            if(pBlood) pBlood.value = partnerData?.blood || '';
+            const pEmergency = document.getElementById('profile-partner-emergency');
+            if(pEmergency) pEmergency.value = partnerData?.emergency || '';
+
+            const momCanEdit = isMother();
+            const partnerCanEditNameOnly = !isMother();
+
+            ['profile-mom-week','profile-mom-blood','profile-mom-doc','profile-mom-phone','profile-mom-notes','profile-mom-pin','profile-mom-country'].forEach(id => {
+                const el = document.getElementById(id);
+                if(el) el.disabled = !momCanEdit;
+            });
+            const saveMom = document.getElementById('save-mom-profile-btn');
+            if(saveMom) saveMom.disabled = !momCanEdit;
+
+            // Partner edits their details; mother cannot edit partner.
+            const pNameEl = document.getElementById('profile-partner-name');
+            if(pNameEl) pNameEl.disabled = !partnerCanEditNameOnly;
+            ['profile-partner-blood','profile-partner-emergency'].forEach(id => {
+                const el = document.getElementById(id);
+                if(el) el.disabled = true;
+            });
+            const savePartner = document.getElementById('save-partner-profile-btn');
+            if(savePartner) savePartner.disabled = !partnerCanEditNameOnly;
+
+            const momNote = document.getElementById('mom-profile-note');
+            const pNote = document.getElementById('partner-profile-note');
+            if(momNote) momNote.innerHTML = momCanEdit ? '<i class="fa-solid fa-lock-open"></i> Editable' : '<i class="fa-solid fa-lock"></i> Locked';
+            if(pNote) pNote.innerHTML = partnerCanEditNameOnly ? '<i class="fa-solid fa-lock-open"></i> Editable (name only)' : '<i class="fa-solid fa-lock"></i> Locked';
+        }
+
+        window.saveMotherProfile = async () => {
+            if(!isMother()) return alert('Only Mother can edit mother profile.');
+            const data = {
+                week: clampInt(document.getElementById('profile-mom-week').value, 0, 42),
+                blood: (document.getElementById('profile-mom-blood').value || '').trim(),
+                docName: (document.getElementById('profile-mom-doc').value || '').trim(),
+                docPhone: (document.getElementById('profile-mom-phone').value || '').trim(),
+                notes: (document.getElementById('profile-mom-notes').value || '').trim(),
+                pin: (document.getElementById('profile-mom-pin').value || '').trim(),
+                country: (document.getElementById('profile-mom-country').value || '').trim(),
+            };
+
+            await updateDoc(doc(db, 'artifacts', appId, 'public', 'data', 'users', user.uid), data);
+            profile = { ...profile, ...data };
+            document.getElementById('user-name').innerText = profile.name || user.displayName;
+            document.getElementById('week-disp').innerText = "Week " + (profile.week || "--");
+            document.getElementById('ai-context-week').innerText = (profile.week || "--") + " weeks";
+            document.getElementById('dash-doc-name').innerText = profile.docName || "Not Set";
+            if(profile.docPhone) document.getElementById('sos-btn-doc').href = "tel:" + profile.docPhone;
+            setupWeekEditor();
+            setupBabyTracker();
+            alert('Mother profile saved.');
+        }
+
+        window.savePartnerProfile = async () => {
+            if(isMother()) return alert('Partner only can edit partner profile.');
+            const data = {
+                name: (document.getElementById('profile-partner-name').value || '').trim(),
+            };
+            await updateDoc(doc(db, 'artifacts', appId, 'public', 'data', 'users', user.uid), data);
+            profile = { ...profile, ...data };
+            document.getElementById('user-name').innerText = profile.name || user.displayName;
+            alert('Partner profile saved.');
+        }
+
+        // --- DELETE ACCOUNT (Notify other + disable sync) ---
+        window.deleteAccount = async () => {
+            if(!confirm('Delete your account? This disables sync and notifies the other person.')) return;
+            try {
+                const cid = computeCoupleId();
+                if(cid) {
+                    await setDoc(doc(db, 'artifacts', appId, 'public', 'data', 'couples', cid), {
+                        syncDisabled: true,
+                        syncDisabledAt: serverTimestamp(),
+                        syncDisabledBy: user.uid,
+                        syncDisabledReason: 'Account deleted'
+                    }, { merge: true });
+                }
+
+                if(profile.linkedUid) {
+                    try {
+                        await updateDoc(doc(db, 'artifacts', appId, 'public', 'data', 'users', profile.linkedUid), { linkedUid: null });
+                    } catch(e) {}
+                }
+
+                await deleteDoc(doc(db, 'artifacts', appId, 'public', 'data', 'users', user.uid));
+
+                try {
+                    await deleteUser(auth.currentUser);
+                } catch(e) {
+                    // might require recent login; still removed app data
+                }
+
+                await signOut(auth);
+                location.reload();
+            } catch(e) {
+                alert('Delete failed: ' + (e?.message || e));
+            }
+        }
+
         // UTILS
         window.nav = (id) => {
             document.querySelectorAll('section').forEach(s => s.classList.add('hidden'));
             document.getElementById('view-'+id).classList.remove('hidden');
             document.querySelectorAll('.mobile-nav-item').forEach(n => n.classList.remove('active'));
-            if(event && event.currentTarget.classList.contains('mobile-nav-item')) event.currentTarget.classList.add('active');
+            const ev = window.event;
+            if(ev && ev.currentTarget && ev.currentTarget.classList && ev.currentTarget.classList.contains('mobile-nav-item')) ev.currentTarget.classList.add('active');
             
             // Mark chat read if opening chat tab
             if(id === 'partnerchat') {
                 lastReadTime = Date.now();
                 document.querySelectorAll('.nav-badge').forEach(b => b.style.display = 'none');
+            }
+
+            if(id === 'community') {
+                markCommunityRead();
+            }
+
+            if(id === 'period') {
+                renderPeriodFromCouple();
             }
         }
 
