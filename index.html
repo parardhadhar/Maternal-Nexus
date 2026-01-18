@@ -288,6 +288,43 @@
         .lock-note { font-size: 12px; color: var(--text-muted); display:flex; align-items:center; gap:8px; }
         .lock-note i { color: var(--secondary); }
 
+        /* --- Period Calendar --- */
+        .cal-card { background: var(--bg-body); border: 1px solid var(--border); border-radius: 18px; padding: 16px; }
+        .cal-top { display:flex; justify-content:space-between; align-items:flex-start; gap: 12px; flex-wrap: wrap; }
+        .cal-top h3 { margin: 0; }
+        .cal-actions { display:flex; gap: 10px; flex-wrap: wrap; }
+        .cal-actions .btn { padding: 10px 14px; border-radius: 12px; font-size: 13px; }
+        .cal-note { font-size: 12px; color: var(--text-muted); line-height: 1.6; margin-top: 6px; }
+
+        .cal-nav { display:flex; align-items:center; justify-content:space-between; gap: 10px; margin-top: 14px; }
+        .cal-nav .month-label { font-family: 'Fredoka', sans-serif; font-size: 18px; }
+        .cal-nav .nav-btn { width: 42px; height: 42px; border-radius: 12px; border: 1px solid var(--border); background: var(--bg-card); color: var(--text-main); cursor: pointer; }
+        .cal-nav .nav-btn:active { transform: scale(0.98); }
+
+        .cal-weekdays { display:grid; grid-template-columns: repeat(7, 1fr); gap: 8px; margin-top: 12px; font-size: 11px; color: var(--text-muted); font-weight: 800; letter-spacing: 0.02em; }
+        .cal-weekdays div { text-align:center; padding: 6px 0; }
+
+        .cal-grid { display:grid; grid-template-columns: repeat(7, 1fr); gap: 8px; margin-top: 10px; }
+        .cal-day { position: relative; aspect-ratio: 1 / 1; border-radius: 14px; border: 1px solid var(--border); background: var(--bg-card); cursor: pointer; display:flex; align-items:center; justify-content:center; font-weight: 800; color: var(--text-main); user-select: none; }
+        .cal-day:active { transform: scale(0.98); }
+        .cal-day.cal-out { opacity: 0.45; }
+        .cal-day.cal-today { outline: 2px solid rgba(59, 130, 246, 0.45); border-color: transparent; }
+        .cal-day.cal-period { background: rgba(244,63,94,0.16); border-color: rgba(244,63,94,0.28); }
+        .cal-day.cal-period::after { content: ""; position:absolute; bottom: 8px; width: 7px; height: 7px; border-radius: 50%; background: var(--secondary); box-shadow: 0 6px 14px rgba(244,63,94,0.22); }
+
+        .cal-tools { display:grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 14px; }
+        @media (max-width: 520px) { .cal-tools { grid-template-columns: 1fr; } }
+        .cal-tools .btn { width: 100%; padding: 12px 14px; }
+
+        .cal-row { display:flex; gap: 10px; flex-wrap: wrap; align-items: center; }
+        .cal-row .input { margin: 0; }
+        .cal-row .btn { padding: 12px 14px; }
+        .cal-toggle { display:flex; align-items:center; gap: 8px; font-size: 13px; font-weight: 700; }
+
+        .cal-share { margin-top: 12px; border-top: 1px solid var(--border); padding-top: 12px; display:none; }
+        .cal-share.show { display:block; }
+        .cal-share textarea { width: 100%; min-height: 92px; resize: vertical; padding: 12px; border-radius: 12px; border: 1px solid var(--border); background: var(--bg-card); color: var(--text-main); font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace; font-size: 12px; }
+
     </style>
 </head>
 <body>
@@ -559,7 +596,7 @@
 
                                 <button class="btn btn-primary" id="save-period-btn" style="width: 100%; margin-top: 12px;" onclick="savePeriodTracker()"><i class="fa-solid fa-floppy-disk"></i> Save Period</button>
                                 <div class="text-muted" style="font-size:12px; margin-top:10px; line-height:1.5;">
-                                    Partner can view this tracker when synced, but cannot edit.
+                                    Partner can view this tracker when synced. Calendar edits can be enabled for partner (below).
                                 </div>
                             </div>
 
@@ -578,6 +615,62 @@
                                     <h3 style="margin-top:0;">Sync Status</h3>
                                     <div class="text-muted" id="period-sync-status" style="font-size:12px; line-height:1.6;">Not connected</div>
                                     <button class="btn btn-secondary" style="width:100%; margin-top:12px;" onclick="nav('sync')"><i class="fa-solid fa-link"></i> Manage Sync</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="cal-card" style="margin-top: 16px;">
+                            <div class="cal-top">
+                                <div>
+                                    <h3><i class="fa-solid fa-calendar-days" style="color: var(--primary);"></i> Calendar</h3>
+                                    <div class="cal-note" id="period-cal-note">Tap a day to mark it as a period day. This helps when you forget the last dates.</div>
+                                </div>
+                                <div class="cal-actions">
+                                    <button class="btn btn-secondary" type="button" onclick="periodCalToday()"><i class="fa-solid fa-location-crosshairs"></i> Today</button>
+                                    <button class="btn btn-secondary" type="button" onclick="togglePeriodCalShare()"><i class="fa-solid fa-share-nodes"></i> Share/Import</button>
+                                </div>
+                            </div>
+
+                            <div class="cal-nav">
+                                <button class="nav-btn" type="button" aria-label="Previous month" onclick="periodCalPrev()"><i class="fa-solid fa-chevron-left"></i></button>
+                                <div class="month-label" id="period-cal-month">--</div>
+                                <button class="nav-btn" type="button" aria-label="Next month" onclick="periodCalNext()"><i class="fa-solid fa-chevron-right"></i></button>
+                            </div>
+
+                            <div class="cal-weekdays" aria-hidden="true">
+                                <div>Sun</div><div>Mon</div><div>Tue</div><div>Wed</div><div>Thu</div><div>Fri</div><div>Sat</div>
+                            </div>
+                            <div class="cal-grid" id="period-cal-grid" aria-label="Period calendar"></div>
+
+                            <div class="cal-tools">
+                                <div>
+                                    <div class="text-muted" style="font-size: 12px; font-weight: 800; margin-bottom: 8px;">Add a range (quick)</div>
+                                    <div class="cal-row">
+                                        <input type="date" id="period-cal-start" class="input" aria-label="Range start">
+                                        <input type="date" id="period-cal-end" class="input" aria-label="Range end">
+                                    </div>
+                                    <button class="btn btn-primary" id="period-cal-add-range" type="button" onclick="periodCalAddRange()"><i class="fa-solid fa-plus"></i> Add Range</button>
+                                </div>
+                                <div>
+                                    <div class="text-muted" style="font-size: 12px; font-weight: 800; margin-bottom: 8px;">Sharing & permissions</div>
+                                    <label class="cal-toggle" id="period-cal-partner-toggle-wrap">
+                                        <input type="checkbox" id="period-cal-partner-edit">
+                                        Allow partner to edit calendar
+                                    </label>
+                                    <button class="btn btn-secondary" type="button" onclick="periodCalClearMonth()"><i class="fa-solid fa-eraser"></i> Clear This Month</button>
+                                    <div class="text-muted" id="period-cal-sync" style="font-size: 12px; line-height: 1.6; margin-top: 8px;">--</div>
+                                </div>
+                            </div>
+
+                            <div class="cal-share" id="period-cal-share">
+                                <div class="text-muted" style="font-size:12px; margin-bottom: 8px; line-height:1.6;">
+                                    If you are not synced, you can still share dates using this code. Anyone with this code can import and edit.
+                                </div>
+                                <textarea id="period-cal-share-code" placeholder="Share code will appear here..."></textarea>
+                                <div class="cal-row" style="margin-top: 10px;">
+                                    <button class="btn btn-secondary" type="button" onclick="periodCalGenerateShare()"><i class="fa-solid fa-wand-magic-sparkles"></i> Generate</button>
+                                    <button class="btn btn-secondary" type="button" onclick="periodCalCopyShare()"><i class="fa-solid fa-copy"></i> Copy</button>
+                                    <button class="btn btn-primary" type="button" onclick="periodCalImportShare()"><i class="fa-solid fa-file-import"></i> Import</button>
                                 </div>
                             </div>
                         </div>
@@ -1168,6 +1261,7 @@
                     }
                     // Period is stored in couple doc
                     if(typeof renderPeriodFromCouple === 'function') renderPeriodFromCouple();
+                    if(typeof renderPeriodCalendarFromCouple === 'function') renderPeriodCalendarFromCouple();
                 });
             }
 
@@ -1689,6 +1783,8 @@
             }
 
             renderPeriodFromCouple();
+            setupPeriodCalendar();
+            renderPeriodCalendarFromCouple();
         }
 
         function getPeriodSource() {
@@ -1797,6 +1893,327 @@
             renderPeriodFromCouple();
             alert('Period saved.');
         }
+
+        // --- PERIOD CALENDAR (Mother + optional partner edits) ---
+        const PERIOD_CAL_LIMIT_RANGE_DAYS = 120;
+        const periodCalState = {
+            year: null,
+            month: null, // 0-11
+            daysSet: new Set(),
+            allowPartnerEdit: true,
+            initialized: false
+        };
+
+        function isoLocalFromDate(d) {
+            const y = d.getFullYear();
+            const m = String(d.getMonth() + 1).padStart(2, '0');
+            const day = String(d.getDate()).padStart(2, '0');
+            return `${y}-${m}-${day}`;
+        }
+
+        function parseISODateLocal(iso) {
+            // ISO format: YYYY-MM-DD
+            const [y, m, d] = (iso || '').split('-').map(s => Number(s));
+            if(!y || !m || !d) return null;
+            return new Date(y, m - 1, d);
+        }
+
+        function readPeriodCalendarObject() {
+            if(coupleData?.periodCalendar) return coupleData.periodCalendar;
+            if(profile?.periodCalendar) return profile.periodCalendar;
+            return null;
+        }
+
+        function canEditPeriodCalendar() {
+            if(isMother()) return true;
+            const obj = readPeriodCalendarObject();
+            const allow = (typeof obj?.allowPartnerEdit === 'boolean') ? obj.allowPartnerEdit : true;
+            return allow;
+        }
+
+        function setCalendarNote() {
+            const note = document.getElementById('period-cal-note');
+            const sync = document.getElementById('period-cal-sync');
+            const src = getPeriodSource();
+
+            const edit = canEditPeriodCalendar();
+            const who = isMother() ? 'Mother' : 'Partner';
+            if(note) {
+                note.innerText = edit
+                    ? `Tap a day to mark it as a period day. (${who} can edit)`
+                    : 'Tap to view. Mother has disabled partner edits.';
+            }
+
+            if(sync) {
+                sync.innerText = src.type === 'couple'
+                    ? 'Saved in shared sync (both accounts see the same calendar)'
+                    : 'Saved locally to your account (not shared)';
+            }
+        }
+
+        function setupPeriodCalendar() {
+            if(periodCalState.initialized) return;
+            periodCalState.initialized = true;
+
+            const now = new Date();
+            periodCalState.year = now.getFullYear();
+            periodCalState.month = now.getMonth();
+
+            const toggleWrap = document.getElementById('period-cal-partner-toggle-wrap');
+            const toggle = document.getElementById('period-cal-partner-edit');
+
+            if(toggleWrap) toggleWrap.style.display = isMother() ? 'flex' : 'none';
+
+            if(toggle) {
+                toggle.addEventListener('change', async () => {
+                    if(!isMother()) {
+                        // Should never be visible for partner, but guard anyway.
+                        toggle.checked = periodCalState.allowPartnerEdit;
+                        return;
+                    }
+                    periodCalState.allowPartnerEdit = !!toggle.checked;
+                    await savePeriodCalendar({ days: Array.from(periodCalState.daysSet).sort(), allowPartnerEdit: periodCalState.allowPartnerEdit });
+                    setCalendarNote();
+                });
+            }
+
+            const grid = document.getElementById('period-cal-grid');
+            if(grid) {
+                grid.addEventListener('click', async (e) => {
+                    const btn = e.target?.closest?.('[data-iso]');
+                    if(!btn) return;
+                    const iso = btn.getAttribute('data-iso');
+                    if(!iso) return;
+
+                    if(!canEditPeriodCalendar()) return alert('Calendar edits are disabled for partner.');
+                    await toggleCalendarDay(iso);
+                });
+            }
+        }
+
+        function ensureCalendarMonthInited() {
+            if(periodCalState.year == null || periodCalState.month == null) {
+                const now = new Date();
+                periodCalState.year = now.getFullYear();
+                periodCalState.month = now.getMonth();
+            }
+        }
+
+        function renderCalendarMonth() {
+            ensureCalendarMonthInited();
+
+            const grid = document.getElementById('period-cal-grid');
+            const monthEl = document.getElementById('period-cal-month');
+            if(!grid || !monthEl) return;
+
+            const y = periodCalState.year;
+            const m = periodCalState.month;
+
+            const first = new Date(y, m, 1);
+            const startDow = first.getDay();
+            const start = new Date(y, m, 1 - startDow);
+
+            monthEl.innerText = new Date(y, m, 1).toLocaleDateString(undefined, { month: 'long', year: 'numeric' });
+
+            const todayIso = isoLocalFromDate(new Date());
+
+            grid.innerHTML = '';
+            for(let i = 0; i < 42; i++) {
+                const d = new Date(start);
+                d.setDate(start.getDate() + i);
+                const iso = isoLocalFromDate(d);
+                const inMonth = d.getMonth() === m;
+
+                const cell = document.createElement('button');
+                cell.type = 'button';
+                cell.className = 'cal-day' + (inMonth ? '' : ' cal-out');
+                if(iso === todayIso) cell.className += ' cal-today';
+                if(periodCalState.daysSet.has(iso)) cell.className += ' cal-period';
+                cell.setAttribute('data-iso', iso);
+                cell.setAttribute('aria-label', iso);
+                cell.innerText = String(d.getDate());
+                grid.appendChild(cell);
+            }
+
+            setCalendarNote();
+        }
+
+        async function toggleCalendarDay(iso) {
+            if(periodCalState.daysSet.has(iso)) periodCalState.daysSet.delete(iso);
+            else periodCalState.daysSet.add(iso);
+
+            renderCalendarMonth();
+
+            await savePeriodCalendar({
+                days: Array.from(periodCalState.daysSet).sort(),
+                allowPartnerEdit: periodCalState.allowPartnerEdit
+            });
+        }
+
+        async function savePeriodCalendar({ days, allowPartnerEdit }) {
+            const safeDays = Array.isArray(days) ? days.filter(Boolean).slice(0, 2000) : [];
+            const payload = {
+                days: safeDays,
+                allowPartnerEdit: (typeof allowPartnerEdit === 'boolean') ? allowPartnerEdit : true,
+                updatedAt: new Date().toISOString(),
+                updatedBy: user.uid
+            };
+
+            const src = getPeriodSource();
+            if(src.type === 'couple' && src.id) {
+                await setDoc(doc(db, 'artifacts', appId, 'public', 'data', 'couples', src.id), { periodCalendar: payload, syncDisabled: false }, { merge: true });
+                coupleData = { ...(coupleData || {}), periodCalendar: payload };
+            } else {
+                await updateDoc(doc(db, 'artifacts', appId, 'public', 'data', 'users', user.uid), { periodCalendar: payload });
+                profile.periodCalendar = payload;
+            }
+        }
+
+        function renderPeriodCalendarFromCouple() {
+            setupPeriodCalendar();
+            const obj = readPeriodCalendarObject();
+            const toggle = document.getElementById('period-cal-partner-edit');
+
+            const allow = (typeof obj?.allowPartnerEdit === 'boolean') ? obj.allowPartnerEdit : true;
+            periodCalState.allowPartnerEdit = allow;
+            if(toggle && isMother()) toggle.checked = allow;
+
+            periodCalState.daysSet = new Set(Array.isArray(obj?.days) ? obj.days : []);
+            renderCalendarMonth();
+        }
+
+        window.periodCalPrev = () => {
+            ensureCalendarMonthInited();
+            periodCalState.month -= 1;
+            if(periodCalState.month < 0) { periodCalState.month = 11; periodCalState.year -= 1; }
+            renderCalendarMonth();
+        };
+        window.periodCalNext = () => {
+            ensureCalendarMonthInited();
+            periodCalState.month += 1;
+            if(periodCalState.month > 11) { periodCalState.month = 0; periodCalState.year += 1; }
+            renderCalendarMonth();
+        };
+        window.periodCalToday = () => {
+            const now = new Date();
+            periodCalState.year = now.getFullYear();
+            periodCalState.month = now.getMonth();
+            renderCalendarMonth();
+        };
+
+        window.periodCalAddRange = async () => {
+            if(!canEditPeriodCalendar()) return alert('Calendar edits are disabled for partner.');
+            const s = document.getElementById('period-cal-start')?.value;
+            const e = document.getElementById('period-cal-end')?.value;
+            if(!s || !e) return alert('Please select start and end dates.');
+            const sd = parseISODateLocal(s);
+            const ed = parseISODateLocal(e);
+            if(!sd || !ed) return alert('Invalid dates.');
+            if(sd > ed) return alert('Start date must be before end date.');
+
+            const diffDays = Math.floor((ed - sd) / (1000 * 60 * 60 * 24)) + 1;
+            if(diffDays > PERIOD_CAL_LIMIT_RANGE_DAYS) return alert(`Range too large. Please keep it within ${PERIOD_CAL_LIMIT_RANGE_DAYS} days.`);
+
+            for(let i = 0; i < diffDays; i++) {
+                const d = new Date(sd);
+                d.setDate(sd.getDate() + i);
+                periodCalState.daysSet.add(isoLocalFromDate(d));
+            }
+
+            renderCalendarMonth();
+            await savePeriodCalendar({
+                days: Array.from(periodCalState.daysSet).sort(),
+                allowPartnerEdit: periodCalState.allowPartnerEdit
+            });
+            alert('Range added.');
+        };
+
+        window.periodCalClearMonth = async () => {
+            if(!canEditPeriodCalendar()) return alert('Calendar edits are disabled for partner.');
+            ensureCalendarMonthInited();
+            const y = periodCalState.year;
+            const m = periodCalState.month;
+            const before = periodCalState.daysSet.size;
+            for(const iso of Array.from(periodCalState.daysSet)) {
+                const d = parseISODateLocal(iso);
+                if(!d) continue;
+                if(d.getFullYear() === y && d.getMonth() === m) periodCalState.daysSet.delete(iso);
+            }
+            if(periodCalState.daysSet.size === before) return alert('No marked days in this month.');
+
+            renderCalendarMonth();
+            await savePeriodCalendar({
+                days: Array.from(periodCalState.daysSet).sort(),
+                allowPartnerEdit: periodCalState.allowPartnerEdit
+            });
+            alert('Cleared this month.');
+        };
+
+        window.togglePeriodCalShare = () => {
+            const el = document.getElementById('period-cal-share');
+            if(!el) return;
+            el.classList.toggle('show');
+        };
+
+        function base64EncodeUtf8(str) {
+            return btoa(unescape(encodeURIComponent(str)));
+        }
+        function base64DecodeUtf8(str) {
+            return decodeURIComponent(escape(atob(str)));
+        }
+
+        window.periodCalGenerateShare = () => {
+            const box = document.getElementById('period-cal-share-code');
+            if(!box) return;
+            const obj = {
+                v: 1,
+                days: Array.from(periodCalState.daysSet).sort(),
+                allowPartnerEdit: periodCalState.allowPartnerEdit
+            };
+            box.value = base64EncodeUtf8(JSON.stringify(obj));
+        };
+
+        window.periodCalCopyShare = async () => {
+            const box = document.getElementById('period-cal-share-code');
+            if(!box) return;
+            const val = (box.value || '').trim();
+            if(!val) return alert('Generate a code first.');
+            try {
+                await navigator.clipboard.writeText(val);
+                alert('Copied.');
+            } catch(e) {
+                box.focus();
+                box.select();
+                alert('Copy failed — selected the text.');
+            }
+        };
+
+        window.periodCalImportShare = async () => {
+            if(!canEditPeriodCalendar()) return alert('Calendar edits are disabled for partner.');
+            const box = document.getElementById('period-cal-share-code');
+            if(!box) return;
+            const raw = (box.value || '').trim();
+            if(!raw) return alert('Paste a share code first.');
+            try {
+                const decoded = base64DecodeUtf8(raw);
+                const obj = JSON.parse(decoded);
+                if(!obj || !Array.isArray(obj.days)) return alert('Invalid share code.');
+                periodCalState.daysSet = new Set(obj.days.filter(Boolean));
+                if(typeof obj.allowPartnerEdit === 'boolean') periodCalState.allowPartnerEdit = obj.allowPartnerEdit;
+
+                const toggle = document.getElementById('period-cal-partner-edit');
+                if(toggle && isMother()) toggle.checked = periodCalState.allowPartnerEdit;
+
+                renderCalendarMonth();
+                await savePeriodCalendar({
+                    days: Array.from(periodCalState.daysSet).sort(),
+                    allowPartnerEdit: periodCalState.allowPartnerEdit
+                });
+                alert('Imported.');
+            } catch(e) {
+                alert('Invalid share code.');
+            }
+        };
 
         // --- BABY TRACKER ---
         function babyFruitForWeek(w) {
