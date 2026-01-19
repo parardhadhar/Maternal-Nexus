@@ -491,22 +491,22 @@
     <div id="landing-screen" class="overlay">
         <div class="landing-illustration">👨‍👩‍👧</div>
         <h1 class="landing-title">Maternal Nexus</h1>
-        <p class="landing-subtitle">A safe, loving space for your journey into parenthood. Connecting mothers, partners, and care.</p>
-        <button class="btn btn-primary" style="font-size: 18px; padding: 16px 40px;" onclick="showAuth()">Start Journey</button>
-        <p style="margin-top: 20px; font-size: 12px; color: var(--text-muted);">Secure • Private • Free Forever</p>
-        <p style="margin-top: 10px; font-size: 12px; color: var(--text-muted);">Made by Team Nexus Engineering</p>
+        <p class="landing-subtitle" data-i18n="landing.subtitle">A safe, loving space for your journey into parenthood. Connecting mothers, partners, and care.</p>
+        <button class="btn btn-primary" style="font-size: 18px; padding: 16px 40px;" onclick="showAuth()"><span data-i18n="landing.start">Start Journey</span></button>
+        <p style="margin-top: 20px; font-size: 12px; color: var(--text-muted);" data-i18n="landing.trust">Secure • Private • Free Forever</p>
+        <p style="margin-top: 10px; font-size: 12px; color: var(--text-muted);" data-i18n="app.credit">Made by Team Nexus Engineering</p>
     </div>
 
     <!-- AUTH OVERLAY -->
     <div id="auth-screen" class="overlay hidden">
         <div style="text-align: center; max-width: 400px; width: 100%;">
             <i class="fa-solid fa-heart-pulse" style="font-size: 60px; color: var(--primary); margin-bottom: 20px;"></i>
-            <h2>Welcome Back</h2>
-            <p style="color: var(--text-muted); margin-bottom: 30px;">Sign in to access your health suite</p>
+            <h2 data-i18n="auth.title">Welcome Back</h2>
+            <p style="color: var(--text-muted); margin-bottom: 30px;" data-i18n="auth.subtitle">Sign in to access your health suite</p>
             <button class="btn btn-secondary" id="google-login" style="width: 100%; padding: 16px;">
-                <i class="fa-brands fa-google"></i> Sign In with Google
+                <i class="fa-brands fa-google"></i> <span data-i18n="auth.google">Sign In with Google</span>
             </button>
-            <button class="btn btn-secondary" style="width: 100%; margin-top: 10px; border:none;" onclick="location.reload()">Back</button>
+            <button class="btn btn-secondary" style="width: 100%; margin-top: 10px; border:none;" onclick="location.reload()"><span data-i18n="btn.back">Back</span></button>
             <p id="login-msg" style="margin-top: 15px; font-size: 13px; color: var(--secondary);"></p>
         </div>
     </div>
@@ -519,44 +519,44 @@
                     <span class="sparkle s1"></span><span class="sparkle s2"></span><span class="sparkle s3"></span>
                     <i class="fa-solid fa-baby"></i>
                 </div>
-                <h2 class="loading-title">Getting things ready…</h2>
-                <div class="loading-sub">Syncing your dashboard, chat, and trackers.</div>
+                <h2 class="loading-title" data-i18n="loading.title">Getting things ready…</h2>
+                <div class="loading-sub" data-i18n="loading.subtitle">Syncing your dashboard, chat, and trackers.</div>
                 <div class="loading-bar" aria-hidden="true"><div></div></div>
                 <div class="loading-fact" id="loading-fact"><b>Fact:</b> —</div>
             </div>
-            <div class="loading-credit">Made by Team Nexus Engineering</div>
+            <div class="loading-credit" data-i18n="app.credit">Made by Team Nexus Engineering</div>
         </div>
     </div>
 
     <!-- ONBOARDING OVERLAY -->
     <div id="setup-screen" class="overlay hidden">
         <div class="card" style="width: 100%; max-width: 500px;">
-            <h2 style="color: var(--primary); text-align: center;">Setup Your Profile</h2>
-            <p style="color: var(--text-muted); font-size: 14px; margin-bottom: 20px; text-align: center;">Select your role to continue.</p>
+            <h2 style="color: var(--primary); text-align: center;" data-i18n="setup.title">Setup Your Profile</h2>
+            <p style="color: var(--text-muted); font-size: 14px; margin-bottom: 20px; text-align: center;" data-i18n="setup.subtitle">Select your role to continue.</p>
             
             <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 20px;">
                 <div class="card" onclick="selectRole('mother')" id="role-mother" style="cursor: pointer; border: 2px solid transparent; margin:0; padding: 15px; text-align: center;">
                     <i class="fa-solid fa-person-pregnant" style="font-size: 40px; color: var(--primary); margin-bottom: 10px;"></i>
-                    <h4>Mother</h4>
+                    <h4 data-i18n="setup.mother">Mother</h4>
                 </div>
                 <div class="card" onclick="selectRole('partner')" id="role-partner" style="cursor: pointer; border: 2px solid transparent; margin:0; padding: 15px; text-align: center;">
                     <i class="fa-solid fa-user-shield" style="font-size: 40px; color: var(--accent); margin-bottom: 10px;"></i>
-                    <h4>Partner</h4>
+                    <h4 data-i18n="setup.partner">Partner</h4>
                 </div>
             </div>
 
             <div style="text-align: left;">
-                <label style="font-size: 12px; font-weight: bold; margin-left: 4px;">Your Name</label>
+                <label style="font-size: 12px; font-weight: bold; margin-left: 4px;" data-i18n="setup.yourName">Your Name</label>
                 <input type="text" id="user-display-name" class="input" placeholder="Name">
 
                 <div id="mother-form" class="hidden">
                     <hr style="margin: 20px 0; border:0; border-top:1px solid var(--border);">
-                    <h4 style="margin-bottom: 15px;">Medical Details</h4>
-                    <label style="font-size: 12px; font-weight: bold; margin-left: 4px;">Pregnancy Week</label>
+                    <h4 style="margin-bottom: 15px;" data-i18n="setup.medical">Medical Details</h4>
+                    <label style="font-size: 12px; font-weight: bold; margin-left: 4px;" data-i18n="setup.week">Pregnancy Week</label>
                     <input type="number" id="week-input" class="input" placeholder="e.g. 24" min="0" max="42" step="1" inputmode="numeric">
-                    <label style="font-size: 12px; font-weight: bold; margin-left: 4px;">Doctor's Name</label>
+                    <label style="font-size: 12px; font-weight: bold; margin-left: 4px;" data-i18n="setup.docName">Doctor's Name</label>
                     <input type="text" id="doc-name" class="input" placeholder="Dr. Smith">
-                    <label style="font-size: 12px; font-weight: bold; margin-left: 4px;">Doctor's Phone</label>
+                    <label style="font-size: 12px; font-weight: bold; margin-left: 4px;" data-i18n="setup.docPhone">Doctor's Phone</label>
                     <input type="tel" id="doc-phone" class="input" placeholder="+91 9876543210">
                     <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
                         <div>
@@ -617,6 +617,7 @@
                     <div class="nav-item" onclick="nav('community')" id="nav-community-desk"><i class="fa-solid fa-users"></i> <span data-i18n="nav.community">Community</span> <span class="nav-bubble"></span></div>
                     <div class="nav-item" onclick="nav('sync')"><i class="fa-solid fa-link"></i> <span data-i18n="nav.sync">Sync</span></div>
                     <div class="nav-item" onclick="nav('premium')"><i class="fa-solid fa-crown"></i> <span data-i18n="nav.premium">Premium</span></div>
+                    <div class="nav-item" onclick="nav('settings')"><i class="fa-solid fa-gear"></i> <span data-i18n="nav.settings">Settings</span></div>
                 </div>
                 
                 <div style="margin-top: 16px; flex-shrink: 0;">
@@ -670,6 +671,7 @@
                     <div class="logo" style="margin-bottom: 0;"><i class="fa-solid fa-heart-pulse"></i> Nexus Pro</div>
                     <div style="display:flex; gap:10px;">
                         <button class="btn btn-secondary" style="padding: 8px;" onclick="openLangMenu()"><i class="fa-solid fa-language"></i></button>
+                        <button class="btn btn-secondary" style="padding: 8px;" onclick="nav('settings')" title="Settings"><i class="fa-solid fa-gear"></i></button>
                         <button class="btn btn-secondary" style="padding: 8px;" onclick="toggleTheme()"><i class="fa-solid fa-moon"></i></button>
                         <button class="btn btn-secondary" style="padding: 8px;" onclick="logout()"><i class="fa-solid fa-right-from-bracket"></i></button>
                     </div>
@@ -679,12 +681,12 @@
                 <section id="view-dashboard">
                     <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
                         <div>
-                            <h2 id="dash-title">Overview</h2>
+                            <h2 id="dash-title" data-i18n="dash.overview">Overview</h2>
                             <div id="connected-banner" class="hidden" style="background: #ecfdf5; padding: 6px 12px; border-radius: 20px; color: #047857; font-weight: 600; font-size: 12px; display: inline-flex; align-items: center; gap: 5px; margin-top: 5px;">
                                 <i class="fa-solid fa-link"></i>
-                                <span id="connected-text">Connected</span>
+                                <span id="connected-text" data-i18n="dash.connected">Connected</span>
                                 <span style="opacity: 0.55;">•</span>
-                                <span id="connected-presence">Checking…</span>
+                                <span id="connected-presence" data-i18n="dash.checking">Checking…</span>
                             </div>
                         </div>
                     </div>
@@ -693,10 +695,10 @@
                         <div class="dash-hero-inner">
                             <div style="min-width: 240px; flex: 1;">
                                 <h3 class="dash-hero-title" id="dash-greeting">Hi 👋</h3>
-                                <div class="dash-hero-sub">Your family dashboard updates live — chat, period calendar, and doctor links.</div>
+                                <div class="dash-hero-sub" data-i18n="dash.subtitle">Your family dashboard updates live — chat, period calendar, and doctor links.</div>
                                 <div style="margin-top: 10px; display:flex; gap: 10px; flex-wrap: wrap;">
-                                    <span class="dash-pill" id="dash-presence-pill"><span class="presence-dot presence-offline" id="dash-presence-dot"></span><span id="dash-presence">Checking status…</span></span>
-                                    <span class="dash-pill"><i class="fa-solid fa-shield-heart" style="color: var(--primary);"></i> Gentle reminders</span>
+                                    <span class="dash-pill" id="dash-presence-pill"><span class="presence-dot presence-offline" id="dash-presence-dot"></span><span id="dash-presence" data-i18n="chat.statusChecking">Checking status…</span></span>
+                                    <span class="dash-pill"><i class="fa-solid fa-shield-heart" style="color: var(--primary);"></i> <span data-i18n="dash.reminders">Gentle reminders</span></span>
                                 </div>
                             </div>
 
@@ -706,23 +708,23 @@
                             </div>
                         </div>
 
-                        <div class="dash-fact" id="dash-daily-fact"><b>Baby fact:</b> —</div>
+                        <div class="dash-fact" id="dash-daily-fact"><b data-i18n="dash.babyFact">Baby fact:</b> —</div>
                     </div>
 
                     <div class="card" id="dash-ai-daily-card" style="margin-bottom: 18px;">
                         <div style="display:flex; justify-content:space-between; align-items:center; gap: 10px; flex-wrap: wrap;">
-                            <h3 style="margin:0;"><i class="fa-solid fa-brain" style="color: var(--primary);"></i> AI Summary (today)</h3>
+                            <h3 style="margin:0;"><i class="fa-solid fa-brain" style="color: var(--primary);"></i> <span data-i18n="dash.aiSummary">AI Summary (today)</span></h3>
                             <span class="text-muted" style="font-size: 12px;" id="dash-ai-daily-meta">--</span>
                         </div>
-                        <div class="text-muted" style="margin-top: 10px; line-height: 1.6;" id="dash-ai-daily-content">No shared AI summary yet.</div>
+                        <div class="text-muted" style="margin-top: 10px; line-height: 1.6;" id="dash-ai-daily-content" data-i18n="chat.noSharedSummary">No shared AI summary yet.</div>
                     </div>
 
                     <!-- Mother's Sync Code Display (Always Visible for Mother) -->
                     <div id="mom-sync-dashboard-widget" class="card hidden" style="background: var(--bg-body); border: 2px dashed var(--primary);">
                         <div style="display: flex; justify-content: space-between; align-items: center;">
                             <div>
-                                <h4 style="margin: 0; color: var(--primary);">Partner Sync Code</h4>
-                                <p style="font-size: 12px; color: var(--text-muted); margin: 5px 0;">Share this code with your partner to link accounts.</p>
+                                <h4 style="margin: 0; color: var(--primary);" data-i18n="dash.syncCodeTitle">Partner Sync Code</h4>
+                                <p style="font-size: 12px; color: var(--text-muted); margin: 5px 0;" data-i18n="dash.syncCodeHint">Share this code with your partner to link accounts.</p>
                             </div>
                             <h1 style="letter-spacing: 5px; color: var(--primary); margin: 0; font-size: 28px;" id="dashboard-sync-code">----</h1>
                         </div>
@@ -731,19 +733,19 @@
                     <div class="stats-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 16px; margin-bottom: 24px;">
                         <div class="card">
                             <div style="display: flex; justify-content: space-between;">
-                                <div><p class="text-muted">Current Stage</p><h2 id="week-disp">Week --</h2></div>
+                                <div><p class="text-muted" data-i18n="dash.currentStage">Current Stage</p><h2 id="week-disp">Week --</h2></div>
                                 <i class="fa-solid fa-baby" style="font-size: 32px; color: var(--primary);"></i>
                             </div>
                         </div>
                         <div class="card">
                             <div style="display: flex; justify-content: space-between;">
-                                <div><p class="text-muted">Status</p><h2 style="color: var(--primary);">Stable</h2></div>
+                                <div><p class="text-muted" data-i18n="dash.status">Status</p><h2 style="color: var(--primary);" data-i18n="dash.statusStable">Stable</h2></div>
                                 <i class="fa-solid fa-heart-pulse" style="font-size: 32px; color: var(--secondary);"></i>
                             </div>
                         </div>
                         <div class="card">
                             <div style="display: flex; justify-content: space-between;">
-                                <div><p class="text-muted">My Doctor</p><h4 id="dash-doc-name" style="margin: 5px 0;">Not Set</h4><a href="#" id="dash-doc-call" style="font-size: 12px; color: var(--primary);">Call Now</a></div>
+                                <div><p class="text-muted" data-i18n="dash.myDoctor">My Doctor</p><h4 id="dash-doc-name" style="margin: 5px 0;" data-i18n="dash.notSet">Not Set</h4><a href="#" id="dash-doc-call" style="font-size: 12px; color: var(--primary);" data-i18n="dash.callNow">Call Now</a></div>
                                 <i class="fa-solid fa-user-doctor" style="font-size: 32px; color: var(--accent);"></i>
                             </div>
                         </div>
@@ -752,67 +754,67 @@
                     <div class="card" id="quick-week-card">
                         <div style="display:flex; justify-content:space-between; align-items:center; gap:10px; flex-wrap:wrap;">
                             <div>
-                                <h3 style="margin:0;">Pregnancy Progress</h3>
-                                <div class="text-muted" style="font-size: 12px; margin-top:4px;">Week value will never go negative.</div>
+                                <h3 style="margin:0;" data-i18n="week.title">Pregnancy Progress</h3>
+                                <div class="text-muted" style="font-size: 12px; margin-top:4px;" data-i18n="week.note">Week value will never go negative.</div>
                             </div>
-                            <div class="lock-note" id="week-edit-note"><i class="fa-solid fa-lock"></i> Only Mother can edit week</div>
+                            <div class="lock-note" id="week-edit-note"><i class="fa-solid fa-lock"></i> <span data-i18n="week.onlyMother">Only Mother can edit week</span></div>
                         </div>
                         <div style="display:grid; grid-template-columns: 1fr 120px; gap:12px; margin-top: 14px; align-items:center;">
                             <input type="range" id="week-slider" min="0" max="42" step="1" value="0" style="width:100%;">
                             <input type="number" id="week-number" class="input" min="0" max="42" step="1" inputmode="numeric" style="margin:0;">
                         </div>
-                        <button class="btn btn-primary" id="save-week-btn" style="width: 100%; margin-top: 12px;" onclick="savePregnancyWeek()"><i class="fa-solid fa-floppy-disk"></i> Save Week</button>
+                        <button class="btn btn-primary" id="save-week-btn" style="width: 100%; margin-top: 12px;" onclick="savePregnancyWeek()"><i class="fa-solid fa-floppy-disk"></i> <span data-i18n="week.save">Save Week</span></button>
                     </div>
 
                     <div class="card" id="dash-diet-card">
                         <div style="display:flex; justify-content:space-between; align-items:center; gap:10px; flex-wrap:wrap;">
-                            <h3 style="margin:0;"><i class="fa-solid fa-utensils" style="color: var(--primary);"></i> Trimester Diet Plan</h3>
+                            <h3 style="margin:0;"><i class="fa-solid fa-utensils" style="color: var(--primary);"></i> <span data-i18n="diet.title">Trimester Diet Plan</span></h3>
                             <span class="pill muted" id="diet-trimester-pill">--</span>
                         </div>
-                        <div class="text-muted" style="font-size:12px; margin-top:8px; line-height:1.6;">Personalized guidance (not a medical prescription). Always follow your doctor’s advice.</div>
+                        <div class="text-muted" style="font-size:12px; margin-top:8px; line-height:1.6;" data-i18n="diet.note">Personalized guidance (not a medical prescription). Always follow your doctor’s advice.</div>
 
                         <div style="display:grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; margin-top: 12px;">
                             <select id="diet-style" class="input" style="margin:0;">
-                                <option value="mixed">Mixed (veg + non-veg)</option>
-                                <option value="veg">Vegetarian</option>
-                                <option value="vegan">Vegan</option>
+                                <option value="mixed" data-i18n="diet.style.mixed">Mixed (veg + non-veg)</option>
+                                <option value="veg" data-i18n="diet.style.veg">Vegetarian</option>
+                                <option value="vegan" data-i18n="diet.style.vegan">Vegan</option>
                             </select>
                             <select id="diet-anemia" class="input" style="margin:0;">
-                                <option value="no">No anemia</option>
-                                <option value="yes">Anemia / low Hb</option>
+                                <option value="no" data-i18n="diet.anemia.no">No anemia</option>
+                                <option value="yes" data-i18n="diet.anemia.yes">Anemia / low Hb</option>
                             </select>
                             <select id="diet-gdm" class="input" style="margin:0;">
-                                <option value="no">No diabetes</option>
-                                <option value="yes">GDM / diabetes</option>
+                                <option value="no" data-i18n="diet.gdm.no">No diabetes</option>
+                                <option value="yes" data-i18n="diet.gdm.yes">GDM / diabetes</option>
                             </select>
                         </div>
-                        <button class="btn btn-primary" id="diet-save-btn" style="width:100%; margin-top: 10px;" onclick="saveDietPrefs()"><i class="fa-solid fa-floppy-disk"></i> Save Preferences</button>
+                        <button class="btn btn-primary" id="diet-save-btn" style="width:100%; margin-top: 10px;" onclick="saveDietPrefs()"><i class="fa-solid fa-floppy-disk"></i> <span data-i18n="diet.save">Save Preferences</span></button>
                         <div id="diet-plan-out" style="margin-top: 12px;"></div>
                     </div>
 
                     <div class="card" id="dash-appt-card">
                         <div style="display:flex; justify-content:space-between; align-items:center; gap: 10px; flex-wrap:wrap;">
-                            <h3 style="margin:0;"><i class="fa-solid fa-calendar-check" style="color: var(--primary);"></i> Medical Scheduling</h3>
+                            <h3 style="margin:0;"><i class="fa-solid fa-calendar-check" style="color: var(--primary);"></i> <span data-i18n="appt.title">Medical Scheduling</span></h3>
                             <span class="text-muted" style="font-size:12px;" id="appts-sync-note">--</span>
                         </div>
 
                         <div id="appts-partner-toggle-wrap" style="display:none; gap:10px; align-items:center; margin-top: 10px;">
                             <label style="display:flex; align-items:center; gap:10px; font-size: 13px; font-weight: 700;">
-                                <input type="checkbox" id="appts-partner-edit" style="transform: scale(1.1);"> Allow partner to add/edit appointments
+                                <input type="checkbox" id="appts-partner-edit" style="transform: scale(1.1);"> <span data-i18n="appt.allowPartner">Allow partner to add/edit appointments</span>
                             </label>
                         </div>
 
                         <div style="display:grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 12px;">
                             <input type="datetime-local" id="appt-when" class="input" style="margin:0;">
-                            <input type="text" id="appt-title" class="input" placeholder="Purpose (e.g., NT scan / Checkup)" style="margin:0;">
+                            <input type="text" id="appt-title" class="input" placeholder="Purpose (e.g., NT scan / Checkup)" data-i18n-placeholder="appt.purposePlaceholder" style="margin:0;">
                         </div>
                         <div style="display:grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 10px;">
-                            <input type="text" id="appt-place" class="input" placeholder="Hospital/clinic (optional)" style="margin:0;">
-                            <input type="text" id="appt-notes" class="input" placeholder="Notes (optional)" style="margin:0;">
+                            <input type="text" id="appt-place" class="input" placeholder="Hospital/clinic (optional)" data-i18n-placeholder="appt.placePlaceholder" style="margin:0;">
+                            <input type="text" id="appt-notes" class="input" placeholder="Notes (optional)" data-i18n-placeholder="appt.notesPlaceholder" style="margin:0;">
                         </div>
                         <div style="display:flex; gap: 10px; flex-wrap: wrap; margin-top: 10px;">
-                            <button class="btn btn-primary" id="appt-add-btn" onclick="addAppointment()"><i class="fa-solid fa-plus"></i> Add</button>
-                            <button class="btn btn-secondary" onclick="exportAppointmentsIcs()"><i class="fa-solid fa-calendar-plus"></i> Export Reminders (.ics)</button>
+                            <button class="btn btn-primary" id="appt-add-btn" onclick="addAppointment()"><i class="fa-solid fa-plus"></i> <span data-i18n="appt.add">Add</span></button>
+                            <button class="btn btn-secondary" onclick="exportAppointmentsIcs()"><i class="fa-solid fa-calendar-plus"></i> <span data-i18n="appt.exportIcs">Export Reminders (.ics)</span></button>
                         </div>
                         <div id="appt-list" style="margin-top: 14px;"></div>
                     </div>
@@ -820,7 +822,7 @@
 
                 <!-- PERIOD TRACKER -->
                 <section id="view-period" class="hidden">
-                    <h2>Period Tracker</h2>
+                    <h2 data-i18n="view.period">Period Tracker</h2>
                     <div class="card">
                         <div class="period-shell">
                             <div class="cycle-card">
@@ -833,10 +835,10 @@
 
                                 <div class="cycle-title">
                                     <div>
-                                        <h3>Floral Cycle Ring</h3>
-                                        <div class="cycle-sub" id="period-subtitle">Track the mother’s cycle in a gentle, synced way.</div>
+                                        <h3 data-i18n="period.ringTitle">Floral Cycle Ring</h3>
+                                        <div class="cycle-sub" id="period-subtitle" data-i18n="period.ringSubtitle">Track the mother’s cycle in a gentle, synced way.</div>
                                     </div>
-                                    <div class="lock-note" id="period-edit-note"><i class="fa-solid fa-lock"></i> Only Mother can edit</div>
+                                    <div class="lock-note" id="period-edit-note"><i class="fa-solid fa-lock"></i> <span data-i18n="period.onlyMotherEdit">Only Mother can edit</span></div>
                                 </div>
 
                                 <div class="cycle-wrap" role="img" aria-label="Cycle progress ring">
@@ -855,56 +857,56 @@
                                     <div class="cycle-center">
                                         <div>
                                             <div class="cycle-pill">
-                                                <span style="font-size:14px;">Day</span>
+                                                <span style="font-size:14px;" data-i18n="period.day">Day</span>
                                                 <span class="cycle-day" id="cycle-day">--</span>
                                             </div>
-                                            <div class="cycle-label" id="cycle-label">No cycle data yet</div>
+                                            <div class="cycle-label" id="cycle-label" data-i18n="period.noData">No cycle data yet</div>
                                         </div>
                                     </div>
                                 </div>
 
                                 <div style="display:grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 14px;">
                                     <div>
-                                        <label style="font-size: 12px; font-weight: bold; margin-left: 4px;">Last Period Start</label>
+                                        <label style="font-size: 12px; font-weight: bold; margin-left: 4px;" data-i18n="period.lastStart">Last Period Start</label>
                                         <input type="date" id="period-last-start" class="input" style="margin:0;">
                                     </div>
                                     <div>
-                                        <label style="font-size: 12px; font-weight: bold; margin-left: 4px;">Cycle Length (days)</label>
-                                        <input type="number" id="period-cycle-length" class="input" min="20" max="45" step="1" inputmode="numeric" style="margin:0;" placeholder="e.g. 28">
+                                        <label style="font-size: 12px; font-weight: bold; margin-left: 4px;" data-i18n="period.cycleLength">Cycle Length (days)</label>
+                                        <input type="number" id="period-cycle-length" class="input" min="20" max="45" step="1" inputmode="numeric" style="margin:0;" placeholder="e.g. 28" data-i18n-placeholder="period.cycleLengthPlaceholder">
                                     </div>
                                 </div>
                                 <div style="display:grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 12px;">
                                     <div>
-                                        <label style="font-size: 12px; font-weight: bold; margin-left: 4px;">Period Length (days)</label>
-                                        <input type="number" id="period-length" class="input" min="2" max="10" step="1" inputmode="numeric" style="margin:0;" placeholder="e.g. 5">
+                                        <label style="font-size: 12px; font-weight: bold; margin-left: 4px;" data-i18n="period.periodLength">Period Length (days)</label>
+                                        <input type="number" id="period-length" class="input" min="2" max="10" step="1" inputmode="numeric" style="margin:0;" placeholder="e.g. 5" data-i18n-placeholder="period.periodLengthPlaceholder">
                                     </div>
                                     <div>
-                                        <label style="font-size: 12px; font-weight: bold; margin-left: 4px;">Notes</label>
-                                        <input type="text" id="period-notes" class="input" style="margin:0;" placeholder="cramps, mood, etc.">
+                                        <label style="font-size: 12px; font-weight: bold; margin-left: 4px;" data-i18n="period.notes">Notes</label>
+                                        <input type="text" id="period-notes" class="input" style="margin:0;" placeholder="cramps, mood, etc." data-i18n-placeholder="period.notesPlaceholder">
                                     </div>
                                 </div>
 
-                                <button class="btn btn-primary" id="save-period-btn" style="width: 100%; margin-top: 12px;" onclick="savePeriodTracker()"><i class="fa-solid fa-floppy-disk"></i> Save Period</button>
+                                <button class="btn btn-primary" id="save-period-btn" style="width: 100%; margin-top: 12px;" onclick="savePeriodTracker()"><i class="fa-solid fa-floppy-disk"></i> <span data-i18n="period.save">Save Period</span></button>
                                 <div class="text-muted" style="font-size:12px; margin-top:10px; line-height:1.5;">
-                                    Partner can view this tracker when synced. Calendar edits can be enabled for partner (below).
+                                    <span data-i18n="period.partnerViewNote">Partner can view this tracker when synced. Calendar edits can be enabled for partner (below).</span>
                                 </div>
                             </div>
 
                             <div>
                                 <div class="card" style="margin:0;">
-                                    <h3 style="margin-top:0;">Predictions</h3>
-                                    <div class="text-muted" style="font-size:12px; margin-bottom:12px;">Estimates only — consult your doctor for medical advice.</div>
+                                    <h3 style="margin-top:0;" data-i18n="period.predictions">Predictions</h3>
+                                    <div class="text-muted" style="font-size:12px; margin-bottom:12px;" data-i18n="period.predictionsNote">Estimates only — consult your doctor for medical advice.</div>
                                     <div style="display:grid; gap:10px;">
-                                        <div style="display:flex; justify-content:space-between; gap:10px;"><span>Next period (est.)</span><strong id="period-next">--</strong></div>
-                                        <div style="display:flex; justify-content:space-between; gap:10px;"><span>Ovulation (est.)</span><strong id="period-ovu">--</strong></div>
-                                        <div style="display:flex; justify-content:space-between; gap:10px;"><span>Fertile window (est.)</span><strong id="period-window">--</strong></div>
+                                        <div style="display:flex; justify-content:space-between; gap:10px;"><span data-i18n="period.next">Next period (est.)</span><strong id="period-next">--</strong></div>
+                                        <div style="display:flex; justify-content:space-between; gap:10px;"><span data-i18n="period.ovulation">Ovulation (est.)</span><strong id="period-ovu">--</strong></div>
+                                        <div style="display:flex; justify-content:space-between; gap:10px;"><span data-i18n="period.fertile">Fertile window (est.)</span><strong id="period-window">--</strong></div>
                                     </div>
                                 </div>
 
                                 <div class="card" style="margin-top: 16px;">
-                                    <h3 style="margin-top:0;">Sync Status</h3>
+                                    <h3 style="margin-top:0;" data-i18n="period.syncStatus">Sync Status</h3>
                                     <div class="text-muted" id="period-sync-status" style="font-size:12px; line-height:1.6;">Not connected</div>
-                                    <button class="btn btn-secondary" style="width:100%; margin-top:12px;" onclick="nav('sync')"><i class="fa-solid fa-link"></i> Manage Sync</button>
+                                    <button class="btn btn-secondary" style="width:100%; margin-top:12px;" onclick="nav('sync')"><i class="fa-solid fa-link"></i> <span data-i18n="period.manageSync">Manage Sync</span></button>
                                 </div>
                             </div>
                         </div>
@@ -912,12 +914,12 @@
                         <div class="cal-card" style="margin-top: 16px;">
                             <div class="cal-top">
                                 <div>
-                                    <h3><i class="fa-solid fa-calendar-days" style="color: var(--primary);"></i> Calendar</h3>
-                                    <div class="cal-note" id="period-cal-note">Tap a day to mark it as a period day. This helps when you forget the last dates.</div>
+                                    <h3><i class="fa-solid fa-calendar-days" style="color: var(--primary);"></i> <span data-i18n="period.calendar">Calendar</span></h3>
+                                    <div class="cal-note" id="period-cal-note" data-i18n="period.calendarNote">Tap a day to mark it as a period day. This helps when you forget the last dates.</div>
                                 </div>
                                 <div class="cal-actions">
-                                    <button class="btn btn-secondary" type="button" onclick="periodCalToday()"><i class="fa-solid fa-location-crosshairs"></i> Today</button>
-                                    <button class="btn btn-secondary" type="button" onclick="togglePeriodCalShare()"><i class="fa-solid fa-share-nodes"></i> Share/Import</button>
+                                    <button class="btn btn-secondary" type="button" onclick="periodCalToday()"><i class="fa-solid fa-location-crosshairs"></i> <span data-i18n="period.today">Today</span></button>
+                                    <button class="btn btn-secondary" type="button" onclick="togglePeriodCalShare()"><i class="fa-solid fa-share-nodes"></i> <span data-i18n="period.shareImport">Share/Import</span></button>
                                 </div>
                             </div>
 
@@ -928,39 +930,39 @@
                             </div>
 
                             <div class="cal-weekdays" aria-hidden="true">
-                                <div>Sun</div><div>Mon</div><div>Tue</div><div>Wed</div><div>Thu</div><div>Fri</div><div>Sat</div>
+                                <div data-i18n="day.sun">Sun</div><div data-i18n="day.mon">Mon</div><div data-i18n="day.tue">Tue</div><div data-i18n="day.wed">Wed</div><div data-i18n="day.thu">Thu</div><div data-i18n="day.fri">Fri</div><div data-i18n="day.sat">Sat</div>
                             </div>
                             <div class="cal-grid" id="period-cal-grid" aria-label="Period calendar"></div>
 
                             <div class="cal-tools">
                                 <div>
-                                    <div class="text-muted" style="font-size: 12px; font-weight: 800; margin-bottom: 8px;">Add a range (quick)</div>
+                                    <div class="text-muted" style="font-size: 12px; font-weight: 800; margin-bottom: 8px;" data-i18n="period.addRangeQuick">Add a range (quick)</div>
                                     <div class="cal-row">
                                         <input type="date" id="period-cal-start" class="input" aria-label="Range start">
                                         <input type="date" id="period-cal-end" class="input" aria-label="Range end">
                                     </div>
-                                    <button class="btn btn-primary" id="period-cal-add-range" type="button" onclick="periodCalAddRange()"><i class="fa-solid fa-plus"></i> Add Range</button>
+                                    <button class="btn btn-primary" id="period-cal-add-range" type="button" onclick="periodCalAddRange()"><i class="fa-solid fa-plus"></i> <span data-i18n="period.addRange">Add Range</span></button>
                                 </div>
                                 <div>
-                                    <div class="text-muted" style="font-size: 12px; font-weight: 800; margin-bottom: 8px;">Sharing & permissions</div>
+                                    <div class="text-muted" style="font-size: 12px; font-weight: 800; margin-bottom: 8px;" data-i18n="period.sharingPerms">Sharing & permissions</div>
                                     <label class="cal-toggle" id="period-cal-partner-toggle-wrap">
                                         <input type="checkbox" id="period-cal-partner-edit">
-                                        Allow partner to edit calendar
+                                        <span data-i18n="period.allowPartnerCalendar">Allow partner to edit calendar</span>
                                     </label>
-                                    <button class="btn btn-secondary" type="button" onclick="periodCalClearMonth()"><i class="fa-solid fa-eraser"></i> Clear This Month</button>
+                                    <button class="btn btn-secondary" type="button" onclick="periodCalClearMonth()"><i class="fa-solid fa-eraser"></i> <span data-i18n="period.clearMonth">Clear This Month</span></button>
                                     <div class="text-muted" id="period-cal-sync" style="font-size: 12px; line-height: 1.6; margin-top: 8px;">--</div>
                                 </div>
                             </div>
 
                             <div class="cal-share" id="period-cal-share">
                                 <div class="text-muted" style="font-size:12px; margin-bottom: 8px; line-height:1.6;">
-                                    If you are not synced, you can still share dates using this code. Anyone with this code can import and edit.
+                                    <span data-i18n="period.shareNote">If you are not synced, you can still share dates using this code. Anyone with this code can import and edit.</span>
                                 </div>
-                                <textarea id="period-cal-share-code" placeholder="Share code will appear here..."></textarea>
+                                <textarea id="period-cal-share-code" placeholder="Share code will appear here..." data-i18n-placeholder="period.sharePlaceholder"></textarea>
                                 <div class="cal-row" style="margin-top: 10px;">
-                                    <button class="btn btn-secondary" type="button" onclick="periodCalGenerateShare()"><i class="fa-solid fa-wand-magic-sparkles"></i> Generate</button>
-                                    <button class="btn btn-secondary" type="button" onclick="periodCalCopyShare()"><i class="fa-solid fa-copy"></i> Copy</button>
-                                    <button class="btn btn-primary" type="button" onclick="periodCalImportShare()"><i class="fa-solid fa-file-import"></i> Import</button>
+                                    <button class="btn btn-secondary" type="button" onclick="periodCalGenerateShare()"><i class="fa-solid fa-wand-magic-sparkles"></i> <span data-i18n="period.generate">Generate</span></button>
+                                    <button class="btn btn-secondary" type="button" onclick="periodCalCopyShare()"><i class="fa-solid fa-copy"></i> <span data-i18n="period.copy">Copy</span></button>
+                                    <button class="btn btn-primary" type="button" onclick="periodCalImportShare()"><i class="fa-solid fa-file-import"></i> <span data-i18n="period.import">Import</span></button>
                                 </div>
                             </div>
                         </div>
@@ -969,7 +971,7 @@
 
                 <!-- BABY TRACKER -->
                 <section id="view-baby" class="hidden">
-                    <h2>Baby Tracker</h2>
+                    <h2 data-i18n="view.baby">Baby Tracker</h2>
                     <div class="card">
                         <div class="baby-hero">
                             <div class="baby-bubble" aria-hidden="true">
@@ -977,8 +979,8 @@
                                 <i class="fa-solid fa-baby"></i>
                             </div>
                             <div style="flex:1; min-width: 220px;">
-                                <h3 style="margin:0; font-family:'Fredoka', sans-serif;">A tiny miracle, growing daily</h3>
-                                <div class="text-muted" style="margin-top:6px;">Based on the mother’s week. Cute animations included.</div>
+                                <h3 style="margin:0; font-family:'Fredoka', sans-serif;" data-i18n="baby.heroTitle">A tiny miracle, growing daily</h3>
+                                <div class="text-muted" style="margin-top:6px;" data-i18n="baby.heroSubtitle">Based on the mother’s week. Cute animations included.</div>
                                 <div style="margin-top:14px;">
                                     <div style="display:flex; justify-content:space-between; gap:10px; margin-bottom:8px;">
                                         <strong id="baby-week-title">Week --</strong>
@@ -991,25 +993,25 @@
 
                         <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 12px; margin-top: 18px;">
                             <div class="card" style="margin:0; background: var(--bg-body);">
-                                <h4 style="margin-top:0;">Today’s Cute Tip</h4>
+                                <h4 style="margin-top:0;" data-i18n="baby.cuteTip">Today’s Cute Tip</h4>
                                 <div id="baby-tip" class="text-muted" style="line-height:1.6;">--</div>
                             </div>
                             <div class="card" style="margin:0; background: var(--bg-body);">
-                                <h4 style="margin-top:0;">Milestone</h4>
+                                <h4 style="margin-top:0;" data-i18n="baby.milestone">Milestone</h4>
                                 <div id="baby-milestone" class="text-muted" style="line-height:1.6;">--</div>
                             </div>
                             <div class="card" style="margin:0; background: var(--bg-body);">
-                                <h4 style="margin-top:0;"><i class="fa-solid fa-seedling" style="color: var(--primary);"></i> Today’s Baby Update</h4>
+                                <h4 style="margin-top:0;"><i class="fa-solid fa-seedling" style="color: var(--primary);"></i> <span data-i18n="baby.dailyUpdate">Today’s Baby Update</span></h4>
                                 <div class="text-muted" id="baby-daily-title" style="font-size: 12px; font-weight: 800; margin-bottom: 10px;">--</div>
                                 <div class="text-muted" style="line-height:1.7;">
-                                    <div style="margin-bottom: 8px;"><b>Looks like:</b> <span id="baby-daily-look">--</span></div>
-                                    <div style="margin-bottom: 8px;"><b>Inside today:</b> <span id="baby-daily-inside">--</span></div>
-                                    <div><b>Mini FAQ:</b> <span id="baby-daily-faq">--</span></div>
+                                    <div style="margin-bottom: 8px;"><b data-i18n="baby.looksLike">Looks like:</b> <span id="baby-daily-look">--</span></div>
+                                    <div style="margin-bottom: 8px;"><b data-i18n="baby.insideToday">Inside today:</b> <span id="baby-daily-inside">--</span></div>
+                                    <div><b data-i18n="baby.miniFaq">Mini FAQ:</b> <span id="baby-daily-faq">--</span></div>
                                 </div>
                             </div>
 
                             <div class="card" style="margin:0; background: var(--bg-body);">
-                                <h4 style="margin-top:0;"><i class="fa-solid fa-person-breastfeeding" style="color: var(--secondary);"></i> Breastfeeding Support</h4>
+                                <h4 style="margin-top:0;"><i class="fa-solid fa-person-breastfeeding" style="color: var(--secondary);"></i> <span data-i18n="baby.breastfeeding">Breastfeeding Support</span></h4>
                                 <div class="text-muted" id="bf-meta" style="font-size: 12px; font-weight: 800; margin-bottom: 10px;">--</div>
                                 <div class="text-muted" id="bf-content" style="line-height:1.7;">--</div>
                             </div>
@@ -1019,103 +1021,103 @@
 
                 <!-- PROFILES -->
                 <section id="view-profile" class="hidden">
-                    <h2>Profiles</h2>
+                    <h2 data-i18n="view.profiles">Profiles</h2>
                     <div class="card">
                         <div style="display:flex; justify-content:space-between; align-items:center; gap:10px; flex-wrap:wrap;">
                             <div>
-                                <h3 style="margin:0;">Mother Profile</h3>
-                                <div class="text-muted" style="font-size:12px; margin-top:6px;">Only Mother can edit mother’s details.</div>
+                                <h3 style="margin:0;" data-i18n="profiles.motherTitle">Mother Profile</h3>
+                                <div class="text-muted" style="font-size:12px; margin-top:6px;" data-i18n="profiles.motherNote">Only Mother can edit mother’s details.</div>
                             </div>
-                            <div class="lock-note" id="mom-profile-note"><i class="fa-solid fa-lock"></i> Locked</div>
+                            <div class="lock-note" id="mom-profile-note"><i class="fa-solid fa-lock"></i> <span data-i18n="profiles.locked">Locked</span></div>
                         </div>
                         <div style="display:grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 14px;">
                             <div>
-                                <label style="font-size: 12px; font-weight: bold; margin-left: 4px;">Pregnancy Week</label>
-                                <input type="number" id="profile-mom-week" class="input" min="0" max="42" step="1" inputmode="numeric" placeholder="e.g. 24">
+                                <label style="font-size: 12px; font-weight: bold; margin-left: 4px;" data-i18n="profiles.pregWeek">Pregnancy Week</label>
+                                <input type="number" id="profile-mom-week" class="input" min="0" max="42" step="1" inputmode="numeric" placeholder="e.g. 24" data-i18n-placeholder="profiles.pregWeekPlaceholder">
                             </div>
                             <div>
-                                <label style="font-size: 12px; font-weight: bold; margin-left: 4px;">Blood Group</label>
-                                <input type="text" id="profile-mom-blood" class="input" placeholder="e.g. O+">
+                                <label style="font-size: 12px; font-weight: bold; margin-left: 4px;" data-i18n="profiles.bloodGroup">Blood Group</label>
+                                <input type="text" id="profile-mom-blood" class="input" placeholder="e.g. O+" data-i18n-placeholder="profiles.bloodGroupPlaceholder">
                             </div>
                         </div>
-                        <label style="font-size: 12px; font-weight: bold; margin-left: 4px;">Doctor Name</label>
-                        <input type="text" id="profile-mom-doc" class="input" placeholder="Dr. Smith">
+                        <label style="font-size: 12px; font-weight: bold; margin-left: 4px;" data-i18n="profiles.doctorName">Doctor Name</label>
+                        <input type="text" id="profile-mom-doc" class="input" placeholder="Dr. Smith" data-i18n-placeholder="profiles.doctorNamePlaceholder">
                         <div style="display:grid; grid-template-columns: 1fr 1fr; gap: 12px;">
                             <div>
-                                <label style="font-size: 12px; font-weight: bold; margin-left: 4px;">Doctor Phone</label>
-                                <input type="tel" id="profile-mom-phone" class="input" placeholder="+91...">
+                                <label style="font-size: 12px; font-weight: bold; margin-left: 4px;" data-i18n="profiles.doctorPhone">Doctor Phone</label>
+                                <input type="tel" id="profile-mom-phone" class="input" placeholder="+91..." data-i18n-placeholder="profiles.doctorPhonePlaceholder">
                             </div>
                             <div>
-                                <label style="font-size: 12px; font-weight: bold; margin-left: 4px;">Allergies/Notes</label>
-                                <input type="text" id="profile-mom-notes" class="input" placeholder="optional">
+                                <label style="font-size: 12px; font-weight: bold; margin-left: 4px;" data-i18n="profiles.allergiesNotes">Allergies/Notes</label>
+                                <input type="text" id="profile-mom-notes" class="input" placeholder="optional" data-i18n-placeholder="profiles.optional">
                             </div>
                         </div>
                         <div style="display:grid; grid-template-columns: 1fr 1fr; gap: 12px;">
                             <div>
-                                <label style="font-size: 12px; font-weight: bold; margin-left: 4px;">PIN Code</label>
-                                <input type="text" id="profile-mom-pin" class="input" placeholder="110001">
+                                <label style="font-size: 12px; font-weight: bold; margin-left: 4px;" data-i18n="profiles.pinCode">PIN Code</label>
+                                <input type="text" id="profile-mom-pin" class="input" placeholder="110001" data-i18n-placeholder="profiles.pinPlaceholder">
                             </div>
                             <div>
-                                <label style="font-size: 12px; font-weight: bold; margin-left: 4px;">Country</label>
-                                <input type="text" id="profile-mom-country" class="input" placeholder="India">
+                                <label style="font-size: 12px; font-weight: bold; margin-left: 4px;" data-i18n="profiles.country">Country</label>
+                                <input type="text" id="profile-mom-country" class="input" placeholder="India" data-i18n-placeholder="profiles.countryPlaceholder">
                             </div>
                         </div>
-                        <button class="btn btn-primary" id="save-mom-profile-btn" style="width:100%;" onclick="saveMotherProfile()"><i class="fa-solid fa-floppy-disk"></i> Save Mother Profile</button>
+                        <button class="btn btn-primary" id="save-mom-profile-btn" style="width:100%;" onclick="saveMotherProfile()"><i class="fa-solid fa-floppy-disk"></i> <span data-i18n="profiles.saveMother">Save Mother Profile</span></button>
 
                         <hr style="margin: 22px 0; border:0; border-top:1px solid var(--border);">
 
                         <div style="display:flex; justify-content:space-between; align-items:center; gap:10px; flex-wrap:wrap;">
                             <div>
-                                <h3 style="margin:0;">Partner Profile</h3>
-                                <div class="text-muted" style="font-size:12px; margin-top:6px;">Partner can edit their name and their own details.</div>
+                                <h3 style="margin:0;" data-i18n="profiles.partnerTitle">Partner Profile</h3>
+                                <div class="text-muted" style="font-size:12px; margin-top:6px;" data-i18n="profiles.partnerNote">Partner can edit their name and their own details.</div>
                             </div>
-                            <div class="lock-note" id="partner-profile-note"><i class="fa-solid fa-lock"></i> Locked</div>
+                            <div class="lock-note" id="partner-profile-note"><i class="fa-solid fa-lock"></i> <span data-i18n="profiles.locked">Locked</span></div>
                         </div>
-                        <label style="font-size: 12px; font-weight: bold; margin-left: 4px;">Partner Name</label>
-                        <input type="text" id="profile-partner-name" class="input" placeholder="Partner name">
+                        <label style="font-size: 12px; font-weight: bold; margin-left: 4px;" data-i18n="profiles.partnerName">Partner Name</label>
+                        <input type="text" id="profile-partner-name" class="input" placeholder="Partner name" data-i18n-placeholder="profiles.partnerNamePlaceholder">
                         <div style="display:grid; grid-template-columns: 1fr 1fr; gap: 12px;">
                             <div>
-                                <label style="font-size: 12px; font-weight: bold; margin-left: 4px;">Blood Group</label>
-                                <input type="text" id="profile-partner-blood" class="input" placeholder="e.g. B+">
+                                <label style="font-size: 12px; font-weight: bold; margin-left: 4px;" data-i18n="profiles.bloodGroup">Blood Group</label>
+                                <input type="text" id="profile-partner-blood" class="input" placeholder="e.g. B+" data-i18n-placeholder="profiles.bloodGroupPartnerPlaceholder">
                             </div>
                             <div>
-                                <label style="font-size: 12px; font-weight: bold; margin-left: 4px;">Emergency Contact</label>
-                                <input type="tel" id="profile-partner-emergency" class="input" placeholder="phone">
+                                <label style="font-size: 12px; font-weight: bold; margin-left: 4px;" data-i18n="profiles.emergencyContact">Emergency Contact</label>
+                                <input type="tel" id="profile-partner-emergency" class="input" placeholder="phone" data-i18n-placeholder="profiles.phone">
                             </div>
                         </div>
-                        <button class="btn btn-primary" id="save-partner-profile-btn" style="width:100%;" onclick="savePartnerProfile()"><i class="fa-solid fa-floppy-disk"></i> Save Partner Profile</button>
+                        <button class="btn btn-primary" id="save-partner-profile-btn" style="width:100%;" onclick="savePartnerProfile()"><i class="fa-solid fa-floppy-disk"></i> <span data-i18n="profiles.savePartner">Save Partner Profile</span></button>
 
                         <hr style="margin: 22px 0; border:0; border-top:1px solid var(--border);">
 
                         <div class="card" style="margin:0; background: #eef2ff; border: 1px solid rgba(99,102,241,0.22);">
-                            <h3 style="margin-top:0; color: #4338ca;"><i class="fa-solid fa-file-arrow-down"></i> Doctor Export</h3>
-                            <div class="text-muted" style="line-height:1.6;">Export a secure summary you can share with your doctor (no chats). Includes week, period info, appointments, vaccines, and logs.</div>
+                            <h3 style="margin-top:0; color: #4338ca;"><i class="fa-solid fa-file-arrow-down"></i> <span data-i18n="profiles.doctorExport">Doctor Export</span></h3>
+                            <div class="text-muted" style="line-height:1.6;" data-i18n="profiles.doctorExportNote">Export a secure summary you can share with your doctor (no chats). Includes week, period info, appointments, vaccines, and logs.</div>
                             <div style="display:flex; gap: 10px; flex-wrap: wrap; margin-top: 12px;">
-                                <button class="btn btn-primary" onclick="exportDoctorSummaryJson()"><i class="fa-solid fa-download"></i> Export Summary (JSON)</button>
-                                <button class="btn btn-secondary" onclick="exportDoctorSummaryCsv()"><i class="fa-solid fa-table"></i> Export Appointments (CSV)</button>
-                                <button class="btn btn-secondary" onclick="exportAppointmentsIcs()"><i class="fa-solid fa-calendar-plus"></i> Appointments (.ics)</button>
+                                <button class="btn btn-primary" onclick="exportDoctorSummaryJson()"><i class="fa-solid fa-download"></i> <span data-i18n="profiles.exportSummaryJson">Export Summary (JSON)</span></button>
+                                <button class="btn btn-secondary" onclick="exportDoctorSummaryCsv()"><i class="fa-solid fa-table"></i> <span data-i18n="profiles.exportApptsCsv">Export Appointments (CSV)</span></button>
+                                <button class="btn btn-secondary" onclick="exportAppointmentsIcs()"><i class="fa-solid fa-calendar-plus"></i> <span data-i18n="profiles.exportApptsIcs">Appointments (.ics)</span></button>
                             </div>
-                            <div class="text-muted" style="font-size:12px; margin-top: 10px;">Tip: Use the vaccination export in India Essentials for vaccine reminders (.ics).</div>
+                            <div class="text-muted" style="font-size:12px; margin-top: 10px;" data-i18n="profiles.tipVaxIcs">Tip: Use the vaccination export in India Essentials for vaccine reminders (.ics).</div>
                         </div>
 
                         <hr style="margin: 22px 0; border:0; border-top:1px solid var(--border);">
 
                         <div class="card" style="margin:0; background: #fff1f2; border: 1px solid rgba(244,63,94,0.25);">
-                            <h3 style="margin-top:0; color: var(--secondary);">Delete Account</h3>
-                            <div class="text-muted" style="line-height:1.6;">Deleting disables sync and notifies the other person.</div>
-                            <button class="btn btn-danger" style="width:100%; margin-top: 12px;" onclick="deleteAccount()"><i class="fa-solid fa-trash"></i> Delete My Account</button>
+                            <h3 style="margin-top:0; color: var(--secondary);" data-i18n="profiles.deleteAccount">Delete Account</h3>
+                            <div class="text-muted" style="line-height:1.6;" data-i18n="profiles.deleteNote">Deleting disables sync and notifies the other person.</div>
+                            <button class="btn btn-danger" style="width:100%; margin-top: 12px;" onclick="deleteAccount()"><i class="fa-solid fa-trash"></i> <span data-i18n="profiles.deleteMyAccount">Delete My Account</span></button>
                         </div>
                     </div>
                 </section>
 
                 <!-- COMMUNITY -->
                 <section id="view-community" class="hidden">
-                    <h2>Community</h2>
+                    <h2 data-i18n="view.community">Community</h2>
                     <div class="card">
                         <div style="display: flex; gap: 10px; margin-bottom: 20px; position:relative;">
-                            <input type="text" id="post-input" class="input" placeholder="Share an update..." style="margin-bottom:0;">
+                            <input type="text" id="post-input" class="input" placeholder="Share an update..." data-i18n-placeholder="community.placeholder" style="margin-bottom:0;">
                             <button class="btn btn-secondary" onclick="toggleEmoji('post-input')"><i class="fa-regular fa-face-smile"></i></button>
-                            <button class="btn btn-primary" onclick="addPost()">Post</button>
+                            <button class="btn btn-primary" onclick="addPost()"><span data-i18n="community.post">Post</span></button>
                             
                             <!-- Emoji Picker -->
                             <div class="emoji-picker" id="emoji-picker-post">
@@ -1133,33 +1135,33 @@
                 <!-- AI ASSISTANT -->
                 <section id="view-wellness" class="hidden">
                     <div style="display: flex; justify-content: space-between; align-items: center;">
-                        <h2>AI Health Assistant</h2>
-                        <span style="font-size: 10px; background: #e0f2f1; padding: 4px 8px; border-radius: 8px; color: var(--primary);">Context Aware</span>
+                        <h2 data-i18n="view.ai">AI Health Assistant</h2>
+                        <span style="font-size: 10px; background: #e0f2f1; padding: 4px 8px; border-radius: 8px; color: var(--primary);" data-i18n="ai.contextAware">Context Aware</span>
                     </div>
 
                     <div class="card" id="wellness-card" style="margin-top: 12px;">
                         <div style="display:flex; justify-content:space-between; align-items:center; gap:10px; flex-wrap:wrap;">
-                            <h3 style="margin:0;"><i class="fa-solid fa-face-smile" style="color: var(--primary);"></i> Emotional Wellness & Journal</h3>
+                            <h3 style="margin:0;"><i class="fa-solid fa-face-smile" style="color: var(--primary);"></i> <span data-i18n="ai.wellnessTitle">Emotional Wellness & Journal</span></h3>
                             <span class="text-muted" style="font-size:12px;" id="wellness-last">--</span>
                         </div>
-                        <div class="text-muted" style="font-size:12px; margin-top:8px; line-height:1.6;">Tracks mood + journal and highlights possible red flags. For emergencies, use SOS.</div>
+                        <div class="text-muted" style="font-size:12px; margin-top:8px; line-height:1.6;" data-i18n="ai.wellnessNote">Tracks mood + journal and highlights possible red flags. For emergencies, use SOS.</div>
 
                         <div style="display:grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 12px; align-items:center;">
                             <div>
-                                <label style="font-size: 12px; font-weight: 800; margin-left: 4px;">Mood</label>
+                                <label style="font-size: 12px; font-weight: 800; margin-left: 4px;" data-i18n="ai.mood">Mood</label>
                                 <input type="range" id="wellness-mood" min="1" max="5" step="1" value="3" style="width:100%;">
-                                <div class="text-muted" style="font-size:12px; margin-top:6px;">Selected: <b id="wellness-mood-label">Okay</b> • Sentiment: <b id="wellness-sentiment">Neutral</b></div>
+                                <div class="text-muted" style="font-size:12px; margin-top:6px;"><span data-i18n="ai.selected">Selected:</span> <b id="wellness-mood-label">Okay</b> • <span data-i18n="ai.sentiment">Sentiment:</span> <b id="wellness-sentiment">Neutral</b></div>
                             </div>
                             <div style="background: var(--bg-body); border: 1px solid var(--border); border-radius: 14px; padding: 12px;">
-                                <div style="font-weight: 900;">Suggested prompt</div>
+                                <div style="font-weight: 900;" data-i18n="ai.suggestedPrompt">Suggested prompt</div>
                                 <div class="text-muted" style="font-size:12px; margin-top:6px; line-height:1.6;" id="wellness-prompt">--</div>
                             </div>
                         </div>
 
-                        <textarea id="wellness-text" class="input" rows="4" placeholder="Write a short journal entry…" style="margin-top: 12px; resize: vertical;"></textarea>
+                        <textarea id="wellness-text" class="input" rows="4" placeholder="Write a short journal entry…" data-i18n-placeholder="ai.journalPlaceholder" style="margin-top: 12px; resize: vertical;"></textarea>
                         <div style="display:flex; gap: 10px; flex-wrap: wrap;">
-                            <button class="btn btn-primary" id="wellness-save-btn" onclick="saveWellnessEntry()"><i class="fa-solid fa-floppy-disk"></i> Save Entry</button>
-                            <button class="btn btn-secondary" onclick="exportWellnessJson()"><i class="fa-solid fa-download"></i> Export Journal (JSON)</button>
+                            <button class="btn btn-primary" id="wellness-save-btn" onclick="saveWellnessEntry()"><i class="fa-solid fa-floppy-disk"></i> <span data-i18n="ai.saveEntry">Save Entry</span></button>
+                            <button class="btn btn-secondary" onclick="exportWellnessJson()"><i class="fa-solid fa-download"></i> <span data-i18n="ai.exportJournal">Export Journal (JSON)</span></button>
                         </div>
 
                         <div id="wellness-alert" class="hidden" style="margin-top: 12px; background: #fff1f2; border: 1px solid rgba(244,63,94,0.22); padding: 12px; border-radius: 14px;"></div>
@@ -1168,16 +1170,16 @@
 
                     <div class="card" style="margin-top: 12px; padding: 12px; display:flex; gap:10px; align-items:center; flex-wrap:wrap;">
                         <div style="font-size: 12px; color: var(--text-muted); flex: 1; min-width: 220px;">
-                            Online AI is enabled via Pollinations (gen.pollinations.ai).
+                            <span data-i18n="ai.onlineNote">Online AI is enabled via Pollinations (gen.pollinations.ai).</span>
                         </div>
                         <select id="ai-model" class="input" style="width: 160px; margin-bottom:0;">
-                            <option value="openai-fast">Fast</option>
-                            <option value="openai">Balanced</option>
-                            <option value="openai-large">Smart</option>
+                            <option value="openai-fast" data-i18n="ai.model.fast">Fast</option>
+                            <option value="openai" data-i18n="ai.model.balanced">Balanced</option>
+                            <option value="openai-large" data-i18n="ai.model.smart">Smart</option>
                             <option value="mistral">Mistral</option>
                             <option value="qwen-coder">Coder</option>
                         </select>
-                        <button class="btn btn-secondary" onclick="saveAiSettings()"><i class="fa-solid fa-floppy-disk"></i> Save Model</button>
+                        <button class="btn btn-secondary" onclick="saveAiSettings()"><i class="fa-solid fa-floppy-disk"></i> <span data-i18n="ai.saveModel">Save Model</span></button>
                     </div>
 
                     <div class="card chat-container" style="margin-top: 20px; padding: 0; overflow: hidden;">
@@ -1185,7 +1187,7 @@
                             <div class="msg msg-left">Hello! I know you are in your <span id="ai-context-week">current</span> week. How can I help?</div>
                         </div>
                         <div style="padding: 16px; border-top: 1px solid var(--border); display: flex; gap: 10px; background: var(--bg-card);">
-                            <input type="text" id="ai-chat-input" class="input" placeholder="Ask anything..." style="margin-bottom:0;">
+                            <input type="text" id="ai-chat-input" class="input" placeholder="Ask anything..." data-i18n-placeholder="ai.askPlaceholder" style="margin-bottom:0;">
                             <button class="btn btn-primary" onclick="sendAIChat()"><i class="fa-solid fa-paper-plane"></i></button>
                         </div>
                     </div>
@@ -1193,32 +1195,32 @@
 
                 <!-- MEDICINE LIBRARY -->
                 <section id="view-medicine" class="hidden">
-                    <h2>Medicine Safety Library</h2>
+                    <h2 data-i18n="view.medicine">Medicine Safety Library</h2>
                     <div class="card">
                         <div style="display: flex; gap: 10px;">
-                            <input type="text" id="med-search" class="input" placeholder="Enter medicine name..." style="margin-bottom:0;">
-                            <button class="btn btn-primary" onclick="searchMedicine()">Search</button>
+                            <input type="text" id="med-search" class="input" placeholder="Enter medicine name..." data-i18n-placeholder="med.searchPlaceholder" style="margin-bottom:0;">
+                            <button class="btn btn-primary" onclick="searchMedicine()"><span data-i18n="med.search">Search</span></button>
                         </div>
                         <div id="med-results" class="med-grid"></div>
                     </div>
 
                     <div class="card">
                         <div style="display:flex; justify-content:space-between; align-items:center; gap: 10px; flex-wrap: wrap;">
-                            <h3 style="margin:0;"><i class="fa-solid fa-notes-medical" style="color: var(--primary);"></i> Medicine Logbook</h3>
-                            <div class="text-muted" style="font-size:12px;" id="med-log-note">Mother can log medicines; partner can view when synced.</div>
+                            <h3 style="margin:0;"><i class="fa-solid fa-notes-medical" style="color: var(--primary);"></i> <span data-i18n="med.logbook">Medicine Logbook</span></h3>
+                            <div class="text-muted" style="font-size:12px;" id="med-log-note" data-i18n="med.logNote">Mother can log medicines; partner can view when synced.</div>
                         </div>
 
                         <div style="display:grid; grid-template-columns: 1.2fr 0.8fr; gap: 10px; margin-top: 12px;">
-                            <input type="text" id="med-log-name" class="input" placeholder="Medicine name (e.g., Iron tablet)" style="margin:0;">
-                            <input type="text" id="med-log-dose" class="input" placeholder="Dose (e.g., 1 tab)" style="margin:0;">
+                            <input type="text" id="med-log-name" class="input" placeholder="Medicine name (e.g., Iron tablet)" data-i18n-placeholder="med.namePlaceholder" style="margin:0;">
+                            <input type="text" id="med-log-dose" class="input" placeholder="Dose (e.g., 1 tab)" data-i18n-placeholder="med.dosePlaceholder" style="margin:0;">
                         </div>
                         <div style="display:grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 10px;">
                             <input type="datetime-local" id="med-log-time" class="input" style="margin:0;">
-                            <input type="text" id="med-log-notes" class="input" placeholder="Notes (optional)" style="margin:0;">
+                            <input type="text" id="med-log-notes" class="input" placeholder="Notes (optional)" data-i18n-placeholder="appt.notesPlaceholder" style="margin:0;">
                         </div>
                         <div style="display:flex; gap: 10px; flex-wrap: wrap; margin-top: 10px;">
-                            <button class="btn btn-primary" id="med-log-add-btn" onclick="addMedLog()"><i class="fa-solid fa-plus"></i> Add Entry</button>
-                            <button class="btn btn-secondary" onclick="clearMedLogInputs()"><i class="fa-solid fa-eraser"></i> Clear</button>
+                            <button class="btn btn-primary" id="med-log-add-btn" onclick="addMedLog()"><i class="fa-solid fa-plus"></i> <span data-i18n="med.addEntry">Add Entry</span></button>
+                            <button class="btn btn-secondary" onclick="clearMedLogInputs()"><i class="fa-solid fa-eraser"></i> <span data-i18n="btn.clear">Clear</span></button>
                         </div>
 
                         <div id="med-log-list" style="margin-top: 14px;"></div>
@@ -1228,17 +1230,17 @@
                 <!-- DOCTOR FINDER -->
                 <section id="view-doctors" class="hidden">
                     <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; flex-wrap: wrap; gap: 10px;">
-                        <h2>Nearby Specialists</h2>
+                        <h2 data-i18n="view.doctors">Nearby Specialists</h2>
                         <div id="location-display" style="font-size: 12px; font-weight: bold; color: var(--primary);"></div>
                     </div>
                     <div class="card">
-                        <p style="color: var(--text-muted); margin-bottom:10px;">Showing Gynecologists & Hospitals near your registered Pincode.</p>
+                        <p style="color: var(--text-muted); margin-bottom:10px;" data-i18n="doctors.subtitle">Showing Gynecologists & Hospitals near your registered Pincode.</p>
 
                         <div class="tabs" style="margin-bottom: 12px;" id="doctor-tabs">
-                            <button class="tab-btn active" type="button" data-kind="gyn">Gynecologists</button>
-                            <button class="tab-btn" type="button" data-kind="hospital">Hospitals</button>
-                            <button class="tab-btn" type="button" data-kind="ultrasound">Ultrasound/Labs</button>
-                            <button class="tab-btn" type="button" data-kind="pharmacy">Pharmacies</button>
+                            <button class="tab-btn active" type="button" data-kind="gyn" data-i18n="doctors.tab.gyn">Gynecologists</button>
+                            <button class="tab-btn" type="button" data-kind="hospital" data-i18n="doctors.tab.hospital">Hospitals</button>
+                            <button class="tab-btn" type="button" data-kind="ultrasound" data-i18n="doctors.tab.ultrasound">Ultrasound/Labs</button>
+                            <button class="tab-btn" type="button" data-kind="pharmacy" data-i18n="doctors.tab.pharmacy">Pharmacies</button>
                         </div>
 
                         <div style="height: 300px; border-radius: 12px; overflow: hidden; border: 1px solid var(--border);">
@@ -1247,86 +1249,86 @@
 
                         <div class="quick-links" id="doctor-quick-links"></div>
                         <div class="text-muted" style="font-size: 12px; margin-top: 10px; line-height: 1.6;">
-                            Tip: Tap a card to open full Google Maps results (easier than the small embedded map).
+                            <span data-i18n="doctors.tip">Tip: Tap a card to open full Google Maps results (easier than the small embedded map).</span>
                         </div>
                     </div>
                 </section>
 
                 <!-- INDIA ESSENTIALS -->
                 <section id="view-india" class="hidden">
-                    <h2>India Essentials</h2>
+                    <h2 data-i18n="view.india">India Essentials</h2>
 
                     <div class="card">
                         <div style="display:flex; justify-content:space-between; gap: 10px; align-items:flex-start; flex-wrap: wrap;">
                             <div>
-                                <h3 style="margin-top:0;"><i class="fa-solid fa-bolt" style="color: var(--secondary);"></i> Emergency Quick Actions</h3>
-                                <div class="text-muted" style="line-height:1.6;">One-tap calls and trusted links. If you feel something is seriously wrong, seek urgent care immediately.</div>
+                                <h3 style="margin-top:0;"><i class="fa-solid fa-bolt" style="color: var(--secondary);"></i> <span data-i18n="india.emergencyTitle">Emergency Quick Actions</span></h3>
+                                <div class="text-muted" style="line-height:1.6;" data-i18n="india.emergencyNote">One-tap calls and trusted links. If you feel something is seriously wrong, seek urgent care immediately.</div>
                             </div>
-                            <span class="pill muted">India-focused</span>
+                            <span class="pill muted" data-i18n="india.indiaFocused">India-focused</span>
                         </div>
 
                         <div class="tool-grid">
                             <a class="tool-card" href="tel:112">
                                 <i class="fa-solid fa-phone"></i>
                                 <div>
-                                    <div class="tool-title">112 — National Emergency</div>
-                                    <div class="tool-sub">Works for police/ambulance/fire in many areas.</div>
+                                    <div class="tool-title" data-i18n="india.emergency.112.title">112 — National Emergency</div>
+                                    <div class="tool-sub" data-i18n="india.emergency.112.sub">Works for police/ambulance/fire in many areas.</div>
                                 </div>
                             </a>
                             <a class="tool-card" href="tel:108">
                                 <i class="fa-solid fa-truck-medical"></i>
                                 <div>
-                                    <div class="tool-title">108 — Ambulance</div>
-                                    <div class="tool-sub">Emergency medical response (many states).</div>
+                                    <div class="tool-title" data-i18n="india.emergency.108.title">108 — Ambulance</div>
+                                    <div class="tool-sub" data-i18n="india.emergency.108.sub">Emergency medical response (many states).</div>
                                 </div>
                             </a>
                             <a class="tool-card" href="tel:102">
                                 <i class="fa-solid fa-person-pregnant"></i>
                                 <div>
-                                    <div class="tool-title">102 — Pregnancy/Child Health</div>
-                                    <div class="tool-sub">Maternal + child health helpline (availability varies).</div>
+                                    <div class="tool-title" data-i18n="india.emergency.102.title">102 — Pregnancy/Child Health</div>
+                                    <div class="tool-sub" data-i18n="india.emergency.102.sub">Maternal + child health helpline (availability varies).</div>
                                 </div>
                             </a>
                             <a class="tool-card" href="tel:1098">
                                 <i class="fa-solid fa-child"></i>
                                 <div>
-                                    <div class="tool-title">1098 — CHILDLINE</div>
-                                    <div class="tool-sub">Child protection helpline.</div>
+                                    <div class="tool-title" data-i18n="india.emergency.1098.title">1098 — CHILDLINE</div>
+                                    <div class="tool-sub" data-i18n="india.emergency.1098.sub">Child protection helpline.</div>
                                 </div>
                             </a>
                         </div>
                     </div>
 
                     <div class="card">
-                        <h3 style="margin-top:0;"><i class="fa-solid fa-landmark" style="color: var(--primary);"></i> Schemes & Telemedicine (Quick Links)</h3>
-                        <div class="text-muted" style="line-height:1.6;">These links can help with benefits, tele-consults, and services. (Opens official/public sites.)</div>
+                        <h3 style="margin-top:0;"><i class="fa-solid fa-landmark" style="color: var(--primary);"></i> <span data-i18n="india.schemesTitle">Schemes & Telemedicine (Quick Links)</span></h3>
+                        <div class="text-muted" style="line-height:1.6;" data-i18n="india.schemesNote">These links can help with benefits, tele-consults, and services. (Opens official/public sites.)</div>
                         <div class="tool-grid">
                             <a class="tool-card" target="_blank" rel="noopener" href="https://pmmvy.wcd.gov.in/">
                                 <i class="fa-solid fa-circle-check"></i>
                                 <div>
                                     <div class="tool-title">PMMVY</div>
-                                    <div class="tool-sub">Pradhan Mantri Matru Vandana Yojana (maternity benefit).</div>
+                                    <div class="tool-sub" data-i18n="india.scheme.pmmvy">Pradhan Mantri Matru Vandana Yojana (maternity benefit).</div>
                                 </div>
                             </a>
                             <a class="tool-card" target="_blank" rel="noopener" href="https://nhm.gov.in/">
                                 <i class="fa-solid fa-heart"></i>
                                 <div>
                                     <div class="tool-title">NHM / JSY / JSSK</div>
-                                    <div class="tool-sub">National Health Mission scheme info (varies by state).</div>
+                                    <div class="tool-sub" data-i18n="india.scheme.nhm">National Health Mission scheme info (varies by state).</div>
                                 </div>
                             </a>
                             <a class="tool-card" target="_blank" rel="noopener" href="https://esanjeevani.mohfw.gov.in/">
                                 <i class="fa-solid fa-stethoscope"></i>
                                 <div>
                                     <div class="tool-title">eSanjeevani</div>
-                                    <div class="tool-sub">Government telemedicine consults.</div>
+                                    <div class="tool-sub" data-i18n="india.scheme.esanjeevani">Government telemedicine consults.</div>
                                 </div>
                             </a>
                             <a class="tool-card" target="_blank" rel="noopener" href="https://www.pmjay.gov.in/">
                                 <i class="fa-solid fa-id-card"></i>
                                 <div>
                                     <div class="tool-title">Ayushman Bharat (PM-JAY)</div>
-                                    <div class="tool-sub">Insurance/benefits eligibility and info.</div>
+                                    <div class="tool-sub" data-i18n="india.scheme.pmjay">Insurance/benefits eligibility and info.</div>
                                 </div>
                             </a>
                         </div>
@@ -1334,24 +1336,24 @@
 
                     <div class="card">
                         <div style="display:flex; justify-content:space-between; align-items:center; gap: 10px; flex-wrap:wrap;">
-                            <h3 style="margin:0;"><i class="fa-solid fa-syringe" style="color: var(--primary);"></i> Vaccination Tracker (UIP-style)</h3>
-                            <div class="text-muted" id="vax-sync-note" style="font-size:12px;">Saved locally (not synced)</div>
+                            <h3 style="margin:0;"><i class="fa-solid fa-syringe" style="color: var(--primary);"></i> <span data-i18n="india.vaxTitle">Vaccination Tracker (UIP-style)</span></h3>
+                            <div class="text-muted" id="vax-sync-note" style="font-size:12px;" data-i18n="india.savedLocal">Saved locally (not synced)</div>
                         </div>
                         <div class="text-muted" style="margin-top: 10px; line-height:1.6;">
-                            Set baby’s DOB once, then track due dates. This is a helpful checklist — always follow your doctor/government schedule.
+                            <span data-i18n="india.vaxIntro">Set baby’s DOB once, then track due dates. This is a helpful checklist — always follow your doctor/government schedule.</span>
                         </div>
 
                         <div style="display:grid; grid-template-columns: 1.2fr 0.8fr; gap: 10px; margin-top: 12px;">
                             <div>
-                                <label style="font-size: 12px; font-weight: 900; margin-left: 4px;">Baby DOB</label>
+                                <label style="font-size: 12px; font-weight: 900; margin-left: 4px;" data-i18n="india.babyDob">Baby DOB</label>
                                 <input type="date" id="vax-baby-dob" class="input" style="margin: 0;" />
                             </div>
                             <div>
-                                <label style="font-size: 12px; font-weight: 900; margin-left: 4px;">Special</label>
+                                <label style="font-size: 12px; font-weight: 900; margin-left: 4px;" data-i18n="india.special">Special</label>
                                 <select id="vax-je-mode" class="input" style="margin: 0;">
-                                    <option value="auto">JE: show as optional</option>
-                                    <option value="on">JE: show (endemic area)</option>
-                                    <option value="off">JE: hide</option>
+                                    <option value="auto" data-i18n="india.je.auto">JE: show as optional</option>
+                                    <option value="on" data-i18n="india.je.on">JE: show (endemic area)</option>
+                                    <option value="off" data-i18n="india.je.off">JE: hide</option>
                                 </select>
                             </div>
                         </div>
@@ -1359,11 +1361,11 @@
                         <div style="display:flex; justify-content:space-between; gap: 10px; align-items:center; flex-wrap: wrap; margin-top: 10px;">
                             <label class="cal-toggle" id="vax-partner-toggle-wrap" style="margin:0;">
                                 <input type="checkbox" id="vax-partner-edit" />
-                                Allow partner to mark vaccines
+                                <span data-i18n="india.allowPartnerVax">Allow partner to mark vaccines</span>
                             </label>
                             <div style="display:flex; gap: 10px; flex-wrap: wrap;">
-                                <button class="btn btn-secondary" type="button" onclick="vaxMarkAllDonePrompt()"><i class="fa-solid fa-check-double"></i> Mark Done (today)</button>
-                                <button class="btn btn-primary" type="button" onclick="vaxExportIcs()"><i class="fa-solid fa-calendar-plus"></i> Export Reminders (.ics)</button>
+                                <button class="btn btn-secondary" type="button" onclick="vaxMarkAllDonePrompt()"><i class="fa-solid fa-check-double"></i> <span data-i18n="india.vaxMarkDoneToday">Mark Done (today)</span></button>
+                                <button class="btn btn-primary" type="button" onclick="vaxExportIcs()"><i class="fa-solid fa-calendar-plus"></i> <span data-i18n="india.vaxExportIcs">Export Reminders (.ics)</span></button>
                             </div>
                         </div>
 
@@ -1372,28 +1374,28 @@
 
                     <div class="card">
                         <div style="display:flex; justify-content:space-between; align-items:center; gap: 10px; flex-wrap:wrap;">
-                            <h3 style="margin:0;"><i class="fa-solid fa-capsules" style="color: var(--primary);"></i> Daily Care Checklist</h3>
-                            <div class="text-muted" id="care-sync-note" style="font-size:12px;">Saved locally (not synced)</div>
+                            <h3 style="margin:0;"><i class="fa-solid fa-capsules" style="color: var(--primary);"></i> <span data-i18n="india.careChecklist">Daily Care Checklist</span></h3>
+                            <div class="text-muted" id="care-sync-note" style="font-size:12px;" data-i18n="india.careSyncNote">Saved locally (not synced)</div>
                         </div>
-                        <div class="text-muted" style="margin-top: 10px; line-height:1.6;">A simple daily checklist (common in India: IFA + calcium). Not medical advice — follow your doctor’s prescription.</div>
+                        <div class="text-muted" style="margin-top: 10px; line-height:1.6;" data-i18n="india.careIntro">A simple daily checklist (common in India: IFA + calcium). Not medical advice — follow your doctor’s prescription.</div>
 
                         <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 10px; margin-top: 12px;">
                             <label class="cal-toggle" style="margin:0; background: var(--bg-body); border: 1px solid var(--border); border-radius: 14px; padding: 12px;">
                                 <input type="checkbox" id="care-ifa" />
-                                Took IFA (Iron)
+                                <span data-i18n="india.care.ifa">Took IFA (Iron)</span>
                             </label>
                             <label class="cal-toggle" style="margin:0; background: var(--bg-body); border: 1px solid var(--border); border-radius: 14px; padding: 12px;">
                                 <input type="checkbox" id="care-calcium" />
-                                Took Calcium
+                                <span data-i18n="india.care.calcium">Took Calcium</span>
                             </label>
                             <label class="cal-toggle" style="margin:0; background: var(--bg-body); border: 1px solid var(--border); border-radius: 14px; padding: 12px;">
                                 <input type="checkbox" id="care-water" />
-                                Drank enough water today
+                                <span data-i18n="india.care.water">Drank enough water today</span>
                             </label>
                         </div>
                         <div style="display:grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 10px;">
-                            <input type="text" id="care-note" class="input" placeholder="Quick note (e.g., nausea, headache, BP, sugar)" style="margin:0;" />
-                            <button class="btn btn-primary" type="button" onclick="careSaveToday()"><i class="fa-solid fa-floppy-disk"></i> Save Today</button>
+                            <input type="text" id="care-note" class="input" placeholder="Quick note (e.g., nausea, headache, BP, sugar)" data-i18n-placeholder="india.care.notePlaceholder" style="margin:0;" />
+                            <button class="btn btn-primary" type="button" onclick="careSaveToday()"><i class="fa-solid fa-floppy-disk"></i> <span data-i18n="india.care.saveToday">Save Today</span></button>
                         </div>
                         <div class="text-muted" style="font-size:12px; margin-top: 10px;" id="care-last-saved">--</div>
                     </div>
@@ -1402,27 +1404,27 @@
                 <!-- PARTNER CHAT -->
                 <section id="view-partnerchat" class="hidden">
                     <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
-                        <h2>Partner Chat</h2>
+                        <h2 data-i18n="partnerchat.title">Partner Chat</h2>
                         <div style="display:flex; gap: 10px; align-items:center; flex-wrap:wrap; justify-content:flex-end;">
-                            <span class="dash-pill" id="chat-presence-pill"><span class="presence-dot presence-offline" id="chat-presence-dot"></span><span id="chat-presence">Checking status…</span></span>
+                            <span class="dash-pill" id="chat-presence-pill"><span class="presence-dot presence-offline" id="chat-presence-dot"></span><span id="chat-presence" data-i18n="chat.statusChecking">Checking status…</span></span>
                             <span style="font-size: 10px; color: var(--secondary); background: #fff1f2; padding: 5px 10px; border-radius: 20px;">
-                                <i class="fa-solid fa-lock"></i> End-to-End Encrypted
+                                <i class="fa-solid fa-lock"></i> <span data-i18n="chat.e2eEncrypted">End-to-End Encrypted</span>
                             </span>
                         </div>
                     </div>
 
                     <div class="card" id="ai-daily-card" style="margin-bottom: 16px;">
                         <div style="display:flex; justify-content:space-between; align-items:center; gap: 10px; flex-wrap: wrap;">
-                            <h3 style="margin:0;"><i class="fa-solid fa-brain" style="color: var(--primary);"></i> AI Summary (today)</h3>
+                            <h3 style="margin:0;"><i class="fa-solid fa-brain" style="color: var(--primary);"></i> <span data-i18n="dash.aiSummary">AI Summary (today)</span></h3>
                             <span class="text-muted" style="font-size: 12px;" id="ai-daily-meta">--</span>
                         </div>
-                        <div class="text-muted" style="margin-top: 10px; line-height: 1.6;" id="ai-daily-content">No shared AI summary yet.</div>
+                        <div class="text-muted" style="margin-top: 10px; line-height: 1.6;" id="ai-daily-content" data-i18n="chat.noSharedSummary">No shared AI summary yet.</div>
                     </div>
 
                     <div class="card chat-container" id="partner-chat-ui" style="padding: 0; overflow: hidden;">
                         <div id="partner-chat-box" class="chat-history" style="padding: 16px;"></div>
                         <div style="padding: 16px; border-top: 1px solid var(--border); display: flex; gap: 10px; background: var(--bg-card); position:relative;">
-                            <input type="text" id="partner-msg-input" class="input" placeholder="Secure Message..." style="margin-bottom:0;">
+                            <input type="text" id="partner-msg-input" class="input" placeholder="Secure Message..." data-i18n-placeholder="partnerchat.placeholderSecureMessage" style="margin-bottom:0;">
                             <button class="btn btn-secondary" onclick="toggleEmoji('partner-msg')"><i class="fa-regular fa-face-smile"></i></button>
                             <button class="btn btn-primary" onclick="sendPartnerMessage()"><i class="fa-solid fa-paper-plane"></i></button>
                             
@@ -1438,36 +1440,36 @@
                     </div>
                     <div id="chat-disabled-msg" class="card hidden" style="text-align: center; padding: 50px;">
                         <i class="fa-solid fa-link-slash" style="font-size: 40px; color: var(--text-muted); margin-bottom: 20px;"></i>
-                        <h3>Not Connected</h3>
-                        <p>Sync with a partner to enable chat.</p>
-                        <button class="btn btn-primary" style="margin-top: 20px;" onclick="nav('sync')">Go to Sync</button>
+                        <h3 data-i18n="chat.notConnectedTitle">Not Connected</h3>
+                        <p data-i18n="chat.notConnectedDesc">Sync with a partner to enable chat.</p>
+                        <button class="btn btn-primary" style="margin-top: 20px;" onclick="nav('sync')"><span data-i18n="chat.goToSync">Go to Sync</span></button>
                     </div>
                     <button class="btn btn-danger" style="width: 100%; margin-top: 20px;" onclick="clearChatSession()">
-                        <i class="fa-solid fa-trash"></i> End Session & Clear History
+                        <i class="fa-solid fa-trash"></i> <span data-i18n="chat.endSession">End Session & Clear History</span>
                     </button>
                 </section>
 
                 <!-- SYNC -->
                 <section id="view-sync" class="hidden">
                     <div style="max-width: 500px; margin: 0 auto; text-align: center;">
-                        <h2>Partner Synchronization</h2>
-                        <p style="color: var(--text-muted); margin-bottom: 30px;">Link accounts to share alerts and health data.</p>
+                        <h2 data-i18n="sync.title">Partner Synchronization</h2>
+                        <p style="color: var(--text-muted); margin-bottom: 30px;" data-i18n="sync.subtitle">Link accounts to share alerts and health data.</p>
                         
                         <div class="card">
                             <div id="sync-mom" class="hidden">
-                                <p>Your Connection Code:</p>
+                                <p data-i18n="sync.yourCode">Your Connection Code:</p>
                                 <h1 style="letter-spacing: 5px; color: var(--primary); margin: 20px 0;" id="my-code">---</h1>
-                                <button class="btn btn-secondary" onclick="generateCode()">Generate New</button>
+                                <button class="btn btn-secondary" onclick="generateCode()"><span data-i18n="sync.generateNew">Generate New</span></button>
                             </div>
                             <div id="sync-partner" class="hidden">
-                                <p>Enter Mother's Code:</p>
+                                <p data-i18n="sync.enterMotherCode">Enter Mother's Code:</p>
                                 <input type="text" id="sync-input" class="input" style="text-align: center; font-size: 24px; letter-spacing: 5px; margin: 20px 0;">
-                                <button class="btn btn-primary" style="width: 100%;" onclick="connectSync()">Connect</button>
+                                <button class="btn btn-primary" style="width: 100%;" onclick="connectSync()"><span data-i18n="sync.connect">Connect</span></button>
                             </div>
                             <div id="sync-success" class="hidden">
                                 <i class="fa-solid fa-circle-check" style="font-size: 60px; color: #22c55e; margin-bottom: 20px;"></i>
-                                <h3>Connected!</h3>
-                                <p id="linked-name">Linked to Partner</p>
+                                <h3 data-i18n="sync.connected">Connected!</h3>
+                                <p id="linked-name" data-i18n="sync.linkedToPartner">Linked to Partner</p>
                             </div>
                         </div>
                     </div>
@@ -1477,12 +1479,47 @@
                 <section id="view-premium" class="hidden">
                     <div class="card" style="text-align: center; border: 2px solid #FFD700; background: #fffbeb;">
                         <i class="fa-solid fa-crown" style="font-size: 50px; color: #FFD700; margin-bottom: 10px;"></i>
-                        <h2>Nexus Premium</h2>
-                        <p>We believe maternal health is a right, not a privilege.</p>
-                        <h3 style="margin: 20px 0; color: var(--primary);">ALL FEATURES ARE FREE</h3>
-                        <p style="font-size: 13px; color: var(--text-muted); margin-bottom: 20px;">Our Pro AI, Doctor Finder, and Sync tools are gifts to new parents.</p>
-                        <button class="btn btn-gold" onclick="alert('Thank you for your support!')">Donate to Developers</button>
-                        <div style="margin-top: 14px; font-size: 12px; color: #92400e;">Made by Team Nexus Engineering</div>
+                        <h2 data-i18n="premium.title">Nexus Premium</h2>
+                        <p data-i18n="premium.line1">We believe maternal health is a right, not a privilege.</p>
+                        <h3 style="margin: 20px 0; color: var(--primary);" data-i18n="premium.free">ALL FEATURES ARE FREE</h3>
+                        <p style="font-size: 13px; color: var(--text-muted); margin-bottom: 20px;" data-i18n="premium.line2">Our Pro AI, Doctor Finder, and Sync tools are gifts to new parents.</p>
+                        <button class="btn btn-gold" onclick="alert('Thank you for your support!')"><span data-i18n="premium.donate">Donate to Developers</span></button>
+                        <div style="margin-top: 14px; font-size: 12px; color: #92400e;" data-i18n="premium.madeBy">Made by Team Nexus Engineering</div>
+                    </div>
+                </section>
+
+                <!-- SETTINGS -->
+                <section id="view-settings" class="hidden">
+                    <h2 data-i18n="settings.title">Settings</h2>
+
+                    <div class="card">
+                        <h3 style="margin-top:0;"><i class="fa-solid fa-language" style="color: var(--primary);"></i> <span data-i18n="settings.language">Language</span></h3>
+                        <p style="color: var(--text-muted); margin-top: 8px; line-height: 1.6;" data-i18n="settings.languageNote">Changes the whole interface (AI/chat messages stay as-is).</p>
+                        <div style="display:flex; gap: 10px; flex-wrap: wrap;">
+                            <select id="settings-lang-select" class="input" style="max-width: 320px; margin: 0;">
+                                <option value="auto" data-i18n="lang.auto">Auto</option>
+                                <option value="en">English</option>
+                                <option value="hi">हिन्दी</option>
+                                <option value="bn">বাংলা</option>
+                                <option value="te">తెలుగు</option>
+                                <option value="mr">मराठी</option>
+                                <option value="ta">தமிழ்</option>
+                                <option value="ur">اردو</option>
+                                <option value="gu">ગુજરાતી</option>
+                                <option value="kn">ಕನ್ನಡ</option>
+                                <option value="ml">മലയാളം</option>
+                                <option value="pa">ਪੰਜਾਬੀ</option>
+                                <option value="es">Español</option>
+                                <option value="fr">Français</option>
+                                <option value="ar">العربية</option>
+                            </select>
+                            <button class="btn btn-primary" onclick="applySettingsLanguage()"><i class="fa-solid fa-check"></i> <span data-i18n="settings.apply">Apply</span></button>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <h3 style="margin-top:0;"><i class="fa-solid fa-palette" style="color: var(--primary);"></i> <span data-i18n="settings.theme">Theme</span></h3>
+                        <button class="btn btn-secondary" onclick="toggleTheme()"><i class="fa-solid fa-moon"></i> <span data-i18n="settings.toggleTheme">Toggle theme</span></button>
                     </div>
                 </section>
 
@@ -1490,13 +1527,13 @@
 
             <!-- Mobile Bottom Nav -->
             <div class="mobile-nav">
-                <div class="mobile-nav-item active" onclick="nav('dashboard')"><i class="fa-solid fa-grid-2"></i> Home</div>
-                <div class="mobile-nav-item" onclick="nav('wellness')"><i class="fa-solid fa-brain"></i> AI</div>
-                <div class="mobile-nav-item" onclick="nav('community')" id="nav-community-mob"><i class="fa-solid fa-users"></i> Comm <span class="nav-bubble"></span></div>
+                <div class="mobile-nav-item active" onclick="nav('dashboard')"><i class="fa-solid fa-grid-2"></i> <span data-i18n="mobile.home">Home</span></div>
+                <div class="mobile-nav-item" onclick="nav('wellness')"><i class="fa-solid fa-brain"></i> <span data-i18n="mobile.ai">AI</span></div>
+                <div class="mobile-nav-item" onclick="nav('community')" id="nav-community-mob"><i class="fa-solid fa-users"></i> <span data-i18n="mobile.community">Community</span> <span class="nav-bubble"></span></div>
                 <div class="mobile-nav-item" onclick="nav('partnerchat')" id="nav-chat-mob">
-                    <i class="fa-solid fa-comments"></i> Chat <div class="nav-badge">0</div>
+                    <i class="fa-solid fa-comments"></i> <span data-i18n="mobile.chat">Chat</span> <div class="nav-badge">0</div>
                 </div>
-                <div class="mobile-nav-item" onclick="openMoreMenu()"><i class="fa-solid fa-ellipsis-vertical"></i> More</div>
+                <div class="mobile-nav-item" onclick="openMoreMenu()"><i class="fa-solid fa-ellipsis-vertical"></i> <span data-i18n="mobile.more">More</span></div>
             </div>
         </div>
 
@@ -1505,18 +1542,54 @@
             <div class="sheet" onclick="event.stopPropagation()">
                 <div class="sheet-handle"></div>
                 <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom: 10px;">
-                    <strong>All Features</strong>
+                    <strong data-i18n="more.title">All Features</strong>
                     <button class="btn btn-secondary" style="padding: 8px 10px;" onclick="closeMoreMenu()"><i class="fa-solid fa-xmark"></i></button>
                 </div>
                 <div class="sheet-grid">
-                    <div class="sheet-item" onclick="nav('period'); closeMoreMenu();"><i class="fa-solid fa-droplet"></i> Period Tracker</div>
-                    <div class="sheet-item" onclick="nav('baby'); closeMoreMenu();"><i class="fa-solid fa-baby-carriage"></i> Baby Tracker</div>
-                    <div class="sheet-item" onclick="nav('profile'); closeMoreMenu();"><i class="fa-solid fa-id-card"></i> Profiles</div>
-                    <div class="sheet-item" onclick="nav('medicine'); closeMoreMenu();"><i class="fa-solid fa-pills"></i> Medicine</div>
-                    <div class="sheet-item" onclick="nav('india'); closeMoreMenu();"><i class="fa-solid fa-flag"></i> India</div>
-                    <div class="sheet-item" onclick="nav('doctors'); closeMoreMenu();"><i class="fa-solid fa-hospital-user"></i> Doctors</div>
-                    <div class="sheet-item" onclick="nav('sync'); closeMoreMenu();"><i class="fa-solid fa-link"></i> Sync</div>
-                    <div class="sheet-item" onclick="nav('premium'); closeMoreMenu();"><i class="fa-solid fa-crown"></i> Premium</div>
+                    <div class="sheet-item" onclick="nav('period'); closeMoreMenu();"><i class="fa-solid fa-droplet"></i> <span data-i18n="nav.period">Period Tracker</span></div>
+                    <div class="sheet-item" onclick="nav('baby'); closeMoreMenu();"><i class="fa-solid fa-baby-carriage"></i> <span data-i18n="nav.baby">Baby Tracker</span></div>
+                    <div class="sheet-item" onclick="nav('profile'); closeMoreMenu();"><i class="fa-solid fa-id-card"></i> <span data-i18n="nav.profiles">Profiles</span></div>
+                    <div class="sheet-item" onclick="nav('medicine'); closeMoreMenu();"><i class="fa-solid fa-pills"></i> <span data-i18n="nav.medicine">Medicine Library</span></div>
+                    <div class="sheet-item" onclick="nav('india'); closeMoreMenu();"><i class="fa-solid fa-flag"></i> <span data-i18n="nav.india">India Essentials</span></div>
+                    <div class="sheet-item" onclick="nav('doctors'); closeMoreMenu();"><i class="fa-solid fa-hospital-user"></i> <span data-i18n="nav.doctors">Find Doctors</span></div>
+                    <div class="sheet-item" onclick="nav('sync'); closeMoreMenu();"><i class="fa-solid fa-link"></i> <span data-i18n="nav.sync">Sync</span></div>
+                    <div class="sheet-item" onclick="nav('premium'); closeMoreMenu();"><i class="fa-solid fa-crown"></i> <span data-i18n="nav.premium">Premium</span></div>
+                    <div class="sheet-item" onclick="nav('settings'); closeMoreMenu();"><i class="fa-solid fa-gear"></i> <span data-i18n="nav.settings">Settings</span></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Language Menu (Mobile-safe) -->
+        <div id="lang-menu" class="sheet-backdrop hidden" onclick="closeLangMenu(event)">
+            <div class="sheet" onclick="event.stopPropagation()">
+                <div class="sheet-handle"></div>
+                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom: 10px;">
+                    <strong data-i18n="settings.language">Language</strong>
+                    <button class="btn btn-secondary" style="padding: 8px 10px;" onclick="closeLangMenu()"><i class="fa-solid fa-xmark"></i></button>
+                </div>
+                <div class="text-muted" style="font-size: 12px; line-height: 1.6;" data-i18n="settings.languageNote">Changes the whole interface (AI/chat messages stay as-is).</div>
+                <div style="margin-top: 12px;">
+                    <select id="lang-menu-select" class="input" style="margin: 0;">
+                        <option value="auto" data-i18n="lang.auto">Auto</option>
+                        <option value="en">English</option>
+                        <option value="hi">हिन्दी</option>
+                        <option value="bn">বাংলা</option>
+                        <option value="te">తెలుగు</option>
+                        <option value="mr">मराठी</option>
+                        <option value="ta">தமிழ்</option>
+                        <option value="ur">اردو</option>
+                        <option value="gu">ગુજરાતી</option>
+                        <option value="kn">ಕನ್ನಡ</option>
+                        <option value="ml">മലയാളം</option>
+                        <option value="pa">ਪੰਜਾਬੀ</option>
+                        <option value="es">Español</option>
+                        <option value="fr">Français</option>
+                        <option value="ar">العربية</option>
+                    </select>
+                </div>
+                <div style="display:flex; gap: 10px; margin-top: 12px;">
+                    <button class="btn btn-secondary" style="flex: 1;" onclick="closeLangMenu()"><span data-i18n="btn.cancel">Cancel</span></button>
+                    <button class="btn btn-primary" style="flex: 1;" onclick="applyLangFromMenu()"><span data-i18n="settings.apply">Apply</span></button>
                 </div>
             </div>
         </div>
@@ -1524,7 +1597,7 @@
         <div class="sos-float" onclick="activateSOS()" title="Emergency Alert">SOS</div>
         <div class="lang-float" onclick="openLangMenu()" title="Language">
             <i class="fa-solid fa-language" style="color: var(--primary);"></i>
-            <span style="font-size: 12px;">Language</span>
+            <span style="font-size: 12px;" data-i18n="lang.label">Language</span>
         </div>
         <audio id="alarm-sound" src="https://actions.google.com/sounds/v1/alarms/alarm_clock.ogg" loop></audio>
     </div>
@@ -1610,6 +1683,7 @@
                 'lang.label': 'Language',
                 'lang.auto': 'Auto',
                 'lang.note': 'Tip: you can switch anytime.',
+                'btn.cancel': 'Cancel',
                 'nav.dashboard': 'Dashboard',
                 'nav.period': 'Period Tracker',
                 'nav.baby': 'Baby Tracker',
@@ -1622,11 +1696,268 @@
                 'nav.community': 'Community',
                 'nav.sync': 'Sync',
                 'nav.premium': 'Premium',
+                'nav.settings': 'Settings',
+
+                'mobile.home': 'Home',
+                'mobile.ai': 'AI',
+                'mobile.community': 'Community',
+                'mobile.chat': 'Chat',
+                'mobile.more': 'More',
+                'more.title': 'All Features',
+
+                'settings.title': 'Settings',
+                'settings.language': 'Language',
+                'settings.languageNote': 'Changes the whole interface (AI/chat messages stay as-is).',
+                'settings.apply': 'Apply',
+                'settings.theme': 'Theme',
+                'settings.toggleTheme': 'Toggle theme',
+
+                'dash.overview': 'Overview',
+                'dash.connected': 'Connected',
+                'dash.checking': 'Checking…',
+                'dash.subtitle': 'Your family dashboard updates live — chat, period calendar, and doctor links.',
+                'dash.reminders': 'Gentle reminders',
+                'dash.babyFact': 'Baby fact:',
+                'dash.aiSummary': 'AI Summary (today)',
+                'dash.syncCodeTitle': 'Partner Sync Code',
+                'dash.syncCodeHint': 'Share this code with your partner to link accounts.',
+
+                'partnerchat.title': 'Partner Chat',
+                'chat.statusChecking': 'Checking status…',
+                'chat.e2eEncrypted': 'End-to-End Encrypted',
+                'chat.noSharedSummary': 'No shared AI summary yet.',
+                'partnerchat.placeholderSecureMessage': 'Secure Message...',
+                'chat.notConnectedTitle': 'Not Connected',
+                'chat.notConnectedDesc': 'Sync with a partner to enable chat.',
+                'chat.goToSync': 'Go to Sync',
+                'chat.endSession': 'End Session & Clear History',
+
+                'sync.title': 'Partner Synchronization',
+                'sync.subtitle': 'Link accounts to share alerts and health data.',
+                'sync.yourCode': 'Your Connection Code:',
+                'sync.generateNew': 'Generate New',
+                'sync.enterMotherCode': "Enter Mother's Code:",
+                'sync.connect': 'Connect',
+                'sync.connected': 'Connected!',
+                'sync.linkedToPartner': 'Linked to Partner',
+
+                'premium.title': 'Nexus Premium',
+                'premium.line1': 'We believe maternal health is a right, not a privilege.',
+                'premium.free': 'ALL FEATURES ARE FREE',
+                'premium.line2': 'Our Pro AI, Doctor Finder, and Sync tools are gifts to new parents.',
+                'premium.donate': 'Donate to Developers',
+                'premium.madeBy': 'Made by Team Nexus Engineering',
+
+                'india.allowPartnerVax': 'Allow partner to mark vaccines',
+                'india.vaxMarkDoneToday': 'Mark Done (today)',
+                'india.vaxExportIcs': 'Export Reminders (.ics)',
+                'india.careChecklist': 'Daily Care Checklist',
+                'india.careSyncNote': 'Saved locally (not synced)',
+                'india.careIntro': 'A simple daily checklist (common in India: IFA + calcium). Not medical advice — follow your doctor’s prescription.',
+                'india.care.ifa': 'Took IFA (Iron)',
+                'india.care.calcium': 'Took Calcium',
+                'india.care.water': 'Drank enough water today',
+                'india.care.notePlaceholder': 'Quick note (e.g., nausea, headache, BP, sugar)',
+                'india.care.saveToday': 'Save Today',
+
+                'btn.clear': 'Clear',
+
+                'view.period': 'Period Tracker',
+                'view.baby': 'Baby Tracker',
+                'view.profiles': 'Profiles',
+                'view.community': 'Community',
+                'view.ai': 'AI Health Assistant',
+                'view.medicine': 'Medicine Safety Library',
+                'view.doctors': 'Nearby Specialists',
+                'view.india': 'India Essentials',
+
+                'dash.currentStage': 'Current Stage',
+                'dash.status': 'Status',
+                'dash.statusStable': 'Stable',
+                'dash.myDoctor': 'My Doctor',
+                'dash.notSet': 'Not Set',
+                'dash.callNow': 'Call Now',
+
+                'week.title': 'Pregnancy Progress',
+                'week.note': 'Week value will never go negative.',
+                'week.onlyMother': 'Only Mother can edit week',
+                'week.save': 'Save Week',
+
+                'diet.title': 'Trimester Diet Plan',
+                'diet.note': 'Personalized guidance (not a medical prescription). Always follow your doctor’s advice.',
+                'diet.style.mixed': 'Mixed (veg + non-veg)',
+                'diet.style.veg': 'Vegetarian',
+                'diet.style.vegan': 'Vegan',
+                'diet.anemia.no': 'No anemia',
+                'diet.anemia.yes': 'Anemia / low Hb',
+                'diet.gdm.no': 'No diabetes',
+                'diet.gdm.yes': 'GDM / diabetes',
+                'diet.save': 'Save Preferences',
+
+                'appt.title': 'Medical Scheduling',
+                'appt.allowPartner': 'Allow partner to add/edit appointments',
+                'appt.purposePlaceholder': 'Purpose (e.g., NT scan / Checkup)',
+                'appt.placePlaceholder': 'Hospital/clinic (optional)',
+                'appt.notesPlaceholder': 'Notes (optional)',
+                'appt.add': 'Add',
+                'appt.exportIcs': 'Export Reminders (.ics)',
+
+                'period.ringTitle': 'Floral Cycle Ring',
+                'period.ringSubtitle': 'Track the mother’s cycle in a gentle, synced way.',
+                'period.onlyMotherEdit': 'Only Mother can edit',
+                'period.day': 'Day',
+                'period.noData': 'No cycle data yet',
+                'period.lastStart': 'Last Period Start',
+                'period.cycleLength': 'Cycle Length (days)',
+                'period.cycleLengthPlaceholder': 'e.g. 28',
+                'period.periodLength': 'Period Length (days)',
+                'period.periodLengthPlaceholder': 'e.g. 5',
+                'period.notes': 'Notes',
+                'period.notesPlaceholder': 'cramps, mood, etc.',
+                'period.save': 'Save Period',
+                'period.partnerViewNote': 'Partner can view this tracker when synced. Calendar edits can be enabled for partner (below).',
+                'period.predictions': 'Predictions',
+                'period.predictionsNote': 'Estimates only — consult your doctor for medical advice.',
+                'period.next': 'Next period (est.)',
+                'period.ovulation': 'Ovulation (est.)',
+                'period.fertile': 'Fertile window (est.)',
+                'period.syncStatus': 'Sync Status',
+                'period.manageSync': 'Manage Sync',
+                'period.calendar': 'Calendar',
+                'period.calendarNote': 'Tap a day to mark it as a period day. This helps when you forget the last dates.',
+                'period.today': 'Today',
+                'period.shareImport': 'Share/Import',
+                'period.addRangeQuick': 'Add a range (quick)',
+                'period.addRange': 'Add Range',
+                'period.sharingPerms': 'Sharing & permissions',
+                'period.allowPartnerCalendar': 'Allow partner to edit calendar',
+                'period.clearMonth': 'Clear This Month',
+                'period.shareNote': 'If you are not synced, you can still share dates using this code. Anyone with this code can import and edit.',
+                'period.sharePlaceholder': 'Share code will appear here...',
+                'period.generate': 'Generate',
+                'period.copy': 'Copy',
+                'period.import': 'Import',
+
+                'day.sun': 'Sun',
+                'day.mon': 'Mon',
+                'day.tue': 'Tue',
+                'day.wed': 'Wed',
+                'day.thu': 'Thu',
+                'day.fri': 'Fri',
+                'day.sat': 'Sat',
+
+                'baby.heroTitle': 'A tiny miracle, growing daily',
+                'baby.heroSubtitle': 'Based on the mother’s week. Cute animations included.',
+                'baby.cuteTip': 'Today’s Cute Tip',
+                'baby.milestone': 'Milestone',
+                'baby.dailyUpdate': 'Today’s Baby Update',
+                'baby.looksLike': 'Looks like:',
+                'baby.insideToday': 'Inside today:',
+                'baby.miniFaq': 'Mini FAQ:',
+                'baby.breastfeeding': 'Breastfeeding Support',
+
+                'profiles.motherTitle': 'Mother Profile',
+                'profiles.motherNote': 'Only Mother can edit mother’s details.',
+                'profiles.partnerTitle': 'Partner Profile',
+                'profiles.partnerNote': 'Partner can edit their name and their own details.',
+                'profiles.locked': 'Locked',
+                'profiles.pregWeek': 'Pregnancy Week',
+                'profiles.pregWeekPlaceholder': 'e.g. 24',
+                'profiles.bloodGroup': 'Blood Group',
+                'profiles.bloodGroupPlaceholder': 'e.g. O+',
+                'profiles.bloodGroupPartnerPlaceholder': 'e.g. B+',
+                'profiles.doctorName': 'Doctor Name',
+                'profiles.doctorNamePlaceholder': 'Dr. Smith',
+                'profiles.doctorPhone': 'Doctor Phone',
+                'profiles.doctorPhonePlaceholder': '+91...',
+                'profiles.allergiesNotes': 'Allergies/Notes',
+                'profiles.optional': 'optional',
+                'profiles.pinCode': 'PIN Code',
+                'profiles.pinPlaceholder': '110001',
+                'profiles.country': 'Country',
+                'profiles.countryPlaceholder': 'India',
+                'profiles.saveMother': 'Save Mother Profile',
+                'profiles.partnerName': 'Partner Name',
+                'profiles.partnerNamePlaceholder': 'Partner name',
+                'profiles.emergencyContact': 'Emergency Contact',
+                'profiles.phone': 'phone',
+                'profiles.savePartner': 'Save Partner Profile',
+                'profiles.doctorExport': 'Doctor Export',
+                'profiles.doctorExportNote': 'Export a secure summary you can share with your doctor (no chats). Includes week, period info, appointments, vaccines, and logs.',
+                'profiles.exportSummaryJson': 'Export Summary (JSON)',
+                'profiles.exportApptsCsv': 'Export Appointments (CSV)',
+                'profiles.exportApptsIcs': 'Appointments (.ics)',
+                'profiles.tipVaxIcs': 'Tip: Use the vaccination export in India Essentials for vaccine reminders (.ics).',
+                'profiles.deleteAccount': 'Delete Account',
+                'profiles.deleteNote': 'Deleting disables sync and notifies the other person.',
+                'profiles.deleteMyAccount': 'Delete My Account',
+
+                'community.placeholder': 'Share an update...',
+                'community.post': 'Post',
+
+                'ai.contextAware': 'Context Aware',
+                'ai.wellnessTitle': 'Emotional Wellness & Journal',
+                'ai.wellnessNote': 'Tracks mood + journal and highlights possible red flags. For emergencies, use SOS.',
+                'ai.mood': 'Mood',
+                'ai.selected': 'Selected:',
+                'ai.sentiment': 'Sentiment:',
+                'ai.suggestedPrompt': 'Suggested prompt',
+                'ai.journalPlaceholder': 'Write a short journal entry…',
+                'ai.saveEntry': 'Save Entry',
+                'ai.exportJournal': 'Export Journal (JSON)',
+                'ai.onlineNote': 'Online AI is enabled via Pollinations (gen.pollinations.ai).',
+                'ai.model.fast': 'Fast',
+                'ai.model.balanced': 'Balanced',
+                'ai.model.smart': 'Smart',
+                'ai.saveModel': 'Save Model',
+                'ai.askPlaceholder': 'Ask anything...',
+
+                'med.searchPlaceholder': 'Enter medicine name...',
+                'med.search': 'Search',
+                'med.logbook': 'Medicine Logbook',
+                'med.logNote': 'Mother can log medicines; partner can view when synced.',
+                'med.namePlaceholder': 'Medicine name (e.g., Iron tablet)',
+                'med.dosePlaceholder': 'Dose (e.g., 1 tab)',
+                'med.addEntry': 'Add Entry',
+
+                'doctors.subtitle': 'Showing Gynecologists & Hospitals near your registered Pincode.',
+                'doctors.tab.gyn': 'Gynecologists',
+                'doctors.tab.hospital': 'Hospitals',
+                'doctors.tab.ultrasound': 'Ultrasound/Labs',
+                'doctors.tab.pharmacy': 'Pharmacies',
+                'doctors.tip': 'Tip: Tap a card to open full Google Maps results (easier than the small embedded map).',
+
+                'india.emergencyTitle': 'Emergency Quick Actions',
+                'india.emergencyNote': 'One-tap calls and trusted links. If you feel something is seriously wrong, seek urgent care immediately.',
+                'india.indiaFocused': 'India-focused',
+                'india.emergency.112.title': '112 — National Emergency',
+                'india.emergency.112.sub': 'Works for police/ambulance/fire in many areas.',
+                'india.emergency.108.title': '108 — Ambulance',
+                'india.emergency.108.sub': 'Emergency medical response (many states).',
+                'india.emergency.102.title': '102 — Pregnancy/Child Health',
+                'india.emergency.102.sub': 'Maternal + child health helpline (availability varies).',
+                'india.emergency.1098.title': '1098 — CHILDLINE',
+                'india.emergency.1098.sub': 'Child protection helpline.',
+                'india.schemesTitle': 'Schemes & Telemedicine (Quick Links)',
+                'india.schemesNote': 'These links can help with benefits, tele-consults, and services. (Opens official/public sites.)',
+                'india.scheme.pmmvy': 'Pradhan Mantri Matru Vandana Yojana (maternity benefit).',
+                'india.scheme.nhm': 'National Health Mission scheme info (varies by state).',
+                'india.scheme.esanjeevani': 'Government telemedicine consults.',
+                'india.scheme.pmjay': 'Insurance/benefits eligibility and info.',
+                'india.vaxTitle': 'Vaccination Tracker (UIP-style)',
+                'india.savedLocal': 'Saved locally (not synced)',
+                'india.vaxIntro': 'Set baby’s DOB once, then track due dates. This is a helpful checklist — always follow your doctor/government schedule.',
+                'india.babyDob': 'Baby DOB',
+                'india.special': 'Special',
+                'india.je.auto': 'JE: show as optional',
+                'india.je.on': 'JE: show (endemic area)',
+                'india.je.off': 'JE: hide',
             },
             hi: {
                 'lang.label': 'भाषा',
                 'lang.auto': 'ऑटो',
                 'lang.note': 'टिप: आप कभी भी बदल सकते हैं।',
+                'btn.cancel': 'रद्द करें',
                 'nav.dashboard': 'डैशबोर्ड',
                 'nav.period': 'पीरियड ट्रैकर',
                 'nav.baby': 'बेबी ट्रैकर',
@@ -1639,11 +1970,268 @@
                 'nav.community': 'कम्युनिटी',
                 'nav.sync': 'सिंक',
                 'nav.premium': 'प्रीमियम',
+                'nav.settings': 'सेटिंग्स',
+
+                'mobile.home': 'होम',
+                'mobile.ai': 'एआई',
+                'mobile.community': 'कम्युनिटी',
+                'mobile.chat': 'चैट',
+                'mobile.more': 'और',
+                'more.title': 'सभी फीचर्स',
+
+                'settings.title': 'सेटिंग्स',
+                'settings.language': 'भाषा',
+                'settings.languageNote': 'पूरी इंटरफ़ेस भाषा बदलेगी (AI/चैट संदेश नहीं बदलेंगे)।',
+                'settings.apply': 'लागू करें',
+                'settings.theme': 'थीम',
+                'settings.toggleTheme': 'थीम बदलें',
+
+                'dash.overview': 'ओवरव्यू',
+                'dash.connected': 'कनेक्टेड',
+                'dash.checking': 'जाँच हो रही है…',
+                'dash.subtitle': 'आपका फैमिली डैशबोर्ड लाइव अपडेट होता है — चैट, पीरियड कैलेंडर और डॉक्टर लिंक।',
+                'dash.reminders': 'सॉफ्ट रिमाइंडर्स',
+                'dash.babyFact': 'बेबी फैक्ट:',
+                'dash.aiSummary': 'एआई सारांश (आज)',
+                'dash.syncCodeTitle': 'पार्टनर सिंक कोड',
+                'dash.syncCodeHint': 'अकाउंट लिंक करने के लिए यह कोड पार्टनर को दें।',
+
+                'partnerchat.title': 'पार्टनर चैट',
+                'chat.statusChecking': 'स्थिति जाँची जा रही है…',
+                'chat.e2eEncrypted': 'एंड-टू-एंड एन्क्रिप्टेड',
+                'chat.noSharedSummary': 'आज का साझा AI सारांश अभी नहीं है।',
+                'partnerchat.placeholderSecureMessage': 'सुरक्षित संदेश...',
+                'chat.notConnectedTitle': 'कनेक्ट नहीं है',
+                'chat.notConnectedDesc': 'चैट सक्षम करने के लिए पार्टनर के साथ सिंक करें।',
+                'chat.goToSync': 'सिंक पर जाएँ',
+                'chat.endSession': 'सेशन समाप्त करें और इतिहास साफ़ करें',
+
+                'sync.title': 'पार्टनर सिंक्रोनाइज़ेशन',
+                'sync.subtitle': 'अलर्ट और हेल्थ डेटा साझा करने के लिए अकाउंट लिंक करें।',
+                'sync.yourCode': 'आपका कनेक्शन कोड:',
+                'sync.generateNew': 'नया जनरेट करें',
+                'sync.enterMotherCode': 'माँ का कोड दर्ज करें:',
+                'sync.connect': 'कनेक्ट करें',
+                'sync.connected': 'कनेक्ट हो गया!',
+                'sync.linkedToPartner': 'पार्टनर से लिंक हो गया',
+
+                'premium.title': 'नेक्सस प्रीमियम',
+                'premium.line1': 'हम मानते हैं कि मातृत्व स्वास्थ्य अधिकार है, विशेषाधिकार नहीं।',
+                'premium.free': 'सभी फीचर्स फ्री हैं',
+                'premium.line2': 'हमारे Pro AI, डॉक्टर फाइंडर और सिंक टूल्स नए माता-पिता के लिए उपहार हैं।',
+                'premium.donate': 'डेवलपर्स को डोनेट करें',
+                'premium.madeBy': 'Team Nexus Engineering द्वारा बनाया गया',
+
+                'india.allowPartnerVax': 'पार्टनर को वैक्सीन मार्क करने दें',
+                'india.vaxMarkDoneToday': 'आज मार्क करें',
+                'india.vaxExportIcs': 'रिमाइंडर्स एक्सपोर्ट करें (.ics)',
+                'india.careChecklist': 'डेली केयर चेकलिस्ट',
+                'india.careSyncNote': 'लोकली सेव (सिंक नहीं)',
+                'india.careIntro': 'एक सरल दैनिक चेकलिस्ट (भारत में आम: IFA + कैल्शियम)। यह मेडिकल सलाह नहीं — अपने डॉक्टर के अनुसार लें।',
+                'india.care.ifa': 'IFA (आयरन) लिया',
+                'india.care.calcium': 'कैल्शियम लिया',
+                'india.care.water': 'आज पर्याप्त पानी पिया',
+                'india.care.notePlaceholder': 'क्विक नोट (जैसे, मितली, सिरदर्द, BP, शुगर)',
+                'india.care.saveToday': 'आज सेव करें',
+
+                'btn.clear': 'साफ़ करें',
+
+                'view.period': 'पीरियड ट्रैकर',
+                'view.baby': 'बेबी ट्रैकर',
+                'view.profiles': 'प्रोफाइल',
+                'view.community': 'कम्युनिटी',
+                'view.ai': 'एआई हेल्थ असिस्टेंट',
+                'view.medicine': 'दवा सुरक्षा लाइब्रेरी',
+                'view.doctors': 'नज़दीकी विशेषज्ञ',
+                'view.india': 'भारत सुविधाएँ',
+
+                'dash.currentStage': 'वर्तमान चरण',
+                'dash.status': 'स्थिति',
+                'dash.statusStable': 'स्थिर',
+                'dash.myDoctor': 'मेरा डॉक्टर',
+                'dash.notSet': 'सेट नहीं',
+                'dash.callNow': 'अभी कॉल करें',
+
+                'week.title': 'गर्भावस्था प्रगति',
+                'week.note': 'सप्ताह का मान कभी नकारात्मक नहीं होगा।',
+                'week.onlyMother': 'केवल माँ सप्ताह बदल सकती है',
+                'week.save': 'सप्ताह सेव करें',
+
+                'diet.title': 'त्रैमासिक डाइट प्लान',
+                'diet.note': 'व्यक्तिगत मार्गदर्शन (मेडिकल प्रिस्क्रिप्शन नहीं)। डॉक्टर की सलाह मानें।',
+                'diet.style.mixed': 'मिक्स्ड (शाकाहारी + मांसाहारी)',
+                'diet.style.veg': 'शाकाहारी',
+                'diet.style.vegan': 'वीगन',
+                'diet.anemia.no': 'एनीमिया नहीं',
+                'diet.anemia.yes': 'एनीमिया / कम Hb',
+                'diet.gdm.no': 'डायबिटीज़ नहीं',
+                'diet.gdm.yes': 'GDM / डायबिटीज़',
+                'diet.save': 'पसंद सेव करें',
+
+                'appt.title': 'मेडिकल शेड्यूलिंग',
+                'appt.allowPartner': 'पार्टनर को अपॉइंटमेंट जोड़ने/एडिट करने दें',
+                'appt.purposePlaceholder': 'उद्देश्य (जैसे, NT स्कैन / चेकअप)',
+                'appt.placePlaceholder': 'अस्पताल/क्लिनिक (वैकल्पिक)',
+                'appt.notesPlaceholder': 'नोट्स (वैकल्पिक)',
+                'appt.add': 'जोड़ें',
+                'appt.exportIcs': 'रिमाइंडर्स एक्सपोर्ट (.ics)',
+
+                'period.ringTitle': 'फ्लोरल साइकिल रिंग',
+                'period.ringSubtitle': 'माँ के चक्र को सौम्य, सिंक्ड तरीके से ट्रैक करें।',
+                'period.onlyMotherEdit': 'केवल माँ एडिट कर सकती है',
+                'period.day': 'दिन',
+                'period.noData': 'अभी साइकिल डेटा नहीं',
+                'period.lastStart': 'पिछली पीरियड शुरुआत',
+                'period.cycleLength': 'साइकिल लंबाई (दिन)',
+                'period.cycleLengthPlaceholder': 'जैसे 28',
+                'period.periodLength': 'पीरियड लंबाई (दिन)',
+                'period.periodLengthPlaceholder': 'जैसे 5',
+                'period.notes': 'नोट्स',
+                'period.notesPlaceholder': 'दर्द, मूड आदि',
+                'period.save': 'पीरियड सेव करें',
+                'period.partnerViewNote': 'सिंक होने पर पार्टनर यह ट्रैकर देख सकता है। नीचे पार्टनर के लिए कैलेंडर एडिट सक्षम कर सकते हैं।',
+                'period.predictions': 'अनुमान',
+                'period.predictionsNote': 'ये केवल अनुमान हैं — मेडिकल सलाह के लिए डॉक्टर से सलाह लें।',
+                'period.next': 'अगला पीरियड (अनुमान)',
+                'period.ovulation': 'ओव्यूलेशन (अनुमान)',
+                'period.fertile': 'फर्टाइल विंडो (अनुमान)',
+                'period.syncStatus': 'सिंक स्थिति',
+                'period.manageSync': 'सिंक मैनेज करें',
+                'period.calendar': 'कैलेंडर',
+                'period.calendarNote': 'दिन पर टैप करके उसे पीरियड डे मार्क करें। जब तारीखें भूल जाएँ तब मदद मिलती है।',
+                'period.today': 'आज',
+                'period.shareImport': 'शेयर/इम्पोर्ट',
+                'period.addRangeQuick': 'रेंज जोड़ें (क्विक)',
+                'period.addRange': 'रेंज जोड़ें',
+                'period.sharingPerms': 'शेयरिंग व अनुमति',
+                'period.allowPartnerCalendar': 'पार्टनर को कैलेंडर एडिट करने दें',
+                'period.clearMonth': 'इस महीने को साफ़ करें',
+                'period.shareNote': 'अगर आप सिंक नहीं हैं, तब भी इस कोड से तारीखें शेयर कर सकते हैं। जिसके पास कोड होगा वह इम्पोर्ट और एडिट कर सकता है।',
+                'period.sharePlaceholder': 'शेयर कोड यहाँ दिखेगा...',
+                'period.generate': 'जनरेट',
+                'period.copy': 'कॉपी',
+                'period.import': 'इम्पोर्ट',
+
+                'day.sun': 'रवि',
+                'day.mon': 'सोम',
+                'day.tue': 'मंगल',
+                'day.wed': 'बुध',
+                'day.thu': 'गुरु',
+                'day.fri': 'शुक्र',
+                'day.sat': 'शनि',
+
+                'baby.heroTitle': 'एक छोटा सा चमत्कार, हर दिन बढ़ता',
+                'baby.heroSubtitle': 'माँ के सप्ताह पर आधारित। क्यूट एनिमेशन शामिल हैं।',
+                'baby.cuteTip': 'आज की प्यारी टिप',
+                'baby.milestone': 'माइलस्टोन',
+                'baby.dailyUpdate': 'आज का बेबी अपडेट',
+                'baby.looksLike': 'दिखता है:',
+                'baby.insideToday': 'आज अंदर:',
+                'baby.miniFaq': 'मिनी FAQ:',
+                'baby.breastfeeding': 'स्तनपान सहायता',
+
+                'profiles.motherTitle': 'माँ प्रोफाइल',
+                'profiles.motherNote': 'माँ की जानकारी केवल माँ ही एडिट कर सकती है।',
+                'profiles.partnerTitle': 'पार्टनर प्रोफाइल',
+                'profiles.partnerNote': 'पार्टनर अपना नाम और अपनी जानकारी एडिट कर सकता है।',
+                'profiles.locked': 'लॉक्ड',
+                'profiles.pregWeek': 'गर्भावस्था सप्ताह',
+                'profiles.pregWeekPlaceholder': 'जैसे 24',
+                'profiles.bloodGroup': 'ब्लड ग्रुप',
+                'profiles.bloodGroupPlaceholder': 'जैसे O+',
+                'profiles.bloodGroupPartnerPlaceholder': 'जैसे B+',
+                'profiles.doctorName': 'डॉक्टर का नाम',
+                'profiles.doctorNamePlaceholder': 'डॉ. शर्मा',
+                'profiles.doctorPhone': 'डॉक्टर फोन',
+                'profiles.doctorPhonePlaceholder': '+91...',
+                'profiles.allergiesNotes': 'एलर्जी/नोट्स',
+                'profiles.optional': 'वैकल्पिक',
+                'profiles.pinCode': 'पिन कोड',
+                'profiles.pinPlaceholder': '110001',
+                'profiles.country': 'देश',
+                'profiles.countryPlaceholder': 'भारत',
+                'profiles.saveMother': 'माँ प्रोफाइल सेव करें',
+                'profiles.partnerName': 'पार्टनर नाम',
+                'profiles.partnerNamePlaceholder': 'पार्टनर का नाम',
+                'profiles.emergencyContact': 'आपातकालीन संपर्क',
+                'profiles.phone': 'फोन',
+                'profiles.savePartner': 'पार्टनर प्रोफाइल सेव करें',
+                'profiles.doctorExport': 'डॉक्टर एक्सपोर्ट',
+                'profiles.doctorExportNote': 'डॉक्टर के साथ साझा करने के लिए सुरक्षित सारांश (चैट नहीं)। इसमें सप्ताह, पीरियड जानकारी, अपॉइंटमेंट, वैक्सीन और लॉग शामिल हैं।',
+                'profiles.exportSummaryJson': 'सारांश एक्सपोर्ट (JSON)',
+                'profiles.exportApptsCsv': 'अपॉइंटमेंट एक्सपोर्ट (CSV)',
+                'profiles.exportApptsIcs': 'अपॉइंटमेंट (.ics)',
+                'profiles.tipVaxIcs': 'टिप: वैक्सीन रिमाइंडर (.ics) के लिए India Essentials में वैक्सीनेशन एक्सपोर्ट उपयोग करें।',
+                'profiles.deleteAccount': 'अकाउंट हटाएँ',
+                'profiles.deleteNote': 'हटाने से सिंक बंद होगा और दूसरे व्यक्ति को सूचना मिलेगी।',
+                'profiles.deleteMyAccount': 'मेरा अकाउंट हटाएँ',
+
+                'community.placeholder': 'अपडेट साझा करें...',
+                'community.post': 'पोस्ट',
+
+                'ai.contextAware': 'कॉन्टेक्स्ट अवेयर',
+                'ai.wellnessTitle': 'भावनात्मक वेलनेस और जर्नल',
+                'ai.wellnessNote': 'मूड + जर्नल ट्रैक करता है और संभावित रेड फ्लैग दिखाता है। आपात स्थिति में SOS उपयोग करें।',
+                'ai.mood': 'मूड',
+                'ai.selected': 'चुना गया:',
+                'ai.sentiment': 'सेंटिमेंट:',
+                'ai.suggestedPrompt': 'सुझावित प्रॉम्प्ट',
+                'ai.journalPlaceholder': 'एक छोटा जर्नल एंट्री लिखें…',
+                'ai.saveEntry': 'एंट्री सेव करें',
+                'ai.exportJournal': 'जर्नल एक्सपोर्ट (JSON)',
+                'ai.onlineNote': 'ऑनलाइन AI Pollinations (gen.pollinations.ai) से सक्षम है।',
+                'ai.model.fast': 'तेज़',
+                'ai.model.balanced': 'संतुलित',
+                'ai.model.smart': 'स्मार्ट',
+                'ai.saveModel': 'मॉडल सेव करें',
+                'ai.askPlaceholder': 'कुछ भी पूछें...',
+
+                'med.searchPlaceholder': 'दवा का नाम लिखें...',
+                'med.search': 'खोजें',
+                'med.logbook': 'मेडिसिन लॉगबुक',
+                'med.logNote': 'माँ दवाएँ लॉग कर सकती है; सिंक होने पर पार्टनर देख सकता है।',
+                'med.namePlaceholder': 'दवा का नाम (जैसे, आयरन टैबलेट)',
+                'med.dosePlaceholder': 'डोज़ (जैसे, 1 टैब)',
+                'med.addEntry': 'एंट्री जोड़ें',
+
+                'doctors.subtitle': 'आपके रजिस्टर्ड पिनकोड के पास स्त्रीरोग विशेषज्ञ और अस्पताल दिखाए जा रहे हैं।',
+                'doctors.tab.gyn': 'स्त्रीरोग विशेषज्ञ',
+                'doctors.tab.hospital': 'अस्पताल',
+                'doctors.tab.ultrasound': 'अल्ट्रासाउंड/लैब',
+                'doctors.tab.pharmacy': 'फार्मेसी',
+                'doctors.tip': 'टिप: पूरी Google Maps सूची खोलने के लिए कार्ड पर टैप करें (छोटे मैप से आसान)।',
+
+                'india.emergencyTitle': 'इमरजेंसी क्विक एक्शन्स',
+                'india.emergencyNote': 'वन-टैप कॉल और भरोसेमंद लिंक। अगर कुछ गंभीर लगे तो तुरंत चिकित्सा सहायता लें।',
+                'india.indiaFocused': 'भारत-केंद्रित',
+                'india.emergency.112.title': '112 — राष्ट्रीय आपातकाल',
+                'india.emergency.112.sub': 'कई क्षेत्रों में पुलिस/एंबुलेंस/फायर के लिए।',
+                'india.emergency.108.title': '108 — एंबुलेंस',
+                'india.emergency.108.sub': 'आपातकालीन मेडिकल सेवा (कई राज्यों में)।',
+                'india.emergency.102.title': '102 — गर्भावस्था/बाल स्वास्थ्य',
+                'india.emergency.102.sub': 'मातृ + शिशु हेल्पलाइन (उपलब्धता अलग हो सकती है)।',
+                'india.emergency.1098.title': '1098 — CHILDLINE',
+                'india.emergency.1098.sub': 'बाल सुरक्षा हेल्पलाइन।',
+                'india.schemesTitle': 'योजनाएँ और टेलीमेडिसिन (क्विक लिंक)',
+                'india.schemesNote': 'ये लिंक लाभ, टेली-कंसल्ट और सेवाओं में मदद कर सकते हैं। (ऑफिशियल/पब्लिक साइट खुलेंगी।)',
+                'india.scheme.pmmvy': 'प्रधान मंत्री मातृ वंदना योजना (मातृत्व लाभ)।',
+                'india.scheme.nhm': 'राष्ट्रीय स्वास्थ्य मिशन योजना जानकारी (राज्य अनुसार अलग)।',
+                'india.scheme.esanjeevani': 'सरकारी टेलीमेडिसिन कंसल्ट।',
+                'india.scheme.pmjay': 'बीमा/लाभ पात्रता और जानकारी।',
+                'india.vaxTitle': 'टीकाकरण ट्रैकर (UIP-स्टाइल)',
+                'india.savedLocal': 'लोकली सेव (सिंक नहीं)',
+                'india.vaxIntro': 'एक बार बच्चे की DOB सेट करें, फिर ड्यू डेट ट्रैक करें। यह चेकलिस्ट मददगार है — डॉक्टर/सरकारी शेड्यूल मानें।',
+                'india.babyDob': 'बच्चे की DOB',
+                'india.special': 'विशेष',
+                'india.je.auto': 'JE: वैकल्पिक के रूप में दिखाएँ',
+                'india.je.on': 'JE: दिखाएँ (एंडेमिक क्षेत्र)',
+                'india.je.off': 'JE: छुपाएँ',
             },
             bn: {
                 'lang.label': 'ভাষা',
                 'lang.auto': 'অটো',
                 'lang.note': 'টিপ: যেকোনো সময় বদলাতে পারবেন।',
+                'btn.cancel': 'বাতিল',
                 'nav.dashboard': 'ড্যাশবোর্ড',
                 'nav.period': 'পিরিয়ড ট্র্যাকার',
                 'nav.baby': 'বেবি ট্র্যাকার',
@@ -1656,11 +2244,34 @@
                 'nav.community': 'কমিউনিটি',
                 'nav.sync': 'সিঙ্ক',
                 'nav.premium': 'প্রিমিয়াম',
+                'nav.settings': 'সেটিংস',
+                'mobile.home': 'হোম',
+                'mobile.ai': 'এআই',
+                'mobile.community': 'কমিউনিটি',
+                'mobile.chat': 'চ্যাট',
+                'mobile.more': 'আরও',
+                'more.title': 'সব ফিচার',
+                'settings.title': 'সেটিংস',
+                'settings.language': 'ভাষা',
+                'settings.languageNote': 'পুরো ইন্টারফেস বদলাবে (AI/চ্যাট মেসেজ অপরিবর্তিত)।',
+                'settings.apply': 'প্রয়োগ করুন',
+                'settings.theme': 'থিম',
+                'settings.toggleTheme': 'থিম বদলান',
+                'dash.overview': 'ওভারভিউ',
+                'dash.connected': 'সংযুক্ত',
+                'dash.checking': 'চেক করা হচ্ছে…',
+                'dash.subtitle': 'আপনার ফ্যামিলি ড্যাশবোর্ড লাইভ আপডেট হয় — চ্যাট, পিরিয়ড ক্যালেন্ডার এবং ডাক্তার লিংক।',
+                'dash.reminders': 'নরম রিমাইন্ডার',
+                'dash.babyFact': 'বেবি ফ্যাক্ট:',
+                'dash.aiSummary': 'এআই সারাংশ (আজ)',
+                'dash.syncCodeTitle': 'পার্টনার সিঙ্ক কোড',
+                'dash.syncCodeHint': 'অ্যাকাউন্ট লিঙ্ক করতে এই কোডটি পার্টনারকে দিন।',
             },
             te: {
                 'lang.label': 'భాష',
                 'lang.auto': 'ఆటో',
                 'lang.note': 'టిప్: మీరు ఎప్పుడైనా మార్చవచ్చు.',
+                'btn.cancel': 'రద్దు',
                 'nav.dashboard': 'డాష్‌బోర్డ్',
                 'nav.period': 'పీరియడ్ ట్రాకర్',
                 'nav.baby': 'బేబీ ట్రాకర్',
@@ -1673,11 +2284,34 @@
                 'nav.community': 'కమ్యూనిటీ',
                 'nav.sync': 'సింక్',
                 'nav.premium': 'ప్రీమియం',
+                'nav.settings': 'సెట్టింగ్స్',
+                'mobile.home': 'హోమ్',
+                'mobile.ai': 'ఏఐ',
+                'mobile.community': 'కమ్యూనిటీ',
+                'mobile.chat': 'చాట్',
+                'mobile.more': 'మరిన్ని',
+                'more.title': 'అన్ని ఫీచర్లు',
+                'settings.title': 'సెట్టింగ్స్',
+                'settings.language': 'భాష',
+                'settings.languageNote': 'మొత్తం ఇంటర్‌ఫేస్ మారుతుంది (AI/చాట్ మెసేజ్‌లు మారవు).',
+                'settings.apply': 'వర్తింపజేయండి',
+                'settings.theme': 'థీమ్',
+                'settings.toggleTheme': 'థీమ్ మార్చండి',
+                'dash.overview': 'ఓవerview',
+                'dash.connected': 'కనెక్ట్‌డ్',
+                'dash.checking': 'చెక్ అవుతోంది…',
+                'dash.subtitle': 'మీ ఫ్యామిలీ డ్యాష్‌బోర్డ్ లైవ్‌గా అప్‌డేట్ అవుతుంది — చాట్, పీరియడ్ క్యాలెండర్, డాక్టర్ లింక్స్.',
+                'dash.reminders': 'సౌమ్య రిమైండర్లు',
+                'dash.babyFact': 'బేబీ ఫ్యాక్ట్:',
+                'dash.aiSummary': 'ఏఐ సారాంశం (ఈ రోజు)',
+                'dash.syncCodeTitle': 'పార్ట్నర్ సింక్ కోడ్',
+                'dash.syncCodeHint': 'అకౌంట్లు లింక్ చేయడానికి ఈ కోడ్‌ను పార్ట్నర్‌తో షేర్ చేయండి.',
             },
             mr: {
                 'lang.label': 'भाषा',
                 'lang.auto': 'ऑटो',
                 'lang.note': 'टीप: तुम्ही कधीही बदलू शकता.',
+                'btn.cancel': 'रद्द',
                 'nav.dashboard': 'डॅशबोर्ड',
                 'nav.period': 'पीरियड ट्रॅकर',
                 'nav.baby': 'बेबी ट्रॅकर',
@@ -1690,11 +2324,34 @@
                 'nav.community': 'कम्युनिटी',
                 'nav.sync': 'सिंक',
                 'nav.premium': 'प्रीमियम',
+                'nav.settings': 'सेटिंग्ज',
+                'mobile.home': 'होम',
+                'mobile.ai': 'एआय',
+                'mobile.community': 'कम्युनिटी',
+                'mobile.chat': 'चॅट',
+                'mobile.more': 'आणखी',
+                'more.title': 'सर्व फीचर्स',
+                'settings.title': 'सेटिंग्ज',
+                'settings.language': 'भाषा',
+                'settings.languageNote': 'पूर्ण इंटरफेस बदलेल (AI/चॅट मेसेज नाही).',
+                'settings.apply': 'लागू करा',
+                'settings.theme': 'थीम',
+                'settings.toggleTheme': 'थीम बदला',
+                'dash.overview': 'आढावा',
+                'dash.connected': 'कनेक्टेड',
+                'dash.checking': 'तपासत आहे…',
+                'dash.subtitle': 'तुमचा फॅमिली डॅशबोर्ड लाईव्ह अपडेट होतो — चॅट, पीरियड कॅलेंडर आणि डॉक्टर लिंक.',
+                'dash.reminders': 'हलके रिमाइंडर्स',
+                'dash.babyFact': 'बेबी फॅक्ट:',
+                'dash.aiSummary': 'एआय सारांश (आज)',
+                'dash.syncCodeTitle': 'पार्टनर सिंक कोड',
+                'dash.syncCodeHint': 'अकाउंट लिंक करण्यासाठी हा कोड पार्टनरला द्या.',
             },
             ta: {
                 'lang.label': 'மொழி',
                 'lang.auto': 'ஆட்டோ',
                 'lang.note': 'டிப்: எப்போது வேண்டுமானாலும் மாற்றலாம்.',
+                'btn.cancel': 'ரத்து',
                 'nav.dashboard': 'டாஷ்போர்டு',
                 'nav.period': 'பீரியட் டிராக்கர்',
                 'nav.baby': 'பேபி டிராக்கர்',
@@ -1707,11 +2364,34 @@
                 'nav.community': 'கம்யூனிட்டி',
                 'nav.sync': 'சிங்க்',
                 'nav.premium': 'ப்ரீமியம்',
+                'nav.settings': 'அமைப்புகள்',
+                'mobile.home': 'ஹோம்',
+                'mobile.ai': 'ஏஐ',
+                'mobile.community': 'கம்யூனிட்டி',
+                'mobile.chat': 'சாட்',
+                'mobile.more': 'மேலும்',
+                'more.title': 'அனைத்து அம்சங்கள்',
+                'settings.title': 'அமைப்புகள்',
+                'settings.language': 'மொழி',
+                'settings.languageNote': 'முழு இடைமுகம் மாறும் (AI/சாட் செய்தி மாறாது).',
+                'settings.apply': 'பயன்படுத்து',
+                'settings.theme': 'தீம்',
+                'settings.toggleTheme': 'தீம் மாற்று',
+                'dash.overview': 'மேலோட்டம்',
+                'dash.connected': 'இணைந்தது',
+                'dash.checking': 'சரிபார்க்கிறது…',
+                'dash.subtitle': 'உங்கள் குடும்ப டாஷ்போர்டு லைவாக புதுப்பிக்கும் — சாட், பீரியட் காலண்டர், டாக்டர் லிங்குகள்.',
+                'dash.reminders': 'மென்மையான நினைவூட்டல்கள்',
+                'dash.babyFact': 'பேபி தகவல்:',
+                'dash.aiSummary': 'ஏஐ சுருக்கம் (இன்று)',
+                'dash.syncCodeTitle': 'பார்ட்னர் சிங்க் கோடு',
+                'dash.syncCodeHint': 'கணக்குகளை இணைக்க இந்த கோடை பார்ட்னருடன் பகிரவும்.',
             },
             ur: {
                 'lang.label': 'زبان',
                 'lang.auto': 'خودکار',
                 'lang.note': 'نوٹ: آپ کبھی بھی تبدیل کر سکتے ہیں۔',
+                'btn.cancel': 'منسوخ',
                 'nav.dashboard': 'ڈیش بورڈ',
                 'nav.period': 'پیریڈ ٹریکر',
                 'nav.baby': 'بیبی ٹریکر',
@@ -1724,11 +2404,34 @@
                 'nav.community': 'کمیونٹی',
                 'nav.sync': 'سنک',
                 'nav.premium': 'پریمیم',
+                'nav.settings': 'سیٹنگز',
+                'mobile.home': 'ہوم',
+                'mobile.ai': 'اے آئی',
+                'mobile.community': 'کمیونٹی',
+                'mobile.chat': 'چیٹ',
+                'mobile.more': 'مزید',
+                'more.title': 'تمام فیچرز',
+                'settings.title': 'سیٹنگز',
+                'settings.language': 'زبان',
+                'settings.languageNote': 'پورا انٹرفیس بدلے گا (AI/چیٹ پیغامات نہیں بدلیں گے)۔',
+                'settings.apply': 'لاگو کریں',
+                'settings.theme': 'تھیم',
+                'settings.toggleTheme': 'تھیم بدلیں',
+                'dash.overview': 'جائزہ',
+                'dash.connected': 'منسلک',
+                'dash.checking': 'چیک ہو رہا ہے…',
+                'dash.subtitle': 'آپ کا فیملی ڈیش بورڈ لائیو اپڈیٹ ہوتا ہے — چیٹ، پیریڈ کیلنڈر، اور ڈاکٹر لنکس۔',
+                'dash.reminders': 'نرم یاددہانیاں',
+                'dash.babyFact': 'بچے کی بات:',
+                'dash.aiSummary': 'اے آئی خلاصہ (آج)',
+                'dash.syncCodeTitle': 'پارٹنر سنک کوڈ',
+                'dash.syncCodeHint': 'اکاؤنٹ لنک کرنے کے لیے یہ کوڈ پارٹنر کو دیں۔',
             },
             gu: {
                 'lang.label': 'ભાષા',
                 'lang.auto': 'ઓટો',
                 'lang.note': 'ટીપ: તમે ક્યારેય પણ બદલી શકો છો.',
+                'btn.cancel': 'રદ કરો',
                 'nav.dashboard': 'ડેશબોર્ડ',
                 'nav.period': 'પિરિયડ ટ્રૅકર',
                 'nav.baby': 'બેબી ટ્રૅકર',
@@ -1741,11 +2444,34 @@
                 'nav.community': 'કમ્યુનિટી',
                 'nav.sync': 'સિંક',
                 'nav.premium': 'પ્રીમિયમ',
+                'nav.settings': 'સેટિંગ્સ',
+                'mobile.home': 'હોમ',
+                'mobile.ai': 'એઆઈ',
+                'mobile.community': 'કમ્યુનિટી',
+                'mobile.chat': 'ચેટ',
+                'mobile.more': 'વધુ',
+                'more.title': 'બધી સુવિધાઓ',
+                'settings.title': 'સેટિંગ્સ',
+                'settings.language': 'ભાષા',
+                'settings.languageNote': 'પૂર્ણ ઇન્ટરફેસ બદલાશે (AI/ચેટ મેસેજ નહીં).',
+                'settings.apply': 'લાગુ કરો',
+                'settings.theme': 'થીમ',
+                'settings.toggleTheme': 'થીમ બદલો',
+                'dash.overview': 'ઓવરવ્યૂ',
+                'dash.connected': 'કનેક્ટેડ',
+                'dash.checking': 'ચેક થઈ રહ્યું છે…',
+                'dash.subtitle': 'તમારું ફેમિલી ડેશબોર્ડ લાઇવ અપડેટ થાય છે — ચેટ, પિરિયડ કેલેન્ડર અને ડૉક્ટર લિંક્સ.',
+                'dash.reminders': 'સોફ્ટ રિમાઇન્ડર્સ',
+                'dash.babyFact': 'બેબી ફેક્ટ:',
+                'dash.aiSummary': 'એઆઈ સારાંશ (આજે)',
+                'dash.syncCodeTitle': 'પાર્ટનર સિંક કોડ',
+                'dash.syncCodeHint': 'એકાઉન્ટ લિંક કરવા માટે આ કોડ પાર્ટનરને આપો.',
             },
             kn: {
                 'lang.label': 'ಭಾಷೆ',
                 'lang.auto': 'ಆಟೋ',
                 'lang.note': 'ಟಿಪ್: ನೀವು ಯಾವಾಗ ಬೇಕಾದರೂ ಬದಲಿಸಬಹುದು.',
+                'btn.cancel': 'ರದ್ದು',
                 'nav.dashboard': 'ಡ್ಯಾಶ್‌ಬೋರ್ಡ್',
                 'nav.period': 'ಪಿರಿಯಡ್ ಟ್ರ್ಯಾಕರ್',
                 'nav.baby': 'ಬೇಬಿ ಟ್ರ್ಯಾಕರ್',
@@ -1758,11 +2484,34 @@
                 'nav.community': 'ಕಮ್ಯೂನಿಟಿ',
                 'nav.sync': 'ಸಿಂಕ್',
                 'nav.premium': 'ಪ್ರೀಮಿಯಮ್',
+                'nav.settings': 'ಸೆಟ್ಟಿಂಗ್ಗಳು',
+                'mobile.home': 'ಹೋಮ್',
+                'mobile.ai': 'ಎಐ',
+                'mobile.community': 'ಕಮ್ಯೂನಿಟಿ',
+                'mobile.chat': 'ಚಾಟ್',
+                'mobile.more': 'ಇನ್ನಷ್ಟು',
+                'more.title': 'ಎಲ್ಲಾ ವೈಶಿಷ್ಟ್ಯಗಳು',
+                'settings.title': 'ಸೆಟ್ಟಿಂಗ್ಗಳು',
+                'settings.language': 'ಭಾಷೆ',
+                'settings.languageNote': 'ಪೂರ್ಣ ಇಂಟರ್ಫೇಸ್ ಬದಲಾಗುತ್ತದೆ (AI/ಚಾಟ್ ಸಂದೇಶಗಳು ಅಲ್ಲ).',
+                'settings.apply': 'ಅನ್ವಯಿಸಿ',
+                'settings.theme': 'ಥೀಮ್',
+                'settings.toggleTheme': 'ಥೀಮ್ ಬದಲಿಸಿ',
+                'dash.overview': 'ಒವರ್‌ವ್ಯೂ',
+                'dash.connected': 'ಕನೆಕ್ಟೆಡ್',
+                'dash.checking': 'ಪರಿಶೀಲಿಸಲಾಗುತ್ತಿದೆ…',
+                'dash.subtitle': 'ನಿಮ್ಮ ಕುಟುಂಬ ಡ್ಯಾಶ್‌ಬೋರ್ಡ್ ಲೈವ್ ಅಪ್‌ಡೇಟ್ ಆಗುತ್ತದೆ — ಚಾಟ್, ಪಿರಿಯಡ್ ಕ್ಯಾಲೆಂಡರ್, ಡಾಕ್ಟರ್ ಲಿಂಕ್ಸ್.',
+                'dash.reminders': 'ಮೃದು ರಿಮೈಂಡರ್‌ಗಳು',
+                'dash.babyFact': 'ಬೇಬಿ ಫ್ಯಾಕ್ಟ್:',
+                'dash.aiSummary': 'ಎಐ ಸಾರಾಂಶ (ಇಂದು)',
+                'dash.syncCodeTitle': 'ಪಾರ್ಟ್ನರ್ ಸಿಂಕ್ ಕೋಡ್',
+                'dash.syncCodeHint': 'ಖಾತೆ ಲಿಂಕ್ ಮಾಡಲು ಈ ಕೋಡ್ ಅನ್ನು ಪಾರ್ಟ್ನರ್ ಜೊತೆ ಹಂಚಿಕೊಳ್ಳಿ.',
             },
             ml: {
                 'lang.label': 'ഭാഷ',
                 'lang.auto': 'ഓട്ടോ',
                 'lang.note': 'ടിപ്പ്: നിങ്ങൾക്ക് ഏത് സമയത്തും മാറ്റാം.',
+                'btn.cancel': 'റദ്ദാക്കുക',
                 'nav.dashboard': 'ഡാഷ്ബോർഡ്',
                 'nav.period': 'പീരിയഡ് ട്രാക്കർ',
                 'nav.baby': 'ബേബി ട്രാക്കർ',
@@ -1775,11 +2524,34 @@
                 'nav.community': 'കമ്മ്യൂണിറ്റി',
                 'nav.sync': 'സിങ്ക്',
                 'nav.premium': 'പ്രീമിയം',
+                'nav.settings': 'സെറ്റിംഗ്സ്',
+                'mobile.home': 'ഹോം',
+                'mobile.ai': 'എഐ',
+                'mobile.community': 'കമ്മ്യൂണിറ്റി',
+                'mobile.chat': 'ചാറ്റ്',
+                'mobile.more': 'കൂടുതൽ',
+                'more.title': 'എല്ലാ ഫീച്ചറുകൾ',
+                'settings.title': 'സെറ്റിംഗ്സ്',
+                'settings.language': 'ഭാഷ',
+                'settings.languageNote': 'മുഴുവൻ ഇന്റർഫേസ് മാറും (AI/ചാറ്റ് മെസ്സേജുകൾ അല്ല).',
+                'settings.apply': 'പ്രയോഗിക്കുക',
+                'settings.theme': 'തീം',
+                'settings.toggleTheme': 'തീം മാറ്റുക',
+                'dash.overview': 'ഓവർവ്യൂ',
+                'dash.connected': 'കണക്റ്റഡ്',
+                'dash.checking': 'ചെക്ക് ചെയ്യുന്നു…',
+                'dash.subtitle': 'നിങ്ങളുടെ ഫാമിലി ഡാഷ്ബോർഡ് ലൈവായി അപ്ഡേറ്റ് ചെയ്യും — ചാറ്റ്, പീരിയഡ് കലണ്ടർ, ഡോക്ടർ ലിങ്കുകൾ.',
+                'dash.reminders': 'സൗമ്യ റിമൈണ്ടറുകൾ',
+                'dash.babyFact': 'ബേബി ഫാക്ട്:',
+                'dash.aiSummary': 'എഐ സംഗ്രഹം (ഇന്ന്)',
+                'dash.syncCodeTitle': 'പാർട്ണർ സിങ്ക് കോഡ്',
+                'dash.syncCodeHint': 'അക്കൗണ്ട് ലിങ്ക് ചെയ്യാൻ ഈ കോഡ് പാർട്ണറുമായി പങ്കിടുക.',
             },
             pa: {
                 'lang.label': 'ਭਾਸ਼ਾ',
                 'lang.auto': 'ਆਟੋ',
                 'lang.note': 'ਟਿਪ: ਤੁਸੀਂ ਕਦੇ ਵੀ ਬਦਲ ਸਕਦੇ ਹੋ।',
+                'btn.cancel': 'ਰੱਦ ਕਰੋ',
                 'nav.dashboard': 'ਡੈਸ਼ਬੋਰਡ',
                 'nav.period': 'ਪੀਰੀਅਡ ਟ੍ਰੈਕਰ',
                 'nav.baby': 'ਬੇਬੀ ਟ੍ਰੈਕਰ',
@@ -1792,11 +2564,34 @@
                 'nav.community': 'ਕਮਿਊਨਿਟੀ',
                 'nav.sync': 'ਸਿੰਕ',
                 'nav.premium': 'ਪ੍ਰੀਮੀਅਮ',
+                'nav.settings': 'ਸੈਟਿੰਗਜ਼',
+                'mobile.home': 'ਹੋਮ',
+                'mobile.ai': 'ਏਆਈ',
+                'mobile.community': 'ਕਮਿਊਨਿਟੀ',
+                'mobile.chat': 'ਚੈਟ',
+                'mobile.more': 'ਹੋਰ',
+                'more.title': 'ਸਾਰੇ ਫੀਚਰ',
+                'settings.title': 'ਸੈਟਿੰਗਜ਼',
+                'settings.language': 'ਭਾਸ਼ਾ',
+                'settings.languageNote': 'ਪੂਰਾ ਇੰਟਰਫੇਸ ਬਦਲੇਗਾ (AI/ਚੈਟ ਮੈਸੇਜ ਨਹੀਂ)।',
+                'settings.apply': 'ਲਾਗੂ ਕਰੋ',
+                'settings.theme': 'ਥੀਮ',
+                'settings.toggleTheme': 'ਥੀਮ ਬਦਲੋ',
+                'dash.overview': 'ਓਵਰਵਿਊ',
+                'dash.connected': 'ਕਨੈਕਟਡ',
+                'dash.checking': 'ਚੈੱਕ ਕਰ ਰਿਹਾ…',
+                'dash.subtitle': 'ਤੁਹਾਡਾ ਫੈਮਿਲੀ ਡੈਸ਼ਬੋਰਡ ਲਾਈਵ ਅਪਡੇਟ ਹੁੰਦਾ — ਚੈਟ, ਪੀਰੀਅਡ ਕੈਲੰਡਰ, ਡਾਕਟਰ ਲਿੰਕ।',
+                'dash.reminders': 'ਨਰਮ ਰਿਮਾਈਂਡਰ',
+                'dash.babyFact': 'ਬੇਬੀ ਫੈਕਟ:',
+                'dash.aiSummary': 'ਏਆਈ ਸੰਖੇਪ (ਅੱਜ)',
+                'dash.syncCodeTitle': 'ਪਾਰਟਨਰ ਸਿੰਕ ਕੋਡ',
+                'dash.syncCodeHint': 'ਅਕਾਊਂਟ ਲਿੰਕ ਕਰਨ ਲਈ ਇਹ ਕੋਡ ਪਾਰਟਨਰ ਨੂੰ ਦਿਓ।',
             },
             es: {
                 'lang.label': 'Idioma',
                 'lang.auto': 'Auto',
                 'lang.note': 'Consejo: puedes cambiar en cualquier momento.',
+                'btn.cancel': 'Cancelar',
                 'nav.dashboard': 'Panel',
                 'nav.period': 'Ciclo',
                 'nav.baby': 'Bebé',
@@ -1809,11 +2604,34 @@
                 'nav.community': 'Comunidad',
                 'nav.sync': 'Sincronizar',
                 'nav.premium': 'Premium',
+                'nav.settings': 'Ajustes',
+                'mobile.home': 'Inicio',
+                'mobile.ai': 'IA',
+                'mobile.community': 'Comunidad',
+                'mobile.chat': 'Chat',
+                'mobile.more': 'Más',
+                'more.title': 'Todas las funciones',
+                'settings.title': 'Ajustes',
+                'settings.language': 'Idioma',
+                'settings.languageNote': 'Cambia la interfaz (los chats no se traducen).',
+                'settings.apply': 'Aplicar',
+                'settings.theme': 'Tema',
+                'settings.toggleTheme': 'Cambiar tema',
+                'dash.overview': 'Resumen',
+                'dash.connected': 'Conectado',
+                'dash.checking': 'Comprobando…',
+                'dash.subtitle': 'Tu panel familiar se actualiza en vivo: chat, calendario y doctores.',
+                'dash.reminders': 'Recordatorios suaves',
+                'dash.babyFact': 'Dato del bebé:',
+                'dash.aiSummary': 'Resumen IA (hoy)',
+                'dash.syncCodeTitle': 'Código de sincronización',
+                'dash.syncCodeHint': 'Compártelo con tu pareja para vincular cuentas.',
             },
             fr: {
                 'lang.label': 'Langue',
                 'lang.auto': 'Auto',
                 'lang.note': 'Astuce : vous pouvez changer à tout moment.',
+                'btn.cancel': 'Annuler',
                 'nav.dashboard': 'Tableau de bord',
                 'nav.period': 'Cycle',
                 'nav.baby': 'Bébé',
@@ -1826,11 +2644,34 @@
                 'nav.community': 'Communauté',
                 'nav.sync': 'Synchroniser',
                 'nav.premium': 'Premium',
+                'nav.settings': 'Paramètres',
+                'mobile.home': 'Accueil',
+                'mobile.ai': 'IA',
+                'mobile.community': 'Communauté',
+                'mobile.chat': 'Chat',
+                'mobile.more': 'Plus',
+                'more.title': 'Toutes les fonctionnalités',
+                'settings.title': 'Paramètres',
+                'settings.language': 'Langue',
+                'settings.languageNote': 'Change l’interface (les chats ne sont pas traduits).',
+                'settings.apply': 'Appliquer',
+                'settings.theme': 'Thème',
+                'settings.toggleTheme': 'Changer le thème',
+                'dash.overview': 'Aperçu',
+                'dash.connected': 'Connecté',
+                'dash.checking': 'Vérification…',
+                'dash.subtitle': 'Votre tableau de bord familial se met à jour en direct — chat, calendrier, médecins.',
+                'dash.reminders': 'Rappels doux',
+                'dash.babyFact': 'Info bébé :',
+                'dash.aiSummary': 'Résumé IA (aujourd’hui)',
+                'dash.syncCodeTitle': 'Code de synchronisation',
+                'dash.syncCodeHint': 'Partagez ce code pour lier les comptes.',
             },
             ar: {
                 'lang.label': 'اللغة',
                 'lang.auto': 'تلقائي',
                 'lang.note': 'ملاحظة: يمكنك التغيير في أي وقت.',
+                'btn.cancel': 'إلغاء',
                 'nav.dashboard': 'لوحة التحكم',
                 'nav.period': 'متابعة الدورة',
                 'nav.baby': 'متابعة الجنين',
@@ -1843,6 +2684,28 @@
                 'nav.community': 'المجتمع',
                 'nav.sync': 'مزامنة',
                 'nav.premium': 'بريميوم',
+                'nav.settings': 'الإعدادات',
+                'mobile.home': 'الرئيسية',
+                'mobile.ai': 'الذكاء',
+                'mobile.community': 'المجتمع',
+                'mobile.chat': 'محادثة',
+                'mobile.more': 'المزيد',
+                'more.title': 'كل الميزات',
+                'settings.title': 'الإعدادات',
+                'settings.language': 'اللغة',
+                'settings.languageNote': 'تغيير الواجهة (لن نترجم رسائل الدردشة).',
+                'settings.apply': 'تطبيق',
+                'settings.theme': 'المظهر',
+                'settings.toggleTheme': 'تبديل المظهر',
+                'dash.overview': 'نظرة عامة',
+                'dash.connected': 'متصل',
+                'dash.checking': 'جارٍ التحقق…',
+                'dash.subtitle': 'تحديث مباشر للوحة العائلة — محادثة، تقويم، وروابط الأطباء.',
+                'dash.reminders': 'تذكيرات لطيفة',
+                'dash.babyFact': 'معلومة عن الطفل:',
+                'dash.aiSummary': 'ملخص الذكاء (اليوم)',
+                'dash.syncCodeTitle': 'رمز المزامنة',
+                'dash.syncCodeHint': 'شارك هذا الرمز لربط الحسابين.',
             }
         };
 
@@ -1889,23 +2752,66 @@
                 sel.addEventListener('change', () => {
                     appLang = sel.value || 'auto';
                     localStorage.setItem('appLang', appLang);
+                    const msel = document.getElementById('lang-menu-select');
+                    const ssel = document.getElementById('settings-lang-select');
+                    if(msel) msel.value = appLang;
+                    if(ssel) ssel.value = appLang;
                     applyI18n(document);
                 });
             }
+            const msel = document.getElementById('lang-menu-select');
+            if(msel) msel.value = appLang || 'auto';
+            const ssel = document.getElementById('settings-lang-select');
+            if(ssel) ssel.value = appLang || 'auto';
             applyI18n(document);
         }
 
         window.openLangMenu = () => {
-            const sel = document.getElementById('lang-select');
-            if(sel) {
-                sel.focus();
-                sel.click();
+            const menu = document.getElementById('lang-menu');
+            const msel = document.getElementById('lang-menu-select');
+            if(msel) msel.value = appLang || 'auto';
+            if(menu) {
+                menu.classList.remove('hidden');
+                applyI18n(menu);
                 return;
             }
+            // Fallback prompt (should rarely happen)
             const next = prompt('Language (auto/en/hi/bn/te/mr/ta/ur/gu/kn/ml/pa/es/fr/ar):', appLang || 'auto');
             if(!next) return;
             appLang = next;
             localStorage.setItem('appLang', appLang);
+            applyI18n(document);
+        };
+
+        window.closeLangMenu = (ev) => {
+            const menu = document.getElementById('lang-menu');
+            if(!menu) return;
+            if(ev && ev.target && ev.target.id !== 'lang-menu') return;
+            menu.classList.add('hidden');
+        };
+
+        window.applyLangFromMenu = () => {
+            const msel = document.getElementById('lang-menu-select');
+            const next = msel?.value || 'auto';
+            appLang = next;
+            localStorage.setItem('appLang', appLang);
+            const sel = document.getElementById('lang-select');
+            const ssel = document.getElementById('settings-lang-select');
+            if(sel) sel.value = appLang;
+            if(ssel) ssel.value = appLang;
+            applyI18n(document);
+            closeLangMenu();
+        };
+
+        window.applySettingsLanguage = () => {
+            const ssel = document.getElementById('settings-lang-select');
+            const next = ssel?.value || 'auto';
+            appLang = next;
+            localStorage.setItem('appLang', appLang);
+            const sel = document.getElementById('lang-select');
+            const msel = document.getElementById('lang-menu-select');
+            if(sel) sel.value = appLang;
+            if(msel) msel.value = appLang;
             applyI18n(document);
         };
 
