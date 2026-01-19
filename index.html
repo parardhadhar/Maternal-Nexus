@@ -4995,7 +4995,7 @@
                     setupProfileEditor();
                 }
 
-                if(data.sosActive) triggerSOSAlert();
+                if(data.sosActive) maybeTriggerRemoteSOS(data, targetId);
             });
 
             // Chats
@@ -5203,23 +5203,80 @@
         }
 
         // SOS
-        window.activateSOS = async () => {
-            if(confirm("SEND ALERT?")) {
-                await updateDoc(doc(db, 'artifacts', appId, 'public', 'data', 'users', user.uid), { sosActive: true, sosTime: serverTimestamp() });
-                triggerSOSAlert();
-                setTimeout(() => updateDoc(doc(db, 'artifacts', appId, 'public', 'data', 'users', user.uid), { sosActive: false }), 60000);
-            }
+        const SOS_LAST_KEY_PREFIX = 'mn_last_sos_';
+        let sosAutoClearTimer = null;
+
+        function sosTimeToKey(sosTime) {
+            try {
+                if(!sosTime) return '';
+                if(typeof sosTime?.toMillis === 'function') return String(sosTime.toMillis());
+                if(typeof sosTime === 'number') return String(sosTime);
+                if(typeof sosTime === 'string') return String(Date.parse(sosTime) || sosTime);
+                if(sosTime instanceof Date) return String(sosTime.getTime());
+            } catch(e) {}
+            return '';
+        }
+
+        function isSOSOverlayVisible() {
+            const el = document.getElementById('sos-alert-screen');
+            return !!el && !el.classList.contains('hidden');
         }
 
         function triggerSOSAlert() {
-            document.getElementById('sos-alert-screen').classList.remove('hidden');
+            const el = document.getElementById('sos-alert-screen');
+            if(!el) return;
+            if(!el.classList.contains('hidden')) return; // prevent repeat spam
+            el.classList.remove('hidden');
             document.getElementById('alarm-sound').play().catch(e=>{});
             if(navigator.vibrate) navigator.vibrate([1000, 500, 1000]);
         }
 
-        window.dismissSOS = () => {
-            document.getElementById('sos-alert-screen').classList.add('hidden');
-            document.getElementById('alarm-sound').pause();
+        function maybeTriggerRemoteSOS(data, senderUid) {
+            // De-dupe: only trigger once per SOS event (sosTime)
+            const key = sosTimeToKey(data?.sosTime);
+            const storeKey = SOS_LAST_KEY_PREFIX + String(senderUid || 'unknown');
+            const last = localStorage.getItem(storeKey) || '';
+            if(key && key === last) return;
+            if(isSOSOverlayVisible()) {
+                // If already visible, still record the event so it doesn't re-trigger later
+                if(key) localStorage.setItem(storeKey, key);
+                return;
+            }
+            triggerSOSAlert();
+            if(key) localStorage.setItem(storeKey, key);
+        }
+
+        window.activateSOS = async () => {
+            if(!confirm('SEND ALERT?')) return;
+            try {
+                await updateDoc(doc(db, 'artifacts', appId, 'public', 'data', 'users', user.uid), {
+                    sosActive: true,
+                    sosTime: serverTimestamp()
+                });
+            } catch(e) {
+                // still show locally
+            }
+            triggerSOSAlert();
+
+            if(sosAutoClearTimer) { try { clearTimeout(sosAutoClearTimer); } catch(e) {} }
+            sosAutoClearTimer = setTimeout(async () => {
+                try {
+                    await updateDoc(doc(db, 'artifacts', appId, 'public', 'data', 'users', user.uid), { sosActive: false });
+                } catch(e) {}
+            }, 60000);
+        }
+
+        window.dismissSOS = async () => {
+            const el = document.getElementById('sos-alert-screen');
+            if(el) el.classList.add('hidden');
+            try { document.getElementById('alarm-sound').pause(); } catch(e) {}
+
+            // If the user who triggered SOS cancels it, clear their sosActive immediately.
+            if(sosAutoClearTimer) { try { clearTimeout(sosAutoClearTimer); } catch(e) {} }
+            sosAutoClearTimer = null;
+            try {
+                await updateDoc(doc(db, 'artifacts', appId, 'public', 'data', 'users', user.uid), { sosActive: false });
+            } catch(e) {}
         }
 
         // COMMUNITY (Interactive)
