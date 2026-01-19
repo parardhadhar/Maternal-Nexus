@@ -186,7 +186,7 @@
             font-weight: 800;
         }
         .lang-float:hover { transform: translateY(-1px); }
-        @media (max-width: 768px) { .lang-float { top: 74px; } }
+        @media (max-width: 768px) { .lang-float { display: none; } }
         @keyframes pulse { 0% { box-shadow: 0 0 0 0 rgba(244, 63, 94, 0.7); } 70% { box-shadow: 0 0 0 15px rgba(244, 63, 94, 0); } 100% { box-shadow: 0 0 0 0 rgba(244, 63, 94, 0); } }
 
         /* --- Overlays --- */
@@ -290,6 +290,34 @@
         .reaction-btn:hover { color: var(--text-main); border-color: rgba(13,148,136,0.35); }
         .reaction-btn.on { color: var(--secondary); border-color: rgba(244,63,94,0.35); }
 
+        /* --- Smile Corner + Moments (Dashboard delight) --- */
+        .smile-card { position: relative; overflow: hidden; }
+        .smile-bg { position:absolute; inset:-40px; pointer-events:none; opacity: 0.7; }
+        .smile-bubble { position:absolute; width: 140px; height: 140px; border-radius: 999px; background: radial-gradient(circle at 30% 30%, rgba(255,255,255,0.9), rgba(244,63,94,0.16)); filter: blur(0.2px); animation: smileFloat 7.2s ease-in-out infinite; }
+        .smile-bubble.b1 { left: -20px; top: -30px; animation-delay: 0.2s; }
+        .smile-bubble.b2 { right: -30px; bottom: -40px; background: radial-gradient(circle at 30% 30%, rgba(255,255,255,0.9), rgba(13,148,136,0.16)); animation-delay: 1.1s; }
+        @keyframes smileFloat { 0% { transform: translateY(0) scale(1); } 50% { transform: translateY(10px) scale(1.04); } 100% { transform: translateY(0) scale(1); } }
+
+        .smile-quote { font-family: 'Fredoka', sans-serif; font-size: 18px; line-height: 1.45; margin-top: 10px; }
+        .smile-sub { font-size: 12px; color: var(--text-muted); margin-top: 8px; line-height: 1.6; }
+        .smile-toast { margin-top: 10px; font-size: 12px; font-weight: 800; color: #047857; background: #ecfdf5; border: 1px solid rgba(16,185,129,0.25); border-radius: 12px; padding: 8px 10px; display:none; }
+        [data-theme="dark"] .smile-toast { color: #86efac; background: rgba(16,185,129,0.10); border-color: rgba(16,185,129,0.22); }
+
+        .moment-row { display:flex; gap:10px; flex-wrap: wrap; align-items: center; margin-top: 10px; }
+        .sticker-select { display:flex; gap: 8px; flex-wrap: wrap; }
+        .sticker-chip { cursor:pointer; user-select:none; display:inline-flex; align-items:center; justify-content:center; width: 36px; height: 36px; border-radius: 12px; border: 1px solid var(--border); background: var(--bg-body); font-size: 18px; }
+        .sticker-chip.active { border-color: rgba(244,63,94,0.35); box-shadow: 0 0 0 3px rgba(244,63,94,0.10); }
+
+        .moments-list { margin-top: 12px; display:flex; flex-direction: column; gap: 10px; }
+        .moment-item { display:flex; gap: 10px; align-items:flex-start; background: var(--bg-body); border: 1px solid var(--border); border-radius: 14px; padding: 12px; }
+        .moment-sticker { width: 40px; height: 40px; border-radius: 14px; display:grid; place-items:center; background: rgba(244,63,94,0.10); border: 1px solid rgba(244,63,94,0.20); font-size: 22px; flex-shrink: 0; }
+        .moment-text { flex: 1; min-width: 200px; }
+        .moment-meta { margin-top: 6px; font-size: 11px; color: var(--text-muted); display:flex; gap:8px; flex-wrap:wrap; }
+
+        .confetti-layer { position: fixed; inset: 0; pointer-events: none; z-index: 5000; overflow: hidden; }
+        .confetti { position: absolute; width: 10px; height: 14px; border-radius: 3px; opacity: 0.95; transform: translateY(-20px) rotate(0deg); animation: confettiFall 1200ms ease-out forwards; }
+        @keyframes confettiFall { 0% { transform: translateY(-30px) rotate(0deg); opacity: 0.95; } 100% { transform: translateY(105vh) rotate(520deg); opacity: 0.0; } }
+
         /* --- Emoji Picker --- */
         .emoji-picker {
             display: none; position: absolute; bottom: 60px; right: 20px;
@@ -325,6 +353,28 @@
             display: none;
         }
         .has-bubble .nav-bubble { display: block; }
+
+        /* --- Updates dot (Settings / What's New) --- */
+        .nav-dot {
+            position: absolute;
+            top: 10px;
+            right: 12px;
+            width: 10px;
+            height: 10px;
+            background: var(--accent);
+            border-radius: 50%;
+            box-shadow: 0 0 0 3px var(--bg-card);
+            display: none;
+        }
+        .has-dot .nav-dot { display: block; }
+        .nav-dot.pulse { animation: dotPulse 1.5s ease-in-out infinite; }
+        @keyframes dotPulse { 0% { transform: scale(1); opacity: 0.65; } 50% { transform: scale(1.22); opacity: 1; } 100% { transform: scale(1); opacity: 0.65; } }
+
+        .updates-banner { display:none; background: linear-gradient(135deg, rgba(59,130,246,0.10) 0%, rgba(244,63,94,0.10) 100%); border: 1px solid rgba(59,130,246,0.22); border-radius: 16px; padding: 14px; margin-bottom: 18px; }
+        .updates-banner.show { display:block; }
+        .updates-list { margin-top: 10px; display:flex; flex-direction: column; gap: 10px; }
+        .updates-item { background: var(--bg-body); border: 1px solid var(--border); border-radius: 14px; padding: 12px; }
+        .updates-meta { font-size: 12px; color: var(--text-muted); margin-top: 6px; }
 
         /* --- Period Tracker (Floral Circle) --- */
         .period-shell { display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 18px; align-items: center; }
@@ -645,7 +695,7 @@
                     <div class="nav-item" onclick="nav('community')" id="nav-community-desk"><i class="fa-solid fa-users"></i> <span data-i18n="nav.community">Community</span> <span class="nav-bubble"></span></div>
                     <div class="nav-item" onclick="nav('sync')"><i class="fa-solid fa-link"></i> <span data-i18n="nav.sync">Sync</span></div>
                     <div class="nav-item" onclick="nav('premium')"><i class="fa-solid fa-crown"></i> <span data-i18n="nav.premium">Premium</span></div>
-                    <div class="nav-item" onclick="nav('settings')"><i class="fa-solid fa-gear"></i> <span data-i18n="nav.settings">Settings</span></div>
+                    <div class="nav-item" onclick="nav('settings')" id="nav-settings-desk"><i class="fa-solid fa-gear"></i> <span data-i18n="nav.settings">Settings</span> <span class="nav-dot pulse" id="nav-updates-dot-desk"></span></div>
                 </div>
                 
                 <div style="margin-top: 16px; flex-shrink: 0;">
@@ -739,12 +789,70 @@
                         <div class="dash-fact" id="dash-daily-fact"><b data-i18n="dash.babyFact">Baby fact:</b> —</div>
                     </div>
 
+                    <div class="updates-banner" id="updates-banner">
+                        <div style="display:flex; justify-content:space-between; align-items:flex-start; gap: 10px; flex-wrap: wrap;">
+                            <div>
+                                <div style="font-weight: 900;"><i class="fa-solid fa-wand-magic-sparkles" style="color: var(--accent);"></i> What’s new in <span id="updates-banner-version">—</span></div>
+                                <div class="updates-meta" id="updates-banner-sub">—</div>
+                            </div>
+                            <div style="display:flex; gap: 10px; flex-wrap: wrap;">
+                                <button class="btn btn-primary" style="padding: 10px 14px;" onclick="openUpdatesModal()"><i class="fa-solid fa-rocket"></i> See updates</button>
+                                <button class="btn btn-secondary" style="padding: 10px 14px;" onclick="dismissUpdates()"><i class="fa-solid fa-check"></i> Got it</button>
+                            </div>
+                        </div>
+                    </div>
+
                     <div class="card" id="dash-ai-daily-card" style="margin-bottom: 18px;">
                         <div style="display:flex; justify-content:space-between; align-items:center; gap: 10px; flex-wrap: wrap;">
                             <h3 style="margin:0;"><i class="fa-solid fa-brain" style="color: var(--primary);"></i> <span data-i18n="dash.aiSummary">AI Summary (today)</span></h3>
                             <span class="text-muted" style="font-size: 12px;" id="dash-ai-daily-meta">--</span>
                         </div>
                         <div class="text-muted" style="margin-top: 10px; line-height: 1.6;" id="dash-ai-daily-content" data-i18n="chat.noSharedSummary">No shared AI summary yet.</div>
+                    </div>
+
+                    <div class="card smile-card" id="dash-smile-card" style="margin-bottom: 18px;">
+                        <div class="smile-bg" aria-hidden="true"><div class="smile-bubble b1"></div><div class="smile-bubble b2"></div></div>
+                        <div style="display:flex; justify-content:space-between; align-items:center; gap: 10px; flex-wrap: wrap; position: relative;">
+                            <h3 style="margin:0;"><i class="fa-solid fa-heart" style="color: var(--secondary);"></i> Smile Corner</h3>
+                            <span class="pill muted" id="smile-date-pill">—</span>
+                        </div>
+                        <div class="smile-quote" id="smile-quote">—</div>
+                        <div class="smile-sub">Tiny rituals make tough days feel lighter. Save a moment, send kudos, and celebrate the little wins.</div>
+                        <div style="display:flex; gap: 10px; flex-wrap: wrap; margin-top: 12px;">
+                            <button class="btn btn-secondary" onclick="shuffleSmileQuote()"><i class="fa-solid fa-shuffle"></i> New affirmation</button>
+                            <button class="btn btn-primary" id="kudos-btn" onclick="sendKudos()"><i class="fa-solid fa-paper-plane"></i> Send kudos to partner</button>
+                        </div>
+                        <div class="smile-toast" id="smile-toast">—</div>
+                    </div>
+
+                    <div class="card" id="dash-moments-card" style="margin-bottom: 18px;">
+                        <div style="display:flex; justify-content:space-between; align-items:center; gap:10px; flex-wrap:wrap;">
+                            <h3 style="margin:0;"><i class="fa-solid fa-camera-retro" style="color: var(--primary);"></i> Milestone Moments</h3>
+                            <span class="text-muted" style="font-size:12px;" id="moments-meta">—</span>
+                        </div>
+                        <div class="text-muted" style="font-size:12px; margin-top:8px; line-height:1.6;">Save sweet memories (first kicks, a good nap, a kind gesture). Later this can power a premium “Memory Book”.</div>
+
+                        <div class="moment-row">
+                            <input type="text" id="moment-input" class="input" placeholder="Add a tiny moment…" style="margin:0; flex: 1; min-width: 220px;">
+                            <button class="btn btn-primary" onclick="addMoment()"><i class="fa-solid fa-plus"></i> Add</button>
+                            <button class="btn btn-secondary" onclick="exportMomentsJson()"><i class="fa-solid fa-download"></i> Export</button>
+                        </div>
+
+                        <div style="margin-top: 10px;">
+                            <div class="text-muted" style="font-size: 12px; font-weight: 800;">Pick a sticker</div>
+                            <div class="sticker-select" id="moment-stickers">
+                                <span class="sticker-chip active" data-sticker="✨" onclick="selectMomentSticker('✨')">✨</span>
+                                <span class="sticker-chip" data-sticker="👶" onclick="selectMomentSticker('👶')">👶</span>
+                                <span class="sticker-chip" data-sticker="🍼" onclick="selectMomentSticker('🍼')">🍼</span>
+                                <span class="sticker-chip" data-sticker="😴" onclick="selectMomentSticker('😴')">😴</span>
+                                <span class="sticker-chip" data-sticker="💗" onclick="selectMomentSticker('💗')">💗</span>
+                                <span class="sticker-chip" data-sticker="🥗" onclick="selectMomentSticker('🥗')">🥗</span>
+                                <span class="sticker-chip" data-sticker="🚶" onclick="selectMomentSticker('🚶')">🚶</span>
+                                <span class="sticker-chip" data-sticker="🏆" onclick="selectMomentSticker('🏆')">🏆</span>
+                            </div>
+                        </div>
+
+                        <div class="moments-list" id="moments-list"></div>
                     </div>
 
                     <!-- Mother's Sync Code Display (Always Visible for Mother) -->
@@ -1576,6 +1684,19 @@
                         <h3 style="margin-top:0;"><i class="fa-solid fa-palette" style="color: var(--primary);"></i> <span data-i18n="settings.theme">Theme</span></h3>
                         <button class="btn btn-secondary" onclick="toggleTheme()"><i class="fa-solid fa-moon"></i> <span data-i18n="settings.toggleTheme">Toggle theme</span></button>
                     </div>
+
+                    <div class="card" id="updates-card">
+                        <div style="display:flex; justify-content:space-between; align-items:center; gap: 10px; flex-wrap: wrap;">
+                            <h3 style="margin-top:0; margin-bottom:0;"><i class="fa-solid fa-rocket" style="color: var(--accent);"></i> Updates</h3>
+                            <span class="pill muted" id="app-version-pill">v—</span>
+                        </div>
+                        <div class="text-muted" style="font-size:12px; margin-top: 10px; line-height:1.6;">See what changed and what’s new in each version.</div>
+                        <div style="display:flex; gap: 10px; flex-wrap: wrap; margin-top: 12px;">
+                            <button class="btn btn-primary" onclick="openUpdatesModal()"><i class="fa-solid fa-list"></i> View changelog</button>
+                            <button class="btn btn-secondary" onclick="dismissUpdates()"><i class="fa-solid fa-check"></i> Mark as read</button>
+                        </div>
+                        <div class="updates-meta" id="updates-last-seen">—</div>
+                    </div>
                 </section>
 
             </main>
@@ -1609,7 +1730,31 @@
                     <div class="sheet-item" onclick="nav('doctors'); closeMoreMenu();"><i class="fa-solid fa-hospital-user"></i> <span data-i18n="nav.doctors">Find Doctors</span></div>
                     <div class="sheet-item" onclick="nav('sync'); closeMoreMenu();"><i class="fa-solid fa-link"></i> <span data-i18n="nav.sync">Sync</span></div>
                     <div class="sheet-item" onclick="nav('premium'); closeMoreMenu();"><i class="fa-solid fa-crown"></i> <span data-i18n="nav.premium">Premium</span></div>
-                    <div class="sheet-item" onclick="nav('settings'); closeMoreMenu();"><i class="fa-solid fa-gear"></i> <span data-i18n="nav.settings">Settings</span></div>
+                    <div class="sheet-item" onclick="nav('settings'); closeMoreMenu();" id="nav-settings-more" style="position:relative;"><i class="fa-solid fa-gear"></i> <span data-i18n="nav.settings">Settings</span> <span class="nav-dot pulse" id="nav-updates-dot-more"></span></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Updates / What's New Modal -->
+        <div id="updates-modal" class="sheet-backdrop hidden" onclick="closeUpdatesModal(event)">
+            <div class="sheet" style="max-width: 680px;" onclick="event.stopPropagation()">
+                <div class="sheet-handle"></div>
+                <div style="display:flex; justify-content:space-between; align-items:center; gap:10px; margin-bottom: 10px;">
+                    <div style="display:flex; align-items:center; gap:10px; font-weight: 900;">
+                        <i class="fa-solid fa-rocket" style="color: var(--accent);"></i>
+                        <span>What’s New</span>
+                        <span class="pill muted" id="updates-modal-version">v—</span>
+                    </div>
+                    <button class="btn btn-secondary" style="padding: 8px 10px;" onclick="closeUpdatesModal()"><i class="fa-solid fa-xmark"></i></button>
+                </div>
+
+                <div class="text-muted" style="font-size:12px; line-height:1.6;">New features, fixes, and polish — written like release notes.</div>
+
+                <div class="updates-list" id="updates-list"></div>
+
+                <div style="display:flex; gap: 10px; flex-wrap: wrap; margin-top: 14px;">
+                    <button class="btn btn-primary" onclick="dismissUpdates()"><i class="fa-solid fa-check"></i> Mark as read</button>
+                    <button class="btn btn-secondary" onclick="closeUpdatesModal()">Close</button>
                 </div>
             </div>
         </div>
@@ -2938,6 +3083,216 @@
             dashFactTimer = null;
         }
 
+        // Smile Corner + Moments
+        const SMILE_QUOTES = [
+            'You are doing better than you think.',
+            'Small steps still move the story forward.',
+            'Gentle is still strong.',
+            'Today: breathe, hydrate, and be kind to yourself.',
+            'Progress over perfection — always.',
+            'You are the safe place your baby knows.',
+            'A calm minute counts. A kind word counts.',
+            'You don’t have to do it all — you’re already enough.'
+        ];
+        const KUDOS_LINES = [
+            'Kudos ❤️ You’re doing amazing today.',
+            'Thank you for being my teammate 🤝',
+            'I see you. I appreciate you. 💗',
+            'You’re a great parent — proud of us. 🏆',
+            'Tiny wins matter. Thanks for showing up. ✨',
+            'You make this journey feel lighter. 🤗'
+        ];
+        let smileIndex = 0;
+        let momentsUnsub = null;
+        let selectedMomentSticker = '✨';
+
+        function todayKey() {
+            const d = new Date();
+            const y = d.getFullYear();
+            const m = String(d.getMonth() + 1).padStart(2, '0');
+            const day = String(d.getDate()).padStart(2, '0');
+            return `${y}-${m}-${day}`;
+        }
+
+        function showSmileToast(msg) {
+            const el = document.getElementById('smile-toast');
+            if(!el) return;
+            el.innerText = msg;
+            el.style.display = 'block';
+            setTimeout(() => { try { el.style.display = 'none'; } catch(e) {} }, 2200);
+        }
+
+        function fireConfetti() {
+            const layer = document.createElement('div');
+            layer.className = 'confetti-layer';
+            document.body.appendChild(layer);
+            const colors = ['#f43f5e','#0d9488','#3b82f6','#f59e0b','#a855f7','#22c55e'];
+            const count = 42;
+            for(let i=0;i<count;i++) {
+                const c = document.createElement('div');
+                c.className = 'confetti';
+                c.style.left = Math.floor(Math.random() * 100) + 'vw';
+                c.style.top = (-10 - Math.random()*30) + 'px';
+                c.style.background = colors[i % colors.length];
+                c.style.animationDuration = (900 + Math.random()*700) + 'ms';
+                c.style.width = (8 + Math.random()*8) + 'px';
+                c.style.height = (10 + Math.random()*12) + 'px';
+                layer.appendChild(c);
+            }
+            setTimeout(() => { try { layer.remove(); } catch(e) {} }, 1600);
+        }
+
+        window.shuffleSmileQuote = () => {
+            const el = document.getElementById('smile-quote');
+            if(!el) return;
+            smileIndex = (smileIndex + 1) % SMILE_QUOTES.length;
+            el.innerText = SMILE_QUOTES[smileIndex];
+            try { localStorage.setItem('smile_quote_' + todayKey(), String(smileIndex)); } catch(e) {}
+        };
+
+        function setupSmileCorner() {
+            const datePill = document.getElementById('smile-date-pill');
+            if(datePill) datePill.innerText = todayKey();
+
+            const stored = Number(localStorage.getItem('smile_quote_' + todayKey()));
+            if(Number.isFinite(stored) && stored >= 0 && stored < SMILE_QUOTES.length) smileIndex = stored;
+            else smileIndex = Math.floor(Math.random() * SMILE_QUOTES.length);
+
+            const el = document.getElementById('smile-quote');
+            if(el) el.innerText = SMILE_QUOTES[smileIndex];
+
+            const kudosBtn = document.getElementById('kudos-btn');
+            if(kudosBtn) {
+                const ok = !!profile?.linkedUid;
+                kudosBtn.disabled = !ok;
+                kudosBtn.title = ok ? '' : 'Link your partner to send kudos.';
+            }
+        }
+
+        window.sendKudos = async () => {
+            if(!profile?.linkedUid) return alert('Link your partner first to send kudos.');
+            const idx = Math.floor(Math.random() * KUDOS_LINES.length);
+            const base = KUDOS_LINES[idx];
+            const fromName = (profile?.name || user?.displayName || 'Someone').split(' ')[0];
+            const text = `From ${fromName}: ${base}`;
+
+            try {
+                const conversationId = [user.uid, profile.linkedUid].sort().join('_');
+                const chatRef = collection(db, 'artifacts', appId, 'public', 'data', 'conversations', conversationId, 'messages');
+                await addDoc(chatRef, { text, from: user.uid, timestamp: serverTimestamp(), kind: 'kudos' });
+                showSmileToast('Kudos sent ✨');
+                fireConfetti();
+            } catch(e) {
+                alert('Could not send kudos: ' + (e?.message || e));
+            }
+        };
+
+        function momentsCollectionRef() {
+            if(coupleId) {
+                return collection(db, 'artifacts', appId, 'public', 'data', 'couples', coupleId, 'moments');
+            }
+            return collection(db, 'artifacts', appId, 'public', 'data', 'users', user.uid, 'moments');
+        }
+
+        window.selectMomentSticker = (s) => {
+            selectedMomentSticker = s || '✨';
+            const wrap = document.getElementById('moment-stickers');
+            if(!wrap) return;
+            wrap.querySelectorAll('.sticker-chip').forEach(ch => {
+                const val = ch.getAttribute('data-sticker');
+                ch.classList.toggle('active', val === selectedMomentSticker);
+            });
+        };
+
+        window.addMoment = async () => {
+            const input = document.getElementById('moment-input');
+            const txt = (input?.value || '').trim();
+            if(!txt) return;
+
+            try {
+                const role = profile?.role || null;
+                const tagline = (typeof getProudTagline === 'function') ? getProudTagline(role) : (role === 'mother' ? 'Proud Mom' : (role === 'partner' ? 'Proud Dad' : 'Proud Parent'));
+                await addDoc(momentsCollectionRef(), {
+                    text: txt,
+                    sticker: selectedMomentSticker || '✨',
+                    createdAt: serverTimestamp(),
+                    createdByUid: user.uid,
+                    createdByName: profile?.name || user?.displayName || 'User',
+                    createdByRole: role,
+                    createdByTagline: tagline
+                });
+                if(input) input.value = '';
+                fireConfetti();
+            } catch(e) {
+                alert('Could not save moment: ' + (e?.message || e));
+            }
+        };
+
+        window.exportMomentsJson = async () => {
+            try {
+                const snap = await getDocs(query(momentsCollectionRef(), orderBy('createdAt', 'desc'), limit(200)));
+                const out = [];
+                snap.forEach(d => out.push({ id: d.id, ...d.data() }));
+                downloadBlob(`nexus-moments-${todayIsoLocal()}.json`, new Blob([
+                    JSON.stringify({ exportedAt: new Date().toISOString(), scope: coupleId ? 'couple' : 'user', coupleId: coupleId || null, moments: out }, null, 2)
+                ], { type: 'application/json;charset=utf-8' }));
+            } catch(e) {
+                alert('Export failed: ' + (e?.message || e));
+            }
+        };
+
+        function setupMoments() {
+            // key bindings
+            const input = document.getElementById('moment-input');
+            if(input && !input.dataset.boundEnter) {
+                input.dataset.boundEnter = '1';
+                input.addEventListener('keydown', (e) => {
+                    if(e.key === 'Enter' && !e.shiftKey) {
+                        e.preventDefault();
+                        window.addMoment();
+                    }
+                });
+            }
+
+            // live list
+            try { if(momentsUnsub) momentsUnsub(); } catch(e) {}
+            momentsUnsub = onSnapshot(query(momentsCollectionRef(), orderBy('createdAt', 'desc'), limit(20)), (snap) => {
+                const list = document.getElementById('moments-list');
+                const meta = document.getElementById('moments-meta');
+                if(!list) return;
+                list.innerHTML = '';
+                let count = 0;
+                snap.forEach(d => {
+                    count += 1;
+                    const m = d.data();
+                    const sticker = (m?.sticker || '✨').toString();
+                    const text = (m?.text || '').toString();
+                    const who = (m?.createdByName || 'User').toString();
+                    const tag = (m?.createdByTagline || '').toString();
+                    const when = (m?.createdAt && m.createdAt.toDate) ? m.createdAt.toDate() : null;
+                    const whenTxt = when ? when.toLocaleString() : '';
+                    const whoFull = tag ? `${who} • ${tag}` : who;
+
+                    list.innerHTML += `
+                        <div class="moment-item">
+                            <div class="moment-sticker">${escapeHtmlLite(sticker)}</div>
+                            <div class="moment-text">
+                                <div style="font-weight: 900;">${escapeHtmlLite(text)}</div>
+                                <div class="moment-meta"><span>${escapeHtmlLite(whoFull)}</span>${whenTxt ? `<span>•</span><span>${escapeHtmlLite(whenTxt)}</span>` : ''}</div>
+                            </div>
+                        </div>
+                    `;
+                });
+                if(meta) {
+                    const badge = count >= 10 ? '🏆' : (count >= 5 ? '✨' : (count >= 1 ? '💗' : ''));
+                    meta.innerText = count ? `${badge} ${count} moment(s)` : 'No moments yet';
+                }
+            });
+
+            // default sticker
+            window.selectMomentSticker(selectedMomentSticker);
+        }
+
         function showLoading(message) {
             const screen = document.getElementById('loading-screen');
             if(!screen) return;
@@ -3128,6 +3483,9 @@
 
             setupDashboardDynamic();
 
+            try { setupSmileCorner(); } catch(e) {}
+            try { setupMoments(); } catch(e) {}
+
             setupDietPlanner();
             setupAppointments();
             setupWellnessTracker();
@@ -3135,6 +3493,8 @@
             setupPresence();
             renderAiDailyCard();
             renderMedLog();
+
+            try { setupUpdatesUI(); } catch(e) {}
 
             hideLoading();
         }
@@ -5135,6 +5495,158 @@
             if(e && e.target && e.target.id !== 'more-menu') return;
             document.getElementById('more-menu').classList.add('hidden');
         }
+
+        // --- UPDATES / WHAT'S NEW ---
+        const APP_VERSION = '1.1.0';
+        const UPDATES_LAST_SEEN_KEY = 'maternalNexus_lastSeenVersion';
+        const UPDATES_LAST_SEEN_AT_KEY = 'maternalNexus_lastSeenAt';
+
+        const CHANGELOG = [
+            {
+                version: '1.1.0',
+                date: '2026-01-19',
+                title: 'Community glow-up + joyful dashboard',
+                items: [
+                    'Community feels livelier (Daily Spark prompts, topics, time-ago labels)',
+                    'Quick reactions (❤️ 😂 🙌 🤗) on posts',
+                    'Auto “Proud Mom / Proud Dad” tagline on posts + replies',
+                    'Smile Corner (affirmations + send kudos with confetti)',
+                    'Milestone Moments (stickers, saved moments, export)'
+                ]
+            },
+            {
+                version: '1.0.1',
+                date: '2026-01-10',
+                title: 'Polish + safety',
+                items: [
+                    'Safer community rendering (escapes user text)',
+                    'Small UI smoothness improvements'
+                ]
+            },
+            {
+                version: '1.0.0',
+                date: '2025-12-01',
+                title: 'Initial release',
+                items: [
+                    'Core dashboard, chat, community, and trackers'
+                ]
+            }
+        ];
+
+        function parseVersion(v) {
+            const parts = String(v || '0.0.0').split('.').map(x => clampInt(x, 0, 9999));
+            while(parts.length < 3) parts.push(0);
+            return parts.slice(0, 3);
+        }
+
+        function compareVersions(a, b) {
+            const av = parseVersion(a);
+            const bv = parseVersion(b);
+            for(let i=0;i<3;i++) {
+                if(av[i] > bv[i]) return 1;
+                if(av[i] < bv[i]) return -1;
+            }
+            return 0;
+        }
+
+        function getLastSeenVersion() {
+            return localStorage.getItem(UPDATES_LAST_SEEN_KEY) || '0.0.0';
+        }
+
+        function setLastSeenVersion(v) {
+            localStorage.setItem(UPDATES_LAST_SEEN_KEY, String(v || APP_VERSION));
+            localStorage.setItem(UPDATES_LAST_SEEN_AT_KEY, String(Date.now()));
+        }
+
+        function formatSeenMeta() {
+            const v = getLastSeenVersion();
+            const at = clampInt(localStorage.getItem(UPDATES_LAST_SEEN_AT_KEY) || 0, 0, 9999999999999);
+            if(!at) return `Last seen: v${v}`;
+            const d = new Date(at);
+            const ds = d.toLocaleString(undefined, { year:'numeric', month:'short', day:'2-digit', hour:'2-digit', minute:'2-digit' });
+            return `Last seen: v${v} • ${ds}`;
+        }
+
+        function setUpdatesIndicators(hasUnseen) {
+            const desk = document.getElementById('nav-settings-desk');
+            const more = document.getElementById('nav-settings-more');
+            if(desk) desk.classList.toggle('has-dot', !!hasUnseen);
+            if(more) more.classList.toggle('has-dot', !!hasUnseen);
+        }
+
+        function latestChangelogEntry() {
+            const list = (Array.isArray(CHANGELOG) ? CHANGELOG.slice() : []);
+            list.sort((x, y) => compareVersions(y?.version, x?.version));
+            return list[0] || null;
+        }
+
+        window.setupUpdatesUI = () => {
+            const appVersionPill = document.getElementById('app-version-pill');
+            if(appVersionPill) appVersionPill.textContent = `v${APP_VERSION}`;
+
+            const lastSeenEl = document.getElementById('updates-last-seen');
+            if(lastSeenEl) lastSeenEl.textContent = formatSeenMeta();
+
+            const latest = latestChangelogEntry();
+            const banner = document.getElementById('updates-banner');
+            const bannerVer = document.getElementById('updates-banner-version');
+            const bannerSub = document.getElementById('updates-banner-sub');
+
+            const lastSeen = getLastSeenVersion();
+            const hasUnseen = compareVersions(APP_VERSION, lastSeen) > 0;
+            setUpdatesIndicators(hasUnseen);
+
+            if(bannerVer) bannerVer.textContent = `v${APP_VERSION}`;
+            if(bannerSub) {
+                if(latest?.title) bannerSub.textContent = latest.title;
+                else bannerSub.textContent = 'New improvements available.';
+            }
+
+            if(banner) banner.classList.toggle('show', !!hasUnseen);
+        };
+
+        window.openUpdatesModal = () => {
+            const modal = document.getElementById('updates-modal');
+            const listEl = document.getElementById('updates-list');
+            const verEl = document.getElementById('updates-modal-version');
+            if(verEl) verEl.textContent = `v${APP_VERSION}`;
+            if(listEl) {
+                const list = (Array.isArray(CHANGELOG) ? CHANGELOG.slice() : []);
+                list.sort((x, y) => compareVersions(y?.version, x?.version));
+
+                listEl.innerHTML = list.map(entry => {
+                    const v = entry?.version || '—';
+                    const title = entry?.title || 'Update';
+                    const date = entry?.date || '';
+                    const items = Array.isArray(entry?.items) ? entry.items : [];
+                    const itemsHtml = items.length
+                        ? `<ul style="margin: 10px 0 0 18px; padding:0;">${items.map(it => `<li style=\"margin: 6px 0;\">${escapeHtmlLite(it)}</li>`).join('')}</ul>`
+                        : '';
+                    return `
+                        <div class="updates-item">
+                            <div style="display:flex; justify-content:space-between; gap:10px; flex-wrap:wrap;">
+                                <div style="font-weight: 900;">${escapeHtmlLite(title)}</div>
+                                <div class="updates-meta">v${escapeHtmlLite(v)}${date ? ` • ${escapeHtmlLite(date)}` : ''}</div>
+                            </div>
+                            ${itemsHtml}
+                        </div>
+                    `;
+                }).join('');
+            }
+            if(modal) modal.classList.remove('hidden');
+        };
+
+        window.closeUpdatesModal = (ev) => {
+            const modal = document.getElementById('updates-modal');
+            if(!modal) return;
+            if(ev && ev.target && ev.target.id !== 'updates-modal') return;
+            modal.classList.add('hidden');
+        };
+
+        window.dismissUpdates = () => {
+            setLastSeenVersion(APP_VERSION);
+            try { setupUpdatesUI(); } catch(e) {}
+        };
 
         // --- WEEK EDITOR (Mother only) ---
         function setupWeekEditor() {
