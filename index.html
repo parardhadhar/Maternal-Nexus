@@ -688,6 +688,7 @@
                     <div class="nav-item" onclick="nav('baby')"><i class="fa-solid fa-baby-carriage"></i> <span data-i18n="nav.baby">Baby Tracker</span></div>
                     <div class="nav-item" onclick="nav('profile')"><i class="fa-solid fa-id-card"></i> <span data-i18n="nav.profiles">Profiles</span></div>
                     <div class="nav-item" onclick="nav('wellness')"><i class="fa-solid fa-brain"></i> <span data-i18n="nav.ai">AI Assistant</span></div>
+                    <div class="nav-item" onclick="nav('diet')"><i class="fa-solid fa-utensils"></i> <span data-i18n="nav.diet">Diet</span></div>
                     <div class="nav-item" onclick="nav('medicine')"><i class="fa-solid fa-pills"></i> <span data-i18n="nav.medicine">Medicine Library</span></div>
                     <div class="nav-item" onclick="nav('india')"><i class="fa-solid fa-flag"></i> <span data-i18n="nav.india">India Essentials</span></div>
                     <div class="nav-item" onclick="nav('doctors')"><i class="fa-solid fa-hospital-user"></i> <span data-i18n="nav.doctors">Find Doctors</span></div>
@@ -885,6 +886,21 @@
                                 <i class="fa-solid fa-user-doctor" style="font-size: 32px; color: var(--accent);"></i>
                             </div>
                         </div>
+
+                        <div class="card">
+                            <div style="display:flex; justify-content:space-between; gap: 12px;">
+                                <div>
+                                    <p class="text-muted">Safety & Support</p>
+                                    <div style="font-weight: 900; line-height:1.4;">You’re safe here.</div>
+                                    <div class="text-muted" style="font-size:12px; margin-top:4px; line-height:1.5;">Quick calm + emergency help anytime.</div>
+                                    <div style="display:flex; gap: 10px; flex-wrap: wrap; margin-top: 10px;">
+                                        <button class="btn btn-secondary" style="padding: 10px 12px;" onclick="openBreathModal()"><i class="fa-solid fa-wind"></i> Calm</button>
+                                        <button class="btn btn-primary" style="padding: 10px 12px; background: var(--secondary);" onclick="activateSOS()"><i class="fa-solid fa-triangle-exclamation"></i> SOS</button>
+                                    </div>
+                                </div>
+                                <i class="fa-solid fa-shield-heart" style="font-size: 32px; color: var(--primary);"></i>
+                            </div>
+                        </div>
                     </div>
 
                     <div class="card" id="quick-week-card">
@@ -900,32 +916,9 @@
                             <input type="number" id="week-number" class="input" min="0" max="42" step="1" inputmode="numeric" style="margin:0;">
                         </div>
                         <button class="btn btn-primary" id="save-week-btn" style="width: 100%; margin-top: 12px;" onclick="savePregnancyWeek()"><i class="fa-solid fa-floppy-disk"></i> <span data-i18n="week.save">Save Week</span></button>
-                    </div>
-
-                    <div class="card" id="dash-diet-card">
-                        <div style="display:flex; justify-content:space-between; align-items:center; gap:10px; flex-wrap:wrap;">
-                            <h3 style="margin:0;"><i class="fa-solid fa-utensils" style="color: var(--primary);"></i> <span data-i18n="diet.title">Trimester Diet Plan</span></h3>
-                            <span class="pill muted" id="diet-trimester-pill">--</span>
+                        <div class="text-muted" style="font-size:12px; margin-top: 10px; line-height:1.6;">
+                            Want food guidance for this stage? <a href="#" onclick="nav('diet')" style="color: var(--primary); font-weight: 900; text-decoration: none;">Open Diet Plan →</a>
                         </div>
-                        <div class="text-muted" style="font-size:12px; margin-top:8px; line-height:1.6;" data-i18n="diet.note">Personalized guidance (not a medical prescription). Always follow your doctor’s advice.</div>
-
-                        <div style="display:grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; margin-top: 12px;">
-                            <select id="diet-style" class="input" style="margin:0;">
-                                <option value="mixed" data-i18n="diet.style.mixed">Mixed (veg + non-veg)</option>
-                                <option value="veg" data-i18n="diet.style.veg">Vegetarian</option>
-                                <option value="vegan" data-i18n="diet.style.vegan">Vegan</option>
-                            </select>
-                            <select id="diet-anemia" class="input" style="margin:0;">
-                                <option value="no" data-i18n="diet.anemia.no">No anemia</option>
-                                <option value="yes" data-i18n="diet.anemia.yes">Anemia / low Hb</option>
-                            </select>
-                            <select id="diet-gdm" class="input" style="margin:0;">
-                                <option value="no" data-i18n="diet.gdm.no">No diabetes</option>
-                                <option value="yes" data-i18n="diet.gdm.yes">GDM / diabetes</option>
-                            </select>
-                        </div>
-                        <button class="btn btn-primary" id="diet-save-btn" style="width:100%; margin-top: 10px;" onclick="saveDietPrefs()"><i class="fa-solid fa-floppy-disk"></i> <span data-i18n="diet.save">Save Preferences</span></button>
-                        <div id="diet-plan-out" style="margin-top: 12px;"></div>
                     </div>
 
                     <div class="card" id="dash-appt-card">
@@ -955,6 +948,36 @@
                         <div id="appt-list" style="margin-top: 14px;"></div>
                     </div>
                 </section>
+
+                    <!-- DIET -->
+                    <section id="view-diet" class="hidden">
+                        <h2><i class="fa-solid fa-utensils" style="color: var(--primary);"></i> <span data-i18n="nav.diet">Diet</span></h2>
+                        <div class="card" id="diet-card">
+                            <div style="display:flex; justify-content:space-between; align-items:center; gap:10px; flex-wrap:wrap;">
+                                <h3 style="margin:0;"><i class="fa-solid fa-utensils" style="color: var(--primary);"></i> <span data-i18n="diet.title">Trimester Diet Plan</span></h3>
+                                <span class="pill muted" id="diet-trimester-pill">--</span>
+                            </div>
+                            <div class="text-muted" style="font-size:12px; margin-top:8px; line-height:1.6;" data-i18n="diet.note">Personalized guidance (not a medical prescription). Always follow your doctor’s advice.</div>
+
+                            <div style="display:grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; margin-top: 12px;">
+                                <select id="diet-style" class="input" style="margin:0;">
+                                    <option value="mixed" data-i18n="diet.style.mixed">Mixed (veg + non-veg)</option>
+                                    <option value="veg" data-i18n="diet.style.veg">Vegetarian</option>
+                                    <option value="vegan" data-i18n="diet.style.vegan">Vegan</option>
+                                </select>
+                                <select id="diet-anemia" class="input" style="margin:0;">
+                                    <option value="no" data-i18n="diet.anemia.no">No anemia</option>
+                                    <option value="yes" data-i18n="diet.anemia.yes">Anemia / low Hb</option>
+                                </select>
+                                <select id="diet-gdm" class="input" style="margin:0;">
+                                    <option value="no" data-i18n="diet.gdm.no">No diabetes</option>
+                                    <option value="yes" data-i18n="diet.gdm.yes">GDM / diabetes</option>
+                                </select>
+                            </div>
+                            <button class="btn btn-primary" id="diet-save-btn" style="width:100%; margin-top: 10px;" onclick="saveDietPrefs()"><i class="fa-solid fa-floppy-disk"></i> <span data-i18n="diet.save">Save Preferences</span></button>
+                            <div id="diet-plan-out" style="margin-top: 12px;"></div>
+                        </div>
+                    </section>
 
                 <!-- PERIOD TRACKER -->
                 <section id="view-period" class="hidden">
@@ -1724,6 +1747,7 @@
                 <div class="sheet-grid">
                     <div class="sheet-item" onclick="nav('period'); closeMoreMenu();"><i class="fa-solid fa-droplet"></i> <span data-i18n="nav.period">Period Tracker</span></div>
                     <div class="sheet-item" onclick="nav('baby'); closeMoreMenu();"><i class="fa-solid fa-baby-carriage"></i> <span data-i18n="nav.baby">Baby Tracker</span></div>
+                    <div class="sheet-item" onclick="nav('diet'); closeMoreMenu();"><i class="fa-solid fa-utensils"></i> <span data-i18n="nav.diet">Diet</span></div>
                     <div class="sheet-item" onclick="nav('profile'); closeMoreMenu();"><i class="fa-solid fa-id-card"></i> <span data-i18n="nav.profiles">Profiles</span></div>
                     <div class="sheet-item" onclick="nav('medicine'); closeMoreMenu();"><i class="fa-solid fa-pills"></i> <span data-i18n="nav.medicine">Medicine Library</span></div>
                     <div class="sheet-item" onclick="nav('india'); closeMoreMenu();"><i class="fa-solid fa-flag"></i> <span data-i18n="nav.india">India Essentials</span></div>
@@ -1755,6 +1779,36 @@
                 <div style="display:flex; gap: 10px; flex-wrap: wrap; margin-top: 14px;">
                     <button class="btn btn-primary" onclick="dismissUpdates()"><i class="fa-solid fa-check"></i> Mark as read</button>
                     <button class="btn btn-secondary" onclick="closeUpdatesModal()">Close</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Calm Breath (Support Space) -->
+        <div id="breath-modal" class="sheet-backdrop hidden" onclick="closeBreathModal(event)">
+            <div class="sheet" style="max-width: 520px;" onclick="event.stopPropagation()">
+                <div class="sheet-handle"></div>
+                <div style="display:flex; justify-content:space-between; align-items:center; gap:10px; margin-bottom: 10px;">
+                    <div style="display:flex; align-items:center; gap:10px; font-weight: 900;">
+                        <i class="fa-solid fa-wind" style="color: var(--primary);"></i>
+                        <span>Calm Breath</span>
+                        <span class="pill muted" id="breath-meta">30s</span>
+                    </div>
+                    <button class="btn btn-secondary" style="padding: 8px 10px;" onclick="closeBreathModal()"><i class="fa-solid fa-xmark"></i></button>
+                </div>
+
+                <div class="text-muted" style="font-size:12px; line-height:1.6;">A tiny reset. If you feel unwell, stop and seek help.</div>
+
+                <div style="display:flex; justify-content:center; margin-top: 14px;">
+                    <div id="breath-circle" style="width: 168px; height: 168px; border-radius: 999px; border: 1px solid var(--border); background: linear-gradient(135deg, rgba(244,63,94,0.10), rgba(13,148,136,0.10)); display:flex; align-items:center; justify-content:center; flex-direction:column; gap: 6px; box-shadow: var(--shadow); transition: transform 900ms ease;">
+                        <div style="font-weight: 950; font-size: 18px;" id="breath-phase">Inhale</div>
+                        <div class="text-muted" style="font-size: 12px;" id="breath-count">Tap Start</div>
+                    </div>
+                </div>
+
+                <div style="display:flex; gap: 10px; flex-wrap: wrap; margin-top: 14px;">
+                    <button class="btn btn-primary" onclick="startBreathSession(30)"><i class="fa-solid fa-play"></i> Start 30s</button>
+                    <button class="btn btn-secondary" onclick="startBreathSession(60)"><i class="fa-solid fa-play"></i> Start 60s</button>
+                    <button class="btn btn-secondary" onclick="closeBreathModal()">Close</button>
                 </div>
             </div>
         </div>
@@ -4228,7 +4282,7 @@
         }
 
         function renderDietPlanner() {
-            const card = document.getElementById('dash-diet-card');
+            const card = document.getElementById('diet-card') || document.getElementById('dash-diet-card');
             if(!card) return;
 
             const wk = clampInt(profile?.week || 0, 0, 42);
@@ -5646,6 +5700,77 @@
         window.dismissUpdates = () => {
             setLastSeenVersion(APP_VERSION);
             try { setupUpdatesUI(); } catch(e) {}
+        };
+
+        // --- Calm Breath (Support Space) ---
+        let breathTimer = null;
+        let breathRemaining = 0;
+
+        window.openBreathModal = () => {
+            const modal = document.getElementById('breath-modal');
+            if(modal) modal.classList.remove('hidden');
+            const phaseEl = document.getElementById('breath-phase');
+            const countEl = document.getElementById('breath-count');
+            const circle = document.getElementById('breath-circle');
+            if(phaseEl) phaseEl.textContent = 'Inhale';
+            if(countEl) countEl.textContent = 'Tap Start';
+            if(circle) circle.style.transform = 'scale(1)';
+        };
+
+        window.closeBreathModal = (ev) => {
+            const modal = document.getElementById('breath-modal');
+            if(!modal) return;
+            if(ev && ev.target && ev.target.id !== 'breath-modal') return;
+            if(breathTimer) { try { clearInterval(breathTimer); } catch(e) {} }
+            breathTimer = null;
+            modal.classList.add('hidden');
+        };
+
+        window.startBreathSession = (seconds = 30) => {
+            const total = clampInt(seconds, 10, 300);
+            breathRemaining = total;
+            const meta = document.getElementById('breath-meta');
+            if(meta) meta.textContent = `${total}s`;
+
+            const phaseEl = document.getElementById('breath-phase');
+            const countEl = document.getElementById('breath-count');
+            const circle = document.getElementById('breath-circle');
+
+            // Cycle: 4s inhale, 2s hold, 6s exhale (repeat)
+            const pattern = [
+                { label: 'Inhale', secs: 4, scale: 1.06 },
+                { label: 'Hold', secs: 2, scale: 1.06 },
+                { label: 'Exhale', secs: 6, scale: 1.00 }
+            ];
+            let pIndex = 0;
+            let pLeft = pattern[0].secs;
+
+            const tick = () => {
+                if(breathRemaining <= 0) {
+                    if(phaseEl) phaseEl.textContent = 'Done';
+                    if(countEl) countEl.textContent = 'Nice work ✨';
+                    if(circle) circle.style.transform = 'scale(1)';
+                    if(breathTimer) { try { clearInterval(breathTimer); } catch(e) {} }
+                    breathTimer = null;
+                    return;
+                }
+
+                const cur = pattern[pIndex];
+                if(phaseEl) phaseEl.textContent = cur.label;
+                if(countEl) countEl.textContent = `${breathRemaining}s left`;
+                if(circle) circle.style.transform = `scale(${cur.scale})`;
+
+                breathRemaining -= 1;
+                pLeft -= 1;
+                if(pLeft <= 0) {
+                    pIndex = (pIndex + 1) % pattern.length;
+                    pLeft = pattern[pIndex].secs;
+                }
+            };
+
+            if(breathTimer) { try { clearInterval(breathTimer); } catch(e) {} }
+            tick();
+            breathTimer = setInterval(tick, 1000);
         };
 
         // --- WEEK EDITOR (Mother only) ---
