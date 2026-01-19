@@ -3548,7 +3548,10 @@
             renderAiDailyCard();
             renderMedLog();
 
-            try { setupUpdatesUI(); } catch(e) {}
+            try {
+                setupUpdatesUI();
+                refreshRemoteUpdates().then(() => { try { setupUpdatesUI(); } catch(e) {} });
+            } catch(e) {}
 
             hideLoading();
         }
@@ -5611,6 +5614,14 @@
         const APP_VERSION = '1.1.0';
         const UPDATES_LAST_SEEN_KEY = 'maternalNexus_lastSeenVersion';
         const UPDATES_LAST_SEEN_AT_KEY = 'maternalNexus_lastSeenAt';
+        const UPDATES_AUTO_SHOWN_KEY = 'maternalNexus_updatesAutoShownVersion';
+        const UPDATES_REMOTE_DOC_KEY = 'maternalNexus_updatesRemoteCache';
+
+        // Optional remote announcement (editable in Firebase Console without redeploy)
+        // Path: artifacts/{appId}/public/data/appConfig/updates
+        // Example fields:
+        // { version:'1.1.1', date:'2026-01-20', title:'New features', items:['...','...'], enabled:true }
+        let REMOTE_UPDATES = null;
 
         const CHANGELOG = [
             {
@@ -5691,6 +5702,74 @@
             return list[0] || null;
         }
 
+        function getLatestUpdatesVersion() {
+            const rv = REMOTE_UPDATES?.enabled === false ? null : (REMOTE_UPDATES?.version || null);
+            if(rv && compareVersions(rv, APP_VERSION) > 0) return rv;
+            return APP_VERSION;
+        }
+
+        function getLatestUpdatesTitle() {
+            if(REMOTE_UPDATES && REMOTE_UPDATES.enabled !== false && REMOTE_UPDATES.title) return REMOTE_UPDATES.title;
+            return latestChangelogEntry()?.title || 'New improvements available.';
+        }
+
+        async function refreshRemoteUpdates() {
+            try {
+                // Cheap cache so we don't hammer Firestore on every open
+                const cached = localStorage.getItem(UPDATES_REMOTE_DOC_KEY);
+                if(cached) {
+                    try {
+                        const parsed = JSON.parse(cached);
+                        if(parsed && typeof parsed === 'object') REMOTE_UPDATES = parsed;
+                    } catch(e) {}
+                }
+
+                // If Firebase isn't ready yet, bail gracefully
+                if(typeof db === 'undefined' || !appId) return;
+
+                const ref = doc(db, 'artifacts', appId, 'public', 'data', 'appConfig', 'updates');
+                const snap = await getDoc(ref);
+                if(!snap.exists()) return;
+                const data = snap.data() || {};
+
+                // Soft validation
+                const next = {
+                    enabled: (typeof data.enabled === 'boolean') ? data.enabled : true,
+                    version: (data.version || '').toString(),
+                    date: (data.date || '').toString(),
+                    title: (data.title || '').toString(),
+                    items: Array.isArray(data.items) ? data.items.map(x => (x || '').toString()).slice(0, 50) : []
+                };
+                if(next.version) {
+                    REMOTE_UPDATES = next;
+                    localStorage.setItem(UPDATES_REMOTE_DOC_KEY, JSON.stringify(next));
+                }
+            } catch(e) {
+                // ignore (permissions/offline/etc)
+            }
+        }
+
+        function maybeAutoShowUpdatesOnDashboard() {
+            try {
+                const dash = document.getElementById('view-dashboard');
+                if(!dash || dash.classList.contains('hidden')) return;
+
+                const latestV = getLatestUpdatesVersion();
+                const lastSeen = getLastSeenVersion();
+                const hasUnseen = compareVersions(latestV, lastSeen) > 0;
+                if(!hasUnseen) return;
+
+                const alreadyShown = localStorage.getItem(UPDATES_AUTO_SHOWN_KEY) || '';
+                if(alreadyShown === latestV) return;
+
+                // Show the modal once per version, after the dashboard renders
+                localStorage.setItem(UPDATES_AUTO_SHOWN_KEY, latestV);
+                setTimeout(() => {
+                    try { openUpdatesModal(); } catch(e) {}
+                }, 450);
+            } catch(e) {}
+        }
+
         window.setupUpdatesUI = () => {
             const appVersionPill = document.getElementById('app-version-pill');
             if(appVersionPill) appVersionPill.textContent = `v${APP_VERSION}`;
@@ -5704,28 +5783,50 @@
             const bannerSub = document.getElementById('updates-banner-sub');
 
             const lastSeen = getLastSeenVersion();
-            const hasUnseen = compareVersions(APP_VERSION, lastSeen) > 0;
+            const latestV = getLatestUpdatesVersion();
+            const hasUnseen = compareVersions(latestV, lastSeen) > 0;
             setUpdatesIndicators(hasUnseen);
 
-            if(bannerVer) bannerVer.textContent = `v${APP_VERSION}`;
+            if(bannerVer) bannerVer.textContent = `v${latestV}`;
             if(bannerSub) {
-                if(latest?.title) bannerSub.textContent = latest.title;
-                else bannerSub.textContent = 'New improvements available.';
+                bannerSub.textContent = getLatestUpdatesTitle();
             }
 
             if(banner) banner.classList.toggle('show', !!hasUnseen);
+
+            // Automation: if user is on dashboard, auto-show once per version
+            maybeAutoShowUpdatesOnDashboard();
         };
 
         window.openUpdatesModal = () => {
             const modal = document.getElementById('updates-modal');
             const listEl = document.getElementById('updates-list');
             const verEl = document.getElementById('updates-modal-version');
-            if(verEl) verEl.textContent = `v${APP_VERSION}`;
+            const latestV = getLatestUpdatesVersion();
+            if(verEl) verEl.textContent = `v${latestV}`;
             if(listEl) {
+                const remote = (REMOTE_UPDATES && REMOTE_UPDATES.enabled !== false && REMOTE_UPDATES.version) ? REMOTE_UPDATES : null;
                 const list = (Array.isArray(CHANGELOG) ? CHANGELOG.slice() : []);
                 list.sort((x, y) => compareVersions(y?.version, x?.version));
 
-                listEl.innerHTML = list.map(entry => {
+                const blocks = [];
+                if(remote) {
+                    const items = Array.isArray(remote.items) ? remote.items : [];
+                    const itemsHtml = items.length
+                        ? `<ul style="margin: 10px 0 0 18px; padding:0;">${items.map(it => `<li style=\"margin: 6px 0;\">${escapeHtmlLite(it)}</li>`).join('')}</ul>`
+                        : '';
+                    blocks.push(`
+                        <div class="updates-item" style="border-left: 4px solid var(--primary);">
+                            <div style="display:flex; justify-content:space-between; gap:10px; flex-wrap:wrap;">
+                                <div style="font-weight: 900;">${escapeHtmlLite(remote.title || 'Announcement')}</div>
+                                <div class="updates-meta">v${escapeHtmlLite(remote.version)}${remote.date ? ` • ${escapeHtmlLite(remote.date)}` : ''}</div>
+                            </div>
+                            ${itemsHtml}
+                        </div>
+                    `);
+                }
+
+                blocks.push(...list.map(entry => {
                     const v = entry?.version || '—';
                     const title = entry?.title || 'Update';
                     const date = entry?.date || '';
@@ -5742,7 +5843,9 @@
                             ${itemsHtml}
                         </div>
                     `;
-                }).join('');
+                }));
+
+                listEl.innerHTML = blocks.join('');
             }
             if(modal) modal.classList.remove('hidden');
         };
@@ -5755,7 +5858,7 @@
         };
 
         window.dismissUpdates = () => {
-            setLastSeenVersion(APP_VERSION);
+            setLastSeenVersion(getLatestUpdatesVersion());
             try { setupUpdatesUI(); } catch(e) {}
         };
 
@@ -6729,6 +6832,10 @@
                 try { setupDashboardDynamic(); } catch(e) {}
                 try { renderPresenceUI(); } catch(e) {}
                 try { renderAiDailyCard(); } catch(e) {}
+                try {
+                    refreshRemoteUpdates().then(() => { try { setupUpdatesUI(); } catch(e) {} });
+                    try { setupUpdatesUI(); } catch(e) {}
+                } catch(e) {}
             }
 
             if(id === 'doctors') {
