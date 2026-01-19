@@ -262,6 +262,34 @@
         .comments-section { margin-top: 15px; border-top: 1px solid var(--border); padding-top: 10px; display: none; }
         .comment-item { font-size: 13px; background: var(--bg-body); padding: 8px; border-radius: 8px; margin-bottom: 5px; }
 
+        .community-top { display: grid; grid-template-columns: 1.2fr 0.8fr; gap: 12px; margin-bottom: 14px; }
+        @media (max-width: 768px) { .community-top { grid-template-columns: 1fr; } }
+
+        .community-spark { background: linear-gradient(135deg, rgba(244,63,94,0.08) 0%, rgba(13,148,136,0.10) 100%); border: 1px dashed rgba(13,148,136,0.35); border-radius: 14px; padding: 14px; }
+        .community-spark-title { display:flex; align-items:center; gap:10px; font-weight: 900; }
+        .community-spark-title i { color: var(--secondary); }
+        .community-spark-text { margin-top: 8px; font-size: 13px; color: var(--text-main); line-height: 1.6; }
+        .community-spark-actions { display:flex; gap: 10px; flex-wrap: wrap; margin-top: 10px; }
+
+        .community-compose { background: var(--bg-body); border: 1px solid var(--border); border-radius: 14px; padding: 14px; }
+        .community-compose .label { font-size: 12px; font-weight: 900; color: var(--text-muted); }
+        .community-posting-as { margin-top: 8px; font-size: 13px; font-weight: 800; }
+        .community-posting-as span { color: var(--primary-dark); }
+
+        .post-head { display:flex; justify-content: space-between; align-items:flex-start; gap: 10px; margin-bottom: 6px; }
+        .post-author { font-weight: 900; }
+        .post-meta { display:flex; gap: 8px; flex-wrap: wrap; align-items:center; margin-top: 4px; }
+        .pill-mini { display:inline-flex; align-items:center; gap: 6px; padding: 4px 10px; border-radius: 999px; border: 1px solid var(--border); background: rgba(255,255,255,0.75); font-size: 11px; font-weight: 900; }
+        [data-theme="dark"] .pill-mini { background: rgba(30,41,59,0.75); }
+        .pill-mini.tagline { border-color: rgba(244,63,94,0.28); color: var(--secondary); }
+        .pill-mini.topic { border-color: rgba(13,148,136,0.28); color: var(--primary-dark); }
+        .post-time { font-size: 12px; color: var(--text-muted); white-space: nowrap; }
+
+        .reaction-bar { display:flex; gap: 10px; flex-wrap: wrap; margin-top: 10px; }
+        .reaction-btn { cursor: pointer; user-select: none; display:inline-flex; align-items:center; gap: 6px; padding: 6px 10px; border-radius: 999px; border: 1px solid var(--border); background: var(--bg-body); font-size: 13px; font-weight: 800; color: var(--text-muted); }
+        .reaction-btn:hover { color: var(--text-main); border-color: rgba(13,148,136,0.35); }
+        .reaction-btn.on { color: var(--secondary); border-color: rgba(244,63,94,0.35); }
+
         /* --- Emoji Picker --- */
         .emoji-picker {
             display: none; position: absolute; bottom: 60px; right: 20px;
@@ -1114,6 +1142,33 @@
                 <section id="view-community" class="hidden">
                     <h2 data-i18n="view.community">Community</h2>
                     <div class="card">
+                        <div class="community-top">
+                            <div class="community-spark">
+                                <div class="community-spark-title"><i class="fa-solid fa-wand-magic-sparkles"></i> Daily Spark</div>
+                                <div class="community-spark-text" id="community-prompt-text">—</div>
+                                <div class="community-spark-actions">
+                                    <button class="btn btn-secondary" onclick="newCommunityPrompt()"><i class="fa-solid fa-shuffle"></i> New prompt</button>
+                                    <button class="btn btn-primary" onclick="useCommunityPrompt()"><i class="fa-solid fa-pen"></i> Use prompt</button>
+                                </div>
+                            </div>
+                            <div class="community-compose">
+                                <div class="label"><i class="fa-solid fa-user-check" style="color: var(--primary);"></i> Posting as</div>
+                                <div class="community-posting-as"><span id="community-posting-as">—</span></div>
+                                <div style="margin-top: 10px;">
+                                    <div class="label"><i class="fa-solid fa-tag" style="color: var(--accent);"></i> Topic</div>
+                                    <select id="community-topic" class="input" style="margin: 8px 0 0 0;">
+                                        <option value="General">General</option>
+                                        <option value="Pregnancy">Pregnancy</option>
+                                        <option value="Newborn">Newborn</option>
+                                        <option value="Feeding">Feeding</option>
+                                        <option value="Sleep">Sleep</option>
+                                        <option value="Self-care">Self-care</option>
+                                        <option value="Partner support">Partner support</option>
+                                        <option value="Milestones">Milestones</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
                         <div style="display: flex; gap: 10px; margin-bottom: 20px; position:relative;">
                             <input type="text" id="post-input" class="input" placeholder="Share an update..." data-i18n-placeholder="community.placeholder" style="margin-bottom:0;">
                             <button class="btn btn-secondary" onclick="toggleEmoji('post-input')"><i class="fa-regular fa-face-smile"></i></button>
@@ -4755,18 +4810,111 @@
 
         // COMMUNITY (Interactive)
         window.addPost = async () => {
-            const t = document.getElementById('post-input').value;
+            const t = (document.getElementById('post-input').value || '').trim();
+            const topic = (document.getElementById('community-topic')?.value || 'General').toString();
             if(t) {
+                const role = profile?.role || null;
+                const tagline = getProudTagline(role);
                 await addDoc(collection(db, 'artifacts', appId, 'public', 'data', 'posts'), {
                     text: t,
                     author: profile.name || user.displayName,
+                    authorRole: role,
+                    authorTagline: tagline,
                     authorUid: user.uid,
                     time: serverTimestamp(),
                     likes: [],
+                    reactions: { '❤️': [], '😂': [], '🙌': [], '🤗': [] },
+                    topic,
                     commentCount: 0
                 });
                 document.getElementById('post-input').value = "";
             }
+        }
+
+        const COMMUNITY_PROMPTS = [
+            "What’s one small win you had today (even if it’s just a shower)?",
+            "New parents: what’s your best ‘sleep hack’ right now?",
+            "What meal/snack is saving you this week?",
+            "Share a tip that made you feel calmer today.",
+            "What’s a kind thing your partner did recently?",
+            "What’s a myth you heard that you want to debunk?",
+            "What are you proud of today?",
+            "If you could gift one thing to every new parent, what would it be?"
+        ];
+        let currentCommunityPrompt = '';
+
+        function getProudTagline(role) {
+            if(role === 'mother') return 'Proud Mom';
+            if(role === 'partner') return 'Proud Dad';
+            return 'Proud Parent';
+        }
+
+        function getTimeAgo(ts) {
+            if(!ts) return '';
+            let d;
+            try {
+                d = ts.toDate ? ts.toDate() : (ts.seconds ? new Date(ts.seconds * 1000) : new Date(ts));
+            } catch(e) { d = null; }
+            if(!d || Number.isNaN(d.getTime())) return '';
+            const s = Math.max(0, Math.floor((Date.now() - d.getTime()) / 1000));
+            if(s < 10) return 'just now';
+            if(s < 60) return `${s}s`;
+            const m = Math.floor(s / 60);
+            if(m < 60) return `${m}m`;
+            const h = Math.floor(m / 60);
+            if(h < 48) return `${h}h`;
+            const days = Math.floor(h / 24);
+            return `${days}d`;
+        }
+
+        function updateCommunityPostingAs() {
+            const el = document.getElementById('community-posting-as');
+            if(!el) return;
+            const base = (profile?.name || user?.displayName || 'User').toString();
+            const tagline = getProudTagline(profile?.role);
+            el.innerText = `${base} • ${tagline}`;
+        }
+
+        window.newCommunityPrompt = () => {
+            const el = document.getElementById('community-prompt-text');
+            if(!el) return;
+            const idx = Math.floor(Math.random() * COMMUNITY_PROMPTS.length);
+            currentCommunityPrompt = COMMUNITY_PROMPTS[idx];
+            el.innerText = currentCommunityPrompt;
+        }
+
+        window.useCommunityPrompt = () => {
+            const input = document.getElementById('post-input');
+            if(!input) return;
+            if(!currentCommunityPrompt) window.newCommunityPrompt();
+            const existing = (input.value || '').trim();
+            input.value = existing ? (existing + ' ' + currentCommunityPrompt) : currentCommunityPrompt;
+            input.focus();
+        }
+
+        const communityRoleCache = new Map();
+        async function ensureRoleCached(uid) {
+            if(!uid) return null;
+            if(communityRoleCache.has(uid)) return communityRoleCache.get(uid);
+            try {
+                const uref = doc(db, 'artifacts', appId, 'public', 'data', 'users', uid);
+                const usnap = await getDoc(uref);
+                const r = usnap.exists() ? (usnap.data()?.role || null) : null;
+                communityRoleCache.set(uid, r);
+                return r;
+            } catch(e) {
+                communityRoleCache.set(uid, null);
+                return null;
+            }
+        }
+
+        function getDisplayAuthor(p, fallbackUid) {
+            const base = (p?.author || 'User').toString();
+            const tagline = (p?.authorTagline || (p?.authorRole ? getProudTagline(p.authorRole) : '')).toString();
+            if(tagline) return `${base} • ${tagline}`;
+            const cached = fallbackUid ? communityRoleCache.get(fallbackUid) : null;
+            if(cached) return `${base} • ${getProudTagline(cached)}`;
+            return base;
         }
 
         function setupCommunity() {
@@ -4774,16 +4922,47 @@
             onSnapshot(q, (snap) => {
                 const d = document.getElementById('community-feed');
                 d.innerHTML = "";
+                updateCommunityPostingAs();
+                if(!currentCommunityPrompt) window.newCommunityPrompt();
                 snap.forEach(doc => {
                     const p = doc.data();
                     const pid = doc.id;
                     const liked = p.likes && p.likes.includes(user.uid);
                     const cCount = p.commentCount || 0;
+                    const timeAgo = getTimeAgo(p.time);
+                    const topic = (p.topic || 'General').toString();
+
+                    const reactions = p.reactions || {};
+                    const rLove = Array.isArray(reactions['❤️']) ? reactions['❤️'] : [];
+                    const rLol = Array.isArray(reactions['😂']) ? reactions['😂'] : [];
+                    const rYay = Array.isArray(reactions['🙌']) ? reactions['🙌'] : [];
+                    const rHug = Array.isArray(reactions['🤗']) ? reactions['🤗'] : [];
+
+                    const onLove = rLove.includes(user.uid);
+                    const onLol = rLol.includes(user.uid);
+                    const onYay = rYay.includes(user.uid);
+                    const onHug = rHug.includes(user.uid);
+
+                    const authorDisplay = getDisplayAuthor(p, p.authorUid);
                     
                     d.innerHTML += `
                         <div class="card post-card" id="post-${pid}">
-                            <div style="font-weight:bold; margin-bottom:5px;">${p.author}</div>
-                            <div>${p.text}</div>
+                            <div class="post-head">
+                                <div>
+                                    <div class="post-author" id="post-author-${pid}">${escapeHtml(authorDisplay)}</div>
+                                    <div class="post-meta">
+                                        <span class="pill-mini topic"><i class="fa-solid fa-tag"></i> ${escapeHtml(topic)}</span>
+                                    </div>
+                                </div>
+                                <div class="post-time">${escapeHtml(timeAgo)}</div>
+                            </div>
+                            <div>${escapeHtml((p.text || '').toString())}</div>
+                            <div class="reaction-bar">
+                                <span class="reaction-btn ${onLove ? 'on' : ''}" onclick="toggleReaction('${pid}','❤️')">❤️ ${rLove.length}</span>
+                                <span class="reaction-btn ${onLol ? 'on' : ''}" onclick="toggleReaction('${pid}','😂')">😂 ${rLol.length}</span>
+                                <span class="reaction-btn ${onYay ? 'on' : ''}" onclick="toggleReaction('${pid}','🙌')">🙌 ${rYay.length}</span>
+                                <span class="reaction-btn ${onHug ? 'on' : ''}" onclick="toggleReaction('${pid}','🤗')">🤗 ${rHug.length}</span>
+                            </div>
                             <div class="post-actions">
                                 <span class="post-action ${liked ? 'post-liked' : ''}" onclick="toggleLike('${pid}', ${liked})">
                                     <i class="fa-${liked ? 'solid' : 'regular'} fa-heart"></i> ${p.likes ? p.likes.length : 0}
@@ -4807,11 +4986,49 @@
                                 </div>
                             </div>
                         </div>`;
+
+                    // If this is an older post without role/tagline, best-effort fetch user role and update the display.
+                    if(!p.authorTagline && !p.authorRole && p.authorUid) {
+                        ensureRoleCached(p.authorUid).then((r) => {
+                            if(!r) return;
+                            const el = document.getElementById(`post-author-${pid}`);
+                            if(el) el.innerText = `${(p.author || 'User')} • ${getProudTagline(r)}`;
+                        });
+                    }
                     
                     // Load Comments for this post
                     loadComments(pid);
                 });
             });
+
+            // Enter-to-post (Shift+Enter keeps typing)
+            const postInput = document.getElementById('post-input');
+            if(postInput && !postInput.dataset.boundEnter) {
+                postInput.dataset.boundEnter = '1';
+                postInput.addEventListener('keydown', (e) => {
+                    if(e.key === 'Enter' && !e.shiftKey) {
+                        e.preventDefault();
+                        window.addPost();
+                    }
+                });
+            }
+        }
+
+        window.toggleReaction = async (pid, emoji) => {
+            const postRef = doc(db, 'artifacts', appId, 'public', 'data', 'posts', pid);
+            try {
+                await runTransaction(db, async (tx) => {
+                    const postSnap = await tx.get(postRef);
+                    if(!postSnap.exists()) return;
+                    const post = postSnap.data();
+                    const reactions = post.reactions || {};
+                    const arr = Array.isArray(reactions[emoji]) ? reactions[emoji] : [];
+                    const has = arr.includes(user.uid);
+                    const next = has ? arr.filter(uid => uid !== user.uid) : [...arr, user.uid];
+                    const nextReactions = { ...reactions, [emoji]: next };
+                    tx.update(postRef, { reactions: nextReactions });
+                });
+            } catch(e) {}
         }
 
         window.toggleLike = async (pid, isLiked) => {
@@ -4837,7 +5054,14 @@
             const postRef = doc(db, 'artifacts', appId, 'public', 'data', 'posts', pid);
 
             // 1) Add comment
-            await addDoc(commRef, { text: txt, author: profile.name || user.displayName, authorUid: user.uid, time: serverTimestamp() });
+            await addDoc(commRef, {
+                text: (txt || '').toString(),
+                author: profile.name || user.displayName,
+                authorRole: profile?.role || null,
+                authorTagline: getProudTagline(profile?.role),
+                authorUid: user.uid,
+                time: serverTimestamp()
+            });
 
             // 2) Increment commentCount safely
             try {
@@ -4880,7 +5104,12 @@
                     list.innerHTML = "";
                     snap.forEach(c => {
                         const cm = c.data();
-                        list.innerHTML += `<div class="comment-item"><strong>${cm.author}:</strong> ${cm.text}</div>`;
+                        const authorDisplay = getDisplayAuthor(cm, cm.authorUid);
+                        list.innerHTML += `<div class="comment-item"><strong>${escapeHtml(authorDisplay)}:</strong> ${escapeHtml((cm.text || '').toString())}</div>`;
+
+                        if(!cm.authorTagline && !cm.authorRole && cm.authorUid) {
+                            ensureRoleCached(cm.authorUid);
+                        }
                     });
                 }
             });
