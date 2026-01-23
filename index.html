@@ -689,14 +689,14 @@
     <!-- SOS ALERT OVERLAY -->
     <div id="sos-alert-screen" class="overlay hidden" style="background: #ef4444; color: white;">
         <i class="fa-solid fa-triangle-exclamation" style="font-size: 80px; margin-bottom: 20px; animation: pulse 0.5s infinite;"></i>
-        <h1 style="font-size: 32px; text-align:center;">EMERGENCY MODE</h1>
+        <h1 style="font-size: 32px; text-align:center;" data-i18n="sos.emergencyMode">EMERGENCY MODE</h1>
         <div style="background: white; padding: 24px; border-radius: 16px; color: black; width: 100%; max-width: 350px; text-align: center;">
-            <h3 style="color: var(--secondary);">Calling Support...</h3>
-            <a href="tel:102" class="btn btn-call" style="background: var(--secondary); display:block; margin-bottom:10px;"><i class="fa-solid fa-truck-medical"></i> Call Ambulance (102/108)</a>
-            <a href="tel:100" class="btn btn-call" style="background: #1e293b; display:block; margin-bottom:10px;"><i class="fa-solid fa-shield-halved"></i> Call Police (100)</a>
-            <a href="tel:1091" class="btn btn-call" style="background: #d946ef; display:block; margin-bottom:10px;"><i class="fa-solid fa-female"></i> Women's Helpline (1091)</a>
-            <a id="sos-btn-doc" href="#" class="btn btn-call" style="background: var(--primary); display:block;"><i class="fa-solid fa-user-doctor"></i> Call My Doctor</a>
-            <button class="btn btn-secondary" onclick="dismissSOS()" style="margin-top: 20px; border: 1px solid #ccc; width: 100%; color: var(--text-main); font-weight: 700;">Cancel Alert</button>
+            <h3 style="color: var(--secondary);" data-i18n="sos.callingSupport">Calling Support...</h3>
+            <a href="tel:102" class="btn btn-call" style="background: var(--secondary); display:block; margin-bottom:10px;"><i class="fa-solid fa-truck-medical"></i> <span data-i18n="sos.callAmbulance">Call Ambulance (102/108)</span></a>
+            <a href="tel:100" class="btn btn-call" style="background: #1e293b; display:block; margin-bottom:10px;"><i class="fa-solid fa-shield-halved"></i> <span data-i18n="sos.callPolice">Call Police (100)</span></a>
+            <a href="tel:1091" class="btn btn-call" style="background: #d946ef; display:block; margin-bottom:10px;"><i class="fa-solid fa-female"></i> <span data-i18n="sos.womenHelpline">Women's Helpline (1091)</span></a>
+            <a id="sos-btn-doc" href="#" class="btn btn-call" style="background: var(--primary); display:block;"><i class="fa-solid fa-user-doctor"></i> <span data-i18n="sos.callDoctor">Call My Doctor</span></a>
+            <button class="btn btn-secondary" onclick="dismissSOS()" style="margin-top: 20px; border: 1px solid #ccc; width: 100%; color: var(--text-main); font-weight: 700;"><span data-i18n="sos.cancel">Cancel Alert</span></button>
         </div>
     </div>
 
@@ -818,12 +818,12 @@
                     <div class="updates-banner" id="updates-banner">
                         <div style="display:flex; justify-content:space-between; align-items:flex-start; gap: 10px; flex-wrap: wrap;">
                             <div>
-                                <div style="font-weight: 900;"><i class="fa-solid fa-wand-magic-sparkles" style="color: var(--accent);"></i> What’s new in <span id="updates-banner-version">—</span></div>
+                                <div style="font-weight: 900;"><i class="fa-solid fa-wand-magic-sparkles" style="color: var(--accent);"></i> <span data-i18n="updates.bannerTitle">What’s new in</span> <span id="updates-banner-version">—</span></div>
                                 <div class="updates-meta" id="updates-banner-sub">—</div>
                             </div>
                             <div style="display:flex; gap: 10px; flex-wrap: wrap;">
-                                <button class="btn btn-primary" style="padding: 10px 14px;" onclick="openUpdatesModal()"><i class="fa-solid fa-rocket"></i> See updates</button>
-                                <button class="btn btn-secondary" style="padding: 10px 14px;" onclick="dismissUpdates()"><i class="fa-solid fa-check"></i> Got it</button>
+                                <button class="btn btn-primary" style="padding: 10px 14px;" onclick="openUpdatesModal()"><i class="fa-solid fa-rocket"></i> <span data-i18n="updates.seeUpdates">See updates</span></button>
+                                <button class="btn btn-secondary" style="padding: 10px 14px;" onclick="dismissUpdates()"><i class="fa-solid fa-check"></i> <span data-i18n="updates.gotIt">Got it</span></button>
                             </div>
                         </div>
                     </div>
@@ -1735,13 +1735,13 @@
 
                     <div class="card" id="updates-card">
                         <div style="display:flex; justify-content:space-between; align-items:center; gap: 10px; flex-wrap: wrap;">
-                            <h3 style="margin-top:0; margin-bottom:0;"><i class="fa-solid fa-rocket" style="color: var(--accent);"></i> Updates</h3>
+                            <h3 style="margin-top:0; margin-bottom:0;"><i class="fa-solid fa-rocket" style="color: var(--accent);"></i> <span data-i18n="updates.title">Updates</span></h3>
                             <span class="pill muted" id="app-version-pill">v—</span>
                         </div>
-                        <div class="text-muted" style="font-size:12px; margin-top: 10px; line-height:1.6;">See what changed and what’s new in each version.</div>
+                        <div class="text-muted" style="font-size:12px; margin-top: 10px; line-height:1.6;" data-i18n="updates.subtitle">See what changed and what’s new in each version.</div>
                         <div style="display:flex; gap: 10px; flex-wrap: wrap; margin-top: 12px;">
-                            <button class="btn btn-primary" onclick="openUpdatesModal()"><i class="fa-solid fa-list"></i> View changelog</button>
-                            <button class="btn btn-secondary" onclick="dismissUpdates()"><i class="fa-solid fa-check"></i> Mark as read</button>
+                            <button class="btn btn-primary" onclick="openUpdatesModal()"><i class="fa-solid fa-list"></i> <span data-i18n="updates.viewChangelog">View changelog</span></button>
+                            <button class="btn btn-secondary" onclick="dismissUpdates()"><i class="fa-solid fa-check"></i> <span data-i18n="updates.markRead">Mark as read</span></button>
                         </div>
                         <div class="updates-meta" id="updates-last-seen">—</div>
                     </div>
@@ -1791,19 +1791,19 @@
                 <div style="display:flex; justify-content:space-between; align-items:center; gap:10px; margin-bottom: 10px;">
                     <div style="display:flex; align-items:center; gap:10px; font-weight: 900;">
                         <i class="fa-solid fa-rocket" style="color: var(--accent);"></i>
-                        <span>What’s New</span>
+                        <span data-i18n="updates.whatsNew">What’s New</span>
                         <span class="pill muted" id="updates-modal-version">v—</span>
                     </div>
                     <button class="btn btn-secondary" style="padding: 8px 10px;" onclick="closeUpdatesModal()"><i class="fa-solid fa-xmark"></i></button>
                 </div>
 
-                <div class="text-muted" style="font-size:12px; line-height:1.6;">New features, fixes, and polish — written like release notes.</div>
+                <div class="text-muted" style="font-size:12px; line-height:1.6;" data-i18n="updates.modalSubtitle">New features, fixes, and polish — written like release notes.</div>
 
                 <div class="updates-list" id="updates-list"></div>
 
                 <div style="display:flex; gap: 10px; flex-wrap: wrap; margin-top: 14px;">
-                    <button class="btn btn-primary" onclick="dismissUpdates()"><i class="fa-solid fa-check"></i> Mark as read</button>
-                    <button class="btn btn-secondary" onclick="closeUpdatesModal()">Close</button>
+                    <button class="btn btn-primary" onclick="dismissUpdates()"><i class="fa-solid fa-check"></i> <span data-i18n="updates.markRead">Mark as read</span></button>
+                    <button class="btn btn-secondary" onclick="closeUpdatesModal()"><span data-i18n="updates.close">Close</span></button>
                 </div>
             </div>
         </div>
@@ -2040,6 +2040,24 @@
                 'india.care.saveToday': 'Save Today',
 
                 'btn.clear': 'Clear',
+                'sos.callDoctor': 'Call My Doctor',
+                'sos.cancel': 'Cancel Alert',
+                'sos.emergencyMode': 'EMERGENCY MODE',
+                'sos.callingSupport': 'Calling Support...',
+                'sos.callAmbulance': 'Call Ambulance (102/108)',
+                'sos.callPolice': 'Call Police (100)',
+                'sos.womenHelpline': "Women's Helpline (1091)",
+                'updates.bannerTitle': 'What’s new in',
+                'updates.seeUpdates': 'See updates',
+                'updates.gotIt': 'Got it',
+                'updates.title': 'Updates',
+                'updates.subtitle': 'See what changed and what’s new in each version.',
+                'updates.viewChangelog': 'View changelog',
+                'updates.markRead': 'Mark as read',
+                'updates.whatsNew': 'What’s New',
+                'updates.modalSubtitle': 'New features, fixes, and polish — written like release notes.',
+                'updates.close': 'Close',
+                'updates.lastSeen': 'Last seen',
 
                 'view.period': 'Period Tracker',
                 'view.baby': 'Baby Tracker',
@@ -2092,6 +2110,11 @@
                 'appt.notesPlaceholder': 'Notes (optional)',
                 'appt.add': 'Add',
                 'appt.exportIcs': 'Export Reminders (.ics)',
+                'appt.synced': 'Synced with partner',
+                'appt.savedLocal': 'Saved locally',
+                'appt.none': 'No appointments added yet.',
+                'appt.locked': 'Appointments are locked.',
+                'appt.needWhenTitle': 'Add date/time and purpose.',
 
                 'period.ringTitle': 'Floral Cycle Ring',
                 'period.ringSubtitle': 'Track the mother’s cycle in a gentle, synced way.',
@@ -2262,6 +2285,24 @@
                 'nav.sync': 'सिंक',
                 'nav.premium': 'प्रीमियम',
                 'nav.settings': 'सेटिंग्स',
+                'sos.callDoctor': 'मेरे डॉक्टर को कॉल करें',
+                'sos.cancel': 'अलर्ट रद्द करें',
+                'sos.emergencyMode': 'आपातकाल मोड',
+                'sos.callingSupport': 'सहायता को कॉल कर रहे हैं...',
+                'sos.callAmbulance': 'एंबुलेंस कॉल करें (102/108)',
+                'sos.callPolice': 'पुलिस कॉल करें (100)',
+                'sos.womenHelpline': 'महिला हेल्पलाइन (1091)',
+                'updates.bannerTitle': 'में नया क्या है',
+                'updates.seeUpdates': 'अपडेट देखें',
+                'updates.gotIt': 'समझ गया',
+                'updates.title': 'अपडेट्स',
+                'updates.subtitle': 'हर संस्करण में क्या बदला और क्या नया है देखें।',
+                'updates.viewChangelog': 'चेंजलॉग देखें',
+                'updates.markRead': 'पढ़ा हुआ चिह्नित करें',
+                'updates.whatsNew': 'नया क्या है',
+                'updates.modalSubtitle': 'नई सुविधाएँ, सुधार और पॉलिश — रिलीज़ नोट्स की तरह।',
+                'updates.close': 'बंद करें',
+                'updates.lastSeen': 'अंतिम बार देखा गया',
                 'dash.weekPrefix': 'सप्ताह',
                 'dash.weeksSuffix': 'सप्ताह',
                 'dash.partnerView': 'पार्टनर दृश्य',
@@ -2378,6 +2419,11 @@
                 'appt.notesPlaceholder': 'नोट्स (वैकल्पिक)',
                 'appt.add': 'जोड़ें',
                 'appt.exportIcs': 'रिमाइंडर्स एक्सपोर्ट (.ics)',
+                'appt.synced': 'पार्टनर के साथ सिंक',
+                'appt.savedLocal': 'स्थानीय रूप से सहेजा गया',
+                'appt.none': 'अभी कोई अपॉइंटमेंट नहीं जोड़ा गया।',
+                'appt.locked': 'अपॉइंटमेंट लॉक हैं।',
+                'appt.needWhenTitle': 'तारीख/समय और उद्देश्य जोड़ें।',
 
                 'period.ringTitle': 'फ्लोरल साइकिल रिंग',
                 'period.ringSubtitle': 'माँ के चक्र को सौम्य, सिंक्ड तरीके से ट्रैक करें।',
@@ -2548,6 +2594,29 @@
                 'nav.sync': 'সিঙ্ক',
                 'nav.premium': 'প্রিমিয়াম',
                 'nav.settings': 'সেটিংস',
+                'sos.callDoctor': 'আমার ডাক্তারে কল করুন',
+                'sos.cancel': 'সতর্কতা বাতিল করুন',
+                'sos.emergencyMode': 'জরুরি মোড',
+                'sos.callingSupport': 'সহায়তা কল করা হচ্ছে...',
+                'sos.callAmbulance': 'অ্যাম্বুলেন্স কল করুন (102/108)',
+                'sos.callPolice': 'পুলিশ কল করুন (100)',
+                'sos.womenHelpline': 'নারী সহায়তা লাইন (1091)',
+                'updates.bannerTitle': 'এ নতুন কী',
+                'updates.seeUpdates': 'আপডেট দেখুন',
+                'updates.gotIt': 'বুঝেছি',
+                'updates.title': 'আপডেট',
+                'updates.subtitle': 'প্রতিটি সংস্করণে কী বদলেছে এবং কী নতুন তা দেখুন।',
+                'updates.viewChangelog': 'চেঞ্জলগ দেখুন',
+                'updates.markRead': 'পঠিত হিসেবে চিহ্নিত করুন',
+                'updates.whatsNew': 'নতুন কী',
+                'updates.modalSubtitle': 'নতুন ফিচার, ফিক্স ও পালিশ — রিলিজ নোটের মতো।',
+                'updates.close': 'বন্ধ করুন',
+                'updates.lastSeen': 'শেষ দেখা',
+                'appt.synced': 'পার্টনারের সাথে সিঙ্ক হয়েছে',
+                'appt.savedLocal': 'লোকালি সংরক্ষিত',
+                'appt.none': 'এখনও কোনো অ্যাপয়েন্টমেন্ট যোগ করা হয়নি।',
+                'appt.locked': 'অ্যাপয়েন্টমেন্ট লক করা আছে।',
+                'appt.needWhenTitle': 'তারিখ/সময় এবং উদ্দেশ্য যোগ করুন।',
                 'dash.weekPrefix': 'সপ্তাহ',
                 'dash.weeksSuffix': 'সপ্তাহ',
                 'dash.partnerView': 'পার্টনার ভিউ',
@@ -2600,6 +2669,29 @@
                 'nav.sync': 'సింక్',
                 'nav.premium': 'ప్రీమియం',
                 'nav.settings': 'సెట్టింగ్స్',
+                'sos.callDoctor': 'నా డాక్టర్‌కు కాల్ చేయండి',
+                'sos.cancel': 'అలర్ట్ రద్దు చేయండి',
+                'sos.emergencyMode': 'అత్యవసర మోడ్',
+                'sos.callingSupport': 'సహాయాన్ని కాల్ చేస్తోంది...',
+                'sos.callAmbulance': 'అంబులెన్స్‌కు కాల్ చేయండి (102/108)',
+                'sos.callPolice': 'పోలీసుకు కాల్ చేయండి (100)',
+                'sos.womenHelpline': 'మహిళల హెల్ప్‌లైన్ (1091)',
+                'updates.bannerTitle': 'లో కొత్తవి',
+                'updates.seeUpdates': 'అప్డేట్స్ చూడండి',
+                'updates.gotIt': 'అర్థమైంది',
+                'updates.title': 'అప్డేట్స్',
+                'updates.subtitle': 'ప్రతి వెర్షన్‌లో ఏమి మారిందో, ఏమి కొత్తో చూడండి.',
+                'updates.viewChangelog': 'చేంజ్‌లాగ్ చూడండి',
+                'updates.markRead': 'చదివినట్లు గుర్తించండి',
+                'updates.whatsNew': 'కొత్తవి ఏమిటి',
+                'updates.modalSubtitle': 'కొత్త ఫీచర్లు, ఫిక్స్‌లు, పాలిష్ — రిలీస్ నోట్స్‌లా.',
+                'updates.close': 'మూసివేయండి',
+                'updates.lastSeen': 'చివరిసారి చూసింది',
+                'appt.synced': 'పార్ట్నర్‌తో సింక అయింది',
+                'appt.savedLocal': 'లోకల్‌గా సేవ్ చేయబడింది',
+                'appt.none': 'ఇంకా ఎలాంటి అపాయింట్‌మెంట్‌లు చేర్చలేదు.',
+                'appt.locked': 'అపాయింట్‌మెంట్‌లు లాక్ అయ్యాయి.',
+                'appt.needWhenTitle': 'తేదీ/సమయం మరియు ఉద్దేశ్యం జోడించండి.',
                 'dash.weekPrefix': 'వారం',
                 'dash.weeksSuffix': 'వారాలు',
                 'dash.partnerView': 'భాగస్వామి వీక్షణ',
@@ -2652,6 +2744,29 @@
                 'nav.sync': 'सिंक',
                 'nav.premium': 'प्रीमियम',
                 'nav.settings': 'सेटिंग्ज',
+                'sos.callDoctor': 'माझ्या डॉक्टरांना कॉल करा',
+                'sos.cancel': 'अलर्ट रद्द करा',
+                'sos.emergencyMode': 'आपत्कालीन मोड',
+                'sos.callingSupport': 'सहाय्याला कॉल करत आहे...',
+                'sos.callAmbulance': 'ॲम्ब्युलन्सला कॉल करा (102/108)',
+                'sos.callPolice': 'पोलीसांना कॉल करा (100)',
+                'sos.womenHelpline': 'महिला हेल्पलाइन (1091)',
+                'updates.bannerTitle': 'मध्ये नवीन काय',
+                'updates.seeUpdates': 'अपडेट्स पहा',
+                'updates.gotIt': 'समजलं',
+                'updates.title': 'अपडेट्स',
+                'updates.subtitle': 'प्रत्येक आवृत्तीत काय बदलले आणि काय नवीन आहे ते पहा.',
+                'updates.viewChangelog': 'चेंजलॉग पहा',
+                'updates.markRead': 'वाचलेले म्हणून चिन्हांकित करा',
+                'updates.whatsNew': 'नवीन काय आहे',
+                'updates.modalSubtitle': 'नवीन फीचर्स, दुरुस्त्या आणि पॉलिश — रिलीज नोट्ससारखे.',
+                'updates.close': 'बंद करा',
+                'updates.lastSeen': 'शेवटचे पाहिले',
+                'appt.synced': 'पार्टनरसोबत सिंक झाले',
+                'appt.savedLocal': 'लोकली सेव्ह झाले',
+                'appt.none': 'अजून कोणतेही अपॉइंटमेंट जोडलेले नाही.',
+                'appt.locked': 'अपॉइंटमेंट लॉक आहेत.',
+                'appt.needWhenTitle': 'दिनांक/वेळ आणि उद्देश जोडा.',
                 'dash.weekPrefix': 'आठवडा',
                 'dash.weeksSuffix': 'आठवडे',
                 'dash.partnerView': 'पार्टनर दृश्य',
@@ -2704,6 +2819,29 @@
                 'nav.sync': 'சிங்க்',
                 'nav.premium': 'ப்ரீமியம்',
                 'nav.settings': 'அமைப்புகள்',
+                'sos.callDoctor': 'என் மருத்துவரை அழைக்கவும்',
+                'sos.cancel': 'அலர்ட் ரத்து செய்',
+                'sos.emergencyMode': 'அவசர நிலை',
+                'sos.callingSupport': 'உதவி அழைக்கப்படுகிறது...',
+                'sos.callAmbulance': 'ஆம்புலன்ஸ் அழைக்கவும் (102/108)',
+                'sos.callPolice': 'போலீஸை அழைக்கவும் (100)',
+                'sos.womenHelpline': 'மகளிர் உதவி எண் (1091)',
+                'updates.bannerTitle': 'இல் புதியது',
+                'updates.seeUpdates': 'புதுப்பிப்புகளை பார்க்கவும்',
+                'updates.gotIt': 'புரிந்தது',
+                'updates.title': 'புதுப்பிப்புகள்',
+                'updates.subtitle': 'ஒவ்வொரு பதிப்பிலும் என்ன மாற்றம், என்ன புதிது என்பதை பார்க்கவும்.',
+                'updates.viewChangelog': 'மாற்றங்கள் பட்டியல் பார்க்கவும்',
+                'updates.markRead': 'படித்ததாக குறி',
+                'updates.whatsNew': 'புதியவை என்ன',
+                'updates.modalSubtitle': 'புதிய அம்சங்கள், திருத்தங்கள், மேம்பாடு — வெளியீட்டு குறிப்புகள் போல.',
+                'updates.close': 'மூடவும்',
+                'updates.lastSeen': 'கடைசியாக பார்த்தது',
+                'appt.synced': 'பங்காளருடன் சிங்க்',
+                'appt.savedLocal': 'லோக்கலாக சேமிக்கப்பட்டது',
+                'appt.none': 'இன்னும் எந்த அப்பாயின்மெண்டும் சேர்க்கப்படவில்லை.',
+                'appt.locked': 'அப்பாயின்மெண்டுகள் லாக் செய்யப்பட்டுள்ளன.',
+                'appt.needWhenTitle': 'தேதி/நேரம் மற்றும் நோக்கம் சேர்க்கவும்.',
                 'dash.weekPrefix': 'வாரம்',
                 'dash.weeksSuffix': 'வாரங்கள்',
                 'dash.partnerView': 'பங்காளர் பார்வை',
@@ -2756,6 +2894,29 @@
                 'nav.sync': 'سنک',
                 'nav.premium': 'پریمیم',
                 'nav.settings': 'سیٹنگز',
+                'sos.callDoctor': 'میرے ڈاکٹر کو کال کریں',
+                'sos.cancel': 'الرٹ منسوخ کریں',
+                'sos.emergencyMode': 'ایمرجنسی موڈ',
+                'sos.callingSupport': 'مدد کے لیے کال ہو رہی ہے...',
+                'sos.callAmbulance': 'ایمبولینس کو کال کریں (102/108)',
+                'sos.callPolice': 'پولیس کو کال کریں (100)',
+                'sos.womenHelpline': 'خواتین ہیلپ لائن (1091)',
+                'updates.bannerTitle': 'میں نیا کیا ہے',
+                'updates.seeUpdates': 'اپ ڈیٹس دیکھیں',
+                'updates.gotIt': 'سمجھ گیا',
+                'updates.title': 'اپ ڈیٹس',
+                'updates.subtitle': 'ہر ورژن میں کیا بدلا اور کیا نیا ہے دیکھیں۔',
+                'updates.viewChangelog': 'چینج لاگ دیکھیں',
+                'updates.markRead': 'پڑھا ہوا نشان لگائیں',
+                'updates.whatsNew': 'نیا کیا ہے',
+                'updates.modalSubtitle': 'نئے فیچرز، فکسز اور پالش — ریلیز نوٹس جیسا۔',
+                'updates.close': 'بند کریں',
+                'updates.lastSeen': 'آخری بار دیکھا',
+                'appt.synced': 'پارٹنر کے ساتھ سنک',
+                'appt.savedLocal': 'لوکلی محفوظ',
+                'appt.none': 'ابھی تک کوئی اپائنٹمنٹ شامل نہیں کی گئی۔',
+                'appt.locked': 'اپائنٹمنٹ لاک ہیں۔',
+                'appt.needWhenTitle': 'تاریخ/وقت اور مقصد شامل کریں۔',
                 'dash.weekPrefix': 'ہفتہ',
                 'dash.weeksSuffix': 'ہفتے',
                 'dash.partnerView': 'پارٹنر ویو',
@@ -2808,6 +2969,29 @@
                 'nav.sync': 'સિંક',
                 'nav.premium': 'પ્રીમિયમ',
                 'nav.settings': 'સેટિંગ્સ',
+                'sos.callDoctor': 'મારા ડૉક્ટરને કોલ કરો',
+                'sos.cancel': 'અલર્ટ રદ કરો',
+                'sos.emergencyMode': 'આકસ્મિક સ્થિતિ',
+                'sos.callingSupport': 'સહાય માટે કોલ થઈ રહ્યો છે...',
+                'sos.callAmbulance': 'એમ્બ્યુલન્સને કોલ કરો (102/108)',
+                'sos.callPolice': 'પોલીસને કોલ કરો (100)',
+                'sos.womenHelpline': 'મહિલા હેલ્પલાઇન (1091)',
+                'updates.bannerTitle': 'માં શું નવું',
+                'updates.seeUpdates': 'અપડેટ્સ જુઓ',
+                'updates.gotIt': 'સમજી ગયા',
+                'updates.title': 'અપડેટ્સ',
+                'updates.subtitle': 'દરેક વર્ઝનમાં શું બદલાયું અને શું નવું છે તે જુઓ.',
+                'updates.viewChangelog': 'ચેન્જલોગ જુઓ',
+                'updates.markRead': 'વાચ્યું તરીકે ચિહ્નિત કરો',
+                'updates.whatsNew': 'નવું શું છે',
+                'updates.modalSubtitle': 'નવા ફીચર્સ, સુધારાઓ અને પોલિશ — રિલીઝ નોટ્સ જેવી.',
+                'updates.close': 'બંધ કરો',
+                'updates.lastSeen': 'છેલ્લે જોવા મળ્યું',
+                'appt.synced': 'પાર્ટનર સાથે સિંક્ચ થયું',
+                'appt.savedLocal': 'સ્થાનિક રીતે સાચવ્યું',
+                'appt.none': 'હજુ સુધી કોઈ અપોઇન્ટમેન્ટ ઉમેરાઈ નથી.',
+                'appt.locked': 'અપોઇન્ટમેન્ટ લોક છે.',
+                'appt.needWhenTitle': 'તારીખ/સમય અને હેતુ ઉમેરો.',
                 'dash.weekPrefix': 'અઠવાડિયું',
                 'dash.weeksSuffix': 'અઠવાડિયા',
                 'dash.partnerView': 'પાર્ટનર દૃશ્ય',
@@ -2860,6 +3044,29 @@
                 'nav.sync': 'ಸಿಂಕ್',
                 'nav.premium': 'ಪ್ರೀಮಿಯಮ್',
                 'nav.settings': 'ಸೆಟ್ಟಿಂಗ್ಗಳು',
+                'sos.callDoctor': 'ನನ್ನ ವೈದ್ಯರಿಗೆ ಕರೆ ಮಾಡಿ',
+                'sos.cancel': 'ಅಲರ್ಟ್ ರದ್ದು ಮಾಡಿ',
+                'sos.emergencyMode': 'ತುರ್ತು ಮೋಡ್',
+                'sos.callingSupport': 'ಸಹಾಯಕ್ಕೆ ಕರೆ ಮಾಡಲಾಗುತ್ತಿದೆ...',
+                'sos.callAmbulance': 'ಆಂಬ್ಯುಲೆನ್ಸ್‌ಗೆ ಕರೆ ಮಾಡಿ (102/108)',
+                'sos.callPolice': 'ಪೊಲೀಸ್‌ಗೆ ಕರೆ ಮಾಡಿ (100)',
+                'sos.womenHelpline': 'ಮಹಿಳಾ ಹೆಲ್ಪ್‌ಲೈನ್ (1091)',
+                'updates.bannerTitle': 'ಯಲ್ಲಿ ಹೊಸದು',
+                'updates.seeUpdates': 'ಅಪ್ಡೇಟ್‌ಗಳನ್ನು ನೋಡಿ',
+                'updates.gotIt': 'ಅರ್ಥವಾಯಿತು',
+                'updates.title': 'ಅಪ್ಡೇಟ್‌ಗಳು',
+                'updates.subtitle': 'ಪ್ರತಿ ಆವೃತ್ತಿಯಲ್ಲಿ ಏನು ಬದಲಾಗಿದೆ ಮತ್ತು ಏನು ಹೊಸದು ನೋಡಿ.',
+                'updates.viewChangelog': 'ಚೇಂಜ್‌ಲಾಗ್ ನೋಡಿ',
+                'updates.markRead': 'ಓದಿದ್ದಾಗಿ ಗುರುತಿಸಿ',
+                'updates.whatsNew': 'ಹೊಸದೇನು',
+                'updates.modalSubtitle': 'ಹೊಸ ವೈಶಿಷ್ಟ್ಯಗಳು, ಫಿಕ್ಸ್‌ಗಳು ಮತ್ತು ಪೊಲಿಷ್ — ರಿಲೀಸ್ ನೋಟ್ಸ್처럼.',
+                'updates.close': 'ಮುಚ್ಚಿ',
+                'updates.lastSeen': 'ಕೊನೆಯದಾಗಿ ನೋಡಿದ್ದು',
+                'appt.synced': 'ಪಾರ್ಟ್ನರ್ ಜೊತೆ ಸಿಂಕ್ ಆಗಿದೆ',
+                'appt.savedLocal': 'ಲೋಕಲ್‌ನಲ್ಲಿ ಉಳಿಸಲಾಗಿದೆ',
+                'appt.none': 'ಇನ್ನೂ ಯಾವುದೇ ಅಪಾಯಿಂಟ್‌ಮೆಂಟ್ ಸೇರಿಸಲಿಲ್ಲ.',
+                'appt.locked': 'ಅಪಾಯಿಂಟ್‌ಮೆಂಟ್‌ಗಳು ಲಾಕ್ ಆಗಿವೆ.',
+                'appt.needWhenTitle': 'ದಿನಾಂಕ/ಸಮಯ ಮತ್ತು ಉದ್ದೇಶ ಸೇರಿಸಿ.',
                 'dash.weekPrefix': 'ವಾರ',
                 'dash.weeksSuffix': 'ವಾರಗಳು',
                 'dash.partnerView': 'ಪಾರ್ಟ್ನರ್ ವೀಕ್ಷಣೆ',
@@ -2912,6 +3119,29 @@
                 'nav.sync': 'സിങ്ക്',
                 'nav.premium': 'പ്രീമിയം',
                 'nav.settings': 'സെറ്റിംഗ്സ്',
+                'sos.callDoctor': 'എന്റെ ഡോക്ടറെ വിളിക്കുക',
+                'sos.cancel': 'അലർട്ട് റദ്ദാക്കുക',
+                'sos.emergencyMode': 'അത്യാഹിത മോഡ്',
+                'sos.callingSupport': 'സഹായത്തിനായി വിളിക്കുന്നു...',
+                'sos.callAmbulance': 'ആംബുലൻസ് വിളിക്കുക (102/108)',
+                'sos.callPolice': 'പോലീസ് വിളിക്കുക (100)',
+                'sos.womenHelpline': 'മഹിളാ ഹെൽപ്‌ലൈൻ (1091)',
+                'updates.bannerTitle': 'ൽ പുതിയത്',
+                'updates.seeUpdates': 'അപ്‌ഡേറ്റുകൾ കാണുക',
+                'updates.gotIt': 'മനസ്സിലായി',
+                'updates.title': 'അപ്‌ഡേറ്റുകൾ',
+                'updates.subtitle': 'ഓരോ പതിപ്പിലും എന്താണ് മാറ്റം, എന്താണ് പുതിയത് എന്ന് കാണുക.',
+                'updates.viewChangelog': 'ചേഞ്ച്‌ലോഗ് കാണുക',
+                'updates.markRead': 'വായിച്ചതായി അടയാളപ്പെടുത്തുക',
+                'updates.whatsNew': 'പുതിയത് എന്ത്',
+                'updates.modalSubtitle': 'പുതിയ ഫീച്ചറുകൾ, ഫിക്‌സുകൾ, പോളിഷ് — റിലീസ് നോട്ടുകൾ പോലെ.',
+                'updates.close': 'അടയ്ക്കുക',
+                'updates.lastSeen': 'അവസാനം കണ്ടത്',
+                'appt.synced': 'പാർട്നറുമായി സിങ്ക് ആയി',
+                'appt.savedLocal': 'ലോക്കൽ ആയി സേവ് ചെയ്തു',
+                'appt.none': 'ഇനിയും ഒരു അപോയിന്റ്മെന്റും ചേർത്തിട്ടില്ല.',
+                'appt.locked': 'അപോയിന്റ്മെന്റുകൾ ലോക്ക് ചെയ്തിരിക്കുന്നു.',
+                'appt.needWhenTitle': 'തീയതി/സമയംയും ഉദ്ദേശവും ചേർക്കുക.',
                 'dash.weekPrefix': 'ആഴ്ച',
                 'dash.weeksSuffix': 'ആഴ്ചകൾ',
                 'dash.partnerView': 'പാർട്നർ കാഴ്ച',
@@ -2964,6 +3194,29 @@
                 'nav.sync': 'ਸਿੰਕ',
                 'nav.premium': 'ਪ੍ਰੀਮੀਅਮ',
                 'nav.settings': 'ਸੈਟਿੰਗਜ਼',
+                'sos.callDoctor': 'ਮੇਰੇ ਡਾਕਟਰ ਨੂੰ ਕਾਲ ਕਰੋ',
+                'sos.cancel': 'ਅਲਰਟ ਰੱਦ ਕਰੋ',
+                'sos.emergencyMode': 'ਐਮਰਜੈਂਸੀ ਮੋਡ',
+                'sos.callingSupport': 'ਸਹਾਇਤਾ ਲਈ ਕਾਲ ਕੀਤੀ ਜਾ ਰਹੀ ਹੈ...',
+                'sos.callAmbulance': 'ਐਂਬੂਲੈਂਸ ਨੂੰ ਕਾਲ ਕਰੋ (102/108)',
+                'sos.callPolice': 'ਪੁਲਿਸ ਨੂੰ ਕਾਲ ਕਰੋ (100)',
+                'sos.womenHelpline': 'ਮਹਿਲਾ ਹੈਲਪਲਾਈਨ (1091)',
+                'updates.bannerTitle': 'ਵਿੱਚ ਨਵਾਂ ਕੀ ਹੈ',
+                'updates.seeUpdates': 'ਅਪਡੇਟ ਵੇਖੋ',
+                'updates.gotIt': 'ਸਮਝ ਗਿਆ',
+                'updates.title': 'ਅਪਡੇਟਸ',
+                'updates.subtitle': 'ਹਰ ਵਰਜਨ ਵਿੱਚ ਕੀ ਬਦਲਿਆ ਅਤੇ ਕੀ ਨਵਾਂ ਹੈ ਵੇਖੋ।',
+                'updates.viewChangelog': 'ਚੇਂਜਲਾਗ ਵੇਖੋ',
+                'updates.markRead': 'ਪੜ੍ਹਿਆ ਹੋਇਆ ਚਿੰਨ੍ਹਿਤ ਕਰੋ',
+                'updates.whatsNew': 'ਨਵਾਂ ਕੀ ਹੈ',
+                'updates.modalSubtitle': 'ਨਵੇਂ ਫੀਚਰ, ਫਿਕਸ ਅਤੇ ਪੋਲਿਸ਼ — ਰਿਲੀਜ਼ ਨੋਟਸ ਵਾਂਗ।',
+                'updates.close': 'ਬੰਦ ਕਰੋ',
+                'updates.lastSeen': 'ਆਖਰੀ ਵਾਰ ਦੇਖਿਆ',
+                'appt.synced': 'ਪਾਰਟਨਰ ਨਾਲ ਸਿੰਕ ਹੋਇਆ',
+                'appt.savedLocal': "ਲੋਕਲ ਤੌਰ 'ਤੇ ਸੇਵ ਹੋਇਆ",
+                'appt.none': 'ਹੁਣ ਤੱਕ ਕੋਈ ਅਪਾਇਂਟਮੈਂਟ ਨਹੀਂ ਜੋੜਿਆ ਗਿਆ।',
+                'appt.locked': 'ਅਪਾਇਂਟਮੈਂਟ ਲਾਕ ਹਨ।',
+                'appt.needWhenTitle': 'ਤਾਰੀਖ/ਸਮਾਂ ਅਤੇ ਮਕਸਦ ਜੋੜੋ।',
                 'dash.weekPrefix': 'ਹਫ਼ਤਾ',
                 'dash.weeksSuffix': 'ਹਫ਼ਤੇ',
                 'dash.partnerView': 'ਪਾਰਟਨਰ ਵਿਊ',
@@ -3016,6 +3269,29 @@
                 'nav.sync': 'Sincronizar',
                 'nav.premium': 'Premium',
                 'nav.settings': 'Ajustes',
+                'sos.callDoctor': 'Llamar a mi doctor',
+                'sos.cancel': 'Cancelar alerta',
+                'sos.emergencyMode': 'MODO EMERGENCIA',
+                'sos.callingSupport': 'Llamando a soporte...',
+                'sos.callAmbulance': 'Llamar ambulancia (102/108)',
+                'sos.callPolice': 'Llamar policía (100)',
+                'sos.womenHelpline': 'Línea de ayuda para mujeres (1091)',
+                'updates.bannerTitle': 'Novedades en',
+                'updates.seeUpdates': 'Ver actualizaciones',
+                'updates.gotIt': 'Entendido',
+                'updates.title': 'Actualizaciones',
+                'updates.subtitle': 'Mira qué cambió y qué hay de nuevo en cada versión.',
+                'updates.viewChangelog': 'Ver registro de cambios',
+                'updates.markRead': 'Marcar como leído',
+                'updates.whatsNew': 'Novedades',
+                'updates.modalSubtitle': 'Nuevas funciones, correcciones y mejoras — como notas de versión.',
+                'updates.close': 'Cerrar',
+                'updates.lastSeen': 'Visto por última vez',
+                'appt.synced': 'Sincronizado con la pareja',
+                'appt.savedLocal': 'Guardado localmente',
+                'appt.none': 'Aún no hay citas añadidas.',
+                'appt.locked': 'Las citas están bloqueadas.',
+                'appt.needWhenTitle': 'Agrega fecha/hora y motivo.',
                 'dash.weekPrefix': 'Semana',
                 'dash.weeksSuffix': 'semanas',
                 'dash.partnerView': 'Vista de pareja',
@@ -3068,6 +3344,29 @@
                 'nav.sync': 'Synchroniser',
                 'nav.premium': 'Premium',
                 'nav.settings': 'Paramètres',
+                'sos.callDoctor': 'Appeler mon médecin',
+                'sos.cancel': 'Annuler l’alerte',
+                'sos.emergencyMode': 'MODE URGENCE',
+                'sos.callingSupport': 'Appel à l’assistance...',
+                'sos.callAmbulance': 'Appeler l’ambulance (102/108)',
+                'sos.callPolice': 'Appeler la police (100)',
+                'sos.womenHelpline': 'Ligne d’aide aux femmes (1091)',
+                'updates.bannerTitle': 'Nouveautés de',
+                'updates.seeUpdates': 'Voir les mises à jour',
+                'updates.gotIt': 'Compris',
+                'updates.title': 'Mises à jour',
+                'updates.subtitle': 'Voir ce qui a changé et les nouveautés de chaque version.',
+                'updates.viewChangelog': 'Voir le journal des changements',
+                'updates.markRead': 'Marquer comme lu',
+                'updates.whatsNew': 'Quoi de neuf',
+                'updates.modalSubtitle': 'Nouvelles fonctionnalités, corrections et améliorations — façon notes de version.',
+                'updates.close': 'Fermer',
+                'updates.lastSeen': 'Vu pour la dernière fois',
+                'appt.synced': 'Synchronisé avec le partenaire',
+                'appt.savedLocal': 'Enregistré localement',
+                'appt.none': 'Aucun rendez-vous ajouté pour l’instant.',
+                'appt.locked': 'Les rendez-vous sont verrouillés.',
+                'appt.needWhenTitle': 'Ajoutez date/heure et motif.',
                 'dash.weekPrefix': 'Semaine',
                 'dash.weeksSuffix': 'semaines',
                 'dash.partnerView': 'Vue partenaire',
@@ -3120,6 +3419,29 @@
                 'nav.sync': 'مزامنة',
                 'nav.premium': 'بريميوم',
                 'nav.settings': 'الإعدادات',
+                'sos.callDoctor': 'اتصل بطبيبي',
+                'sos.cancel': 'إلغاء التنبيه',
+                'sos.emergencyMode': 'وضع الطوارئ',
+                'sos.callingSupport': 'جارٍ الاتصال بالدعم...',
+                'sos.callAmbulance': 'اتصل بالإسعاف (102/108)',
+                'sos.callPolice': 'اتصل بالشرطة (100)',
+                'sos.womenHelpline': 'خط مساعدة النساء (1091)',
+                'updates.bannerTitle': 'ما الجديد في',
+                'updates.seeUpdates': 'عرض التحديثات',
+                'updates.gotIt': 'تم',
+                'updates.title': 'التحديثات',
+                'updates.subtitle': 'اطلع على ما تغيّر وما الجديد في كل إصدار.',
+                'updates.viewChangelog': 'عرض سجل التغييرات',
+                'updates.markRead': 'وضع علامة كمقروء',
+                'updates.whatsNew': 'ما الجديد',
+                'updates.modalSubtitle': 'ميزات جديدة وإصلاحات وتحسينات — كملخصات الإصدار.',
+                'updates.close': 'إغلاق',
+                'updates.lastSeen': 'شوهد آخر مرة',
+                'appt.synced': 'مزامن مع الشريك',
+                'appt.savedLocal': 'محفوظ محليًا',
+                'appt.none': 'لم تتم إضافة أي مواعيد بعد.',
+                'appt.locked': 'المواعيد مقفلة.',
+                'appt.needWhenTitle': 'أضف التاريخ/الوقت والغرض.',
                 'dash.weekPrefix': 'الأسبوع',
                 'dash.weeksSuffix': 'أسابيع',
                 'dash.partnerView': 'عرض الشريك',
@@ -4564,7 +4886,23 @@
             const src = getPeriodSource();
             const el = document.getElementById('appts-sync-note');
             if(!el) return;
-            el.innerText = src.type === 'couple' ? 'Synced with partner' : 'Saved locally';
+            el.innerText = src.type === 'couple'
+                ? t('appt.synced', 'Synced with partner')
+                : t('appt.savedLocal', 'Saved locally');
+        }
+
+        function toDateSafe(v) {
+            if(!v) return null;
+            if(v instanceof Date) return v;
+            if(typeof v === 'string' || typeof v === 'number') {
+                const d = new Date(v);
+                return Number.isNaN(d.getTime()) ? null : d;
+            }
+            if(typeof v.toDate === 'function') {
+                const d = v.toDate();
+                return d instanceof Date ? d : null;
+            }
+            return null;
         }
 
         function renderAppointmentsList() {
@@ -4589,14 +4927,15 @@
             if(addBtn) addBtn.disabled = !canEdit;
 
             if(!appts.length) {
-                wrap.innerHTML = `<div class="text-muted" style="line-height:1.6;">No appointments added yet.</div>`;
+                wrap.innerHTML = `<div class="text-muted" style="line-height:1.6;">${escapeHtmlLite(t('appt.none', 'No appointments added yet.'))}</div>`;
                 return;
             }
 
-            const sorted = appts.slice().sort((a,b) => (a.when || '').localeCompare(b.when || ''));
+            const sorted = appts.slice().sort((a,b) => String(a.when || '').localeCompare(String(b.when || '')));
             wrap.innerHTML = '';
             for(const a of sorted) {
-                const when = a.when ? new Date(a.when).toLocaleString() : '--';
+                const whenDate = toDateSafe(a.when);
+                const when = whenDate ? whenDate.toLocaleString() : '--';
                 const title = escapeHtmlLite(a.title || 'Appointment');
                 const place = escapeHtmlLite(a.place || '');
                 const notes = escapeHtmlLite(a.notes || '');
@@ -4628,12 +4967,12 @@
         }
 
         window.addAppointment = async () => {
-            if(!canEditAppointments()) return alert('Appointments are locked.');
+            if(!canEditAppointments()) return alert(t('appt.locked', 'Appointments are locked.'));
             const when = document.getElementById('appt-when')?.value;
             const title = (document.getElementById('appt-title')?.value || '').trim();
             const place = (document.getElementById('appt-place')?.value || '').trim();
             const notes = (document.getElementById('appt-notes')?.value || '').trim();
-            if(!when || !title) return alert('Add date/time and purpose.');
+            if(!when || !title) return alert(t('appt.needWhenTitle', 'Add date/time and purpose.'));
 
             const obj = readAppointmentsObject() || { allowPartnerEdit: true, appts: [] };
             const next = Array.isArray(obj.appts) ? obj.appts.slice() : [];
@@ -4707,7 +5046,10 @@
         window.exportAppointmentsIcs = () => {
             const obj = readAppointmentsObject();
             const appts = Array.isArray(obj?.appts) ? obj.appts : [];
-            const upcoming = appts.filter(a => a?.when && (new Date(a.when) - new Date()) > -1000*60*60*24*5);
+            const upcoming = appts
+                .map(a => ({ a, d: toDateSafe(a?.when) }))
+                .filter(x => x.d && (x.d - new Date()) > -1000*60*60*24*5)
+                .map(x => x.a);
             if(!upcoming.length) {
                 alert('No upcoming appointments to export.');
                 return;
@@ -4715,7 +5057,7 @@
             const events = upcoming.slice(0, 200).map(a => buildIcsTimedEvent({
                 uid: `nexus-${user.uid}-${a.id || Date.now()}`,
                 title: `Appointment: ${a.title || 'Checkup'}`,
-                startDateTime: a.when,
+                startDateTime: (toDateSafe(a.when) || new Date()).toISOString(),
                 description: `Maternal Nexus reminder. ${a.notes || ''}`.trim(),
                 location: a.place || ''
             })).filter(Boolean);
@@ -5104,6 +5446,7 @@
         window.connectSync = async () => {
             const code = (document.getElementById('sync-input')?.value || '').trim();
             if(!code) return alert(t('sync.enterCode', 'Please enter a sync code.'));
+            if(!/^\d{4}$/.test(code)) return alert(t('sync.invalidCode', 'Invalid Code'));
             const q = query(collection(db, 'artifacts', appId, 'public', 'data', 'users'), where("code", "==", code));
             const snap = await getDocs(q);
             if(!snap.empty) {
@@ -5905,10 +6248,11 @@
         function formatSeenMeta() {
             const v = getLastSeenVersion();
             const at = clampInt(localStorage.getItem(UPDATES_LAST_SEEN_AT_KEY) || 0, 0, 9999999999999);
-            if(!at) return `Last seen: v${v}`;
+            const label = t('updates.lastSeen', 'Last seen');
+            if(!at) return `${label}: v${v}`;
             const d = new Date(at);
             const ds = d.toLocaleString(undefined, { year:'numeric', month:'short', day:'2-digit', hour:'2-digit', minute:'2-digit' });
-            return `Last seen: v${v} • ${ds}`;
+            return `${label}: v${v} • ${ds}`;
         }
 
         function setUpdatesIndicators(hasUnseen) {
@@ -6079,7 +6423,8 @@
             modal.classList.add('hidden');
         };
 
-        window.dismissUpdates = () => {
+        window.dismissUpdates = async () => {
+            try { await refreshRemoteUpdates(); } catch(e) {}
             const latest = getLatestUpdatesVersion();
             setLastSeenVersion(latest);
             localStorage.setItem(UPDATES_AUTO_SHOWN_KEY, String(latest));
