@@ -6080,7 +6080,18 @@
         };
 
         window.dismissUpdates = () => {
-            setLastSeenVersion(getLatestUpdatesVersion());
+            const latest = getLatestUpdatesVersion();
+            setLastSeenVersion(latest);
+            localStorage.setItem(UPDATES_AUTO_SHOWN_KEY, String(latest));
+
+            const banner = document.getElementById('updates-banner');
+            if(banner) banner.classList.remove('show');
+            setUpdatesIndicators(false);
+
+            const lastSeenEl = document.getElementById('updates-last-seen');
+            if(lastSeenEl) lastSeenEl.textContent = formatSeenMeta();
+
+            try { closeUpdatesModal(); } catch(e) {}
             try { setupUpdatesUI(); } catch(e) {}
         };
 
