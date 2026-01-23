@@ -146,6 +146,17 @@
 
         .input { width: 100%; padding: 14px; border-radius: 12px; border: 1px solid var(--border); background: var(--bg-body); color: var(--text-main); font-family: inherit; margin-bottom: 12px; font-size: 16px; }
         .input:focus { outline: 2px solid var(--primary); border-color: transparent; }
+        
+        /* Fix date picker visibility */
+        input[type="date"]::-webkit-calendar-picker-indicator,
+        input[type="datetime-local"]::-webkit-calendar-picker-indicator {
+            filter: invert(0.5);
+            cursor: pointer;
+        }
+        [data-theme="dark"] input[type="date"]::-webkit-calendar-picker-indicator,
+        [data-theme="dark"] input[type="datetime-local"]::-webkit-calendar-picker-indicator {
+            filter: invert(1);
+        }
 
         /* --- Chat --- */
         .chat-container { height: 60vh; display: flex; flex-direction: column; border: 1px solid var(--border); overflow: hidden; }
@@ -154,6 +165,20 @@
         .msg-left { background: var(--bg-card); align-self: flex-start; border-bottom-left-radius: 4px; }
         .msg-right { background: var(--primary); color: white; align-self: flex-end; border-bottom-right-radius: 4px; }
         .msg-meta { font-size: 10px; opacity: 0.7; margin-top: 4px; text-align: right; }
+        .msg-with-delete { padding-right: 38px; }
+        .msg-delete-btn {
+            position: absolute;
+            top: 6px;
+            right: 8px;
+            background: transparent;
+            border: none;
+            padding: 4px;
+            color: rgba(255,255,255,0.9);
+            cursor: pointer;
+            font-size: 12px;
+        }
+        .msg-left .msg-delete-btn { color: rgba(0,0,0,0.6); }
+        .msg-delete-btn:hover { opacity: 0.8; transform: scale(1.05); }
 
         /* --- SOS Button --- */
         .sos-float { 
@@ -671,7 +696,7 @@
             <a href="tel:100" class="btn btn-call" style="background: #1e293b; display:block; margin-bottom:10px;"><i class="fa-solid fa-shield-halved"></i> Call Police (100)</a>
             <a href="tel:1091" class="btn btn-call" style="background: #d946ef; display:block; margin-bottom:10px;"><i class="fa-solid fa-female"></i> Women's Helpline (1091)</a>
             <a id="sos-btn-doc" href="#" class="btn btn-call" style="background: var(--primary); display:block;"><i class="fa-solid fa-user-doctor"></i> Call My Doctor</a>
-            <button class="btn btn-secondary" onclick="dismissSOS()" style="margin-top: 20px; border: 1px solid #ccc; width: 100%;">Cancel Alert</button>
+            <button class="btn btn-secondary" onclick="dismissSOS()" style="margin-top: 20px; border: 1px solid #ccc; width: 100%; color: var(--text-main); font-weight: 700;">Cancel Alert</button>
         </div>
     </div>
 
@@ -934,7 +959,7 @@
                         </div>
 
                         <div style="display:grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 12px;">
-                            <input type="datetime-local" id="appt-when" class="input" style="margin:0;">
+                            <input type="datetime-local" id="appt-when" class="input" style="margin:0;" oninput="const v=this.value;if(v){const y=v.split('-')[0];if(y&&y.length>4)this.value=v.substring(0,4)+v.substring(y.length);}">
                             <input type="text" id="appt-title" class="input" placeholder="Purpose (e.g., NT scan / Checkup)" data-i18n-placeholder="appt.purposePlaceholder" style="margin:0;">
                         </div>
                         <div style="display:grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 10px;">
@@ -1027,17 +1052,17 @@
                                 <div style="display:grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 14px;">
                                     <div>
                                         <label style="font-size: 12px; font-weight: bold; margin-left: 4px;" data-i18n="period.lastStart">Last Period Start</label>
-                                        <input type="date" id="period-last-start" class="input" style="margin:0;">
+                                        <input type="date" id="period-last-start" class="input" style="margin:0;" oninput="const v=this.value;if(v){const y=v.split('-')[0];if(y&&y.length>4)this.value=v.substring(0,4)+v.substring(y.length);}">
                                     </div>
                                     <div>
                                         <label style="font-size: 12px; font-weight: bold; margin-left: 4px;" data-i18n="period.cycleLength">Cycle Length (days)</label>
-                                        <input type="number" id="period-cycle-length" class="input" min="20" max="45" step="1" inputmode="numeric" style="margin:0;" placeholder="e.g. 28" data-i18n-placeholder="period.cycleLengthPlaceholder">
+                                        <input type="number" id="period-cycle-length" class="input" min="20" max="45" step="1" inputmode="numeric" style="margin:0;" placeholder="e.g. 28" data-i18n-placeholder="period.cycleLengthPlaceholder" oninput="if(this.value.length>3)this.value=this.value.slice(0,3);">
                                     </div>
                                 </div>
                                 <div style="display:grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 12px;">
                                     <div>
                                         <label style="font-size: 12px; font-weight: bold; margin-left: 4px;" data-i18n="period.periodLength">Period Length (days)</label>
-                                        <input type="number" id="period-length" class="input" min="2" max="10" step="1" inputmode="numeric" style="margin:0;" placeholder="e.g. 5" data-i18n-placeholder="period.periodLengthPlaceholder">
+                                        <input type="number" id="period-length" class="input" min="2" max="10" step="1" inputmode="numeric" style="margin:0;" placeholder="e.g. 5" data-i18n-placeholder="period.periodLengthPlaceholder" oninput="if(this.value.length>3)this.value=this.value.slice(0,3);">
                                     </div>
                                     <div>
                                         <label style="font-size: 12px; font-weight: bold; margin-left: 4px;" data-i18n="period.notes">Notes</label>
@@ -1064,7 +1089,7 @@
 
                                 <div class="card" style="margin-top: 16px;">
                                     <h3 style="margin-top:0;" data-i18n="period.syncStatus">Sync Status</h3>
-                                    <div class="text-muted" id="period-sync-status" style="font-size:12px; line-height:1.6;">Not connected</div>
+                                    <div class="text-muted" id="period-sync-status" style="font-size:12px; line-height:1.6;" data-i18n="period.syncStatusLocal">Not connected — saved only to your account</div>
                                     <button class="btn btn-secondary" style="width:100%; margin-top:12px;" onclick="nav('sync')"><i class="fa-solid fa-link"></i> <span data-i18n="period.manageSync">Manage Sync</span></button>
                                 </div>
                             </div>
@@ -1097,8 +1122,8 @@
                                 <div>
                                     <div class="text-muted" style="font-size: 12px; font-weight: 800; margin-bottom: 8px;" data-i18n="period.addRangeQuick">Add a range (quick)</div>
                                     <div class="cal-row">
-                                        <input type="date" id="period-cal-start" class="input" aria-label="Range start">
-                                        <input type="date" id="period-cal-end" class="input" aria-label="Range end">
+                                        <input type="date" id="period-cal-start" class="input" aria-label="Range start" oninput="const v=this.value;if(v){const y=v.split('-')[0];if(y&&y.length>4)this.value=v.substring(0,4)+v.substring(y.length);}">
+                                        <input type="date" id="period-cal-end" class="input" aria-label="Range end" oninput="const v=this.value;if(v){const y=v.split('-')[0];if(y&&y.length>4)this.value=v.substring(0,4)+v.substring(y.length);}">
                                     </div>
                                     <button class="btn btn-primary" id="period-cal-add-range" type="button" onclick="periodCalAddRange()"><i class="fa-solid fa-plus"></i> <span data-i18n="period.addRange">Add Range</span></button>
                                 </div>
@@ -1398,7 +1423,7 @@
 
                         <div style="display:grid; grid-template-columns: 1.2fr 0.8fr; gap: 10px; margin-top: 12px;">
                             <input type="text" id="med-log-name" class="input" placeholder="Medicine name (e.g., Iron tablet)" data-i18n-placeholder="med.namePlaceholder" style="margin:0;">
-                            <input type="text" id="med-log-dose" class="input" placeholder="Dose (e.g., 1 tab)" data-i18n-placeholder="med.dosePlaceholder" style="margin:0;">
+                            <input type="text" id="med-log-dose" class="input" placeholder="Dose (e.g., 1 tab)" data-i18n-placeholder="med.dosePlaceholder" style="margin:0;" oninput="this.value=this.value.replace(/[^0-9.]/g,'');">
                         </div>
                         <div style="display:grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 10px;">
                             <input type="datetime-local" id="med-log-time" class="input" style="margin:0;">
@@ -2031,6 +2056,18 @@
                 'dash.myDoctor': 'My Doctor',
                 'dash.notSet': 'Not Set',
                 'dash.callNow': 'Call Now',
+                'dash.weekPrefix': 'Week',
+                'dash.weeksSuffix': 'weeks',
+                'dash.partnerView': 'Partner View',
+                'sync.linkedLabel': 'Linked:',
+                'sync.connectedTo': 'Connected to',
+                'sync.enterCode': 'Please enter a sync code.',
+                'sync.invalidCode': 'Invalid Code',
+                'chat.deleteMessageConfirm': 'Delete this message?',
+                'chat.clearChatConfirm': 'Are you sure? This deletes messages for both partners.',
+                'chat.cleared': 'Chat cleared.',
+                'period.syncStatusSynced': 'Synced with partner',
+                'period.syncStatusLocal': 'Not connected — saved only to your account',
 
                 'week.title': 'Pregnancy Progress',
                 'week.note': 'Week value will never go negative.',
@@ -2225,6 +2262,18 @@
                 'nav.sync': 'सिंक',
                 'nav.premium': 'प्रीमियम',
                 'nav.settings': 'सेटिंग्स',
+                'dash.weekPrefix': 'सप्ताह',
+                'dash.weeksSuffix': 'सप्ताह',
+                'dash.partnerView': 'पार्टनर दृश्य',
+                'sync.linkedLabel': 'जुड़ा:',
+                'sync.connectedTo': 'से जुड़ा',
+                'sync.enterCode': 'कृपया सिंक कोड दर्ज करें।',
+                'sync.invalidCode': 'अमान्य कोड',
+                'chat.deleteMessageConfirm': 'क्या यह संदेश हटाएँ?',
+                'chat.clearChatConfirm': 'क्या आप सुनिश्चित हैं? इससे दोनों पार्टनरों के संदेश हट जाएंगे।',
+                'chat.cleared': 'चैट साफ़ कर दी गई।',
+                'period.syncStatusSynced': 'पार्टनर के साथ सिंक',
+                'period.syncStatusLocal': 'कनेक्ट नहीं — केवल आपके खाते में सहेजा गया',
 
                 'mobile.home': 'होम',
                 'mobile.ai': 'एआई',
@@ -2499,6 +2548,18 @@
                 'nav.sync': 'সিঙ্ক',
                 'nav.premium': 'প্রিমিয়াম',
                 'nav.settings': 'সেটিংস',
+                'dash.weekPrefix': 'সপ্তাহ',
+                'dash.weeksSuffix': 'সপ্তাহ',
+                'dash.partnerView': 'পার্টনার ভিউ',
+                'sync.linkedLabel': 'লিংকড:',
+                'sync.connectedTo': 'সাথে সংযুক্ত',
+                'sync.enterCode': 'অনুগ্রহ করে একটি সিঙ্ক কোড দিন।',
+                'sync.invalidCode': 'অবৈধ কোড',
+                'chat.deleteMessageConfirm': 'এই বার্তাটি মুছে ফেলবেন?',
+                'chat.clearChatConfirm': 'আপনি কি নিশ্চিত? এতে উভয় পক্ষের বার্তা মুছে যাবে।',
+                'chat.cleared': 'চ্যাট পরিষ্কার করা হয়েছে।',
+                'period.syncStatusSynced': 'পার্টনারের সাথে সিঙ্ক হয়েছে',
+                'period.syncStatusLocal': 'সংযুক্ত নয় — শুধু আপনার অ্যাকাউন্টে সংরক্ষিত',
                 'mobile.home': 'হোম',
                 'mobile.ai': 'এআই',
                 'mobile.community': 'কমিউনিটি',
@@ -2539,6 +2600,18 @@
                 'nav.sync': 'సింక్',
                 'nav.premium': 'ప్రీమియం',
                 'nav.settings': 'సెట్టింగ్స్',
+                'dash.weekPrefix': 'వారం',
+                'dash.weeksSuffix': 'వారాలు',
+                'dash.partnerView': 'భాగస్వామి వీక్షణ',
+                'sync.linkedLabel': 'లింక్‌ చేయబడింది:',
+                'sync.connectedTo': 'తో కనెక్ట్ అయింది',
+                'sync.enterCode': 'దయచేసి సింక్ కోడ్ నమోదు చేయండి.',
+                'sync.invalidCode': 'చెల్లని కోడ్',
+                'chat.deleteMessageConfirm': 'ఈ సందేశాన్ని తొలగించాలా?',
+                'chat.clearChatConfirm': 'మీరు ఖచ్చితంగా ఉన్నారా? ఇది ఇద్దరి సందేశాలను తొలగిస్తుంది.',
+                'chat.cleared': 'చాట్ క్లియర్ అయింది.',
+                'period.syncStatusSynced': 'భాగస్వామితో సింక్ అయింది',
+                'period.syncStatusLocal': 'కనెక్ట్ కాలేదు — మీ ఖాతాలో మాత్రమే సేవ్ అయింది',
                 'mobile.home': 'హోమ్',
                 'mobile.ai': 'ఏఐ',
                 'mobile.community': 'కమ్యూనిటీ',
@@ -2579,6 +2652,18 @@
                 'nav.sync': 'सिंक',
                 'nav.premium': 'प्रीमियम',
                 'nav.settings': 'सेटिंग्ज',
+                'dash.weekPrefix': 'आठवडा',
+                'dash.weeksSuffix': 'आठवडे',
+                'dash.partnerView': 'पार्टनर दृश्य',
+                'sync.linkedLabel': 'लिंक झालेले:',
+                'sync.connectedTo': 'शी जोडलेले',
+                'sync.enterCode': 'कृपया सिंक कोड टाका.',
+                'sync.invalidCode': 'अवैध कोड',
+                'chat.deleteMessageConfirm': 'हा संदेश हटवायचा?',
+                'chat.clearChatConfirm': 'तुम्ही खात्री आहात? यामुळे दोघांचे संदेश हटतील.',
+                'chat.cleared': 'चॅट साफ झाली.',
+                'period.syncStatusSynced': 'पार्टनरसोबत सिंक झाले',
+                'period.syncStatusLocal': 'कनेक्ट नाही — फक्त तुमच्या खात्यात साठवले',
                 'mobile.home': 'होम',
                 'mobile.ai': 'एआय',
                 'mobile.community': 'कम्युनिटी',
@@ -2619,6 +2704,18 @@
                 'nav.sync': 'சிங்க்',
                 'nav.premium': 'ப்ரீமியம்',
                 'nav.settings': 'அமைப்புகள்',
+                'dash.weekPrefix': 'வாரம்',
+                'dash.weeksSuffix': 'வாரங்கள்',
+                'dash.partnerView': 'பங்காளர் பார்வை',
+                'sync.linkedLabel': 'இணைக்கப்பட்டது:',
+                'sync.connectedTo': 'உடன் இணைந்தது',
+                'sync.enterCode': 'தயவு செய்து சிங்க் குறியீட்டை உள்ளிடவும்.',
+                'sync.invalidCode': 'தவறான குறியீடு',
+                'chat.deleteMessageConfirm': 'இந்த செய்தியை நீக்கவா?',
+                'chat.clearChatConfirm': 'உறுதியாக இருக்கிறீர்களா? இது இருவரின் செய்திகளையும் நீக்கும்.',
+                'chat.cleared': 'அரட்டை அழிக்கப்பட்டது.',
+                'period.syncStatusSynced': 'பங்காளருடன் சிங்க் ஆகியது',
+                'period.syncStatusLocal': 'இணைக்கப்படவில்லை — உங்கள் கணக்கில் மட்டும் சேமிக்கப்பட்டது',
                 'mobile.home': 'ஹோம்',
                 'mobile.ai': 'ஏஐ',
                 'mobile.community': 'கம்யூனிட்டி',
@@ -2659,6 +2756,18 @@
                 'nav.sync': 'سنک',
                 'nav.premium': 'پریمیم',
                 'nav.settings': 'سیٹنگز',
+                'dash.weekPrefix': 'ہفتہ',
+                'dash.weeksSuffix': 'ہفتے',
+                'dash.partnerView': 'پارٹنر ویو',
+                'sync.linkedLabel': 'منسلک:',
+                'sync.connectedTo': 'کے ساتھ منسلک',
+                'sync.enterCode': 'براہِ کرم سنک کوڈ درج کریں۔',
+                'sync.invalidCode': 'غلط کوڈ',
+                'chat.deleteMessageConfirm': 'یہ پیغام حذف کریں؟',
+                'chat.clearChatConfirm': 'کیا آپ یقینی ہیں؟ اس سے دونوں کے پیغامات حذف ہو جائیں گے۔',
+                'chat.cleared': 'چیٹ صاف کر دی گئی۔',
+                'period.syncStatusSynced': 'پارٹنر کے ساتھ سنک',
+                'period.syncStatusLocal': 'منسلک نہیں — صرف آپ کے اکاؤنٹ میں محفوظ',
                 'mobile.home': 'ہوم',
                 'mobile.ai': 'اے آئی',
                 'mobile.community': 'کمیونٹی',
@@ -2699,6 +2808,18 @@
                 'nav.sync': 'સિંક',
                 'nav.premium': 'પ્રીમિયમ',
                 'nav.settings': 'સેટિંગ્સ',
+                'dash.weekPrefix': 'અઠવાડિયું',
+                'dash.weeksSuffix': 'અઠવાડિયા',
+                'dash.partnerView': 'પાર્ટનર દૃશ્ય',
+                'sync.linkedLabel': 'લિંક થયો:',
+                'sync.connectedTo': 'સાથે જોડાયેલ',
+                'sync.enterCode': 'કૃપા કરીને સિંક્ચ કોડ દાખલ કરો.',
+                'sync.invalidCode': 'અમાન્ય કોડ',
+                'chat.deleteMessageConfirm': 'આ સંદેશો કાઢી નાખવો?',
+                'chat.clearChatConfirm': 'શું તમે ખાતરી છો? આથી બંનેના સંદેશા કાઢી નાખાશે.',
+                'chat.cleared': 'ચેટ સાફ થઈ.',
+                'period.syncStatusSynced': 'પાર્ટનર સાથે સિંક્ચ થયું',
+                'period.syncStatusLocal': 'કનેક્ટ નથી — ફક્ત તમારા ખાતામાં સાચવ્યું',
                 'mobile.home': 'હોમ',
                 'mobile.ai': 'એઆઈ',
                 'mobile.community': 'કમ્યુનિટી',
@@ -2739,6 +2860,18 @@
                 'nav.sync': 'ಸಿಂಕ್',
                 'nav.premium': 'ಪ್ರೀಮಿಯಮ್',
                 'nav.settings': 'ಸೆಟ್ಟಿಂಗ್ಗಳು',
+                'dash.weekPrefix': 'ವಾರ',
+                'dash.weeksSuffix': 'ವಾರಗಳು',
+                'dash.partnerView': 'ಪಾರ್ಟ್ನರ್ ವೀಕ್ಷಣೆ',
+                'sync.linkedLabel': 'ಲಿಂಕ್ ಆಗಿದೆ:',
+                'sync.connectedTo': 'ಗೆ ಸಂಪರ್ಕಿಸಲಾಗಿದೆ',
+                'sync.enterCode': 'ದಯವಿಟ್ಟು ಸಿಂಕ್ ಕೋಡ್ ನಮೂದಿಸಿ.',
+                'sync.invalidCode': 'ಅಮಾನ್ಯ ಕೋಡ್',
+                'chat.deleteMessageConfirm': 'ಈ ಸಂದೇಶವನ್ನು ಅಳಿಸಬೇಕೇ?',
+                'chat.clearChatConfirm': 'ನೀವು ಖಚಿತವೇ? ಇದು ಇಬ್ಬರ ಸಂದೇಶಗಳನ್ನು ಅಳಿಸುತ್ತದೆ.',
+                'chat.cleared': 'ಚಾಟ್ ತೆರವಾಯಿತು.',
+                'period.syncStatusSynced': 'ಪಾರ್ಟ್ನರ್ ಜೊತೆ ಸಿಂಕ್ ಆಗಿದೆ',
+                'period.syncStatusLocal': 'ಕನೆಕ್ಟ್ ಆಗಿಲ್ಲ — ನಿಮ್ಮ ಖಾತೆಯಲ್ಲಿ ಮಾತ್ರ ಉಳಿಸಲಾಗಿದೆ',
                 'mobile.home': 'ಹೋಮ್',
                 'mobile.ai': 'ಎಐ',
                 'mobile.community': 'ಕಮ್ಯೂನಿಟಿ',
@@ -2779,6 +2912,18 @@
                 'nav.sync': 'സിങ്ക്',
                 'nav.premium': 'പ്രീമിയം',
                 'nav.settings': 'സെറ്റിംഗ്സ്',
+                'dash.weekPrefix': 'ആഴ്ച',
+                'dash.weeksSuffix': 'ആഴ്ചകൾ',
+                'dash.partnerView': 'പാർട്നർ കാഴ്ച',
+                'sync.linkedLabel': 'ലിങ്ക് ചെയ്തു:',
+                'sync.connectedTo': 'ഒപ്പമുണ്ട്',
+                'sync.enterCode': 'ദയവായി സിങ്ക് കോഡ് നൽകുക.',
+                'sync.invalidCode': 'അസാധുവായ കോഡ്',
+                'chat.deleteMessageConfirm': 'ഈ സന്ദേശം മായ്ക്കണോ?',
+                'chat.clearChatConfirm': 'നിങ്ങൾക്ക് ഉറപ്പാണോ? ഇതിലൂടെ ഇരുവരുടെയും സന്ദേശങ്ങൾ മായും.',
+                'chat.cleared': 'ചാറ്റ് ശുചീകരിച്ചു.',
+                'period.syncStatusSynced': 'പാർട്നറുമായി സിങ്ക് ആയി',
+                'period.syncStatusLocal': 'കണക്റ്റ് ചെയ്തിട്ടില്ല — നിങ്ങളുടെ അക്കൗണ്ടിൽ മാത്രം സേവ് ചെയ്തു',
                 'mobile.home': 'ഹോം',
                 'mobile.ai': 'എഐ',
                 'mobile.community': 'കമ്മ്യൂണിറ്റി',
@@ -2819,6 +2964,18 @@
                 'nav.sync': 'ਸਿੰਕ',
                 'nav.premium': 'ਪ੍ਰੀਮੀਅਮ',
                 'nav.settings': 'ਸੈਟਿੰਗਜ਼',
+                'dash.weekPrefix': 'ਹਫ਼ਤਾ',
+                'dash.weeksSuffix': 'ਹਫ਼ਤੇ',
+                'dash.partnerView': 'ਪਾਰਟਨਰ ਵਿਊ',
+                'sync.linkedLabel': 'ਲਿੰਕ ਕੀਤਾ:',
+                'sync.connectedTo': 'ਨਾਲ ਜੁੜਿਆ',
+                'sync.enterCode': 'ਕਿਰਪਾ ਕਰਕੇ ਸਿੰਕ ਕੋਡ ਦਰਜ ਕਰੋ।',
+                'sync.invalidCode': 'ਗਲਤ ਕੋਡ',
+                'chat.deleteMessageConfirm': 'ਇਹ ਸੁਨੇਹਾ ਮਿਟਾਉਣਾ ਹੈ?',
+                'chat.clearChatConfirm': 'ਕੀ ਤੁਸੀਂ ਯਕੀਨ ਕਰਦੇ ਹੋ? ਇਸ ਨਾਲ ਦੋਵਾਂ ਦੇ ਸੁਨੇਹੇ ਮਿਟ ਜਾਣਗੇ।',
+                'chat.cleared': 'ਚੈਟ ਸਾਫ਼ ਹੋ ਗਈ।',
+                'period.syncStatusSynced': 'ਪਾਰਟਨਰ ਨਾਲ ਸਿੰਕ ਹੋਇਆ',
+                'period.syncStatusLocal': 'ਕਨੈਕਟ ਨਹੀਂ — ਕੇਵਲ ਤੁਹਾਡੇ ਖਾਤੇ ਵਿੱਚ ਸੇਵ ਹੈ',
                 'mobile.home': 'ਹੋਮ',
                 'mobile.ai': 'ਏਆਈ',
                 'mobile.community': 'ਕਮਿਊਨਿਟੀ',
@@ -2859,6 +3016,18 @@
                 'nav.sync': 'Sincronizar',
                 'nav.premium': 'Premium',
                 'nav.settings': 'Ajustes',
+                'dash.weekPrefix': 'Semana',
+                'dash.weeksSuffix': 'semanas',
+                'dash.partnerView': 'Vista de pareja',
+                'sync.linkedLabel': 'Vinculado:',
+                'sync.connectedTo': 'Conectado con',
+                'sync.enterCode': 'Por favor ingresa un código de sincronización.',
+                'sync.invalidCode': 'Código inválido',
+                'chat.deleteMessageConfirm': '¿Eliminar este mensaje?',
+                'chat.clearChatConfirm': '¿Estás seguro? Esto elimina los mensajes para ambos.',
+                'chat.cleared': 'Chat borrado.',
+                'period.syncStatusSynced': 'Sincronizado con la pareja',
+                'period.syncStatusLocal': 'No conectado — guardado solo en tu cuenta',
                 'mobile.home': 'Inicio',
                 'mobile.ai': 'IA',
                 'mobile.community': 'Comunidad',
@@ -2899,6 +3068,18 @@
                 'nav.sync': 'Synchroniser',
                 'nav.premium': 'Premium',
                 'nav.settings': 'Paramètres',
+                'dash.weekPrefix': 'Semaine',
+                'dash.weeksSuffix': 'semaines',
+                'dash.partnerView': 'Vue partenaire',
+                'sync.linkedLabel': 'Lié :',
+                'sync.connectedTo': 'Connecté à',
+                'sync.enterCode': 'Veuillez saisir un code de synchronisation.',
+                'sync.invalidCode': 'Code invalide',
+                'chat.deleteMessageConfirm': 'Supprimer ce message ?',
+                'chat.clearChatConfirm': 'Êtes-vous sûr ? Cela supprime les messages des deux partenaires.',
+                'chat.cleared': 'Chat effacé.',
+                'period.syncStatusSynced': 'Synchronisé avec le partenaire',
+                'period.syncStatusLocal': 'Non connecté — enregistré uniquement sur votre compte',
                 'mobile.home': 'Accueil',
                 'mobile.ai': 'IA',
                 'mobile.community': 'Communauté',
@@ -2939,6 +3120,18 @@
                 'nav.sync': 'مزامنة',
                 'nav.premium': 'بريميوم',
                 'nav.settings': 'الإعدادات',
+                'dash.weekPrefix': 'الأسبوع',
+                'dash.weeksSuffix': 'أسابيع',
+                'dash.partnerView': 'عرض الشريك',
+                'sync.linkedLabel': 'مرتبط:',
+                'sync.connectedTo': 'متصل بـ',
+                'sync.enterCode': 'يرجى إدخال رمز المزامنة.',
+                'sync.invalidCode': 'رمز غير صالح',
+                'chat.deleteMessageConfirm': 'حذف هذه الرسالة؟',
+                'chat.clearChatConfirm': 'هل أنت متأكد؟ سيتم حذف الرسائل للطرفين.',
+                'chat.cleared': 'تم مسح الدردشة.',
+                'period.syncStatusSynced': 'مزامن مع الشريك',
+                'period.syncStatusLocal': 'غير متصل — محفوظ في حسابك فقط',
                 'mobile.home': 'الرئيسية',
                 'mobile.ai': 'الذكاء',
                 'mobile.community': 'المجتمع',
@@ -3501,19 +3694,19 @@
             if(profile.role === 'mother') {
                 document.getElementById('sync-mom').classList.remove('hidden');
                 document.getElementById('my-code').innerText = profile.code;
-                document.getElementById('week-disp').innerText = "Week " + profile.week;
+                document.getElementById('week-disp').innerText = `${t('dash.weekPrefix', 'Week')} ${profile.week}`;
                 document.getElementById('mom-sync-dashboard-widget').classList.remove('hidden');
                 document.getElementById('dashboard-sync-code').innerText = profile.code;
             } else {
                 document.getElementById('sync-partner').classList.remove('hidden');
-                document.getElementById('week-disp').innerText = "Partner View";
+                document.getElementById('week-disp').innerText = t('dash.partnerView', 'Partner View');
             }
 
             // Fill Data
             const wk = clampInt(profile.week || 0, 0, 42);
-            document.getElementById('week-disp').innerText = "Week " + (wk || "--");
-            document.getElementById('ai-context-week').innerText = (wk || "--") + " weeks";
-            document.getElementById('dash-doc-name').innerText = profile.docName || "Not Set";
+            document.getElementById('week-disp').innerText = `${t('dash.weekPrefix', 'Week')} ${wk || "--"}`;
+            document.getElementById('ai-context-week').innerText = `${wk || "--"} ${t('dash.weeksSuffix', 'weeks')}`;
+            document.getElementById('dash-doc-name').innerText = profile.docName || t('dash.notSet', 'Not Set');
             if(profile.docPhone) {
                 document.getElementById('sos-btn-doc').href = "tel:" + profile.docPhone;
                 const dashCall = document.getElementById('dash-doc-call');
@@ -4515,7 +4708,10 @@
             const obj = readAppointmentsObject();
             const appts = Array.isArray(obj?.appts) ? obj.appts : [];
             const upcoming = appts.filter(a => a?.when && (new Date(a.when) - new Date()) > -1000*60*60*24*5);
-            if(!upcoming.length) return alert('No upcoming appointments to export.');
+            if(!upcoming.length) {
+                alert('No upcoming appointments to export.');
+                return;
+            }
             const events = upcoming.slice(0, 200).map(a => buildIcsTimedEvent({
                 uid: `nexus-${user.uid}-${a.id || Date.now()}`,
                 title: `Appointment: ${a.title || 'Checkup'}`,
@@ -4906,7 +5102,8 @@
         }
 
         window.connectSync = async () => {
-            const code = document.getElementById('sync-input').value;
+            const code = (document.getElementById('sync-input')?.value || '').trim();
+            if(!code) return alert(t('sync.enterCode', 'Please enter a sync code.'));
             const q = query(collection(db, 'artifacts', appId, 'public', 'data', 'users'), where("code", "==", code));
             const snap = await getDocs(q);
             if(!snap.empty) {
@@ -4923,7 +5120,7 @@
                 await updateDoc(doc(db, 'artifacts', appId, 'public', 'data', 'users', mom.uid), { linkedUid: user.uid });
                 location.reload();
             } else {
-                alert("Invalid Code");
+                alert(t('sync.invalidCode', 'Invalid Code'));
             }
         }
 
@@ -4970,9 +5167,9 @@
                 const data = d.data();
                 linkedProfile = data;
 
-                document.getElementById('linked-name').innerText = "Linked: " + (data.name || 'Partner');
+                document.getElementById('linked-name').innerText = `${t('sync.linkedLabel', 'Linked:')} ${data.name || 'Partner'}`;
                 document.getElementById('connected-banner').classList.remove('hidden');
-                document.getElementById('connected-text').innerText = "Connected to " + (data.name || 'Partner');
+                document.getElementById('connected-text').innerText = `${t('sync.connectedTo', 'Connected to')} ${data.name || 'Partner'}`;
                 document.getElementById('sync-status').innerHTML = '<span class="status-dot dot-green"></span> ' + (data.name || 'Connected');
 
                 if(typeof renderPresenceUI === 'function') renderPresenceUI();
@@ -4987,9 +5184,9 @@
                     profile.country = data.country;
 
                     const wk = clampInt(profile.week || 0, 0, 42);
-                    document.getElementById('week-disp').innerText = "Week " + (wk || "--");
-                    document.getElementById('ai-context-week').innerText = (wk || "--") + " weeks";
-                    document.getElementById('dash-doc-name').innerText = profile.docName || "Not Set";
+                    document.getElementById('week-disp').innerText = `${t('dash.weekPrefix', 'Week')} ${wk || "--"}`;
+                    document.getElementById('ai-context-week').innerText = `${wk || "--"} ${t('dash.weeksSuffix', 'weeks')}`;
+                    document.getElementById('dash-doc-name').innerText = profile.docName || t('dash.notSet', 'Not Set');
                     if(profile.docPhone) document.getElementById('sos-btn-doc').href = "tel:" + profile.docPhone;
                     setupBabyTracker();
                     setupProfileEditor();
@@ -5013,7 +5210,14 @@
                 
                 snap.forEach(d => {
                     const m = d.data();
-                    box.innerHTML += `<div class="msg ${m.from === user.uid ? 'msg-right' : 'msg-left'}">${m.text}</div>`;
+                    const isMine = m.from === user.uid;
+                    const deleteBtn = isMine ? 
+                        `<button class="msg-delete-btn" onclick="deletePartnerMessage('${d.id}')" title="Delete message"><i class="fa-solid fa-trash"></i></button>` : 
+                        '';
+                    const msgClass = `msg ${isMine ? 'msg-right msg-with-delete' : 'msg-left'}`;
+                    box.innerHTML += `<div class="${msgClass}">
+                        <div class="msg-content">${m.text}</div>${deleteBtn}
+                    </div>`;
                     
                     // Unread Logic
                     if(m.from !== user.uid && m.timestamp) {
@@ -5045,9 +5249,16 @@
             document.getElementById('partner-msg-input').value = "";
         }
 
+        window.deletePartnerMessage = async (messageId) => {
+            if(!confirm(t('chat.deleteMessageConfirm', 'Delete this message?'))) return;
+            
+            const conversationId = [user.uid, profile.linkedUid].sort().join('_');
+            await deleteDoc(doc(db, 'artifacts', appId, 'public', 'data', 'conversations', conversationId, 'messages', messageId));
+        }
+
         // --- CLEAR CHAT FIX ---
         window.clearChatSession = async () => {
-            if(!confirm("Are you sure? This deletes messages for both partners.")) return;
+            if(!confirm(t('chat.clearChatConfirm', 'Are you sure? This deletes messages for both partners.'))) return;
             
             const conversationId = [user.uid, profile.linkedUid].sort().join('_');
             const chatRef = collection(db, 'artifacts', appId, 'public', 'data', 'conversations', conversationId, 'messages');
@@ -5056,7 +5267,7 @@
             snap.forEach(async (d) => {
                 await deleteDoc(doc(db, 'artifacts', appId, 'public', 'data', 'conversations', conversationId, 'messages', d.id));
             });
-            alert("Chat cleared.");
+            alert(t('chat.cleared', 'Chat cleared.'));
         }
 
         // AI & MEDICINE
@@ -5611,7 +5822,7 @@
         }
 
         // --- UPDATES / WHAT'S NEW ---
-        const APP_VERSION = '1.1.0';
+        const APP_VERSION = '1.1.1';
         const UPDATES_LAST_SEEN_KEY = 'maternalNexus_lastSeenVersion';
         const UPDATES_LAST_SEEN_AT_KEY = 'maternalNexus_lastSeenAt';
         const UPDATES_AUTO_SHOWN_KEY = 'maternalNexus_updatesAutoShownVersion';
@@ -5624,6 +5835,17 @@
         let REMOTE_UPDATES = null;
 
         const CHANGELOG = [
+            {
+                version: '1.1.1',
+                date: '2026-01-24',
+                title: 'Stability + usability fixes',
+                items: [
+                    'Added delete option for partner chat messages',
+                    'Improved language switching for dynamic labels and alerts',
+                    'Fixed date inputs (year limit + visibility) in period tracker and calendar',
+                    'Polished validation across trackers and scheduling'
+                ]
+            },
             {
                 version: '1.1.0',
                 date: '2026-01-19',
@@ -5977,8 +6199,8 @@
             const wk = clampInt(document.getElementById('week-number').value, 0, 42);
             await updateDoc(doc(db, 'artifacts', appId, 'public', 'data', 'users', user.uid), { week: wk });
             profile.week = wk;
-            document.getElementById('week-disp').innerText = "Week " + (wk || "--");
-            document.getElementById('ai-context-week').innerText = (wk || "--") + " weeks";
+            document.getElementById('week-disp').innerText = `${t('dash.weekPrefix', 'Week')} ${wk || "--"}`;
+            document.getElementById('ai-context-week').innerText = `${wk || "--"} ${t('dash.weeksSuffix', 'weeks')}`;
             setupBabyTracker();
             setupProfileEditor();
             alert('Week updated.');
@@ -6063,7 +6285,9 @@
         function renderPeriodFromCouple() {
             const src = getPeriodSource();
             const status = document.getElementById('period-sync-status');
-            if(status) status.innerText = src.type === 'couple' ? 'Synced with partner' : 'Not connected — saved only to your account';
+            if(status) status.innerText = src.type === 'couple'
+                ? t('period.syncStatusSynced', 'Synced with partner')
+                : t('period.syncStatusLocal', 'Not connected — saved only to your account');
 
             const p = readPeriodObject();
             const label = document.getElementById('cycle-label');
@@ -6717,7 +6941,7 @@
             if(pNameEl) pNameEl.disabled = !partnerCanEditNameOnly;
             ['profile-partner-blood','profile-partner-emergency'].forEach(id => {
                 const el = document.getElementById(id);
-                if(el) el.disabled = true;
+                if(el) el.disabled = !partnerCanEditNameOnly;
             });
             const savePartner = document.getElementById('save-partner-profile-btn');
             if(savePartner) savePartner.disabled = !partnerCanEditNameOnly;
@@ -6725,7 +6949,7 @@
             const momNote = document.getElementById('mom-profile-note');
             const pNote = document.getElementById('partner-profile-note');
             if(momNote) momNote.innerHTML = momCanEdit ? '<i class="fa-solid fa-lock-open"></i> Editable' : '<i class="fa-solid fa-lock"></i> Locked';
-            if(pNote) pNote.innerHTML = partnerCanEditNameOnly ? '<i class="fa-solid fa-lock-open"></i> Editable (name only)' : '<i class="fa-solid fa-lock"></i> Locked';
+            if(pNote) pNote.innerHTML = partnerCanEditNameOnly ? '<i class="fa-solid fa-lock-open"></i> Editable (all fields)' : '<i class="fa-solid fa-lock"></i> Locked';
         }
 
         window.saveMotherProfile = async () => {
@@ -6743,9 +6967,9 @@
             await updateDoc(doc(db, 'artifacts', appId, 'public', 'data', 'users', user.uid), data);
             profile = { ...profile, ...data };
             document.getElementById('user-name').innerText = profile.name || user.displayName;
-            document.getElementById('week-disp').innerText = "Week " + (profile.week || "--");
-            document.getElementById('ai-context-week').innerText = (profile.week || "--") + " weeks";
-            document.getElementById('dash-doc-name').innerText = profile.docName || "Not Set";
+            document.getElementById('week-disp').innerText = `${t('dash.weekPrefix', 'Week')} ${profile.week || "--"}`;
+            document.getElementById('ai-context-week').innerText = `${profile.week || "--"} ${t('dash.weeksSuffix', 'weeks')}`;
+            document.getElementById('dash-doc-name').innerText = profile.docName || t('dash.notSet', 'Not Set');
             if(profile.docPhone) {
                 document.getElementById('sos-btn-doc').href = "tel:" + profile.docPhone;
                 const dashCall = document.getElementById('dash-doc-call');
@@ -6761,6 +6985,8 @@
             if(isMother()) return alert('Partner only can edit partner profile.');
             const data = {
                 name: (document.getElementById('profile-partner-name').value || '').trim(),
+                blood: (document.getElementById('profile-partner-blood').value || '').trim(),
+                emergency: (document.getElementById('profile-partner-emergency').value || '').trim(),
             };
             await updateDoc(doc(db, 'artifacts', appId, 'public', 'data', 'users', user.uid), data);
             profile = { ...profile, ...data };
@@ -6813,6 +7039,11 @@
             document.querySelectorAll('.mobile-nav-item').forEach(n => n.classList.remove('active'));
             const ev = window.event;
             if(ev && ev.currentTarget && ev.currentTarget.classList && ev.currentTarget.classList.contains('mobile-nav-item')) ev.currentTarget.classList.add('active');
+            
+            // Fix: Update sidebar nav-item active states
+            document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+            const targetNav = document.querySelector(`.nav-item[onclick="nav('${id}')"]`);
+            if(targetNav) targetNav.classList.add('active');
             
             // Mark chat read if opening chat tab
             if(id === 'partnerchat') {
