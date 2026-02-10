@@ -637,7 +637,7 @@
             <h2 style="color: var(--primary); text-align: center;" data-i18n="setup.title">Setup Your Profile</h2>
             <p style="color: var(--text-muted); font-size: 14px; margin-bottom: 20px; text-align: center;" data-i18n="setup.subtitle">Select your role to continue.</p>
             
-            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 20px;">
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 20px; margin-bottom: 20px;">
                 <div class="card" onclick="selectRole('mother')" id="role-mother" style="cursor: pointer; border: 2px solid transparent; margin:0; padding: 15px; text-align: center;">
                     <i class="fa-solid fa-person-pregnant" style="font-size: 40px; color: var(--primary); margin-bottom: 10px;"></i>
                     <h4 data-i18n="setup.mother">Mother</h4>
@@ -645,6 +645,11 @@
                 <div class="card" onclick="selectRole('partner')" id="role-partner" style="cursor: pointer; border: 2px solid transparent; margin:0; padding: 15px; text-align: center;">
                     <i class="fa-solid fa-user-shield" style="font-size: 40px; color: var(--accent); margin-bottom: 10px;"></i>
                     <h4 data-i18n="setup.partner">Partner</h4>
+                </div>
+                <div class="card" onclick="selectRole('notpregnant')" id="role-notpregnant" style="cursor: pointer; border: 2px solid transparent; margin:0; padding: 15px; text-align: center;">
+                    <i class="fa-solid fa-user" style="font-size: 40px; color: var(--secondary); margin-bottom: 10px;"></i>
+                    <h4>Not Pregnant</h4>
+                    <div class="text-muted" style="font-size: 12px; margin-top: 6px;">Period tracking only</div>
                 </div>
             </div>
 
@@ -680,6 +685,12 @@
                     <label style="font-size: 12px; font-weight: bold; margin-left: 4px;">Sync Code</label>
                     <input type="text" id="onboard-sync-code" class="input" placeholder="XXXX" style="text-align: center; letter-spacing: 5px; font-size: 24px; font-weight: bold;">
                 </div>
+
+                <div id="notpregnant-form" class="hidden">
+                    <hr style="margin: 20px 0; border:0; border-top:1px solid var(--border);">
+                    <h4 style="margin-bottom: 8px;">Not Pregnant Mode</h4>
+                    <p style="font-size: 13px; color: var(--text-muted); margin-bottom: 10px; line-height: 1.5;">You will see period tracking, wellness, appointments, and doctors. Pregnancy-only sections will be hidden.</p>
+                </div>
             </div>
 
             <button class="btn btn-primary" onclick="completeSetup()" style="width: 100%; margin-top: 20px;">Complete Setup</button>
@@ -710,17 +721,17 @@
                 <div class="sidebar-nav">
                     <div class="nav-item active" onclick="nav('dashboard')"><i class="fa-solid fa-grid-2"></i> <span data-i18n="nav.dashboard">Dashboard</span></div>
                     <div class="nav-item" onclick="nav('period')"><i class="fa-solid fa-droplet"></i> <span data-i18n="nav.period">Period Tracker</span></div>
-                    <div class="nav-item" onclick="nav('baby')"><i class="fa-solid fa-baby-carriage"></i> <span data-i18n="nav.baby">Baby Tracker</span></div>
+                    <div class="nav-item pregnancy-only" onclick="nav('baby')"><i class="fa-solid fa-baby-carriage"></i> <span data-i18n="nav.baby">Baby Tracker</span></div>
                     <div class="nav-item" onclick="nav('profile')"><i class="fa-solid fa-id-card"></i> <span data-i18n="nav.profiles">Profiles</span></div>
                     <div class="nav-item" onclick="nav('wellness')"><i class="fa-solid fa-brain"></i> <span data-i18n="nav.ai">AI Assistant</span></div>
-                    <div class="nav-item" onclick="nav('diet')"><i class="fa-solid fa-utensils"></i> <span data-i18n="nav.diet">Diet</span></div>
-                    <div class="nav-item" onclick="nav('medicine')"><i class="fa-solid fa-pills"></i> <span data-i18n="nav.medicine">Medicine Library</span></div>
-                    <div class="nav-item" onclick="nav('india')"><i class="fa-solid fa-flag"></i> <span data-i18n="nav.india">India Essentials</span></div>
+                    <div class="nav-item pregnancy-only" onclick="nav('diet')"><i class="fa-solid fa-utensils"></i> <span data-i18n="nav.diet">Diet</span></div>
+                    <div class="nav-item notpregnant-hide" onclick="nav('medicine')"><i class="fa-solid fa-pills"></i> <span data-i18n="nav.medicine">Medicine Library</span></div>
+                    <div class="nav-item pregnancy-only" onclick="nav('india')"><i class="fa-solid fa-flag"></i> <span data-i18n="nav.india">India Essentials</span></div>
                     <div class="nav-item" onclick="nav('doctors')"><i class="fa-solid fa-hospital-user"></i> <span data-i18n="nav.doctors">Find Doctors</span></div>
-                    <div class="nav-item" onclick="nav('partnerchat')" id="nav-chat-desk"><i class="fa-solid fa-comments"></i> <span data-i18n="nav.chat">Chat</span> <span class="nav-badge">0</span></div>
-                    <div class="nav-item" onclick="nav('community')" id="nav-community-desk"><i class="fa-solid fa-users"></i> <span data-i18n="nav.community">Community</span> <span class="nav-bubble"></span></div>
-                    <div class="nav-item" onclick="nav('sync')"><i class="fa-solid fa-link"></i> <span data-i18n="nav.sync">Sync</span></div>
-                    <div class="nav-item" onclick="nav('premium')"><i class="fa-solid fa-crown"></i> <span data-i18n="nav.premium">Premium</span></div>
+                    <div class="nav-item notpregnant-hide" onclick="nav('partnerchat')" id="nav-chat-desk"><i class="fa-solid fa-comments"></i> <span data-i18n="nav.chat">Chat</span> <span class="nav-badge">0</span></div>
+                    <div class="nav-item notpregnant-hide" onclick="nav('community')" id="nav-community-desk"><i class="fa-solid fa-users"></i> <span data-i18n="nav.community">Community</span> <span class="nav-bubble"></span></div>
+                    <div class="nav-item notpregnant-hide" onclick="nav('sync')"><i class="fa-solid fa-link"></i> <span data-i18n="nav.sync">Sync</span></div>
+                    <div class="nav-item notpregnant-hide" onclick="nav('premium')"><i class="fa-solid fa-crown"></i> <span data-i18n="nav.premium">Premium</span></div>
                     <div class="nav-item" onclick="nav('settings')" id="nav-settings-desk"><i class="fa-solid fa-gear"></i> <span data-i18n="nav.settings">Settings</span> <span class="nav-dot pulse" id="nav-updates-dot-desk"></span></div>
                 </div>
                 
@@ -800,19 +811,20 @@
                             <div style="min-width: 240px; flex: 1;">
                                 <h3 class="dash-hero-title" id="dash-greeting">Hi 👋</h3>
                                 <div class="dash-hero-sub" data-i18n="dash.subtitle">Your family dashboard updates live — chat, period calendar, and doctor links.</div>
+                                <div class="text-muted notpregnant-only hidden" style="font-size: 12px; margin-top: 6px;">Not pregnant mode: period tracking, wellness, appointments, and doctors are available.</div>
                                 <div style="margin-top: 10px; display:flex; gap: 10px; flex-wrap: wrap;">
                                     <span class="dash-pill" id="dash-presence-pill"><span class="presence-dot presence-offline" id="dash-presence-dot"></span><span id="dash-presence" data-i18n="chat.statusChecking">Checking status…</span></span>
                                     <span class="dash-pill"><i class="fa-solid fa-shield-heart" style="color: var(--primary);"></i> <span data-i18n="dash.reminders">Gentle reminders</span></span>
                                 </div>
                             </div>
 
-                            <div class="dash-baby" aria-hidden="true">
+                            <div class="dash-baby pregnancy-only" aria-hidden="true">
                                 <span class="sparkle s1"></span><span class="sparkle s2"></span><span class="sparkle s3"></span>
                                 <i class="fa-solid fa-baby"></i>
                             </div>
                         </div>
 
-                        <div class="dash-fact" id="dash-daily-fact"><b data-i18n="dash.babyFact">Baby fact:</b> —</div>
+                        <div class="dash-fact pregnancy-only" id="dash-daily-fact"><b data-i18n="dash.babyFact">Baby fact:</b> —</div>
                     </div>
 
                     <div class="updates-banner" id="updates-banner">
@@ -893,7 +905,7 @@
                     </div>
 
                     <div class="stats-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 16px; margin-bottom: 24px;">
-                        <div class="card">
+                        <div class="card pregnancy-only">
                             <div style="display: flex; justify-content: space-between;">
                                 <div><p class="text-muted" data-i18n="dash.currentStage">Current Stage</p><h2 id="week-disp">Week --</h2></div>
                                 <i class="fa-solid fa-baby" style="font-size: 32px; color: var(--primary);"></i>
@@ -928,7 +940,7 @@
                         </div>
                     </div>
 
-                    <div class="card" id="quick-week-card">
+                    <div class="card pregnancy-only" id="quick-week-card">
                         <div style="display:flex; justify-content:space-between; align-items:center; gap:10px; flex-wrap:wrap;">
                             <div>
                                 <h3 style="margin:0;" data-i18n="week.title">Pregnancy Progress</h3>
@@ -975,7 +987,7 @@
                 </section>
 
                     <!-- DIET -->
-                    <section id="view-diet" class="hidden">
+                    <section id="view-diet" class="hidden pregnancy-only">
                         <h2><i class="fa-solid fa-utensils" style="color: var(--primary);"></i> <span data-i18n="nav.diet">Diet</span></h2>
                         <div class="card" id="diet-card">
                             <div style="display:flex; justify-content:space-between; align-items:center; gap:10px; flex-wrap:wrap;">
@@ -1154,7 +1166,7 @@
                 </section>
 
                 <!-- BABY TRACKER -->
-                <section id="view-baby" class="hidden">
+                <section id="view-baby" class="hidden pregnancy-only">
                     <h2 data-i18n="view.baby">Baby Tracker</h2>
                     <div class="card">
                         <div class="baby-hero">
@@ -1466,7 +1478,7 @@
                 </section>
 
                 <!-- INDIA ESSENTIALS -->
-                <section id="view-india" class="hidden">
+                <section id="view-india" class="hidden pregnancy-only">
                     <h2 data-i18n="view.india">India Essentials</h2>
 
                     <div class="card">
@@ -1753,8 +1765,8 @@
             <div class="mobile-nav">
                 <div class="mobile-nav-item active" onclick="nav('dashboard')"><i class="fa-solid fa-grid-2"></i> <span data-i18n="mobile.home">Home</span></div>
                 <div class="mobile-nav-item" onclick="nav('wellness')"><i class="fa-solid fa-brain"></i> <span data-i18n="mobile.ai">AI</span></div>
-                <div class="mobile-nav-item" onclick="nav('community')" id="nav-community-mob"><i class="fa-solid fa-users"></i> <span data-i18n="mobile.community">Community</span> <span class="nav-bubble"></span></div>
-                <div class="mobile-nav-item" onclick="nav('partnerchat')" id="nav-chat-mob">
+                <div class="mobile-nav-item notpregnant-hide" onclick="nav('community')" id="nav-community-mob"><i class="fa-solid fa-users"></i> <span data-i18n="mobile.community">Community</span> <span class="nav-bubble"></span></div>
+                <div class="mobile-nav-item notpregnant-hide" onclick="nav('partnerchat')" id="nav-chat-mob">
                     <i class="fa-solid fa-comments"></i> <span data-i18n="mobile.chat">Chat</span> <div class="nav-badge">0</div>
                 </div>
                 <div class="mobile-nav-item" onclick="openMoreMenu()"><i class="fa-solid fa-ellipsis-vertical"></i> <span data-i18n="mobile.more">More</span></div>
@@ -1771,14 +1783,14 @@
                 </div>
                 <div class="sheet-grid">
                     <div class="sheet-item" onclick="nav('period'); closeMoreMenu();"><i class="fa-solid fa-droplet"></i> <span data-i18n="nav.period">Period Tracker</span></div>
-                    <div class="sheet-item" onclick="nav('baby'); closeMoreMenu();"><i class="fa-solid fa-baby-carriage"></i> <span data-i18n="nav.baby">Baby Tracker</span></div>
-                    <div class="sheet-item" onclick="nav('diet'); closeMoreMenu();"><i class="fa-solid fa-utensils"></i> <span data-i18n="nav.diet">Diet</span></div>
+                    <div class="sheet-item pregnancy-only" onclick="nav('baby'); closeMoreMenu();"><i class="fa-solid fa-baby-carriage"></i> <span data-i18n="nav.baby">Baby Tracker</span></div>
+                    <div class="sheet-item pregnancy-only" onclick="nav('diet'); closeMoreMenu();"><i class="fa-solid fa-utensils"></i> <span data-i18n="nav.diet">Diet</span></div>
                     <div class="sheet-item" onclick="nav('profile'); closeMoreMenu();"><i class="fa-solid fa-id-card"></i> <span data-i18n="nav.profiles">Profiles</span></div>
-                    <div class="sheet-item" onclick="nav('medicine'); closeMoreMenu();"><i class="fa-solid fa-pills"></i> <span data-i18n="nav.medicine">Medicine Library</span></div>
-                    <div class="sheet-item" onclick="nav('india'); closeMoreMenu();"><i class="fa-solid fa-flag"></i> <span data-i18n="nav.india">India Essentials</span></div>
+                    <div class="sheet-item notpregnant-hide" onclick="nav('medicine'); closeMoreMenu();"><i class="fa-solid fa-pills"></i> <span data-i18n="nav.medicine">Medicine Library</span></div>
+                    <div class="sheet-item pregnancy-only" onclick="nav('india'); closeMoreMenu();"><i class="fa-solid fa-flag"></i> <span data-i18n="nav.india">India Essentials</span></div>
                     <div class="sheet-item" onclick="nav('doctors'); closeMoreMenu();"><i class="fa-solid fa-hospital-user"></i> <span data-i18n="nav.doctors">Find Doctors</span></div>
-                    <div class="sheet-item" onclick="nav('sync'); closeMoreMenu();"><i class="fa-solid fa-link"></i> <span data-i18n="nav.sync">Sync</span></div>
-                    <div class="sheet-item" onclick="nav('premium'); closeMoreMenu();"><i class="fa-solid fa-crown"></i> <span data-i18n="nav.premium">Premium</span></div>
+                    <div class="sheet-item notpregnant-hide" onclick="nav('sync'); closeMoreMenu();"><i class="fa-solid fa-link"></i> <span data-i18n="nav.sync">Sync</span></div>
+                    <div class="sheet-item notpregnant-hide" onclick="nav('premium'); closeMoreMenu();"><i class="fa-solid fa-crown"></i> <span data-i18n="nav.premium">Premium</span></div>
                     <div class="sheet-item" onclick="nav('settings'); closeMoreMenu();" id="nav-settings-more" style="position:relative;"><i class="fa-solid fa-gear"></i> <span data-i18n="nav.settings">Settings</span> <span class="nav-dot pulse" id="nav-updates-dot-more"></span></div>
                 </div>
             </div>
@@ -1939,6 +1951,34 @@
         const doctorFinderState = { kind: 'gyn' };
 
         const isMother = () => profile && profile.role === 'mother';
+        const canEditSelfHealth = () => profile && (profile.role === 'mother' || profile.role === 'notpregnant');
+        const isPregnantUser = () => profile && profile.role !== 'notpregnant';
+        const pregnancyOnlyViews = new Set(['baby', 'diet', 'india']);
+        const notPregnantAllowedViews = new Set(['dashboard', 'period', 'wellness', 'doctors', 'profile', 'settings']);
+
+        const applyPregnancyMode = () => {
+            const showPregnancy = isPregnantUser();
+            document.querySelectorAll('.pregnancy-only').forEach(el => {
+                el.classList.toggle('hidden', !showPregnancy);
+            });
+            document.querySelectorAll('.notpregnant-only').forEach(el => {
+                el.classList.toggle('hidden', showPregnancy);
+            });
+            document.querySelectorAll('.notpregnant-hide').forEach(el => {
+                el.classList.toggle('hidden', !showPregnancy);
+            });
+        };
+
+        const setWeekDisplay = () => {
+            const weekEl = document.getElementById('week-disp');
+            if(!weekEl) return;
+            if(!isPregnantUser()) {
+                weekEl.innerText = 'Not pregnant';
+                return;
+            }
+            const wk = clampInt(profile?.week || 0, 0, 42);
+            weekEl.innerText = `${t('dash.weekPrefix', 'Week')} ${wk || "--"}`;
+        };
         const clampInt = (n, min, max) => {
             const v = Number(n);
             if(!Number.isFinite(v)) return min;
@@ -3929,14 +3969,25 @@
         // ONBOARDING
         window.selectRole = (r) => {
             profile = { role: r };
-            document.getElementById('role-'+r).style.border = "2px solid var(--primary)";
-            
+            ['mother','partner','notpregnant'].forEach(key => {
+                const el = document.getElementById('role-'+key);
+                if(el) el.style.border = "2px solid transparent";
+            });
+            const chosen = document.getElementById('role-'+r);
+            if(chosen) chosen.style.border = "2px solid var(--primary)";
+
             if(r==='mother') {
                 document.getElementById('mother-form').classList.remove('hidden');
                 document.getElementById('partner-form').classList.add('hidden');
-            } else {
+                document.getElementById('notpregnant-form').classList.add('hidden');
+            } else if(r==='partner') {
                 document.getElementById('mother-form').classList.add('hidden');
                 document.getElementById('partner-form').classList.remove('hidden');
+                document.getElementById('notpregnant-form').classList.add('hidden');
+            } else {
+                document.getElementById('mother-form').classList.add('hidden');
+                document.getElementById('partner-form').classList.add('hidden');
+                document.getElementById('notpregnant-form').classList.remove('hidden');
             }
         }
 
@@ -3959,11 +4010,15 @@
                 data.code = Math.floor(1000+Math.random()*9000).toString();
                 data.blood = "";
                 data.notes = "";
-            } else {
+            } else if(profile.role === 'partner') {
                 const syncCode = document.getElementById('onboard-sync-code').value;
                 data.tempSyncCode = syncCode;
                 data.blood = "";
                 data.emergency = "";
+            } else {
+                data.week = 0;
+                data.blood = "";
+                data.notes = "";
             }
 
             await setDoc(doc(db, 'artifacts', appId, 'public', 'data', 'users', user.uid), data);
@@ -3977,6 +4032,7 @@
             document.getElementById('app-ui').classList.remove('hidden');
             document.getElementById('user-initial').innerText = user.displayName.charAt(0);
             document.getElementById('user-name').innerText = profile.name || user.displayName;
+            applyPregnancyMode();
 
             // Apply language selection (i18n)
             try { setupLanguageUI(); } catch(e) {}
@@ -4016,18 +4072,19 @@
             if(profile.role === 'mother') {
                 document.getElementById('sync-mom').classList.remove('hidden');
                 document.getElementById('my-code').innerText = profile.code;
-                document.getElementById('week-disp').innerText = `${t('dash.weekPrefix', 'Week')} ${profile.week}`;
                 document.getElementById('mom-sync-dashboard-widget').classList.remove('hidden');
                 document.getElementById('dashboard-sync-code').innerText = profile.code;
-            } else {
+            } else if(profile.role === 'partner') {
                 document.getElementById('sync-partner').classList.remove('hidden');
-                document.getElementById('week-disp').innerText = t('dash.partnerView', 'Partner View');
             }
 
             // Fill Data
             const wk = clampInt(profile.week || 0, 0, 42);
-            document.getElementById('week-disp').innerText = `${t('dash.weekPrefix', 'Week')} ${wk || "--"}`;
-            document.getElementById('ai-context-week').innerText = `${wk || "--"} ${t('dash.weeksSuffix', 'weeks')}`;
+            setWeekDisplay();
+            const aiWeek = document.getElementById('ai-context-week');
+            if(aiWeek) aiWeek.innerText = isPregnantUser()
+                ? `${wk || "--"} ${t('dash.weeksSuffix', 'weeks')}`
+                : 'Not pregnant';
             document.getElementById('dash-doc-name').innerText = profile.docName || t('dash.notSet', 'Not Set');
             if(profile.docPhone) {
                 document.getElementById('sos-btn-doc').href = "tel:" + profile.docPhone;
@@ -4044,18 +4101,20 @@
             setupWeekEditor();
             setupNotifications();
             setupPeriodTracker();
-            setupBabyTracker();
+            if(isPregnantUser()) setupBabyTracker();
             setupProfileEditor();
 
-            setupIndiaEssentials();
-            renderIndiaFromCouple();
+            if(isPregnantUser()) {
+                setupIndiaEssentials();
+                renderIndiaFromCouple();
+            }
 
             setupDashboardDynamic();
 
             try { setupSmileCorner(); } catch(e) {}
             try { setupMoments(); } catch(e) {}
 
-            setupDietPlanner();
+            if(isPregnantUser()) setupDietPlanner();
             setupAppointments();
             setupWellnessTracker();
 
@@ -4800,6 +4859,7 @@
         }
 
         function renderDietPlanner() {
+            if(!isPregnantUser()) return;
             const card = document.getElementById('diet-card') || document.getElementById('dash-diet-card');
             if(!card) return;
 
@@ -4848,6 +4908,7 @@
         };
 
         function setupDietPlanner() {
+            if(!isPregnantUser()) return;
             renderDietPlanner();
         }
 
@@ -4859,7 +4920,7 @@
         }
 
         function canEditAppointments() {
-            if(isMother()) return true;
+            if(canEditSelfHealth()) return true;
             const obj = readAppointmentsObject();
             const allow = (typeof obj?.allowPartnerEdit === 'boolean') ? obj.allowPartnerEdit : true;
             return allow;
@@ -5154,7 +5215,7 @@
         }
 
         function canEditWellness() {
-            return isMother();
+            return canEditSelfHealth();
         }
 
         function moodLabel(n) {
@@ -5263,7 +5324,7 @@
         }
 
         window.saveWellnessEntry = async () => {
-            if(!canEditWellness()) return alert('Only Mother can add wellness entries.');
+            if(!canEditWellness()) return alert('Only you can add wellness entries.');
             const moodEl = document.getElementById('wellness-mood');
             const textEl = document.getElementById('wellness-text');
             if(!moodEl || !textEl) return;
@@ -5310,6 +5371,7 @@
         }
 
         function setupIndiaEssentials() {
+            if(!isPregnantUser()) return;
             if(indiaState.initialized) return;
             indiaState.initialized = true;
 
@@ -5383,6 +5445,7 @@
         }
 
         function renderIndiaFromCouple() {
+            if(!isPregnantUser()) return;
             setupIndiaEssentials();
             const v = readVaxObject();
             const dobEl = document.getElementById('vax-baby-dob');
@@ -5527,8 +5590,11 @@
                     profile.country = data.country;
 
                     const wk = clampInt(profile.week || 0, 0, 42);
-                    document.getElementById('week-disp').innerText = `${t('dash.weekPrefix', 'Week')} ${wk || "--"}`;
-                    document.getElementById('ai-context-week').innerText = `${wk || "--"} ${t('dash.weeksSuffix', 'weeks')}`;
+                    setWeekDisplay();
+                    const aiWeek = document.getElementById('ai-context-week');
+                    if(aiWeek) aiWeek.innerText = isPregnantUser()
+                        ? `${wk || "--"} ${t('dash.weeksSuffix', 'weeks')}`
+                        : 'Not pregnant';
                     document.getElementById('dash-doc-name').innerText = profile.docName || t('dash.notSet', 'Not Set');
                     if(profile.docPhone) document.getElementById('sos-btn-doc').href = "tel:" + profile.docPhone;
                     setupBabyTracker();
@@ -5703,7 +5769,10 @@
             const loadingId = "load-"+Date.now();
             box.innerHTML += `<div id="${loadingId}" class="msg msg-left">...</div>`;
 
-            const context = `You are Nexus, a helpful maternal health assistant. The user is ${profile.week || 'unknown'} weeks pregnant. Location: ${profile.country || 'unknown'}. Keep answers brief.`;
+            const pregnancyContext = isPregnantUser()
+                ? `The user is ${profile.week || 'unknown'} weeks pregnant.`
+                : 'The user is not pregnant.';
+            const context = `You are Nexus, a helpful maternal health assistant. ${pregnancyContext} Location: ${profile.country || 'unknown'}. Keep answers brief.`;
 
             try {
                 const reply = await pollinationsChat({ system: context, userText: txt });
@@ -6513,9 +6582,10 @@
 
         // --- WEEK EDITOR (Mother only) ---
         function setupWeekEditor() {
+            if(!isPregnantUser()) return;
             const slider = document.getElementById('week-slider');
             const number = document.getElementById('week-number');
-            const canEdit = isMother();
+            const canEdit = canEditSelfHealth();
             const wk = clampInt(profile.week || 0, 0, 42);
 
             if(slider) slider.value = String(wk);
@@ -6555,8 +6625,11 @@
             const wk = clampInt(document.getElementById('week-number').value, 0, 42);
             await updateDoc(doc(db, 'artifacts', appId, 'public', 'data', 'users', user.uid), { week: wk });
             profile.week = wk;
-            document.getElementById('week-disp').innerText = `${t('dash.weekPrefix', 'Week')} ${wk || "--"}`;
-            document.getElementById('ai-context-week').innerText = `${wk || "--"} ${t('dash.weeksSuffix', 'weeks')}`;
+            setWeekDisplay();
+            const aiWeek = document.getElementById('ai-context-week');
+            if(aiWeek) aiWeek.innerText = isPregnantUser()
+                ? `${wk || "--"} ${t('dash.weeksSuffix', 'weeks')}`
+                : 'Not pregnant';
             setupBabyTracker();
             setupProfileEditor();
             alert('Week updated.');
@@ -6598,7 +6671,7 @@
                 ring.style.strokeDashoffset = `${circ}`;
             }
 
-            const canEdit = isMother();
+            const canEdit = canEditSelfHealth();
             const fields = ['period-last-start','period-cycle-length','period-length','period-notes'];
             fields.forEach(id => {
                 const el = document.getElementById(id);
@@ -6704,7 +6777,7 @@
         }
 
         window.savePeriodTracker = async () => {
-            if(!isMother()) return alert('Only Mother can edit the period tracker.');
+            if(!canEditSelfHealth()) return alert('Only you can edit the period tracker.');
             const lastStart = document.getElementById('period-last-start').value;
             const cycleLength = clampInt(document.getElementById('period-cycle-length').value || 28, 20, 45);
             const periodLength = clampInt(document.getElementById('period-length').value || 5, 2, 10);
@@ -6764,7 +6837,7 @@
         }
 
         function canEditPeriodCalendar() {
-            if(isMother()) return true;
+            if(canEditSelfHealth()) return true;
             const obj = readPeriodCalendarObject();
             const allow = (typeof obj?.allowPartnerEdit === 'boolean') ? obj.allowPartnerEdit : true;
             return allow;
@@ -6776,7 +6849,7 @@
             const src = getPeriodSource();
 
             const edit = canEditPeriodCalendar();
-            const who = isMother() ? 'Mother' : 'Partner';
+            const who = isMother() ? 'Mother' : (profile?.role === 'notpregnant' ? 'You' : 'Partner');
             if(note) {
                 note.innerText = edit
                     ? `Tap a day to mark it as a period day. (${who} can edit)`
@@ -7174,6 +7247,7 @@
         }
 
         function setupBabyTracker() {
+            if(!isPregnantUser()) return;
             const wk = clampInt(profile.week || 0, 0, 42);
             const title = document.getElementById('baby-week-title');
             const fruit = document.getElementById('baby-fruit');
@@ -7282,8 +7356,8 @@
             const pEmergency = document.getElementById('profile-partner-emergency');
             if(pEmergency) pEmergency.value = partnerData?.emergency || '';
 
-            const momCanEdit = isMother();
-            const partnerCanEditNameOnly = !isMother();
+            const momCanEdit = canEditSelfHealth();
+            const partnerCanEditNameOnly = profile?.role === 'partner';
 
             ['profile-mom-week','profile-mom-blood','profile-mom-doc','profile-mom-phone','profile-mom-notes','profile-mom-pin','profile-mom-country'].forEach(id => {
                 const el = document.getElementById(id);
@@ -7309,7 +7383,7 @@
         }
 
         window.saveMotherProfile = async () => {
-            if(!isMother()) return alert('Only Mother can edit mother profile.');
+            if(!canEditSelfHealth()) return alert('Only you can edit this profile.');
             const data = {
                 week: clampInt(document.getElementById('profile-mom-week').value, 0, 42),
                 blood: (document.getElementById('profile-mom-blood').value || '').trim(),
@@ -7323,8 +7397,11 @@
             await updateDoc(doc(db, 'artifacts', appId, 'public', 'data', 'users', user.uid), data);
             profile = { ...profile, ...data };
             document.getElementById('user-name').innerText = profile.name || user.displayName;
-            document.getElementById('week-disp').innerText = `${t('dash.weekPrefix', 'Week')} ${profile.week || "--"}`;
-            document.getElementById('ai-context-week').innerText = `${profile.week || "--"} ${t('dash.weeksSuffix', 'weeks')}`;
+            setWeekDisplay();
+            const aiWeek = document.getElementById('ai-context-week');
+            if(aiWeek) aiWeek.innerText = isPregnantUser()
+                ? `${profile.week || "--"} ${t('dash.weeksSuffix', 'weeks')}`
+                : 'Not pregnant';
             document.getElementById('dash-doc-name').innerText = profile.docName || t('dash.notSet', 'Not Set');
             if(profile.docPhone) {
                 document.getElementById('sos-btn-doc').href = "tel:" + profile.docPhone;
@@ -7338,7 +7415,7 @@
         }
 
         window.savePartnerProfile = async () => {
-            if(isMother()) return alert('Partner only can edit partner profile.');
+            if(profile?.role !== 'partner') return alert('Partner only can edit partner profile.');
             const data = {
                 name: (document.getElementById('profile-partner-name').value || '').trim(),
                 blood: (document.getElementById('profile-partner-blood').value || '').trim(),
@@ -7387,6 +7464,10 @@
 
         // UTILS
         window.nav = (id) => {
+            if(!isPregnantUser() && !notPregnantAllowedViews.has(id)) {
+                alert('This section is available when pregnancy is set.');
+                id = 'period';
+            }
             // Stop any view-specific timers when leaving
             try { if(typeof stopDashboardDynamic === 'function') stopDashboardDynamic(); } catch(e) {}
 
