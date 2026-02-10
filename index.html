@@ -135,6 +135,10 @@
         .nav-item.active { background: var(--primary); color: white; box-shadow: 0 4px 12px rgba(13, 148, 136, 0.3); }
         
         .card { background: var(--bg-card); border-radius: var(--radius); padding: 24px; box-shadow: var(--shadow); border: 1px solid var(--border); margin-bottom: 24px; }
+        .doctor-export-card { background: #eef2ff; border: 1px solid rgba(99,102,241,0.22); }
+        [data-theme="dark"] .doctor-export-card { background: rgba(30,41,59,0.65); border-color: rgba(99,102,241,0.35); }
+        .doctor-export-card h3 { color: #4338ca; }
+        [data-theme="dark"] .doctor-export-card h3 { color: #c7d2fe; }
         
         .btn { padding: 14px 28px; border-radius: 12px; border: none; font-weight: 700; cursor: pointer; font-family: inherit; display: inline-flex; align-items: center; justify-content: center; gap: 8px; transition: transform 0.1s; }
         .btn:active { transform: scale(0.98); }
@@ -189,12 +193,22 @@
             animation: pulse 2s infinite; z-index: 90; font-weight: 800; border: 4px solid white;
         }
         @media (min-width: 769px) { .sos-float { bottom: 32px; right: 32px; } }
+        @media (max-width: 768px) {
+            .sos-float {
+                bottom: 110px;
+                right: auto;
+                left: 16px;
+                width: 56px;
+                height: 56px;
+                font-size: 16px;
+            }
+        }
         .sos-float:hover { transform: scale(1.1); }
 
         /* --- Global Language Button --- */
         .lang-float {
             position: fixed;
-            top: 16px;
+            top: 88px;
             right: 16px;
             height: 44px;
             padding: 0 14px;
@@ -719,7 +733,7 @@
                 <div class="logo"><i class="fa-solid fa-heart-pulse"></i> Nexus Pro</div>
 
                 <div class="sidebar-nav">
-                    <div class="nav-item active" onclick="nav('dashboard')"><i class="fa-solid fa-grid-2"></i> <span data-i18n="nav.dashboard">Dashboard</span></div>
+                    <div class="nav-item active" onclick="nav('dashboard')"><i class="fa-solid fa-house"></i> <span data-i18n="nav.dashboard">Dashboard</span></div>
                     <div class="nav-item" onclick="nav('period')"><i class="fa-solid fa-droplet"></i> <span data-i18n="nav.period">Period Tracker</span></div>
                     <div class="nav-item pregnancy-only" onclick="nav('baby')"><i class="fa-solid fa-baby-carriage"></i> <span data-i18n="nav.baby">Baby Tracker</span></div>
                     <div class="nav-item" onclick="nav('profile')"><i class="fa-solid fa-id-card"></i> <span data-i18n="nav.profiles">Profiles</span></div>
@@ -1226,6 +1240,8 @@
                             </div>
                             <div class="lock-note" id="mom-profile-note"><i class="fa-solid fa-lock"></i> <span data-i18n="profiles.locked">Locked</span></div>
                         </div>
+                        <label style="font-size: 12px; font-weight: bold; margin-left: 4px;" data-i18n="profiles.motherName">Mother Name</label>
+                        <input type="text" id="profile-mom-name" class="input" placeholder="Mother name" data-i18n-placeholder="profiles.motherNamePlaceholder">
                         <div style="display:grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 14px;">
                             <div>
                                 <label style="font-size: 12px; font-weight: bold; margin-left: 4px;" data-i18n="profiles.pregWeek">Pregnancy Week</label>
@@ -1285,8 +1301,8 @@
 
                         <hr style="margin: 22px 0; border:0; border-top:1px solid var(--border);">
 
-                        <div class="card" style="margin:0; background: #eef2ff; border: 1px solid rgba(99,102,241,0.22);">
-                            <h3 style="margin-top:0; color: #4338ca;"><i class="fa-solid fa-file-arrow-down"></i> <span data-i18n="profiles.doctorExport">Doctor Export</span></h3>
+                        <div class="card doctor-export-card" style="margin:0;">
+                            <h3 style="margin-top:0;"><i class="fa-solid fa-file-arrow-down"></i> <span data-i18n="profiles.doctorExport">Doctor Export</span></h3>
                             <div class="text-muted" style="line-height:1.6;" data-i18n="profiles.doctorExportNote">Export a secure summary you can share with your doctor (no chats). Includes week, period info, appointments, vaccines, and logs.</div>
                             <div style="display:flex; gap: 10px; flex-wrap: wrap; margin-top: 12px;">
                                 <button class="btn btn-primary" onclick="exportDoctorSummaryJson()"><i class="fa-solid fa-download"></i> <span data-i18n="profiles.exportSummaryJson">Export Summary (JSON)</span></button>
@@ -1686,7 +1702,7 @@
                             </div>
                             <div id="sync-partner" class="hidden">
                                 <p data-i18n="sync.enterMotherCode">Enter Mother's Code:</p>
-                                <input type="text" id="sync-input" class="input" style="text-align: center; font-size: 24px; letter-spacing: 5px; margin: 20px 0;">
+                                <input type="text" id="sync-input" class="input" inputmode="numeric" pattern="[0-9]*" maxlength="4" style="text-align: center; font-size: 24px; letter-spacing: 5px; margin: 20px 0;" oninput="this.value=this.value.replace(/\D/g,'').slice(0,4);">
                                 <button class="btn btn-primary" style="width: 100%;" onclick="connectSync()"><span data-i18n="sync.connect">Connect</span></button>
                             </div>
                             <div id="sync-success" class="hidden">
@@ -1763,7 +1779,7 @@
 
             <!-- Mobile Bottom Nav -->
             <div class="mobile-nav">
-                <div class="mobile-nav-item active" onclick="nav('dashboard')"><i class="fa-solid fa-grid-2"></i> <span data-i18n="mobile.home">Home</span></div>
+                <div class="mobile-nav-item active" onclick="nav('dashboard')"><i class="fa-solid fa-house"></i> <span data-i18n="mobile.home">Home</span></div>
                 <div class="mobile-nav-item" onclick="nav('wellness')"><i class="fa-solid fa-brain"></i> <span data-i18n="mobile.ai">AI</span></div>
                 <div class="mobile-nav-item notpregnant-hide" onclick="nav('community')" id="nav-community-mob"><i class="fa-solid fa-users"></i> <span data-i18n="mobile.community">Community</span> <span class="nav-bubble"></span></div>
                 <div class="mobile-nav-item notpregnant-hide" onclick="nav('partnerchat')" id="nav-chat-mob">
@@ -7334,6 +7350,8 @@
             const momData = isMother() ? profile : (linkedProfile || profile);
             const partnerData = isMother() ? (linkedProfile || {}) : profile;
 
+            const momName = document.getElementById('profile-mom-name');
+            if(momName) momName.value = momData?.name || '';
             const momWeek = document.getElementById('profile-mom-week');
             if(momWeek) momWeek.value = String(clampInt(momData?.week || 0, 0, 42));
             const momBlood = document.getElementById('profile-mom-blood');
@@ -7359,7 +7377,7 @@
             const momCanEdit = canEditSelfHealth();
             const partnerCanEditNameOnly = profile?.role === 'partner';
 
-            ['profile-mom-week','profile-mom-blood','profile-mom-doc','profile-mom-phone','profile-mom-notes','profile-mom-pin','profile-mom-country'].forEach(id => {
+            ['profile-mom-name','profile-mom-week','profile-mom-blood','profile-mom-doc','profile-mom-phone','profile-mom-notes','profile-mom-pin','profile-mom-country'].forEach(id => {
                 const el = document.getElementById(id);
                 if(el) el.disabled = !momCanEdit;
             });
@@ -7385,6 +7403,7 @@
         window.saveMotherProfile = async () => {
             if(!canEditSelfHealth()) return alert('Only you can edit this profile.');
             const data = {
+                name: (document.getElementById('profile-mom-name').value || '').trim(),
                 week: clampInt(document.getElementById('profile-mom-week').value, 0, 42),
                 blood: (document.getElementById('profile-mom-blood').value || '').trim(),
                 docName: (document.getElementById('profile-mom-doc').value || '').trim(),
