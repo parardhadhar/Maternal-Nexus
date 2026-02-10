@@ -186,16 +186,16 @@
 
         /* --- SOS Button --- */
         .sos-float { 
-            position: fixed; bottom: 85px; right: 20px; width: 64px; height: 64px; 
+            position: fixed; bottom: 140px; right: 24px; width: 64px; height: 64px; 
             background: var(--secondary); color: white; border-radius: 50%; 
             display: flex; align-items: center; justify-content: center; font-size: 20px; 
             box-shadow: 0 8px 20px rgba(244, 63, 94, 0.4); cursor: pointer; 
             animation: pulse 2s infinite; z-index: 90; font-weight: 800; border: 4px solid white;
         }
-        @media (min-width: 769px) { .sos-float { bottom: 32px; right: 32px; } }
+        @media (min-width: 769px) { .sos-float { bottom: 140px; right: 32px; } }
         @media (max-width: 768px) {
             .sos-float {
-                bottom: 110px;
+                bottom: 130px;
                 right: auto;
                 left: 16px;
                 width: 56px;
@@ -205,27 +205,6 @@
         }
         .sos-float:hover { transform: scale(1.1); }
 
-        /* --- Global Language Button --- */
-        .lang-float {
-            position: fixed;
-            top: 88px;
-            right: 16px;
-            height: 44px;
-            padding: 0 14px;
-            border-radius: 999px;
-            background: var(--bg-card);
-            color: var(--text-main);
-            border: 1px solid var(--border);
-            box-shadow: var(--shadow);
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            cursor: pointer;
-            z-index: 120;
-            font-weight: 800;
-        }
-        .lang-float:hover { transform: translateY(-1px); }
-        @media (max-width: 768px) { .lang-float { display: none; } }
         @keyframes pulse { 0% { box-shadow: 0 0 0 0 rgba(244, 63, 94, 0.7); } 70% { box-shadow: 0 0 0 15px rgba(244, 63, 94, 0); } 100% { box-shadow: 0 0 0 0 rgba(244, 63, 94, 0); } }
 
         /* --- Overlays --- */
@@ -764,33 +743,7 @@
                         <button class="btn btn-secondary" style="flex: 1;" onclick="logout()"><i class="fa-solid fa-right-from-bracket"></i></button>
                     </div>
 
-                    <div class="card" style="padding: 12px; margin-top: 10px;">
-                        <div style="display:flex; align-items:center; justify-content:space-between; gap:10px;">
-                            <div style="font-size: 12px; font-weight: 900; display:flex; align-items:center; gap:8px;">
-                                <i class="fa-solid fa-language" style="color: var(--primary);"></i>
-                                <span data-i18n="lang.label">Language</span>
-                            </div>
-                            <select id="lang-select" class="input" style="width: 170px; margin: 0; padding: 10px;">
-                                <option value="auto" data-i18n="lang.auto">Auto</option>
-                                <option value="en">English</option>
-                                <option value="hi">हिन्दी</option>
-                                <option value="bn">বাংলা</option>
-                                <option value="te">తెలుగు</option>
-                                <option value="mr">मराठी</option>
-                                <option value="ta">தமிழ்</option>
-                                <option value="ur">اردو</option>
-                                <option value="gu">ગુજરાતી</option>
-                                <option value="kn">ಕನ್ನಡ</option>
-                                <option value="ml">മലയാളം</option>
-                                <option value="pa">ਪੰਜਾਬੀ</option>
-
-                                <option value="es">Español</option>
-                                <option value="fr">Français</option>
-                                <option value="ar">العربية</option>
-                            </select>
-                        </div>
-                        <div class="text-muted" style="font-size: 11px; line-height: 1.5; margin-top: 8px;" data-i18n="lang.note">Tip: you can switch anytime.</div>
-                    </div>
+                    
                 </div>
             </aside>
 
@@ -799,7 +752,6 @@
                 <div class="mobile-header">
                     <div class="logo" style="margin-bottom: 0;"><i class="fa-solid fa-heart-pulse"></i> Nexus Pro</div>
                     <div style="display:flex; gap:10px;">
-                        <button class="btn btn-secondary" style="padding: 8px;" onclick="openLangMenu()"><i class="fa-solid fa-language"></i></button>
                         <button class="btn btn-secondary" style="padding: 8px;" onclick="nav('settings')" title="Settings"><i class="fa-solid fa-gear"></i></button>
                         <button class="btn btn-secondary" style="padding: 8px;" onclick="toggleTheme()"><i class="fa-solid fa-moon"></i></button>
                         <button class="btn btn-secondary" style="padding: 8px;" onclick="logout()"><i class="fa-solid fa-right-from-bracket"></i></button>
@@ -1866,46 +1818,7 @@
             </div>
         </div>
 
-        <!-- Language Menu (Mobile-safe) -->
-        <div id="lang-menu" class="sheet-backdrop hidden" onclick="closeLangMenu(event)">
-            <div class="sheet" onclick="event.stopPropagation()">
-                <div class="sheet-handle"></div>
-                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom: 10px;">
-                    <strong data-i18n="settings.language">Language</strong>
-                    <button class="btn btn-secondary" style="padding: 8px 10px;" onclick="closeLangMenu()"><i class="fa-solid fa-xmark"></i></button>
-                </div>
-                <div class="text-muted" style="font-size: 12px; line-height: 1.6;" data-i18n="settings.languageNote">Changes the whole interface (AI/chat messages stay as-is).</div>
-                <div style="margin-top: 12px;">
-                    <select id="lang-menu-select" class="input" style="margin: 0;">
-                        <option value="auto" data-i18n="lang.auto">Auto</option>
-                        <option value="en">English</option>
-                        <option value="hi">हिन्दी</option>
-                        <option value="bn">বাংলা</option>
-                        <option value="te">తెలుగు</option>
-                        <option value="mr">मराठी</option>
-                        <option value="ta">தமிழ்</option>
-                        <option value="ur">اردو</option>
-                        <option value="gu">ગુજરાતી</option>
-                        <option value="kn">ಕನ್ನಡ</option>
-                        <option value="ml">മലയാളം</option>
-                        <option value="pa">ਪੰਜਾਬੀ</option>
-                        <option value="es">Español</option>
-                        <option value="fr">Français</option>
-                        <option value="ar">العربية</option>
-                    </select>
-                </div>
-                <div style="display:flex; gap: 10px; margin-top: 12px;">
-                    <button class="btn btn-secondary" style="flex: 1;" onclick="closeLangMenu()"><span data-i18n="btn.cancel">Cancel</span></button>
-                    <button class="btn btn-primary" style="flex: 1;" onclick="applyLangFromMenu()"><span data-i18n="settings.apply">Apply</span></button>
-                </div>
-            </div>
-        </div>
-        
         <div class="sos-float" onclick="activateSOS()" title="Emergency Alert">SOS</div>
-        <div class="lang-float" onclick="openLangMenu()" title="Language">
-            <i class="fa-solid fa-language" style="color: var(--primary);"></i>
-            <span style="font-size: 12px;" data-i18n="lang.label">Language</span>
-        </div>
         <audio id="alarm-sound" src="https://actions.google.com/sounds/v1/alarms/alarm_clock.ogg" loop></audio>
     </div>
 
